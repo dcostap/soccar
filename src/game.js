@@ -1397,12 +1397,12 @@ var Ot = {
     throttle: Ot.R2,
     reverse: Ot.L2,
     jump: Ot.CROSS,
-    boost: Ot.CIRCLE,
-    powerslide: Ot.SQUARE,
+    boost: Ot.SQUARE,
+    powerslide: Ot.L1,
     airRoll: Ot.L2,
     airRollLeft: Ot.L1,
     airRollRight: Ot.R1,
-    ballCam: Ot.TRIANGLE,
+    ballCam: Ot.R1,
     rearView: Ot.R3,
     scoreboard: Ot.L3,
     pause: Ot.OPTIONS,
@@ -44772,8 +44772,8 @@ function Rx(e) {
       (Nx = 0)));
   let t = Math.min(0.1, (e - Px) / 1e3);
   Px = e;
-  let n = wx.poll(t),
-    r = wx.pollAnyPadButton();
+  let r = wx.pollAnyPadButton(),
+    n = wx.poll(t);
   (sb(n.usingGamepad ? ob(wx.padName) : `kbm`),
     Ex.open
       ? (Ex.handleInput(n, Ex.capturing ? r : null),

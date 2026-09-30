@@ -25,15 +25,23 @@ test("downloaded assets match the capture hashes", async () => {
   }
 });
 
-test("working code changes only the original formatting", async () => {
+test("working code changes only formatting and approved controller changes", async () => {
   for (const [original, working, parser] of [
     ["provenance/original-game.js", "src/game.js", "babel"],
     ["provenance/original-style.css", "src/style.css", "css"],
   ]) {
-    assert.equal(
-      await readFile(working, "utf8"),
-      await format(await readFile(original, "utf8"), { parser }),
-    );
+    let expected = await format(await readFile(original, "utf8"), { parser });
+    if (working === "src/game.js") {
+      expected = expected.replace(
+        "  let n = wx.poll(t),\n    r = wx.pollAnyPadButton();",
+        "  let r = wx.pollAnyPadButton(),\n    n = wx.poll(t);",
+      );
+      expected = expected
+        .replace("    boost: Ot.CIRCLE,", "    boost: Ot.SQUARE,")
+        .replace("    powerslide: Ot.SQUARE,", "    powerslide: Ot.L1,")
+        .replace("    ballCam: Ot.TRIANGLE,", "    ballCam: Ot.R1,");
+    }
+    assert.equal(await readFile(working, "utf8"), expected);
   }
 });
 
