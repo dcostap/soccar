@@ -38,8 +38,10 @@ test("working code changes only formatting and approved controller changes", asy
       );
       expected = expected
         .replace("    boost: Ot.CIRCLE,", "    boost: Ot.SQUARE,")
-        .replace("    powerslide: Ot.SQUARE,", "    powerslide: Ot.L1,")
-        .replace("    ballCam: Ot.TRIANGLE,", "    ballCam: Ot.R1,");
+        .replace("    powerslide: Ot.SQUARE,", "    powerslide: Ot.R1,")
+        .replace("    airRollLeft: Ot.L1,", "    airRollLeft: Ot.R1,")
+        .replace("    airRollRight: Ot.R1,", "    airRollRight: Ot.L1,")
+        .replace("    ballCam: Ot.TRIANGLE,", "    ballCam: Ot.L1,");
     }
     assert.equal(await readFile(working, "utf8"), expected);
   }
