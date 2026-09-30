@@ -1,0 +1,158 @@
+{
+ "pickupSmall": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "pickupSmall_0.ogg",
+    "source": "RL UI_Boost/681005356"
+   }
+  ]
+ },
+ "pickupBig": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "pickupBig_0.ogg",
+    "source": "RL UI_Boost/430112369"
+   }
+  ]
+ },
+ "boostStart": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "boostStart_0.ogg",
+    "source": "RL Boost_Standard/145281985"
+   }
+  ]
+ },
+ "boostLoop": {
+  "kind": "loop",
+  "items": [
+   {
+    "file": "boostLoop_0.ogg",
+    "source": "RL Boost_Standard/468333342"
+   }
+  ]
+ },
+ "boostEnd": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "boostEnd_0.ogg",
+    "source": "RL VehicleElements/927873761"
+   }
+  ]
+ },
+ "jump": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "jump_0.ogg",
+    "source": "RL Car_Movements/23201463"
+   },
+   {
+    "file": "jump_1.ogg",
+    "source": "RL Car_Movements/736227931"
+   },
+   {
+    "file": "jump_2.ogg",
+    "source": "RL Car_Movements/742214805"
+   },
+   {
+    "file": "jump_3.ogg",
+    "source": "RL Car_Movements/965049061"
+   }
+  ]
+ },
+ "flip": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "flip_0.ogg",
+    "source": "RL Car_Movements/727337332"
+   },
+   {
+    "file": "flip_1.ogg",
+    "source": "RL Car_Movements/855686073"
+   },
+   {
+    "file": "flip_2.ogg",
+    "source": "RL Car_Movements/381114668"
+   },
+   {
+    "file": "flip_3.ogg",
+    "source": "RL Car_Movements/282128774"
+   }
+  ]
+ },
+ "ballHit": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "ballHit_0.ogg",
+    "source": "RL recording ball_hit_1000_0"
+   },
+   {
+    "file": "ballHit_1.ogg",
+    "source": "RL recording ball_hit_1000_1"
+   },
+   {
+    "file": "ballHit_2.ogg",
+    "source": "RL recording ball_hit_1400_0"
+   },
+   {
+    "file": "ballHit_3.ogg",
+    "source": "RL recording ball_hit_1400_1"
+   },
+   {
+    "file": "ballHit_4.ogg",
+    "source": "RL recording ball_hit_2200_0"
+   },
+   {
+    "file": "ballHit_5.ogg",
+    "source": "RL recording ball_hit_2200_1"
+   }
+  ]
+ },
+ "ballBounce": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "ballBounce_0.ogg",
+    "source": "RL Impacts/628730311"
+   },
+   {
+    "file": "ballBounce_1.ogg",
+    "source": "RL Impacts/680752618"
+   }
+  ]
+ },
+ "crowdLoop": {
+  "kind": "loop",
+  "items": [
+   {
+    "file": "crowdLoop_0.ogg",
+    "source": "RL BG_Crowd/253886244"
+   }
+  ]
+ },
+ "engineLoop": {
+  "kind": "loop",
+  "items": [
+   {
+    "file": "engineLoop_0.ogg",
+    "source": "RL recording engine_1400"
+   }
+  ]
+ },
+ "goal": {
+  "kind": "shot",
+  "items": [
+   {
+    "file": "goal_0.ogg",
+    "source": "RL recording goal"
+   }
+  ]
+ }
+}

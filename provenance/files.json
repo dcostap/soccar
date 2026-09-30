@@ -1,0 +1,559 @@
+{
+  "origin": "https://soccar-one.vercel.app",
+  "capturedAt": "2026-09-30T21:57:46.683Z",
+  "note": "Hashes describe downloaded bytes before local code formatting. Fonts use local URLs.",
+  "files": [
+    {
+      "file": "provenance/original-fonts.css",
+      "url": "https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@300;400;500&family=Saira:wdth,wght@100..125,200..500&display=swap",
+      "bytes": 3806,
+      "sha256": "c6edd4154848d8d70fbc8982f155db7847845291a42057a0cdd1177cea8555b9"
+    },
+    {
+      "file": "provenance/original-index.html",
+      "url": "https://soccar-one.vercel.app/",
+      "bytes": 830,
+      "sha256": "a5d36e495806b72d7f9d762f1471a765756659526502e002aa86cf9237b720a8"
+    },
+    {
+      "file": "public/assets/car/body_ao.webp",
+      "url": "https://soccar-one.vercel.app/assets/car/body_ao.webp",
+      "bytes": 599120,
+      "sha256": "da84759bee43ddc8a21cd1b2b3a9b1750dfab3b7726b11e0c34b97fd8d89af22"
+    },
+    {
+      "file": "public/assets/car/body_id.webp",
+      "url": "https://soccar-one.vercel.app/assets/car/body_id.webp",
+      "bytes": 66946,
+      "sha256": "c12c935379f56a7eb36d40a7211953f23a2b121d7825619bf8f3be561170a3de"
+    },
+    {
+      "file": "public/assets/car/body_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/car/body_normal.webp",
+      "bytes": 609968,
+      "sha256": "3fcd309fcbd9c01083537acb44e3a9d0a463655d99ea14fa4a119650ed5abe73"
+    },
+    {
+      "file": "public/assets/car2.glb",
+      "url": "https://soccar-one.vercel.app/assets/car2.glb",
+      "bytes": 6947576,
+      "sha256": "6b38822fcd2b555a303d32459ce8773549b2a18a1d9d3a7b70513c6b0e6e2cf2"
+    },
+    {
+      "file": "public/assets/fennec.glb",
+      "url": "https://soccar-one.vercel.app/assets/fennec.glb",
+      "bytes": 12340016,
+      "sha256": "f845e03227cf5f908876d119b2cc0989cbed6cb44a589ff67b96ccabf144e586"
+    },
+    {
+      "file": "public/assets/fennec.json",
+      "url": "https://soccar-one.vercel.app/assets/fennec.json",
+      "bytes": 159,
+      "sha256": "d2886ba42064f8e7854c3b6107144a25d1f81bafd865877d632a845ec5a30593"
+    },
+    {
+      "file": "public/assets/rlball/scene.bin",
+      "url": "https://soccar-one.vercel.app/assets/rlball/scene.bin",
+      "bytes": 135488,
+      "sha256": "913ba2ad66a44cdf268a234dfa1b7ebae45ece0ac266c162e227514c5a95c963"
+    },
+    {
+      "file": "public/assets/rlball/scene.gltf",
+      "url": "https://soccar-one.vercel.app/assets/rlball/scene.gltf",
+      "bytes": 6168,
+      "sha256": "05e3dda298ac023a6be7639e1204f3aa58c573dcda14313fc8db5cf61561d0b7"
+    },
+    {
+      "file": "public/assets/rlball/textures/Mat.3_baseColor.png",
+      "url": "https://soccar-one.vercel.app/assets/rlball/textures/Mat.3_baseColor.png",
+      "bytes": 1962461,
+      "sha256": "0822f797bfc4bba7e359eafbd66698ce7f11fa4673d6d14410fb5a669b3173ee"
+    },
+    {
+      "file": "public/assets/stadium/lightmap.webp",
+      "url": "https://soccar-one.vercel.app/assets/stadium/lightmap.webp",
+      "bytes": 7598390,
+      "sha256": "da1a6cf1af68373bcd36d3b4b18f71ff687322e366d7396ecf3ce6376edabd9a"
+    },
+    {
+      "file": "public/assets/stadium/rows.json",
+      "url": "https://soccar-one.vercel.app/assets/stadium/rows.json",
+      "bytes": 446044,
+      "sha256": "c61ba08fc3862e730ece5dc2705199e736b644ffc892ddbf6be991d9b45cd8ed"
+    },
+    {
+      "file": "public/assets/stadium/stadium.glb",
+      "url": "https://soccar-one.vercel.app/assets/stadium/stadium.glb",
+      "bytes": 12542400,
+      "sha256": "370eddb3e828aea584e5b566ffc0c03c735adcb0784a515415172483e07a436d"
+    },
+    {
+      "file": "public/assets/textures/brushed_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/brushed_detail.webp",
+      "bytes": 91450,
+      "sha256": "77f484a8902624f5567dde36386eb6b204c0e3002aa57f1f2fda403b8539d3c9"
+    },
+    {
+      "file": "public/assets/textures/brushed_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/brushed_normal.webp",
+      "bytes": 71088,
+      "sha256": "433b6a2d9a8e2bd89612bb34fd2b5ab1d6d524f33751c3a247c3a01ccbefdf38"
+    },
+    {
+      "file": "public/assets/textures/brushed_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/brushed_rough.webp",
+      "bytes": 118510,
+      "sha256": "b51129df1198714598309c2e2f414a45184b0405a5a8dd0c2f4c3bbac10a8db4"
+    },
+    {
+      "file": "public/assets/textures/carbon_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/carbon_detail.webp",
+      "bytes": 29630,
+      "sha256": "148632ee8b2cb4edcd9eed23636a86bac39b8bb41817a257db54ebe62bdbcea7"
+    },
+    {
+      "file": "public/assets/textures/carbon_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/carbon_normal.webp",
+      "bytes": 68500,
+      "sha256": "e4f7e8bdcd457bcb867a8e9bbafc85b4cfe8dd26554413ad0f7ef64117c2fa9e"
+    },
+    {
+      "file": "public/assets/textures/carbon_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/carbon_rough.webp",
+      "bytes": 76902,
+      "sha256": "f53a233bde03be17575202f23138202cdadf39b7c1bd9e8d3c36b0febd99ffa8"
+    },
+    {
+      "file": "public/assets/textures/concrete_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/concrete_detail.webp",
+      "bytes": 630020,
+      "sha256": "4e16d98c39ce4cf27611b0949c463eacd81f07fbe1f52d9a63218f8727f7dfa8"
+    },
+    {
+      "file": "public/assets/textures/concrete_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/concrete_normal.webp",
+      "bytes": 394224,
+      "sha256": "6dd18fb969e293782c0db96f93b46f382ccae4d02bf0e6ddef31f2a64145c844"
+    },
+    {
+      "file": "public/assets/textures/concrete_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/concrete_rough.webp",
+      "bytes": 219050,
+      "sha256": "3e9192aa3390442afe5840f6cbc6d5fa425d8cc2e6847f85534a73c743f3872e"
+    },
+    {
+      "file": "public/assets/textures/concrete_wall_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/concrete_wall_detail.webp",
+      "bytes": 212220,
+      "sha256": "02626b48280512478e3177f80f89d559cb567ec129308d31f09010151ad7d04b"
+    },
+    {
+      "file": "public/assets/textures/concrete_wall_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/concrete_wall_normal.webp",
+      "bytes": 307538,
+      "sha256": "690220f2b5d91d45ea47d56ab67e2ef7816cf24a9becbd73437e021a0520dd86"
+    },
+    {
+      "file": "public/assets/textures/concrete_wall_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/concrete_wall_rough.webp",
+      "bytes": 17906,
+      "sha256": "639afcc1ddfa3e71a27f78507173e7b9121a93299edcf53aad592c41a5fef9b0"
+    },
+    {
+      "file": "public/assets/textures/grass005_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/grass005_detail.webp",
+      "bytes": 2647592,
+      "sha256": "b7d053062a0c82bd8a496e95992338943dd1d331bc8fa56b01d3ab24610f5979"
+    },
+    {
+      "file": "public/assets/textures/grass005_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/grass005_normal.webp",
+      "bytes": 2714842,
+      "sha256": "8d99de87129e069e7292b27eedefda8af2b3d8e4bddad889645488f0844752e8"
+    },
+    {
+      "file": "public/assets/textures/grass005_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/grass005_rough.webp",
+      "bytes": 1894248,
+      "sha256": "d70a7be18e65d4d903b4e54826c501079207726925ca38a754d3a614ef1a7736"
+    },
+    {
+      "file": "public/assets/textures/leather_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/leather_detail.webp",
+      "bytes": 394736,
+      "sha256": "0c77b1829728741cd90d8731552968c0e492e41a6bceeefc45aa4f7b68bd1d50"
+    },
+    {
+      "file": "public/assets/textures/leather_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/leather_normal.webp",
+      "bytes": 269734,
+      "sha256": "cbc2e8bdc71b959ee2e2bd4d5ae169b465b73e64a6fc7412525ba73f434011eb"
+    },
+    {
+      "file": "public/assets/textures/leather_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/leather_rough.webp",
+      "bytes": 267340,
+      "sha256": "db9f620382bc16d5179187de0259c832011e73bb869e3c10d2af2fc78bdecc87"
+    },
+    {
+      "file": "public/assets/textures/metal_plate_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/metal_plate_detail.webp",
+      "bytes": 388208,
+      "sha256": "96ac53495b52670952878b9388e38badce7a06d1b85df55e1a9d3b3060923c71"
+    },
+    {
+      "file": "public/assets/textures/metal_plate_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/metal_plate_normal.webp",
+      "bytes": 35842,
+      "sha256": "bf95fd2708058aaabe31e4e546564587b200702b65bfab7578124fba48b652c8"
+    },
+    {
+      "file": "public/assets/textures/metal_plate_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/metal_plate_rough.webp",
+      "bytes": 412064,
+      "sha256": "02820e0b515b22be3eac40d7a86a58ce12aad9d8484047435505438d7cefad68"
+    },
+    {
+      "file": "public/assets/textures/metal_sheet_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/metal_sheet_detail.webp",
+      "bytes": 104956,
+      "sha256": "7431329a419c44380c059fe21df2b94bb2f6217fb06ca05a5a95c35dbf278081"
+    },
+    {
+      "file": "public/assets/textures/metal_sheet_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/metal_sheet_normal.webp",
+      "bytes": 89188,
+      "sha256": "d4dda0b381f3cb9859d508df6599c9c5fb2ae7c3a3726b41a1e602550090fc0e"
+    },
+    {
+      "file": "public/assets/textures/metal_sheet_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/metal_sheet_rough.webp",
+      "bytes": 185878,
+      "sha256": "8af6b7773be6117879ea88b222afafd167586e0a36ad9e70dcabeb40c9160163"
+    },
+    {
+      "file": "public/assets/textures/powder_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/powder_detail.webp",
+      "bytes": 477198,
+      "sha256": "db4022665b80097f36d6d1915201cc6d67bbc86a27b5d966d98f51161a24eaeb"
+    },
+    {
+      "file": "public/assets/textures/powder_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/powder_normal.webp",
+      "bytes": 260582,
+      "sha256": "2d53c19e01066283f7cbe59827b1d383ded0113abffadf90061d2e8de52b84af"
+    },
+    {
+      "file": "public/assets/textures/powder_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/powder_rough.webp",
+      "bytes": 244072,
+      "sha256": "6c280e4a8f2d0c3de022389f8787bf22e6edbeea9582b98dc864aa55cd3119bf"
+    },
+    {
+      "file": "public/assets/textures/rubber_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/rubber_detail.webp",
+      "bytes": 551850,
+      "sha256": "d874335edd3cdced138c0aa37e8cc02e66fab7d1bfbe65a641834463aeb31e0b"
+    },
+    {
+      "file": "public/assets/textures/rubber_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/rubber_normal.webp",
+      "bytes": 611992,
+      "sha256": "3fd185c7929d559ebd682a50b646758b10ba1e1299c096e1d8d77e9f09f61cb2"
+    },
+    {
+      "file": "public/assets/textures/rubber_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/rubber_rough.webp",
+      "bytes": 401554,
+      "sha256": "fcda509c43b21c356ed974bb0905629b0e01ac84f06937dadd0eee8c05d338a8"
+    },
+    {
+      "file": "public/assets/textures/swirl_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/swirl_detail.webp",
+      "bytes": 26106,
+      "sha256": "9bf71f6933cacc6aa5723af4b5a428b8affe69ba626b0975c5a4f0f7f3abe1d6"
+    },
+    {
+      "file": "public/assets/textures/swirl_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/swirl_normal.webp",
+      "bytes": 31742,
+      "sha256": "e02ceb790e9d66f25a9abbbc9bf8b2c57c143303a38dac949020d3f2f897fb55"
+    },
+    {
+      "file": "public/assets/textures/swirl_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/swirl_rough.webp",
+      "bytes": 43614,
+      "sha256": "a5f081fe2481f59cd6abae0b791b6e242a1faa8859b28f0065618ee83b485878"
+    },
+    {
+      "file": "public/assets/textures/track_detail.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/track_detail.webp",
+      "bytes": 483696,
+      "sha256": "3736664450f5adc12368bc2d04b0c86020dadfa2233d854aef6eabde5fe32fa2"
+    },
+    {
+      "file": "public/assets/textures/track_normal.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/track_normal.webp",
+      "bytes": 607724,
+      "sha256": "35e4989813b7ea629b9129ad02212b8ea17e72bf86ea094a2efe9a275cb3e054"
+    },
+    {
+      "file": "public/assets/textures/track_rough.webp",
+      "url": "https://soccar-one.vercel.app/assets/textures/track_rough.webp",
+      "bytes": 2402,
+      "sha256": "108a77e5d3fd537b65883642965a376e51e791011de3f07bb97d129cd064c233"
+    },
+    {
+      "file": "public/audio/rl/ballBounce_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballBounce_0.ogg",
+      "bytes": 6181,
+      "sha256": "79bfd9d798ab93fef8dc5b9ac885bb3ce5dcbdd179aec88abbe0c2c7a073cc89"
+    },
+    {
+      "file": "public/audio/rl/ballBounce_1.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballBounce_1.ogg",
+      "bytes": 6802,
+      "sha256": "9d77da9bd23d4bb50fb677330c73dcd12823c7be1dd188332df043cdf22fc7a2"
+    },
+    {
+      "file": "public/audio/rl/ballHit_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballHit_0.ogg",
+      "bytes": 15525,
+      "sha256": "0fe0a5a23253dccf4e67d89d9165323ec9c723fa879424d70b4828e3beb03e0f"
+    },
+    {
+      "file": "public/audio/rl/ballHit_1.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballHit_1.ogg",
+      "bytes": 15839,
+      "sha256": "ef159cfa2f3b5068ad5de730292e1954363fb619a08e21cd9fb698ee56bfda5b"
+    },
+    {
+      "file": "public/audio/rl/ballHit_2.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballHit_2.ogg",
+      "bytes": 14824,
+      "sha256": "483019d59d1270b01364daaecb005ea7eb7b2a8b2ca66941a860947b6118f795"
+    },
+    {
+      "file": "public/audio/rl/ballHit_3.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballHit_3.ogg",
+      "bytes": 15333,
+      "sha256": "5c18fac768bf30570ee2e4546cfc6051b73cdcd7952410d9e1597efc72c87744"
+    },
+    {
+      "file": "public/audio/rl/ballHit_4.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballHit_4.ogg",
+      "bytes": 14834,
+      "sha256": "f8891697f1df83693ef7805699d735dbd5e94bdc313e09c818797df8bb3ae8c2"
+    },
+    {
+      "file": "public/audio/rl/ballHit_5.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/ballHit_5.ogg",
+      "bytes": 15392,
+      "sha256": "2943eb82f058f7773c6cdbbaac50b7def474030f3ff9425f3a6fcd6de561e2df"
+    },
+    {
+      "file": "public/audio/rl/boostEnd_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/boostEnd_0.ogg",
+      "bytes": 44106,
+      "sha256": "570c7d39c90c3456491fa8db2069c52e2e808b9936cef4a380c49daa68cef9ac"
+    },
+    {
+      "file": "public/audio/rl/boostLoop_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/boostLoop_0.ogg",
+      "bytes": 53066,
+      "sha256": "1e6cb160faac36fabbbd1f03ceba15952cf0d3cc93ecbe361a7c52d07f5ddd7a"
+    },
+    {
+      "file": "public/audio/rl/boostStart_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/boostStart_0.ogg",
+      "bytes": 32299,
+      "sha256": "d4c0314c942a65af7e7edda390039755dcff191b1cb59bfd3eca10d64183ae41"
+    },
+    {
+      "file": "public/audio/rl/crowdLoop_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/crowdLoop_0.ogg",
+      "bytes": 198386,
+      "sha256": "ffe4183d926b8db6a535e59f0dfe46735d12867421650f87b568357c63c81b56"
+    },
+    {
+      "file": "public/audio/rl/engineLoop_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/engineLoop_0.ogg",
+      "bytes": 66465,
+      "sha256": "a89c4e67247a4ae07c1be4fbd72458effeded7b26cf73f700cdd6f287f8f27f6"
+    },
+    {
+      "file": "public/audio/rl/flip_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/flip_0.ogg",
+      "bytes": 44089,
+      "sha256": "d5e3b16b22515f7a4562ed1f5e86ed31bc470ef5bf16daf89cf2be6c10cac017"
+    },
+    {
+      "file": "public/audio/rl/flip_1.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/flip_1.ogg",
+      "bytes": 41678,
+      "sha256": "8ec36573bc3c609d589c3281a3cad79c3d1dc0e00feaaf8cf570aa1f6ff3173e"
+    },
+    {
+      "file": "public/audio/rl/flip_2.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/flip_2.ogg",
+      "bytes": 44224,
+      "sha256": "1d381ccb4fc62b3d35feb897a47654dc87352e64da767c62d116116de3f2944f"
+    },
+    {
+      "file": "public/audio/rl/flip_3.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/flip_3.ogg",
+      "bytes": 42004,
+      "sha256": "c155ad8b9420386b4aa1f63c4f27086a1e5e6b46bfdaf66aae4e4019ba7a032e"
+    },
+    {
+      "file": "public/audio/rl/goal_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/goal_0.ogg",
+      "bytes": 100898,
+      "sha256": "5e02d81c32237c4d78f81f62f3bf6e45dd604c4cf032b6a22c0dcb4d20b307f1"
+    },
+    {
+      "file": "public/audio/rl/jump_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/jump_0.ogg",
+      "bytes": 17314,
+      "sha256": "e1d9921cc2ce91482d88fe34da72fa6590f6d9e62a59cf8151d1d1775b72357c"
+    },
+    {
+      "file": "public/audio/rl/jump_1.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/jump_1.ogg",
+      "bytes": 17448,
+      "sha256": "62b515c7abe6d2f453db0cd8516fe6f919110b3a11fcdabbb7975480ffb58d82"
+    },
+    {
+      "file": "public/audio/rl/jump_2.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/jump_2.ogg",
+      "bytes": 17289,
+      "sha256": "231157dd74ca229c7cb0d3c1a1d9087784dc3bc1f01839da6e012d306358f0ae"
+    },
+    {
+      "file": "public/audio/rl/jump_3.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/jump_3.ogg",
+      "bytes": 17471,
+      "sha256": "c0cef3d43178c61437c321e3111ebe3132a1c073bc5116edd256ea5c4c13a8d9"
+    },
+    {
+      "file": "public/audio/rl/manifest.json",
+      "url": "https://soccar-one.vercel.app/audio/rl/manifest.json",
+      "bytes": 2602,
+      "sha256": "a1aa9f60395a1f805844920ec80a92e483b2e838e396d0ec01fdf32a27eb488f"
+    },
+    {
+      "file": "public/audio/rl/pickupBig_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/pickupBig_0.ogg",
+      "bytes": 15407,
+      "sha256": "87c9c08d13df1673a0d3e712c743ada052cedf6b997f058ffcf6d10d5dc3b1fb"
+    },
+    {
+      "file": "public/audio/rl/pickupSmall_0.ogg",
+      "url": "https://soccar-one.vercel.app/audio/rl/pickupSmall_0.ogg",
+      "bytes": 12558,
+      "sha256": "407666f7cedbd76b345f3109110cab66aa899bc0ed29235c15edcdbf407bc280"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA71rCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA71rCosg.ttf",
+      "bytes": 70488,
+      "sha256": "4a990ef394f376d81ed8ccba6b082c0522104d98efbd907c44e3ec7d5c1f2e84"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA72jCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA72jCosg.ttf",
+      "bytes": 70584,
+      "sha256": "5d6e80a73a85218ccf5f1c9010f6ee926ac8d57c8d3c3990f0a5441efbe69bb9"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA79rCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA79rCosg.ttf",
+      "bytes": 68408,
+      "sha256": "de2b36e7cf1bd00076a51aff8e66cd9f1316a945c1952e5c51448111e00cecf3"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA7wTCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs-OShhKMjjbU9uXuA7wTCosg.ttf",
+      "bytes": 68920,
+      "sha256": "7a6e466b06188f23a3043aa54a21f2219512306a414c280a09023337d4375c31"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA71rCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA71rCosg.ttf",
+      "bytes": 70616,
+      "sha256": "b050e7e7413a7d82950f31cf3305ea43dc88fa38e86b1737a12bb99b4ff817bd"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA72jCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA72jCosg.ttf",
+      "bytes": 70652,
+      "sha256": "3a53e7c6d14c580451920f2832b784874525c5478d4392074e2cf077ed243843"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA79rCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA79rCosg.ttf",
+      "bytes": 68368,
+      "sha256": "50c6177d472027dbfbd24ac36571d2e679840d60c2fdfa56a70480405ad6bfb0"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA7wTCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhs4-ShhKMjjbU9uXuA7wTCosg.ttf",
+      "bytes": 68828,
+      "sha256": "87f451795e412a38ff35dc27300ba1cfd95e1a2a9b63863e4c8cba2248422cd0"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA71rCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA71rCosg.ttf",
+      "bytes": 70316,
+      "sha256": "933a6bcc6b58e4d9840f37216ab10fd6cb13e61e4db88fa88680b5e0158cd815"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA72jCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA72jCosg.ttf",
+      "bytes": 70376,
+      "sha256": "3d953694fa347c62d10f357aa11268809b9bd453334d99a7ed4ea7bacf4f5e7f"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA79rCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA79rCosg.ttf",
+      "bytes": 68008,
+      "sha256": "4193cc3bbe1630f96c745667aeda45287f52df4c0d1e7aa1ff9bee6134820d2b"
+    },
+    {
+      "file": "public/fonts/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA7wTCosg.ttf",
+      "url": "https://fonts.gstatic.com/s/saira/v23/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA7wTCosg.ttf",
+      "bytes": 68468,
+      "sha256": "177f4493fb18c3bc302312a42216c44f3f89d4fca6a447c085fc6e09f9880cdb"
+    },
+    {
+      "file": "public/fonts/U9MD6c-2-nnJkHxyCjRcnMHcWVWV1cWRRU8L.ttf",
+      "url": "https://fonts.gstatic.com/s/sairasemicondensed/v15/U9MD6c-2-nnJkHxyCjRcnMHcWVWV1cWRRU8L.ttf",
+      "bytes": 77964,
+      "sha256": "da99ad028ca97dae7ab65ef8d8eeba32c6aadf5f20cac0dacfbe15daafa62859"
+    },
+    {
+      "file": "public/fonts/U9MM6c-2-nnJkHxyCjRcnMHcWVWV1cWRRXenSsMW.ttf",
+      "url": "https://fonts.gstatic.com/s/sairasemicondensed/v15/U9MM6c-2-nnJkHxyCjRcnMHcWVWV1cWRRXenSsMW.ttf",
+      "bytes": 78416,
+      "sha256": "b2668f51be7845102c535e6f2d41b3d63a1602a711c9c980d7c87f0aefecbfee"
+    },
+    {
+      "file": "public/fonts/U9MM6c-2-nnJkHxyCjRcnMHcWVWV1cWRRXf_S8MW.ttf",
+      "url": "https://fonts.gstatic.com/s/sairasemicondensed/v15/U9MM6c-2-nnJkHxyCjRcnMHcWVWV1cWRRXf_S8MW.ttf",
+      "bytes": 78240,
+      "sha256": "55f7f5553e7927fdee9d3d675697ced045a2258a5bcfefb016dbbdf6af19c667"
+    },
+    {
+      "file": "src/game.js",
+      "url": "https://soccar-one.vercel.app/assets/index-Bq8bpGmv.js",
+      "bytes": 967912,
+      "sha256": "07b9b5a9f36f20476e01f1fb22b3363a3229f81e7f98379e8277845c9c3a9514"
+    },
+    {
+      "file": "src/style.css",
+      "url": "https://soccar-one.vercel.app/assets/index-DMF4wMBW.css",
+      "bytes": 15287,
+      "sha256": "2a7d2b090a38895c3514a4041b2749595ca80476ca0818aad513a914f5e3eae8"
+    }
+  ]
+}
