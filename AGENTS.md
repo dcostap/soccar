@@ -21,7 +21,7 @@ Soccar is a car-soccer game, a headless match harness, and a bot-brain arena. Al
 
 ```sh
 npm run test:rust                 # Rust unit and integration tests
-npm run test:simulation -- --full # native vs WASM vs baseline, bit for bit (several minutes)
+npm run test:simulation:full      # native vs WASM vs baseline, bit for bit (several minutes)
 npm test                          # Node tests
 npm run test:cli                  # native runner
 npm run test:presentation         # browser presentation on Node
