@@ -1,50 +1,48 @@
 # Rust simulation
 
-## Current design
+## Source of truth
 
-The native runner and browser game use the same Rust library.
-The browser loads that library through WebAssembly.
-Three.js, menus, audio, camera controls, keyboard input, and controller input remain in JavaScript.
+Rust owns physics, prediction, bots, scoring, statistics, clocks, overtime, and match transitions.
+Native tools and the browser use the same library.
+There is no JavaScript simulation or archived JavaScript reference in the working tree.
 
-The port includes:
+JavaScript handles Three.js rendering, audio, menus, input, camera motion, interpolation, and replay images.
+It sends controls and commands to Rust, then reads Rust state and events.
+It does not calculate the next physics state or decide a match result.
 
-- Ball and car physics, suspension, tire forces, and arena collisions.
-- Car-ball and car-car collisions, demolition, respawns, and boost pads.
-- Ball prediction, all three bot difficulties, roles, flips, and aerials.
-- Match clocks, scoring, statistics, airborne expiry, overtime, and replay timing.
-- Menu background play, freeplay, ball placement, and player controls.
+The browser files have separate functions:
 
-`src/game.js` retains the original simulation as the comparison reference.
-The browser overrides its simulation entry points in `src/simulation.js`.
-The original rendering and input code still runs.
+- `src/simulation.js`: load WASM, send commands, and present Rust events.
+- `src/simulation-state.js`: decode the Rust state buffer.
+- `src/view.js`: data containers and graphics interpolation helpers. These have no physics methods.
+- `src/presentation.js`: draw state, store replay images, update audio, and display the HUD.
+- `src/game.js`: existing graphics, menus, input, and browser startup.
 
-## Requirements
+Rust also supplies arena dimensions, car geometry, pad positions, and arena queries.
+The renderer and replay camera use these exports instead of a second collision implementation.
+Rust supplies replay indices, replay history length, and the winning team.
+Rust rejects freeplay and replay commands outside their applicable mode or phase.
 
-Use Node 24.14.0 and Rust 1.91.1 for comparison checks.
-The reference uses V8 13.6.233.17-node.41.
-The build also needs the WebAssembly target:
+## Build and play
+
+Install Rust and add its WASM target:
 
 ```sh
 rustup target add wasm32-unknown-unknown
 npm ci
-```
-
-The Rust library depends on the pinned `libm` crate.
-It uses `f64` values and preserves the original arithmetic order.
-Do not enable unsafe floating-point optimizations during parity work.
-
-## Play the game
-
-```sh
 npm run dev
 ```
 
-The command builds WebAssembly before starting Vite.
-`npm run build` also builds WebAssembly before the production build.
-Pages deployment installs the Rust target before building.
+Open the URL that Vite prints. Choose PLAY or FREE PLAY.
+`npm run dev` and `npm run build` build WASM first.
+Pages deployment also installs the Rust target before building.
 
-The generated browser binary is `public/simulation/soccar_simulation.wasm`.
-Do not commit this file or Cargo build outputs.
+The generated binary is `public/simulation/soccar_simulation.wasm`.
+Do not commit it or Cargo build outputs.
+
+CI uses Node 24.14.0 and Rust 1.91.1.
+The Rust library uses `f64`, preserves arithmetic order, and pins `libm`.
+Do not enable unsafe floating-point optimizations.
 
 ## Run headless matches
 
@@ -61,35 +59,18 @@ npm run sim -- --seed 12345 --matches 32 --threads 8
 ```
 
 Each match uses `seed + match index`, with unsigned 32-bit wrapping.
-Results arrive in completion order. Use the `match` field to order them.
 Each worker owns an independent simulation and random generator.
+The runner writes one JSON result per match, in completion order.
+Use the `match` field to order results. Blue is team zero; orange is team one.
 
-The runner writes one JSON result per match:
-
-```json
-{
-  "match": 0,
-  "seed": 12345,
-  "completed": true,
-  "score": [4, 3],
-  "winner": 0,
-  "overtime": true,
-  "clock": 34.64999999999868,
-  "controllerTicks": 47706,
-  "physicsTicks": 47706,
-  "elapsedMs": 2560
-}
-```
-
-Blue is team zero. Orange is team one.
-The runner stops only after match completion or the tick limit.
-A five-minute clock can require extra simulation time for kickoffs, goals, airborne expiry, and overtime.
+Results include completion, score, winner, overtime, clock, controller ticks, physics ticks, and elapsed milliseconds.
+The runner stops after match completion or the tick limit.
+Kickoffs, goals, airborne expiry, and overtime can extend a five-minute match.
 
 The native runner skips replay playback by default. This does not change physics ticks or final scores.
-Add `--replays` to retain the original replay timing.
-The native runner does not record graphics snapshots.
+Add `--replays` to retain replay timing. The native runner does not record graphics snapshots.
 
-Other options:
+Options:
 
 ```text
 --team-size 1..3
@@ -103,105 +84,82 @@ Other options:
 --help
 ```
 
-Duration zero means unlimited play. The default tick limit is 216,000 controller ticks.
+Duration zero means unlimited play. The default limit is 216,000 controller ticks.
 A limited match returns `completed: false` and `winner: null`.
 Exit code two means at least one match reached its limit. Invalid arguments return exit code one.
 
-## Run checks
+## Checks
 
 ```sh
 npm test
 npm run test:rust
-npm run test:port
-npm run test:world
-npm run test:game:full
-npm run test:wasm:full
-npm run test:presentation
 npm run test:cli
+npm run test:simulation:full
+npm run test:simulation -- --debug
+npm run test:presentation
+npm run build
+npm run test:browser -- --preview
 ```
 
-`test:port` compares isolated ball physics. Add `-- --debug` for the debug build.
-`test:world` compares controls, car physics, collisions, pads, and respawns.
-`test:game:full` compares hidden state through complete matches, including overtime and replays.
-`test:wasm:full` repeats complete-match checks against the browser binary and its state decoder.
-`test:presentation` checks replay buffers, scoreboard updates, overtime banners, and match-end callbacks.
-`test:cli` checks parallel results, argument errors, and tick-limit reporting.
+The browser check needs Chrome. It starts and closes its own preview server.
+Set `SOCCAR_TEST_BASE` when testing a production build with a custom base path.
+Without `--preview`, set `SOCCAR_TEST_URL` or run a dev server on port 5173.
+The check uses a separate headless profile, not your open browser tabs.
+It checks keyboard play, controller play, pause, resume, reset, ball placement, and 3v3 play.
 
-For browser checks, install Chrome and run the Vite server first:
+`test:simulation` compares native Rust and WASM tick by tick, with exact floating-point bits.
+It checks full hidden state and the browser state buffer. It has no tolerances or allowed differences.
+Cases cover menu play, freeplay, all team sizes and skills, player controls, commands, and restarts.
+`--full` adds three complete five-minute 3v3 matches, including overtime and replay timing.
+
+`simulation/regression.json` stores SHA-256 hashes of accepted Rust state streams and match results.
+These hashes detect changes even when native and WASM implementations change together.
+The initial baseline includes 162,960 states and 721,810,980 fields across 16 cases.
+
+| Seed  | Score | Overtime | Controller ticks | Physics ticks |
+| ----- | ----- | -------- | ---------------- | ------------- |
+| 12345 | 4–3   | Yes      | 51,486           | 47,706        |
+| 67890 | 3–5   | No       | 48,944           | 44,624        |
+| 24680 | 2–4   | No       | 46,074           | 42,834        |
+
+The state runner streams bounded blocks instead of retaining complete traces in memory.
+A difference reports the case, tick, block, field index, and floating-point bits.
+Reports go into `artifacts/simulation/`. Browser and presentation reports have their own artifact folders.
+
+For an approved behavior or state-layout change, review the cause before updating hashes:
 
 ```sh
-npm run test:browser
+npm run build:wasm
+node scripts/check-simulation.mjs --full --record
 ```
 
-Use `npm run test:browser -- --preview` after building to test the production files.
-The check starts and closes its own preview server.
-Set `SOCCAR_TEST_BASE` when testing a build with a custom base path.
+Do not record a new baseline only to make a failed check pass.
+The JavaScript fixtures supply test inputs and serialize results. They contain no simulation implementation.
 
-Set `SOCCAR_TEST_URL` if Vite uses another port or you want to test a production preview.
-The browser test uses a separate headless profile. It does not use your open browser tabs.
-It checks keyboard play, controller play, pause, resume, reset, ball placement, and a 3v3 match.
-Screenshots and reports go into `artifacts/browser/`.
+`test:presentation` checks a complete match, replay buffers, scoreboard display, overtime banners, and match-end callbacks.
+It also checks live input settings. `test:cli` checks parallel determinism, invalid arguments, and tick limits.
 
-CI checks Windows and Linux. Local results alone do not prove another platform.
+CI runs on Windows and Linux. Local checks alone do not prove another platform.
+These tests cover selected cases, not every possible input or platform.
 
-## Exact comparison
+## Accepted behavior and future changes
 
-The reference runner reads the actual JavaScript code. It does not maintain a translated JavaScript model.
-It excludes browser startup and rendering, fixes the tick at 120 Hz, and supplies seeded randomness.
+The completed port passed exact JavaScript comparisons before removing the JavaScript engine.
+Rust is now authoritative. Those comparisons are history, not a current runtime or test dependency.
+The removed engine remains available in Git history at commit `9983451`.
 
-`scripts/port/reference-lock.json` records engine versions, source hashes, and isolated-ball trace hashes.
-The browser bootstrap is an approved source change. The reference simulation body remains unchanged.
-Do not update the lock only to make a failed check pass. Review the cause first.
+The existing `TODO(post-port)` comments still identify inherited compatibility choices:
 
-The current acceptance rule is bit-exact comparison. There are no tolerances or allowed differences.
-Comparison includes positions, velocities, rotations, contacts, controls, timers, events, pads, and random state.
-It also includes bot maneuvers, reaction state, prediction buffers, match phases, replay counters, and statistics.
+- Software trigonometry and scaled `hypot` preserve the accepted floating-point behavior.
+- Equal tire-grip coefficients and manual bounds preserve arithmetic order.
+- Random name sorting preserves the accepted random draw sequence.
+- Restart retains predictor state, as the original game did.
+- One boost pad retains its asymmetric position.
 
-The initial complete-match comparison passed for three five-minute 3v3 seeds:
-
-| Seed  | Final score | Overtime | Controller ticks with replays |
-| ----- | ----------- | -------- | ----------------------------- |
-| 12345 | 4–3         | Yes      | 51,486                        |
-| 67890 | 3–5         | No       | 48,944                        |
-| 24680 | 2–4         | No       | 46,074                        |
-
-The native suite compared 161,519 states and 505,916,115 fields, including shorter control cases.
-The WebAssembly suite also passed complete matches and browser state decoding.
-These checks prove the selected cases, not every possible input or target platform.
-
-The runner reports the first difference in case, tick, and field order.
-Reports go into `artifacts/ball-port/`, `artifacts/world-port/`, `artifacts/game-port/`, and `artifacts/wasm-port/`.
-Ball reports include hexadecimal bits. Add `--record` to `test:port` to save both binary traces.
-Game traces use a bounded stream. The runner does not retain gigabytes of complete-match state.
-JSON reports are for inspection, not the binary comparison.
-
-## Controlled compatibility changes
-
-Each parity-only change has a `TODO(post-port)` comment at the changed code.
-Keep it during parity work. Review it before a separate behavior or performance change.
-Compare native and WebAssembly behavior and performance before removing it.
-Review the affected comparison baselines. Do not silently weaken the checks.
-
-Current items:
-
-- `src/math.rs`: V8 `Math.hypot` differs from platform `hypot` rounding.
-- `src/v8_trig.rs`: V8 cosine differs from `libm` cosine rounding.
-- `src/math.rs`: shared software `atan2` avoids separate native and browser calculations.
-- `src/random.rs`: the original random name sort consumes a V8-specific sequence of random draws.
-- `src/game.rs`: the original restart keeps old predictor ticks and slices.
-- `src/car.rs` and `src/arena.rs`: equal coefficients and manual bounds keep the original arithmetic order.
-- `src/world.rs`: one boost pad uses an asymmetric original coordinate.
-
-The first `hypot` difference appeared in `blue-goal`, tick 41.
-The arena normal differed by approximately `1.37e-14`.
-The V8 calculation removed the difference without a tolerance.
-
-The cosine difference appeared in `reverse-brake`, tick 347.
-The correction uses V8 kernels and range reduction for game-sized arguments.
-Large trigonometric arguments use `libm`. The game checks do not prove those external inputs bit-exact.
-The source retains the upstream license notice.
-
-Reference: [V8 13.6.233 math](https://github.com/v8/v8/blob/13.6.233/src/base/ieee754.cc).
+This cleanup does not change those rules or calculations.
+Review each item as a separate behavior or performance change.
+Compare native and WASM results and performance before replacing it.
+Update regression states only after reviewing the intended change.
 
 ## Benchmark
 
@@ -209,55 +167,21 @@ Reference: [V8 13.6.233 math](https://github.com/v8/v8/blob/13.6.233/src/base/ie
 npm run benchmark
 ```
 
-The benchmark completes three five-minute 3v3 all-star bot matches, including any overtime.
-It disables rendering and replay playback in both versions.
-Both versions retain statistics, bot prediction, match rules, and ball rotation.
-It checks final scores and physics tick counts before accepting timings.
+The benchmark completes the three five-minute 3v3 all-star matches above, including any overtime.
+It checks scores and physics ticks against the Rust regression baseline before accepting timings.
+It skips rendering and replay playback, but retains statistics, bot prediction, and match rules.
+Results go into `artifacts/benchmark/report.json`.
 
-Initial local results on a Ryzen 7 5800X3D:
+The initial native median was approximately 2.3 seconds on a Ryzen 7 5800X3D.
+Trace checks include serialization and transfer. Do not use their times as performance measurements.
 
-| Seed   | JavaScript | Native Rust |
-| ------ | ---------- | ----------- |
-| 12345  | 7.958 s    | 2.560 s     |
-| 67890  | 6.939 s    | 2.316 s     |
-| 24680  | 6.795 s    | 2.266 s     |
-| Median | 6.939 s    | 2.316 s     |
+## Test stream
 
-These are preliminary single-match results, not a maximum-speed claim.
-Comparison trace times include serialization and transfer. Do not use them as performance measurements.
+`game_trace` reads little-endian `SCG2` input and writes `SCM2` output.
+Each case supplies configuration, a tick limit, and timed commands.
+Each tick emits two length-prefixed `f64` blocks: full core state and browser state.
+A zero-length block ends the case. Tick zero is the initial state.
 
-## Binary ball protocol
-
-All integers and floating-point values use little-endian byte order without padding.
-Input starts with ASCII `SCB1`, then a `u32` case count.
-Each case contains a `u32` tick count and 13 `f64` initial values:
-
-```text
-pos.x pos.y pos.z
-vel.x vel.y vel.z
-angVel.x angVel.y angVel.z
-radius mass lastWorldHitSpeed frozen
-```
-
-`frozen` is zero or one. Values must be finite. Radius and mass must be positive.
-Output starts with ASCII `SCT1`, then a `u32` case count.
-Each case contains a `u32` tick count and `ticks + 1` states.
-Each state contains the 13 initial fields, then:
-
-```text
-arena.distance arena.normal.x arena.normal.y arena.normal.z
-```
-
-Tick zero is the initial state. Later ticks integrate forces, integrate position, resolve collisions, and limit speed.
-The binary format preserves negative zero.
-
-World and game trace runners use length-prefixed arrays because event and prediction counts can change.
-Field order is defined by `src/snapshot.rs` and the corresponding JavaScript snapshot functions.
+`src/snapshot.rs` defines both state layouts.
+The Rust runner and WASM exports use those same functions.
 These are test protocols, not public network formats.
-
-## Follow-up work
-
-- Profile native bot decisions and prediction before changing algorithms.
-- Review parity-only math and restart changes with their `TODO(post-port)` notes.
-- Remove unused JavaScript simulation code from production after moving the locked reference to a separate file.
-- Expand complete-match coverage across seeds, skills, player controls, and supported platforms.

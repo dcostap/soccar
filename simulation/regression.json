@@ -1,0 +1,194 @@
+{
+  "menu": {
+    "name": "menu",
+    "ticks": 1200,
+    "sha256": "85dcc73a2d099016ea40d6b085ec312dbead29f488e9d672d483ac10b0ee7536",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "freeplay": {
+    "name": "freeplay",
+    "ticks": 1200,
+    "sha256": "02fd683bf7d89286861c6db9095dbe3b4990d1da6d57306ef25b84229dcbfdca",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "1v1-rookie": {
+    "name": "1v1-rookie",
+    "ticks": 1200,
+    "sha256": "a3a1856a07c09dfb1f16afa3d6417903dc7de2c0359858a3d3e88b4db46c9f5a",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "1v1-pro": {
+    "name": "1v1-pro",
+    "ticks": 1200,
+    "sha256": "a1b7384fb83cf3ca78014b8823b9d688f91271de39cd3a68ed7cef48411b9816",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "1v1-allstar": {
+    "name": "1v1-allstar",
+    "ticks": 1200,
+    "sha256": "dd30de6d22f163baeab8f8a7f5df2d58c2a95e757801ad21d1d59ce5f48c3540",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "2v2-rookie": {
+    "name": "2v2-rookie",
+    "ticks": 1200,
+    "sha256": "36d12fc6200b1cd7a190eaa4095e6e46d9d741799eace482503a7dd1d95b04ea",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "2v2-pro": {
+    "name": "2v2-pro",
+    "ticks": 1200,
+    "sha256": "692441df0761f389670fd488be59f008532cd7001f4c4b2e8d782cc18e6ead89",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "2v2-allstar": {
+    "name": "2v2-allstar",
+    "ticks": 1200,
+    "sha256": "ce9f634434e7f76a114e022fef08dc6ddf83cd876f81a3c1f5e81a6681bbaa9c",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "3v3-rookie": {
+    "name": "3v3-rookie",
+    "ticks": 1200,
+    "sha256": "07d475d6cbdd88dff473d4edd87518ed7dc60ec6e124eca8cf75d9e499ce2d25",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "3v3-pro": {
+    "name": "3v3-pro",
+    "ticks": 1200,
+    "sha256": "a472c39bced9807e230714a2be7bec9b6333565577580b622d779168fb545bce",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "3v3-allstar": {
+    "name": "3v3-allstar",
+    "ticks": 1200,
+    "sha256": "979e4be51e12b53504cdedc403f8c1600729e22f4dda5250044bf9378bd4d31f",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1200
+  },
+  "player-match": {
+    "name": "player-match",
+    "ticks": 1800,
+    "sha256": "9df309546e9f995f6698eb70ee54aca87d51855e81691460bfec5e76666220b9",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 1800
+  },
+  "commands-and-restarts": {
+    "name": "commands-and-restarts",
+    "ticks": 1440,
+    "sha256": "041e132afebafc7892f28ae903eef9cb01a7f9675ad7c14af3061511543b8a16",
+    "phase": "playing",
+    "score": [
+      0,
+      0
+    ],
+    "overtime": false,
+    "physicsTicks": 360
+  },
+  "full-3v3-12345": {
+    "name": "full-3v3-12345",
+    "ticks": 51486,
+    "sha256": "ffa9d31faf8c0f47eb538f082c0d9ccfccf280d38a52904c709715a6fd449642",
+    "phase": "ended",
+    "score": [
+      4,
+      3
+    ],
+    "overtime": true,
+    "physicsTicks": 47706
+  },
+  "full-3v3-67890": {
+    "name": "full-3v3-67890",
+    "ticks": 48944,
+    "sha256": "4445370deeb2d20698e8af9c558fd15da585cb88f66e001e39fe15eead3293ad",
+    "phase": "ended",
+    "score": [
+      3,
+      5
+    ],
+    "overtime": false,
+    "physicsTicks": 44624
+  },
+  "full-3v3-24680": {
+    "name": "full-3v3-24680",
+    "ticks": 46074,
+    "sha256": "9fbc7c2e32000bd29b25a5720d8070e37910ff20e22d9b7128f6a768adc01707",
+    "phase": "ended",
+    "score": [
+      2,
+      4
+    ],
+    "overtime": false,
+    "physicsTicks": 42834
+  }
+}

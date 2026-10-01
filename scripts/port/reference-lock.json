@@ -1,8 +1,0 @@
-{
-  "node": "v24.14.0",
-  "v8": "13.6.233.17-node.41",
-  "sourceHash": "fd58ae7276ab7b6f4a48da039c9149baa5c859bd15213d63f5710a41f1ad9aa7",
-  "extractedHash": "c6f4d35c9b9f6688d2a8a7e25cdc3f3cccfc01b26d1f615ff80fdbae7fcd5e6a",
-  "inputHash": "5a087190290b549b248b6dcc7c3db76a4a75a36b2e585d229513e51510cf9bd7",
-  "traceHash": "7ce1420e95803de2bb33070460971c111e5a3aac5609722f4ab2cd3b4575d444"
-}

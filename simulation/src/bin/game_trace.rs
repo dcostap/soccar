@@ -1,3 +1,4 @@
+//! Bounded native state stream for regression and native/WASM consistency checks.
 use soccar_simulation::{
     bot::Skill,
     car::Controls,
@@ -15,16 +16,23 @@ fn number(r: &mut impl Read) -> io::Result<f64> {
     r.read_exact(&mut b)?;
     Ok(f64::from_le_bytes(b))
 }
+fn block(out: &mut impl Write, values: Vec<f64>) -> io::Result<()> {
+    out.write_all(&(values.len() as u32).to_le_bytes())?;
+    for v in values {
+        out.write_all(&v.to_le_bytes())?;
+    }
+    Ok(())
+}
 fn run() -> io::Result<()> {
     let mut input = io::stdin().lock();
     let mut out = io::BufWriter::new(io::stdout().lock());
     let mut magic = [0; 4];
     input.read_exact(&mut magic)?;
-    if &magic != b"SCG1" {
-        return Err(io::Error::other("Expected SCG1"));
+    if &magic != b"SCG2" {
+        return Err(io::Error::other("Expected SCG2"));
     }
     let count = u32(&mut input)?;
-    out.write_all(b"SCM1")?;
+    out.write_all(b"SCM2")?;
     out.write_all(&count.to_le_bytes())?;
     for _ in 0..count {
         let ticks = u32(&mut input)?;
@@ -34,6 +42,10 @@ fn run() -> io::Result<()> {
         let player = u32(&mut input)? as i32;
         let seed = u32(&mut input)?;
         let duration = number(&mut input)?;
+        let mut actions = Vec::new();
+        for _ in 0..u32(&mut input)? {
+            actions.push((u32(&mut input)?, u32(&mut input)?, number(&mut input)?));
+        }
         let mut game = Game::new(seed);
         let config = Config {
             team_size: size,
@@ -46,7 +58,7 @@ fn run() -> io::Result<()> {
             0 => game.start_menu(),
             1 => game.start_freeplay(),
             _ => game.start_match(config),
-        };
+        }
         for tick in 0..=ticks {
             if tick > 0 {
                 let c = if player >= 0 {
@@ -64,11 +76,16 @@ fn run() -> io::Result<()> {
                 };
                 game.tick(c);
             }
-            let state = snapshot::game(&game);
-            out.write_all(&(state.len() as u32).to_le_bytes())?;
-            for value in state {
-                out.write_all(&value.to_le_bytes())?;
+            for &(_, op, value) in actions.iter().filter(|a| a.0 == tick) {
+                match op {
+                    7 => game.start_match(config),
+                    8 => game.start_freeplay(),
+                    9 => game.start_menu(),
+                    _ => game.command(op, value),
+                }
             }
+            block(&mut out, snapshot::game(&game))?;
+            block(&mut out, snapshot::view(&game))?;
             if game.phase == Phase::Ended {
                 break;
             }
@@ -78,8 +95,8 @@ fn run() -> io::Result<()> {
     out.flush()
 }
 fn main() {
-    if let Err(error) = run() {
-        eprintln!("game-trace: {error}");
+    if let Err(e) = run() {
+        eprintln!("game-trace: {e}");
         std::process::exit(1);
     }
 }

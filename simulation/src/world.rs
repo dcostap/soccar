@@ -60,7 +60,7 @@ const RESPAWNS: [(f64, f64); 4] = [
     (2304.0, -4608.0),
     (2688.0, -4608.0),
 ];
-const PADS: [(f64, f64, bool); 34] = [
+pub const PADS: [(f64, f64, bool); 34] = [
     (0.0, -4240.0, false),
     (-1792.0, -4184.0, false),
     (1792.0, -4184.0, false),
@@ -269,7 +269,7 @@ impl World {
             }
         }
         if self.goals_enabled && !self.ball.frozen {
-            let boundary = 5124.25 + self.ball.radius;
+            let boundary = crate::arena::GOAL_LINE + self.ball.radius;
             if self.ball.pos.y > boundary || self.ball.pos.y < -boundary {
                 let team = if self.ball.pos.y > 0.0 { 0 } else { 1 };
                 self.goal_scored = Some(team);

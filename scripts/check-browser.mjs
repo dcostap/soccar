@@ -124,7 +124,17 @@ try {
   });
   const before = await state();
   await page.keyboard.down("w");
-  await page.waitForTimeout(1200);
+  await page.waitForFunction((tick) => {
+    const t = window.__simulationTest;
+    return (
+      new Float64Array(
+        t.exports.memory.buffer,
+        t.exports.sim_state(t.handle),
+        1,
+      )[0] >=
+      tick + 120
+    );
+  }, before.tick);
   await page.keyboard.up("w");
   const moved = await state();
   assert.ok(
@@ -163,7 +173,17 @@ try {
     window.__testPad.buttons[7] = { pressed: true, value: 1 };
   });
   const padBefore = await state();
-  await page.waitForTimeout(1000);
+  await page.waitForFunction((tick) => {
+    const t = window.__simulationTest;
+    return (
+      new Float64Array(
+        t.exports.memory.buffer,
+        t.exports.sim_state(t.handle),
+        1,
+      )[0] >=
+      tick + 120
+    );
+  }, padBefore.tick);
   assert.ok(
     (await state()).pos[1] > padBefore.pos[1] + 20,
     "Controller throttle moves the Rust car",
@@ -182,7 +202,16 @@ try {
   await menu("Mode").locator(".mi-value").click();
   assert.ok((await menu("Mode").textContent()).includes("3v3"));
   await menu("START MATCH").click();
-  await page.waitForTimeout(4500);
+  await page.waitForFunction(() => {
+    const t = window.__simulationTest;
+    return (
+      new Float64Array(
+        t.exports.memory.buffer,
+        t.exports.sim_state(t.handle),
+        1,
+      )[0] > 361
+    );
+  });
   assert.equal((await state()).cars, 6);
   assert.ok((await state()).tick > 361);
   checks.push("playable 3v3 match and countdown");

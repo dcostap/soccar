@@ -257,6 +257,25 @@ impl Game {
         self.last_touches.clear();
         self.has_snapshot = true;
     }
+    /// Commands share one implementation across native tools and the browser ABI.
+    pub fn command(&mut self, command: u32, value: f64) {
+        match command {
+            1 if self.mode == Mode::Freeplay => self.reset_freeplay(),
+            2 if self.mode == Mode::Freeplay => self.place_ball(false),
+            3 if self.mode == Mode::Freeplay => self.place_ball(true),
+            4 if self.phase == Phase::Replay => {
+                self.notifications.clear();
+                self.end_replay();
+            }
+            5 => self.unlimited_boost = value != 0.0,
+            6 => {
+                if let Some(p) = self.player {
+                    self.world.cars[p].dodge_deadzone = value;
+                }
+            }
+            _ => {}
+        }
+    }
     pub fn tick(&mut self, controls: Controls) {
         self.notifications.clear();
         if self.phase == Phase::Replay {
@@ -481,10 +500,10 @@ impl Game {
             self.predict_ball.integrate_forces(DT);
             self.predict_ball.integrate_position(DT);
             self.predict_ball.collide_world();
-            if self.predict_ball.pos.y > 5124.25 + self.predict_ball.radius {
+            if self.predict_ball.pos.y > crate::arena::GOAL_LINE + self.predict_ball.radius {
                 return Some(0);
             }
-            if self.predict_ball.pos.y < -(5124.25 + self.predict_ball.radius) {
+            if self.predict_ball.pos.y < -(crate::arena::GOAL_LINE + self.predict_ball.radius) {
                 return Some(1);
             }
         }

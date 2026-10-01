@@ -1,8 +1,8 @@
-//! Math compatibility for the locked JavaScript reference.
+//! Deterministic math inherited from the completed port.
 
 pub use crate::v8_trig::{cos, sin};
 // TODO(post-port): Compare native atan2 against this shared software calculation.
-// Keep libm during parity so native and WASM builds use the same operation order.
+// Keep libm so native and WASM builds use the same operation order.
 pub use libm::atan2;
 
 pub fn clamp(x: f64, low: f64, high: f64) -> f64 {
@@ -42,10 +42,10 @@ pub fn curve(points: &[(f64, f64)], x: f64) -> f64 {
 /// Two-argument Math.hypot in V8 13.6.233.
 /// Source: https://github.com/v8/v8/blob/13.6.233/src/builtins/math.tq
 /// Keep this calculation during the parity port instead of the platform hypot.
-// TODO(post-port): Revisit this JavaScript compatibility change after full simulation parity passes.
+// TODO(post-port): Compare replacements against Rust regression states and native/WASM checks.
 // Native f64::hypot changed arena.normal.y in blue-goal at tick 41 by about 1.37e-14.
 // Compare native and WASM behavior and performance before restoring the native calculation.
-// Neither version is necessarily wrong. This calculation only preserves the JavaScript reference.
+// Neither version is necessarily wrong. This calculation preserves the accepted simulation behavior.
 // Treat restoration as a separate behavior change. Review and update the affected comparison baselines.
 pub fn hypot2(x: f64, y: f64) -> f64 {
     let a = x.abs();

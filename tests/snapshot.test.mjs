@@ -10,11 +10,9 @@ test("downloaded assets match the capture hashes", async () => {
   for (const entry of manifest.files) {
     // The working code has been formatted. Compare the unmodified copies instead.
     const file =
-      entry.file === "src/game.js"
-        ? "provenance/original-game.js"
-        : entry.file === "src/style.css"
-          ? "provenance/original-style.css"
-          : entry.file;
+      entry.file === "src/style.css"
+        ? "provenance/original-style.css"
+        : entry.file;
     const bytes = await readFile(file);
     assert.equal(bytes.length, entry.bytes, file);
     assert.equal(
@@ -25,31 +23,11 @@ test("downloaded assets match the capture hashes", async () => {
   }
 });
 
-test("working code changes only formatting, controller bindings, and the Rust bootstrap", async () => {
+test("working styles retain the captured styles", async () => {
   for (const [original, working, parser] of [
-    ["provenance/original-game.js", "src/game.js", "babel"],
     ["provenance/original-style.css", "src/style.css", "css"],
   ]) {
     let expected = await format(await readFile(original, "utf8"), { parser });
-    if (working === "src/game.js") {
-      expected = expected.replace(
-        "  let n = wx.poll(t),\n    r = wx.pollAnyPadButton();",
-        "  let r = wx.pollAnyPadButton(),\n    n = wx.poll(t);",
-      );
-      expected = expected
-        .replace("    boost: Ot.CIRCLE,", "    boost: Ot.SQUARE,")
-        .replace("    powerslide: Ot.SQUARE,", "    powerslide: Ot.R1,")
-        .replace("    airRollLeft: Ot.L1,", "    airRollLeft: Ot.R1,")
-        .replace("    airRollRight: Ot.R1,", "    airRollRight: Ot.L1,")
-        .replace("    ballCam: Ot.TRIANGLE,", "    ballCam: Ot.L1,");
-      // The browser now uses Rust through WASM. Keep the original simulation as the port reference.
-      expected = `import { createRustGame } from "./simulation.js";\n\n${expected}`;
-      expected = expected.replace(
-        "Dx = new Qb(Sx, Cx, Tx, wx, gx);",
-        "Dx = await createRustGame({ Game: Qb, World: Ub, Car: Et, Vec3: e, Quat: t, promptDevice: cb, prompt: fb }, Sx, Cx, Tx, wx, gx);",
-      );
-      expected = await format(expected, { parser });
-    }
     assert.equal(await readFile(working, "utf8"), expected);
   }
 });

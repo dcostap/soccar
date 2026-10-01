@@ -49,7 +49,7 @@ const eventTypes = [
   "ended",
   "save",
 ];
-export function readSimulationState(data, game, api) {
+export function readSimulationState(data, game) {
   let offset = 0;
   const read = () => data[offset++];
   const vec = (v) => {
@@ -82,7 +82,7 @@ export function readSimulationState(data, game, api) {
   offset += 4;
   const length = read();
   if (w.cars.length !== length) {
-    w.cars = Array.from({ length }, (_, i) => new api.Car(i, 0));
+    w.cars = Array.from({ length }, () => createCarView());
   }
   for (const c of w.cars) {
     c.id = read();
@@ -143,6 +143,9 @@ export function readSimulationState(data, game, api) {
         wheel[key] = read();
     }
   }
+  const pads = read();
+  if (w.pads.length !== pads)
+    w.pads = Array.from({ length: pads }, () => ({ pos: new ViewVector() }));
   for (const pad of w.pads) {
     vec(pad.pos);
     pad.big = !!read();
@@ -158,7 +161,7 @@ export function readSimulationState(data, game, api) {
         other = read(),
         team = read(),
         pad = read(),
-        position = new api.Vec3(read(), read(), read()),
+        position = new ViewVector(read(), read(), read()),
         strength = read(),
         lastTouch = read();
       const event = { type: eventTypes[kind], team };
@@ -239,3 +242,4 @@ export function readSimulationState(data, game, api) {
     throw new Error(`Simulation state length: ${offset}/${data.length}`);
   return notifications;
 }
+import { ViewVector, createCarView } from "./view.js";

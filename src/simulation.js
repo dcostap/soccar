@@ -1,4 +1,52 @@
 import { readSimulationState } from "./simulation-state.js";
+import { createWorldView } from "./view.js";
+import { Presentation } from "./presentation.js";
+
+export function simulationGeometry(wasm) {
+  const read = wasm.sim_geometry_value;
+  const values = Array.from({ length: 23 }, (_, i) => read(i));
+  return {
+    dt: values[0],
+    halfWidth: values[1],
+    halfLength: values[2],
+    height: values[3],
+    diagonal: values[4],
+    goalHeight: values[5],
+    goalLine: values[6],
+    ballRadius: values[7],
+    ballCollisionRadius: values[8],
+    car: {
+      hitboxSize: values.slice(9, 12),
+      hitboxOffset: values.slice(12, 15),
+      frontWheel: { x: values[15], y: values[16], radius: values[17] },
+      backWheel: { x: values[18], y: values[19], radius: values[20] },
+    },
+    pads: Array.from({ length: values[21] }, (_, i) => ({
+      x: read(23 + i * 3),
+      y: read(24 + i * 3),
+      big: !!read(25 + i * 3),
+    })),
+    floorExtent: values[22],
+  };
+}
+let simulation;
+export function loadSimulation() {
+  return (simulation ??= (async () => {
+    const response = await fetch(
+      `${import.meta.env?.BASE_URL ?? "/"}simulation/soccar_simulation.wasm`,
+      { cache: "no-cache" }, // Revalidate the binary after a browser bundle or ABI change.
+    );
+    if (!response.ok)
+      throw new Error(`Simulation download failed: ${response.status}`);
+    const { instance } = await WebAssembly.instantiate(
+      await response.arrayBuffer(),
+    );
+    return {
+      wasm: instance.exports,
+      geometry: simulationGeometry(instance.exports),
+    };
+  })());
+}
 
 export async function createRustGame(
   api,
@@ -8,20 +56,16 @@ export async function createRustGame(
   input,
   settings,
   seed = crypto.getRandomValues(new Uint32Array(1))[0],
+  loaded,
 ) {
-  const response = await fetch(
-    `${import.meta.env?.BASE_URL ?? "/"}simulation/soccar_simulation.wasm`,
-  );
-  if (!response.ok)
-    throw new Error(`Simulation download failed: ${response.status}`);
-  const { instance } = await WebAssembly.instantiate(
-    await response.arrayBuffer(),
-  );
-  const wasm = instance.exports;
-  class RustGame extends api.Game {
+  const engine = loaded ?? (await loadSimulation());
+  const wasm = engine.wasm;
+  api = { ...api, geometry: engine.geometry };
+  class RustGame extends Presentation {
     constructor() {
-      super(renderer, hud, audio, input, settings);
+      super(api, renderer, hud, audio, input, settings);
       this.handle = wasm.sim_create(seed);
+      this.sync();
     }
     sync() {
       const pointer = wasm.sim_state(this.handle);
@@ -32,7 +76,6 @@ export async function createRustGame(
           wasm.sim_state_len(this.handle),
         ),
         this,
-        api,
       );
     }
     destroy() {
@@ -42,13 +85,10 @@ export async function createRustGame(
     }
     clearPresentation() {
       this.renderer.removeAllCars();
-      this.world = new api.World();
-      this.bots = [];
+      this.world = createWorldView();
       this.replayBuf = [];
       this.prev = this.cur = null;
       this.acc = 0;
-      this.lastTouches = [];
-      this.goalPrediction = null;
       this.camera.reset();
       this.hud.setReplay(false);
       this.hud.showScoreboard(false);
@@ -108,10 +148,9 @@ export async function createRustGame(
       wasm.sim_command(this.handle, 4, 0);
       const events = this.sync();
       this.phasePresentation("replay");
+      if (this.phase === "countdown") this.snapshotNow();
       this.present(events);
     }
-    evaluateShotSave() {} // Rust owns all statistics and shot/save prediction.
-    blastCars() {} // Rust applies the goal impulse. Presentation must not change physics.
     tick(frame) {
       const before = this.phase;
       const worldTick = this.world.tick;
@@ -153,7 +192,6 @@ export async function createRustGame(
         } else if (before === "replay" || this.phase === "countdown") {
           this.hud.setReplay(false);
           this.camera.reset();
-          this.lastTouches = [];
         }
         this.renderer.ball.visible = this.phase !== "goal";
       }
@@ -167,8 +205,7 @@ export async function createRustGame(
           this.hud.showBanner("OVERTIME", "Next goal wins", "white", 3);
           this.audio.whistle();
         } else if (event.type === "ended") {
-          // This method changes only presentation fields already supplied by Rust.
-          api.Game.prototype.endMatch.call(this);
+          this.showMatchEnded(event.team);
         } else if (event.type === "save") {
           this.hud.notify(
             `SAVE ${event.car.name}`,
@@ -185,7 +222,7 @@ export async function createRustGame(
           if (event.type === "goal")
             this.renderer.goalExplosion(event.ballPos, event.team);
         } else {
-          this.handleEvents([event]);
+          this.presentEvent(event);
         }
       }
     }

@@ -115,6 +115,7 @@ pub fn world(w: &World) -> Vec<f64> {
     for c in &w.cars {
         car(&mut out, c);
     }
+    out.push(w.pads.len() as f64);
     for p in &w.pads {
         v(&mut out, p.pos);
         out.extend([p.big as u8 as f64, p.cooldown]);
@@ -199,6 +200,63 @@ pub fn game(g: &Game) -> Vec<f64> {
                 out.push(arrive);
             }
         }
+    }
+    out
+}
+
+/// Browser state, including labels and presentation events.
+pub fn view(g: &Game) -> Vec<f64> {
+    let mut out = world(&g.world);
+    out.extend([
+        g.mode.number() as f64,
+        g.phase.number() as f64,
+        g.player.map_or(-1.0, |v| v as f64),
+        g.score[0] as f64,
+        g.score[1] as f64,
+        g.clock,
+        g.overtime as u8 as f64,
+        g.phase_timer,
+        g.countdown_shown as f64,
+        g.waiting_for_ground as u8 as f64,
+        g.unlimited_boost as u8 as f64,
+        g.ball_rot.x,
+        g.ball_rot.y,
+        g.ball_rot.z,
+        g.ball_rot.w,
+        g.replay_length as f64,
+        g.replay_idx as f64,
+        g.replay_end as f64,
+        g.replay_scorer as f64,
+        g.end_after_replay as u8 as f64,
+        g.last_goal_team as f64,
+        g.freeplay_goal_timer,
+    ]);
+    out.push(g.names.len() as f64);
+    out.extend(g.names.iter().map(|&x| x as f64));
+    out.push(g.stats.len() as f64);
+    for s in &g.stats {
+        out.extend([
+            s.score as f64,
+            s.goals as f64,
+            s.assists as f64,
+            s.shots as f64,
+            s.saves as f64,
+        ]);
+    }
+    out.push(g.notifications.len() as f64);
+    for e2 in &g.notifications {
+        out.extend([
+            e2.kind as f64,
+            e2.car as f64,
+            e2.other as f64,
+            e2.team as f64,
+            e2.pad as f64,
+            e2.position.x,
+            e2.position.y,
+            e2.position.z,
+            e2.strength,
+            e2.last_touch as f64,
+        ]);
     }
     out
 }

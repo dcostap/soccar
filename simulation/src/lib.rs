@@ -1,4 +1,4 @@
-//! Simulation port. Keep the JavaScript operation order until comparison tests pass.
+//! Authoritative Soccar simulation for native and browser clients.
 
 pub mod arena;
 pub mod ball;

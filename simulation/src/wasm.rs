@@ -1,10 +1,74 @@
 //! Narrow browser ABI. Each handle owns one independent simulation.
 use crate::{
+    DT, arena,
     bot::Skill,
     car::Controls,
+    car::{Car, HALF, OFFSET},
     game::{Config, Game},
     snapshot,
+    vector::Vec3,
+    world::PADS,
 };
+// Startup geometry comes from the same definitions that the simulation uses.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_geometry_value(index: u32) -> f64 {
+    let car = Car::new(0, 0);
+    let f = car.wheels[0];
+    let b = car.wheels[2];
+    let values = [
+        DT,
+        arena::HALF_WIDTH,
+        arena::HALF_LENGTH,
+        arena::HEIGHT,
+        arena::FIELD_DIAGONAL,
+        arena::GOAL_HEIGHT,
+        arena::GOAL_LINE,
+        crate::ball::PHYSICAL_RADIUS,
+        crate::ball::COLLISION_RADIUS,
+        HALF.x * 2.0,
+        HALF.y * 2.0,
+        HALF.z * 2.0,
+        OFFSET.x,
+        OFFSET.y,
+        OFFSET.z,
+        f.local.x,
+        f.local.y,
+        f.radius,
+        b.local.x,
+        b.local.y,
+        b.radius,
+        PADS.len() as f64,
+        arena::floor_extent(),
+    ];
+    let index = index as usize;
+    if index < values.len() {
+        return values[index];
+    }
+    let offset = index - values.len();
+    if let Some(&(x, y, big)) = PADS.get(offset / 3) {
+        match offset % 3 {
+            0 => x,
+            1 => y,
+            _ => big as u8 as f64,
+        }
+    } else {
+        f64::NAN
+    }
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_arena_query(kind: u32, x: f64, y: f64, z: f64) -> f64 {
+    let p = Vec3::new(x, y, z);
+    match kind {
+        0 => arena::distance(p),
+        1 => arena::normal(p).x,
+        2 => arena::normal(p).y,
+        3 => arena::normal(p).z,
+        4 => arena::ramp_radius(x),
+        5 => arena::goal_distance(x.abs(), y.abs(), z),
+        6 => arena::floor_height(y),
+        _ => f64::NAN,
+    }
+}
 struct Engine {
     game: Game,
     view: Vec<f64>,
@@ -89,87 +153,19 @@ pub extern "C" fn sim_tick(
 }
 #[unsafe(no_mangle)]
 pub extern "C" fn sim_command(handle: usize, command: u32, value: f64) {
-    let g = &mut engine(handle).game;
-    match command {
-        1 => g.reset_freeplay(),
-        2 => g.place_ball(false),
-        3 => g.place_ball(true),
-        4 => {
-            g.notifications.clear();
-            g.end_replay();
-        }
-        5 => g.unlimited_boost = value != 0.0,
-        6 => {
-            if let Some(p) = g.player {
-                g.world.cars[p].dodge_deadzone = value;
-            }
-        }
-        _ => {}
-    }
+    engine(handle).game.command(command, value);
 }
 #[unsafe(no_mangle)]
 pub extern "C" fn sim_state(handle: usize) -> usize {
     let e = engine(handle);
-    e.view = snapshot::world(&e.game.world);
-    let g = &e.game;
-    e.view.extend([
-        g.mode.number() as f64,
-        g.phase.number() as f64,
-        g.player.map_or(-1.0, |v| v as f64),
-        g.score[0] as f64,
-        g.score[1] as f64,
-        g.clock,
-        g.overtime as u8 as f64,
-        g.phase_timer,
-        g.countdown_shown as f64,
-        g.waiting_for_ground as u8 as f64,
-        g.unlimited_boost as u8 as f64,
-        g.ball_rot.x,
-        g.ball_rot.y,
-        g.ball_rot.z,
-        g.ball_rot.w,
-        g.replay_length as f64,
-        g.replay_idx as f64,
-        g.replay_end as f64,
-        g.replay_scorer as f64,
-        g.end_after_replay as u8 as f64,
-        g.last_goal_team as f64,
-        g.freeplay_goal_timer,
-    ]);
-    e.view.push(g.names.len() as f64);
-    e.view.extend(g.names.iter().map(|&x| x as f64));
-    e.view.push(g.stats.len() as f64);
-    for s in &g.stats {
-        e.view.extend([
-            s.score as f64,
-            s.goals as f64,
-            s.assists as f64,
-            s.shots as f64,
-            s.saves as f64,
-        ]);
-    }
-    e.view.push(g.notifications.len() as f64);
-    for e2 in &g.notifications {
-        e.view.extend([
-            e2.kind as f64,
-            e2.car as f64,
-            e2.other as f64,
-            e2.team as f64,
-            e2.pad as f64,
-            e2.position.x,
-            e2.position.y,
-            e2.position.z,
-            e2.strength,
-            e2.last_touch as f64,
-        ]);
-    }
+    e.view = snapshot::view(&e.game);
     e.view.as_ptr() as usize
 }
 #[unsafe(no_mangle)]
 pub extern "C" fn sim_state_len(handle: usize) -> usize {
     engine(handle).view.len()
 }
-// Full hidden state for parity tests. The browser renderer uses sim_state instead.
+// Full hidden state for native/WASM consistency tests. Rendering uses sim_state instead.
 #[unsafe(no_mangle)]
 pub extern "C" fn sim_trace(handle: usize) -> usize {
     let e = engine(handle);

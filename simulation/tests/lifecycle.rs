@@ -77,3 +77,21 @@ fn a_zero_duration_match_has_no_clock_expiry() {
     assert_eq!(g.phase, Phase::Playing);
     assert_eq!(g.clock, 0.0);
 }
+
+#[test]
+fn scene_commands_do_not_change_a_match_outside_their_mode() {
+    let mut g = Game::new(1);
+    g.start_match(Config {
+        player_team: 0,
+        ..Config::default()
+    });
+    let before = soccar_simulation::snapshot::game(&g);
+    for op in 1..=4 {
+        g.command(op, 0.0);
+    }
+    let after = soccar_simulation::snapshot::game(&g);
+    assert_eq!(
+        before.iter().map(|v| v.to_bits()).collect::<Vec<_>>(),
+        after.iter().map(|v| v.to_bits()).collect::<Vec<_>>()
+    );
+}

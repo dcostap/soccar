@@ -1,7 +1,7 @@
 {
   "origin": "https://soccar-one.vercel.app",
   "capturedAt": "2026-09-30T21:57:46.683Z",
-  "note": "Hashes describe downloaded bytes before local code formatting. Fonts use local URLs.",
+  "note": "Hashes describe downloaded assets before local formatting. The JavaScript simulation and its archive were removed.",
   "files": [
     {
       "file": "provenance/original-fonts.css",
@@ -542,12 +542,6 @@
       "url": "https://fonts.gstatic.com/s/sairasemicondensed/v15/U9MM6c-2-nnJkHxyCjRcnMHcWVWV1cWRRXf_S8MW.ttf",
       "bytes": 78240,
       "sha256": "55f7f5553e7927fdee9d3d675697ced045a2258a5bcfefb016dbbdf6af19c667"
-    },
-    {
-      "file": "src/game.js",
-      "url": "https://soccar-one.vercel.app/assets/index-Bq8bpGmv.js",
-      "bytes": 967912,
-      "sha256": "07b9b5a9f36f20476e01f1fb22b3363a3229f81e7f98379e8277845c9c3a9514"
     },
     {
       "file": "src/style.css",

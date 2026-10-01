@@ -1,11 +1,16 @@
-//! Port of je, Me, Ne, Pe, Ze, Qe, $e, et, and nt in src/game.js.
+//! Shared arena geometry for physics, mesh construction, and camera clearance.
 use crate::{math::hypot2, vector::Vec3};
 
 const SQRT_2: f64 = std::f64::consts::SQRT_2;
-const SIDE: f64 = 4096.0 - 420.0;
-const END: f64 = 5120.0 - 420.0;
-const DIAGONAL: f64 = 8064.0 - 420.0 * SQRT_2;
-const GOAL_HEIGHT: f64 = 642.775;
+pub const HALF_WIDTH: f64 = 4096.0;
+pub const HALF_LENGTH: f64 = 5120.0;
+pub const HEIGHT: f64 = 2044.0;
+pub const FIELD_DIAGONAL: f64 = 8064.0;
+pub const GOAL_HEIGHT: f64 = 642.775;
+pub const GOAL_LINE: f64 = 5124.25;
+const SIDE: f64 = HALF_WIDTH - 420.0;
+const END: f64 = HALF_LENGTH - 420.0;
+const DIAGONAL: f64 = FIELD_DIAGONAL - 420.0 * SQRT_2;
 
 fn segment_distance(x: f64, y: f64, ax: f64, ay: f64, bx: f64, by: f64) -> f64 {
     let dx = bx - ax;
@@ -30,7 +35,7 @@ fn outline_distance(x: f64, y: f64) -> f64 {
 
 // TODO(post-port): Compare clamp replacements before changing the original max/min order.
 #[allow(clippy::manual_clamp)] // Keep the JavaScript max/min operation order.
-fn ramp_radius(x: f64) -> f64 {
+pub fn ramp_radius(x: f64) -> f64 {
     let fraction = ((x.abs() - 893.0) / 450.0).max(0.0).min(1.0);
     256.0 * 0.02_f64.max(fraction * fraction * (3.0 - 2.0 * fraction))
 }
@@ -38,7 +43,7 @@ fn ramp_radius(x: f64) -> f64 {
 fn field_distance(x: f64, y: f64, z: f64) -> f64 {
     let radius = if z < 1022.0 { ramp_radius(x) } else { 256.0 };
     let horizontal = outline_distance(x, y) - 420.0 + radius;
-    let vertical = (radius - z).max(z - (2044.0 - radius));
+    let vertical = (radius - z).max(z - (HEIGHT - radius));
     let positive_h = if horizontal > 0.0 { horizontal } else { 0.0 };
     let positive_v = if vertical > 0.0 { vertical } else { 0.0 };
     radius
@@ -81,25 +86,37 @@ fn goal_profile(y: f64, z: f64) -> f64 {
 
 // TODO(post-port): Compare clamp replacements before changing the original max/min order.
 #[allow(clippy::manual_clamp)] // Keep the JavaScript max/min operation order.
-fn goal_distance(x: f64, y: f64, z: f64) -> f64 {
-    if y < 5120.0 {
+pub fn goal_distance(x: f64, y: f64, z: f64) -> f64 {
+    if y < HALF_LENGTH {
         if x >= 893.0 || z >= GOAL_HEIGHT || z <= 0.0 {
             return -(x - 893.0).max(z - GOAL_HEIGHT).max(-z);
         }
-        let depth = 5120.0 - y;
+        let depth = HALF_LENGTH - y;
         let width = 893.0 - x;
         let height = GOAL_HEIGHT - z;
         let side = (width * width + depth * depth).sqrt();
         let top = (height * height + depth * depth).sqrt();
         return side.min(top).min(z);
     }
-    let depth_fraction = ((y - 5120.0) / 60.0).min(1.0);
+    let depth_fraction = ((y - HALF_LENGTH) / 60.0).min(1.0);
     let height_fraction = (z / GOAL_HEIGHT).max(0.0).min(1.0);
     rounded_min(
         893.0 - x,
         goal_profile(y, z),
         (110.0 + 25.0 * height_fraction) * depth_fraction,
     )
+}
+
+pub fn floor_height(y: f64) -> f64 {
+    let y = y.abs();
+    if y > 5362.0 {
+        0.041 * (y - 5362.0)
+    } else {
+        0.0
+    }
+}
+pub fn floor_extent() -> f64 {
+    5761.0 + 243.0 * crate::math::sin(libm::atan(0.041))
 }
 
 pub fn distance(pos: Vec3) -> f64 {

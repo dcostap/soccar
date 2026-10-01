@@ -1,4 +1,4 @@
-name: Simulation comparison
+name: Simulation checks
 
 on:
   push:
@@ -29,39 +29,19 @@ jobs:
       - run: npm test
       - run: npm run test:rust
       - run: npm run test:cli
-      - run: npm run test:world
-      - run: npm run test:world -- --debug
-      - run: npm run test:game:full
-      - run: npm run test:game -- --debug
-      - run: npm run build:wasm
-      - run: node scripts/port/compare-wasm.mjs --full
-      - run: node scripts/port/compare-presentation.mjs
+      - run: npm run test:simulation:full
+      - run: npm run test:simulation -- --debug
+      - run: npm run test:presentation
       - run: npm run build
       - run: npm run test:browser -- --preview
       - run: cargo fmt --manifest-path simulation/Cargo.toml -- --check
       - run: cargo clippy --locked --manifest-path simulation/Cargo.toml --all-targets -- -D warnings
-      - run: npm run test:port -- --record
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: ball-port-release-${{ matrix.os }}
-          path: artifacts/ball-port/release/
-          if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: simulation-reports-${{ matrix.os }}
           path: |
-            artifacts/world-port/**/*.json
-            artifacts/game-port/**/*.json
-            artifacts/wasm-port/**/*.json
-            artifacts/presentation-port/**/*.json
+            artifacts/simulation/
+            artifacts/presentation/
             artifacts/browser/
-          if-no-files-found: ignore
-      - run: npm run test:port -- --debug --record
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: ball-port-debug-${{ matrix.os }}
-          path: artifacts/ball-port/debug/
           if-no-files-found: ignore

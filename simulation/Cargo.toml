@@ -11,10 +11,6 @@ libm = "=0.2.15"
 path = "src/lib.rs"
 crate-type = ["rlib", "cdylib"]
 
-[[bin]]
-name = "ball-trace"
-path = "src/bin/ball_trace.rs"
-
 [profile.release]
 codegen-units = 1
 lto = "thin"

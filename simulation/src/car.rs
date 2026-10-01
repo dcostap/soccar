@@ -7,7 +7,7 @@ use crate::{
 };
 
 pub const HALF: Vec3 = Vec3::new(120.507 / 2.0, 86.6994 / 2.0, 38.6591 / 2.0);
-const OFFSET: Vec3 = Vec3::new(13.8757, 0.0, 20.755);
+pub const OFFSET: Vec3 = Vec3::new(13.8757, 0.0, 20.755);
 const INERTIA: Vec3 = Vec3::new(
     15.0 * (4.0 * HALF.y * HALF.y + 4.0 * HALF.z * HALF.z),
     15.0 * (4.0 * HALF.x * HALF.x + 4.0 * HALF.z * HALF.z),

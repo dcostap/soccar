@@ -1,8 +1,10 @@
-//! Port of Db in src/game.js. Collision radius differs from physical radius.
+//! Ball dynamics. Collision radius differs from physical radius.
 use crate::{DT, arena, vector::Vec3};
 
 pub const STATE_FIELDS: usize = 13;
 pub const TRACE_FIELDS: usize = 17;
+pub const PHYSICAL_RADIUS: f64 = 91.25;
+pub const COLLISION_RADIUS: f64 = 93.15;
 
 #[derive(Clone, Debug)]
 pub struct Ball {
@@ -18,10 +20,10 @@ pub struct Ball {
 impl Default for Ball {
     fn default() -> Self {
         Self {
-            pos: Vec3::new(0.0, 0.0, 93.15),
+            pos: Vec3::new(0.0, 0.0, COLLISION_RADIUS),
             vel: Vec3::default(),
             ang_vel: Vec3::default(),
-            radius: 91.25,
+            radius: PHYSICAL_RADIUS,
             mass: 30.0,
             last_world_hit_speed: 0.0,
             frozen: false,
@@ -104,7 +106,7 @@ impl Ball {
         let mut hit_speed: f64 = 0.0;
         for _ in 0..3 {
             let distance = arena::distance(self.pos);
-            if distance >= 93.15 {
+            if distance >= COLLISION_RADIUS {
                 break;
             }
             let normal = arena::normal(self.pos);
@@ -113,7 +115,7 @@ impl Ball {
                 hit_speed = hit_speed.max(-speed);
                 self.bounce(normal, speed);
             }
-            self.pos.add_scaled(normal, 93.15 - distance);
+            self.pos.add_scaled(normal, COLLISION_RADIUS - distance);
         }
         self.last_world_hit_speed = hit_speed;
         hit_speed
