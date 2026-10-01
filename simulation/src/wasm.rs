@@ -97,6 +97,32 @@ pub extern "C" fn sim_destroy(handle: usize) {
         }
     }
 }
+/// Copies all match state, including brains, prediction caches, and random state.
+/// The caller owns the returned handle and must destroy it.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_clone(handle: usize) -> usize {
+    let e = engine(handle);
+    Box::into_raw(Box::new(Engine {
+        game: e.game.clone(),
+        view: Vec::new(),
+        brains: e.brains.clone(),
+        text: Vec::new(),
+    })) as usize
+}
+/// Restores a checkpoint without consuming it or changing the destination handle.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_restore(handle: usize, checkpoint: usize) {
+    if handle == checkpoint {
+        return;
+    }
+    let saved = engine(checkpoint);
+    let game = saved.game.clone();
+    let brains = saved.brains.clone();
+    let e = engine(handle);
+    e.game = game;
+    e.brains = brains;
+    e.view.clear();
+}
 #[unsafe(no_mangle)]
 pub extern "C" fn sim_start(
     handle: usize,

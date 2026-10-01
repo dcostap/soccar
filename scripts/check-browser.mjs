@@ -216,6 +216,197 @@ try {
   assert.ok((await state()).tick > 361);
   checks.push("playable 3v3 match and countdown");
   await page.screenshot({ path: "artifacts/browser/match.png" });
+  assert.equal(await page.locator(".watch-timeline").count(), 0);
+
+  const watchUrl = new URL(page.url());
+  watchUrl.search = new URLSearchParams({
+    mute: "",
+    watch: "test",
+    seed: "12350",
+    size: "3",
+    duration: "300",
+    names: "allstar,allstar",
+    expect: "3-2",
+  });
+  await page.goto(watchUrl.href);
+  await page.locator(".watch-timeline").waitFor();
+  await page.keyboard.press("p");
+  await page
+    .getByRole("button", { name: "Play replay", exact: true })
+    .waitFor();
+  const watchPaused = await state();
+  const framesBeforeIndex = await page.evaluate(() => window.__testFrames);
+  const range = page.getByRole("slider", { name: "Replay position" });
+  await page.waitForFunction(
+    () => !document.querySelector(".watch-range")?.disabled,
+    null,
+    { timeout: 120000 },
+  );
+  assert.equal(
+    (await state()).tick,
+    watchPaused.tick,
+    "Preparation leaves the paused match unchanged",
+  );
+  assert.ok(
+    await page.evaluate(
+      (before) => window.__testFrames > before + 10,
+      framesBeforeIndex,
+    ),
+    "Preparation yields to rendering",
+  );
+  assert.equal(await page.locator(".watch-marker.goal").count(), 5);
+  assert.equal(await page.locator(".watch-marker.overtime").count(), 1);
+  assert.ok(await range.evaluate((e) => Number(e.max) > 300 * 120));
+  checks.push("watch preparation, goal markers, and overtime duration");
+
+  const idle = async () => page.locator(".watch-timeline:not(.busy)").waitFor();
+  const seekInput = async (tick) => {
+    await range.evaluate((input, value) => {
+      input.value = String(value);
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    }, tick);
+    await page.waitForFunction((tick) => {
+      const input = document.querySelector(".watch-range");
+      return (
+        Number(input.value) === tick &&
+        !document.querySelector(".watch-timeline").classList.contains("busy")
+      );
+    }, tick);
+  };
+  const firstGoal = page.locator(".watch-marker.goal").first();
+  const goalTick = Number(await firstGoal.getAttribute("data-tick"));
+  await firstGoal.click();
+  await page.waitForFunction(
+    (tick) => Number(document.querySelector(".watch-range").value) === tick,
+    Math.max(0, goalTick - 360),
+  );
+  await idle();
+  await page
+    .getByRole("button", { name: "Play replay", exact: true })
+    .waitFor();
+  assert.match(await firstGoal.getAttribute("title"), /Goal.*Car.*Match clock/);
+  await page.getByRole("button", { name: "Show saves" }).click();
+  await page.getByRole("button", { name: "Show demos" }).click();
+  assert.ok((await page.locator(".watch-marker.save:visible").count()) > 0);
+  assert.ok((await page.locator(".watch-marker.demo:visible").count()) > 0);
+  assert.ok((await page.locator(".watch-timeline").boundingBox()).height <= 50);
+  assert.equal(await page.locator(".hud-tip:visible").count(), 0);
+  await page
+    .getByRole("combobox", { name: "Follow car", exact: true })
+    .selectOption({ value: "3" });
+  assert.equal(
+    await page
+      .getByRole("combobox", { name: "Follow car", exact: true })
+      .inputValue(),
+    "3",
+  );
+  await page.screenshot({ path: "artifacts/browser/watch.png" });
+  await page
+    .getByRole("button", { name: "Next highlight", exact: true })
+    .click();
+  await idle();
+  await page
+    .getByRole("button", { name: "Previous highlight", exact: true })
+    .click();
+  await idle();
+  checks.push("clickable highlights and optional save and demolition markers");
+
+  await seekInput(0);
+  assert.equal((await state()).tick, 0);
+  await range.focus();
+  await range.press("End");
+  await page
+    .getByRole("button", { name: "Restart replay", exact: true })
+    .waitFor();
+  await idle();
+  assert.equal(await page.locator(".hud-scoreboard:visible").count(), 1);
+  await page.waitForTimeout(2700);
+  assert.equal(
+    await page.locator(".menu-root.visible").count(),
+    0,
+    "Watch completion does not cover the timeline with a menu",
+  );
+  await press("Escape");
+  await menu("RESUME").waitFor({ state: "visible" });
+  await menu("RESUME").click();
+  await range.press("Home");
+  await page.waitForFunction(
+    () => Number(document.querySelector(".watch-range").value) === 0,
+  );
+  await idle();
+  assert.equal(await page.locator(".hud-scoreboard:visible").count(), 0);
+  assert.equal(
+    await page.locator(".hud-banner.show").count(),
+    0,
+    "Seeking clears the old result banner",
+  );
+  await page.getByRole("combobox", { name: "Replay speed" }).selectOption("2");
+  await page.getByRole("button", { name: "Play replay", exact: true }).click();
+  await page.waitForFunction(
+    () => Number(document.querySelector(".watch-range").value) > 30,
+  );
+  await page.getByRole("button", { name: "Pause replay", exact: true }).click();
+  await page.evaluate(() => document.activeElement.blur());
+  await page.keyboard.press("ArrowRight");
+  await idle();
+  const beforeDrag = await range.evaluate((e) => Number(e.value));
+  const bounds = await range.boundingBox();
+  await page.mouse.move(
+    bounds.x + bounds.width * 0.25,
+    bounds.y + bounds.height / 2,
+  );
+  await page.mouse.down();
+  await page.mouse.move(
+    bounds.x + bounds.width * 0.65,
+    bounds.y + bounds.height / 2,
+    { steps: 4 },
+  );
+  await page.mouse.up();
+  await idle();
+  assert.ok(
+    await range.evaluate((e, before) => Number(e.value) > before, beforeDrag),
+  );
+  await page
+    .getByRole("button", { name: "Play replay", exact: true })
+    .waitFor();
+  await page.getByRole("button", { name: "Play replay", exact: true }).click();
+  await page.mouse.move(
+    bounds.x + bounds.width * 0.3,
+    bounds.y + bounds.height / 2,
+  );
+  await page.mouse.down();
+  await page
+    .getByRole("button", { name: "Play replay", exact: true })
+    .waitFor();
+  await page.mouse.move(
+    bounds.x + bounds.width * 0.4,
+    bounds.y + bounds.height / 2,
+  );
+  await page.mouse.up();
+  await page
+    .getByRole("button", { name: "Pause replay", exact: true })
+    .waitFor();
+  await idle();
+  await page.getByRole("button", { name: "Pause replay", exact: true }).click();
+  checks.push(
+    "range keyboard seeking, pointer scrubbing, pause, speed, and end rewind",
+  );
+
+  await range.press("End");
+  await page
+    .getByRole("button", { name: "Restart replay", exact: true })
+    .waitFor();
+  await idle();
+  await press("Escape");
+  await menu("RESUME").waitFor({ state: "visible" });
+  assert.ok(await page.locator(".watch-timeline").evaluate((e) => e.inert));
+  await menu("EXIT TO MAIN MENU").click();
+  await menu("FREE PLAY").click();
+  assert.equal(await page.locator(".watch-timeline").count(), 0);
+  assert.equal(await page.locator(".hud.watching").count(), 0);
+  assert.equal(await page.locator(".hud-banner.show").count(), 0);
+  assert.equal(await page.locator(".hud-scoreboard:visible").count(), 0);
+  checks.push("watch controls stop when leaving the replay");
   assert.deepEqual(errors, []);
   console.log(
     JSON.stringify(

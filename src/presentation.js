@@ -19,7 +19,7 @@ export class Presentation {
     this.audio.whistle();
     this.audio.silenceCars();
     this.hud.showScoreboard(true, this.scoreRows());
-    this.onMatchEnd?.(team);
+    if (!this.watch) this.onMatchEnd?.(team);
   }
   presentEvent(event) {
     const player = this.player;
@@ -99,7 +99,7 @@ export class Presentation {
       this.fps = this.fpsFrames / this.fpsAcc;
       this.fpsAcc = this.fpsFrames = 0;
     }
-    if (!this.paused && !this.watch?.paused) {
+    if (!this.paused && !this.watch?.paused && !this.seeking) {
       if (this.followed()) {
         if (this.settings.camera.ballCamMode === "hold")
           this.camera.ballCam =
@@ -117,14 +117,22 @@ export class Presentation {
       const limit = Math.ceil(12 * speed);
       this.acc += delta * speed;
       let ticks = 0;
-      while (this.acc >= step && ticks < limit) {
+      while (this.acc >= step && ticks < limit && !this.seeking) {
         this.acc -= step;
         ticks++;
         this.tick(input);
       }
       if (ticks >= limit) this.acc = 0;
     }
-    this.render(delta, this.paused ? 1 : this.acc / step, input);
+    if (this.seeking) {
+      this.renderer.render();
+      return;
+    }
+    this.render(
+      delta,
+      this.paused || this.watch?.paused ? 1 : this.acc / step,
+      input,
+    );
   }
   /** The car the camera follows: the player, or the watched car when spectating. */
   followed() {

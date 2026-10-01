@@ -16,6 +16,8 @@ The browser files have separate functions:
 - `src/simulation-state.js`: decode the Rust state buffer.
 - `src/view.js`: data containers and graphics interpolation helpers. These have no physics methods.
 - `src/presentation.js`: draw state, store replay images, update audio, and display the HUD.
+- `src/watch-replay.js`: prepare arena watch timelines and restore exact Rust checkpoints for seeking.
+- `src/replay-timeline.js`: watch controls and highlight markers. Its separate stylesheet leaves the captured styles unchanged.
 - `src/game.js`: existing graphics, menus, input, and browser startup.
 
 Rust also supplies arena dimensions, car geometry, pad positions, and arena queries.
@@ -189,6 +191,9 @@ The JavaScript fixtures supply test inputs and serialize results. They contain n
 
 `test:presentation` checks a complete match, replay buffers, scoreboard display, overtime banners, and match-end callbacks.
 It also checks live input settings. `test:cli` checks parallel determinism, invalid arguments, and tick limits.
+Node replay tests compare full hidden-state hashes after seeks with uninterrupted playback.
+They also check continued playback, goal-replay images, highlight times, cancellation, and checkpoint cleanup.
+Browser checks cover the watch timeline, markers, pointer scrubbing, keyboard seeking, and leaving watch mode.
 
 CI runs on Windows and Linux. Local checks alone do not prove another platform.
 These tests cover selected cases, not every possible input or platform.

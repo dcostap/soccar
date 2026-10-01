@@ -1,6 +1,8 @@
 import { readSimulationState } from "./simulation-state.js";
 import { createWorldView } from "./view.js";
 import { Presentation } from "./presentation.js";
+import { WatchReplay, REPLAY_INPUT } from "./watch-replay.js";
+import { ReplayTimeline } from "./replay-timeline.js";
 
 export function simulationGeometry(wasm) {
   const read = wasm.sim_geometry_value;
@@ -117,10 +119,14 @@ export async function createRustGame(
     }
     destroy() {
       clearTimeout(this.tipTimer);
+      this.stopWatchReplay();
+      globalThis.removeEventListener?.("keydown", this.watchKeyHandler);
       if (this.handle) wasm.sim_destroy(this.handle);
       this.handle = 0;
     }
     clearPresentation() {
+      clearTimeout(this.tipTimer);
+      this.stopWatchReplay();
       this.renderer.removeAllCars();
       this.world = createWorldView();
       this.replayBuf = [];
@@ -129,6 +135,14 @@ export async function createRustGame(
       this.camera.reset();
       this.hud.setReplay(false);
       this.hud.showScoreboard(false);
+    }
+    stopWatchReplay() {
+      if (this.watchReplay) this.clearWatchEffects();
+      this.timeline?.destroy();
+      this.timeline = null;
+      this.watchReplay?.dispose();
+      this.watchReplay = null;
+      this.seeking = false;
     }
     /** Sets the brain for a team from `.brain` text. Empty text restores the difficulty preset. */
     setBrain(team, text) {
@@ -196,6 +210,18 @@ export async function createRustGame(
       if (this.watch) this.showWatchTip();
       this.renderer.ball.visible = true;
       this.snapshotNow();
+      if (this.watch) {
+        this.watchReplay = new WatchReplay(
+          wasm,
+          this.handle,
+          this.settings,
+          api.geometry.dt,
+          this.unlimitedBoost,
+        );
+        this.watchPreparation = this.watchReplay.prepare();
+        if (this.hud.root?.nodeType === 1)
+          this.timeline = new ReplayTimeline(this, this.hud.root);
+      }
     }
     /** Starts the match in the page URL, if any. Called once after the menu opens. */
     startFromUrl(app) {
@@ -218,35 +244,102 @@ export async function createRustGame(
       this.hud.setTip(
         `WATCHING #${w.id} &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ` +
           `CAMERA ${car ? `${car.name} (${side})` : "-"} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
-          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ESC MENU`,
+          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; ESC MENU`,
       );
     }
     /** Spectator keys while watching. */
     watchKey(event) {
       const w = this.watch;
-      if (!w) return;
+      if (
+        !w ||
+        this.paused ||
+        event.defaultPrevented ||
+        event.ctrlKey ||
+        event.altKey ||
+        event.metaKey ||
+        event.target?.closest?.(
+          "input, select, textarea, button, [contenteditable='true']",
+        )
+      )
+        return;
       const digit = /^Digit([1-6])$/.exec(event.code);
       if (digit && Number(digit[1]) <= this.world.cars.length) {
         w.follow = Number(digit[1]) - 1;
         this.camera.reset();
       } else if (event.code === "Period") w.speed = Math.min(16, w.speed * 2);
       else if (event.code === "Comma") w.speed = Math.max(0.25, w.speed / 2);
-      else if (event.code === "KeyP") w.paused = !w.paused;
-      else return;
+      else if (event.code === "KeyP" && !event.repeat) w.paused = !w.paused;
+      else if (
+        ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.code)
+      ) {
+        const replay = this.watchReplay;
+        if (replay?.total === null || !replay) return;
+        const target =
+          event.code === "Home"
+            ? 0
+            : event.code === "End"
+              ? replay.total
+              : replay.position +
+                (event.code === "ArrowLeft" ? -5 : 5) / replay.dt;
+        this.seekWatch(target);
+      } else return;
+      event.preventDefault();
+      this.showWatchTip();
+    }
+    frame(delta, input) {
+      super.frame(delta, input);
+      this.timeline?.update();
+    }
+    seekWatch(tick) {
+      return this.watchReplay?.seek(this, tick) ?? Promise.resolve(false);
+    }
+    clearWatchEffects() {
+      this.hud.clearTransient?.();
+      this.hud.showScoreboard(false);
+      this.audio.silenceCars();
+      this.renderer.clearReplayEffects?.();
+      this.camera.reset();
+      this.camera.shakeAmount = this.camera.shakeTime = 0;
+      this.excitement = 0.3;
+    }
+    finishWatchSeek() {
+      // Draw the selected state, not an interpolation from before the seek.
+      this.prev = this.cur;
+      this.hud.setReplay(this.phase === "replay");
+      this.renderer.ball.visible = this.phase !== "goal";
+      if (this.phase === "replay") {
+        const frame = this.replayBuf[this.replayIdx];
+        if (frame) this.replayCam.snap(frame.ballPos);
+      }
+      if (this.phase === "ended") {
+        const winner = this.score[0] > this.score[1] ? 0 : 1;
+        this.hud.showBanner(
+          winner === 0 ? "BLUE WINS" : "ORANGE WINS",
+          this.watchResult()?.text ?? "",
+          winner === 0 ? "blue" : "orange",
+          999,
+        );
+        this.hud.showScoreboard(true, this.scoreRows());
+      }
       this.showWatchTip();
     }
     showMatchEnded(team) {
       super.showMatchEnded(team);
+      const result = this.watchResult();
+      if (result) this.hud.notify(result.text, result.color);
+    }
+    watchResult() {
       const expect = this.watch?.expect;
       if (expect) {
         const same = expect[0] === this.score[0] && expect[1] === this.score[1];
-        this.hud.notify(
-          same
+        return {
+          text: same
             ? `Replay matches the arena result ${expect.join("-")}`
             : `Arena recorded ${expect.join("-")}: brain code or physics changed since`,
-          same ? "blue" : "orange",
-        );
+          color: same ? "blue" : "orange",
+        };
       }
+      return null;
     }
     resetFreeplay() {
       wasm.sim_command(this.handle, 1, 0);
@@ -258,19 +351,31 @@ export async function createRustGame(
       this.sync();
     }
     endReplay() {
+      if (this.watch && !this.watchReplay?.error) {
+        const replay = this.watchReplay;
+        const clip = replay?.clips.find(
+          (c) => c.start <= replay.position && replay.position < c.end,
+        );
+        if (clip && replay.total !== null) this.seekWatch(clip.end);
+        return;
+      }
       wasm.sim_command(this.handle, 4, 0);
       const events = this.sync();
       this.phasePresentation("replay");
       if (this.phase === "countdown") this.snapshotNow();
       this.present(events);
     }
-    tick(frame) {
+    tick(frame, silent = false) {
       const before = this.phase;
       const worldTick = this.world.tick;
       this.previousStats = this.stats;
-      wasm.sim_command(this.handle, 5, Number(this.unlimitedBoost));
+      wasm.sim_command(
+        this.handle,
+        5,
+        Number(this.watchReplay?.unlimitedBoost ?? this.unlimitedBoost),
+      );
       wasm.sim_command(this.handle, 6, this.settings.input.dodgeDeadzone);
-      const c = frame.controls;
+      const c = this.watch ? REPLAY_INPUT.controls : frame.controls;
       wasm.sim_tick(
         this.handle,
         c.throttle,
@@ -284,7 +389,8 @@ export async function createRustGame(
         c.dodgeMag ?? -1,
       );
       const events = this.sync();
-      this.phasePresentation(before);
+      if (this.watchReplay && before !== "ended") this.watchReplay.position++;
+      if (!silent) this.phasePresentation(before);
       if (this.world.tick !== worldTick) {
         if (before !== "countdown") this.recordReplay();
         this.snapshotNow();
@@ -293,7 +399,7 @@ export async function createRustGame(
           this.snapshotNow();
       } else if (before === "replay" && this.phase === "countdown")
         this.snapshotNow();
-      this.present(events);
+      if (!silent) this.present(events);
     }
     phasePresentation(before) {
       if (before !== this.phase) {
@@ -369,6 +475,7 @@ export async function createRustGame(
     }
   }
   const game = new RustGame();
-  globalThis.addEventListener?.("keydown", (event) => game.watchKey(event));
+  game.watchKeyHandler = (event) => game.watchKey(event);
+  globalThis.addEventListener?.("keydown", game.watchKeyHandler);
   return game;
 }

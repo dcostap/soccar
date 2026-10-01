@@ -39443,6 +39443,25 @@ var my = {
       }
       this.cars.clear();
     }
+    clearReplayEffects() {
+      for (const particle of this.particles.pool) particle.alive = false;
+      this.particles.update(0);
+      this.shockwave.t = 1;
+      this.shockwave.mesh.visible = false;
+      this.flashLight.intensity = this.ballGlowTimer = 0;
+      for (const car of this.cars.values()) {
+        for (const trail of [car.trailL, car.trailR]) {
+          trail.reset();
+          trail.intensity = trail.mat.uniforms.uIntensity.value = 0;
+          trail.alphaArr.fill(0);
+          trail.geo.attributes.aAlpha.needsUpdate = true;
+        }
+        for (const streak of [...car.streaks.flat(), ...car.fires.flat()]) {
+          streak.pts.length = 0;
+          streak.mesh.visible = false;
+        }
+      }
+    }
     syncCar(e, t, n) {
       let r = this.ensureCar(e.id, e.team, e.name);
       e.id === n && this.shadowFocus.set(e.pos.x, e.pos.y, 0);
@@ -41064,6 +41083,13 @@ var hb = class {
           this.tipFn && (this.tip.innerHTML = this.tipFn());
         })));
   }
+  clearTransient() {
+    this.bannerTimer = this.centerTimer = 0;
+    this.banner.classList.remove(`show`);
+    this.bannerSub.classList.remove(`show`);
+    this.center.className = `hud-center`;
+    this.feed.replaceChildren();
+  }
   tipFn = null;
   tipHooked = !1;
   setDebug(e) {
@@ -41907,7 +41933,7 @@ var kx = {
 };
 ((Dx.onMatchEnd = () => {
   setTimeout(() => {
-    Dx.phase === `ended` && Ex.push(ax(kx));
+    !Dx.watch && Dx.phase === `ended` && Ex.push(ax(kx));
   }, 2500);
 }),
   Dx.startMenuBackground(),
@@ -41996,7 +42022,7 @@ function Rx(e) {
         Ex.open || wx.suppressHeld())
       : n.pausePressed &&
         (Dx.mode === `freeplay` || Dx.mode === `match`) &&
-        Dx.phase !== `ended` &&
+        (Dx.phase !== `ended` || Dx.watch) &&
         ((Dx.paused = !0),
         (wx.captureMouse = !1),
         Tx.silenceCars(),
@@ -42014,7 +42040,10 @@ function Rx(e) {
           },
         }
       : n;
-  (Tx.setPaused(Dx.paused && Dx.mode !== `menu`), Dx.frame(t, i));
+  (Tx.setPaused(
+    (Dx.paused || Dx.watch?.paused || Dx.seeking) && Dx.mode !== `menu`,
+  ),
+    Dx.frame(t, i));
   let a = wx.getGamepad();
   ((Ox.textContent = a
     ? `🎮 ${zx(a.id)}${a.mapping === `standard` ? `` : ` (non-standard mapping)`}`

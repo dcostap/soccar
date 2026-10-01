@@ -106,7 +106,7 @@ export async function loadTestSimulation() {
     geometry: simulationGeometry(instance.exports),
   };
 }
-export async function createTestPresentation(seed = 12345) {
+export async function createTestPresentation(seed = 12345, loaded) {
   const calls = [];
   const service = new Proxy(
     {},
@@ -149,6 +149,7 @@ export async function createTestPresentation(seed = 12345) {
     gameplay: { defaultBallCam: true, playerName: "Player" },
     input: { dodgeDeadzone: 0.5 },
   };
+  const engine = loaded ?? (await loadTestSimulation());
   const game = await createRustGame(
     api,
     renderer,
@@ -157,7 +158,7 @@ export async function createTestPresentation(seed = 12345) {
     service,
     settings,
     seed,
-    await loadTestSimulation(),
+    engine,
   );
-  return { game, calls, settings };
+  return { game, calls, settings, wasm: engine.wasm };
 }

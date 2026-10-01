@@ -118,8 +118,29 @@ The page shows the maps under Positions, in each brain's details, and in each ma
 `show <id>` and the page's Watch buttons open the game with the match in the link.
 The game replays it from the seed and the brain settings, with goal replays.
 Keys: `1`-`6` follow a car, `,` and `.` change speed, `P` pauses, `Esc` opens the menu.
+Keys `Left` and `Right` seek five seconds. `Home` and `End` seek to the start and end.
+
+The watch timeline shows elapsed playback time and total playback time.
+This time includes countdowns, goal replays, and overtime, not just the match clock.
+Drag the slider to seek. Playback pauses during dragging, then returns to its previous pause setting.
+The timeline also has pause, speed, and previous/next highlight controls.
+
+Team-colored goal markers and an overtime marker show the main highlights.
+Hover over a marker for its time and details. Click it to seek three seconds before the event.
+Use the shield and cross buttons to show save and demolition markers above the track.
+The camera selector changes the followed car. Hover over an icon to see its function.
+At the end, rewind or use Restart. The live-match result menu does not cover the watch timeline.
+
+Preparation runs in short slices while watching continues. Seeking becomes available after preparation finishes.
+Checkpoints keep complete Rust state, including brains and random state.
+Seeking rebuilds goal-replay images and does not play skipped sounds or effects.
+Leaving watch mode releases all checkpoints and removes the timeline.
+If preparation exceeds 300,000 controller ticks, watching continues without seeking.
+These controls apply to arena Watch links. They do not record player-controlled matches.
+
 At the end, the game reports whether the score matches the log. A mismatch means brain code or physics changed.
 `npm run test:arena` checks that recorded matches replay exactly through the browser path.
+`npm test` compares seeking and continued playback with uninterrupted playback, including full hidden state and goal-replay images.
 
 The game menu also lists arena brains under Bot Difficulty, so you can play against any of them.
 Restart `npm run dev`, or reload the page, after an export to refresh that list.
