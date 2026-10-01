@@ -1,5 +1,7 @@
-//! Contest brain "alpha". It grew from the classic bot: the same intercept and car control,
-//! with a team structure (attacker, second man, goalie), kickoff roles, and better shot aim.
+//! Contest brain "alpha". It grew from the classic bot and keeps its intercept and car control.
+//! What changed: every car that is goal-side of the ball attacks it (the goalie only inside `boxdist`),
+//! cars caught upfield retreat to the far post around the ball, flips never send the ball toward the own goal,
+//! and the reach estimate is more optimistic about turning. See arena/contest/alpha.md.
 use super::{Brain, Context, Params};
 use crate::{
     DT,
@@ -50,17 +52,10 @@ pub struct Settings {
     pub safeflip: bool,
     /// Steer around the ball while retreating.
     pub avoid: bool,
-    /// When an opponent reaches the ball this many seconds sooner, the attacker shadows instead of challenging.
-    /// Zero disables shadowing.
-    pub shadow: f64,
-    /// The goalie fetches a big pad near its goal below this much boost while the ball is in the other half.
-    pub goaliepad: f64,
     /// Speed of supports on their way to position.
     pub supportspeed: f64,
     /// The attacker boosts when the speed it needs exceeds this.
     pub attackboost: f64,
-    /// The goalie moves to where the predicted ball crosses the goal line and jumps for high balls.
-    pub keeper: bool,
     /// Upfield share of the clearing direction when hitting the ball away from the own goal.
     pub clear: f64,
     /// Seconds added per radian of turning in the reach estimate.
@@ -71,10 +66,6 @@ pub struct Settings {
     pub boxdist: f64,
     /// Supports also attack a ball this close to the own goal while goal-side of it. Zero disables it.
     pub supportbox: f64,
-    /// Supports and the goalie steer around the ball when retreating past it.
-    pub avoidall: bool,
-    /// Distance the shadowing attacker keeps from the ball, toward its own goal.
-    pub shadowdist: f64,
 }
 impl Settings {
     pub fn from_params(params: &mut Params) -> Result<Self, String> {
@@ -100,18 +91,13 @@ impl Settings {
             sidepost: params.number("sidepost", 700.0)?,
             safeflip: params.flag("safeflip", true)?,
             avoid: params.flag("avoid", true)?,
-            shadow: params.number("shadow", 0.0)?,
-            goaliepad: params.number("goaliepad", 0.0)?,
             supportspeed: params.number("supportspeed", 1700.0)?,
             attackboost: params.number("attackboost", 1300.0)?,
-            keeper: params.flag("keeper", false)?,
             clear: params.number("clear", 0.6)?,
             turn: params.number("turn", 0.3)?,
             pace: params.number("pace", 1.0)?,
             boxdist: params.number("boxdist", 6000.0)?,
             supportbox: params.number("supportbox", 20000.0)?,
-            avoidall: params.flag("avoidall", false)?,
-            shadowdist: params.number("shadowdist", 1400.0)?,
         })
     }
 }
@@ -132,21 +118,6 @@ impl Brain for Alpha {
     fn tick(&mut self, ctx: &Context, out: &mut [Controls]) {
         let roles = self.bots.first().map_or(0, |b| b.settings.roles);
         assign_roles(ctx.world, self.team, &mut self.bots, ctx.player, roles);
-        let direction = if self.team == 0 { 1.0 } else { -1.0 };
-        let depth = |b: &Bot| ctx.world.cars[b.car].pos.y * direction;
-        let deepest = self
-            .bots
-            .iter()
-            .filter(|b| !ctx.world.cars[b.car].is_demoed)
-            .map(|b| b.car)
-            .reduce(|a, b| {
-                let (ba, bb) = (&ctx.world.cars[a], &ctx.world.cars[b]);
-                let _ = depth;
-                if ba.pos.y * direction <= bb.pos.y * direction { a } else { b }
-            });
-        for bot in &mut self.bots {
-            bot.last_line = Some(bot.car) == deepest;
-        }
         for (bot, out) in self.bots.iter_mut().zip(out) {
             *out = bot.tick(ctx.world, ctx.predictor);
         }
@@ -197,8 +168,6 @@ pub struct Bot {
     pub target: Vec3,
     pub kickoff_flip_done: bool,
     pub role: u8,
-    /// Closest to the own goal of the team's bots.
-    pub last_line: bool,
 }
 impl Bot {
     pub fn new(car: usize, settings: Settings) -> Self {
@@ -211,7 +180,6 @@ impl Bot {
             target: Vec3::default(),
             kickoff_flip_done: false,
             role: ATTACK,
-            last_line: false,
         }
     }
     pub fn reset(&mut self) {
@@ -230,7 +198,13 @@ impl Bot {
         let direction = if car.team == 0 { 1.0 } else { -1.0 };
         let own_goal = Vec3::new(0.0, -direction * 5120.0, 0.0);
         let post = settings.post;
-        let goal_for = |pos: Vec3| Vec3::new(clamp(pos.x, -post, post), direction * (5120.0 + 400.0), 150.0);
+        let goal_for = |pos: Vec3| {
+            Vec3::new(
+                clamp(pos.x, -post, post),
+                direction * (5120.0 + 400.0),
+                150.0,
+            )
+        };
         if matches!(self.maneuver, Maneuver::Flip { .. }) {
             return self.run_flip(car, DT);
         }
@@ -294,27 +268,18 @@ impl Bot {
                 aim = aim.normalized();
                 let point = slice.pos.with_scaled(aim, -(91.25 + 50.0));
                 let travel = hypot2(point.x - car.pos.x, point.y - car.pos.y) / pace;
-                if travel <= slice.t && estimate_time(car, point, slice.pos.z, travel, settings.turn) <= slice.t {
+                if travel <= slice.t
+                    && estimate_time(car, point, slice.pos.z, travel, settings.turn) <= slice.t
+                {
                     chosen = Some(slice);
                     break;
                 }
             }
-            let ours = chosen.map_or(f64::INFINITY, |s| s.t);
             let slice = chosen.or(last).unwrap_or(Slice {
                 t: 0.0,
                 pos: ball.pos,
                 vel: ball.vel,
             });
-            let crossing = if settings.keeper {
-                predictor
-                    .slices
-                    .iter()
-                    .take_while(|s| s.t <= 2.5)
-                    .find(|s| s.pos.y * direction < -5000.0)
-                    .filter(|s| s.pos.x.abs() < 1100.0)
-            } else {
-                None
-            };
             let reach = match self.role {
                 GOALIE => settings.boxdist,
                 SUPPORT => settings.supportbox,
@@ -323,36 +288,9 @@ impl Bot {
             let defend =
                 ball.pos.distance(own_goal) < reach && (car.pos.y - ball.pos.y) * direction < 0.0;
             let role = if defend { ATTACK } else { self.role };
-            if (role == GOALIE || (role != ATTACK && self.last_line)) && let Some(cross) = crossing {
-                self.target = Vec3::new(
-                    clamp(cross.pos.x, -850.0, 850.0),
-                    own_goal.y + direction * 150.0,
-                    0.0,
-                );
-                let distance = car.pos.distance(self.target);
-                speed = 2300.0;
-                boost = settings.boost && distance > 400.0;
-                let offset = ball.pos.minus(car.pos);
-                if car.is_on_ground
-                    && hypot2(offset.x, offset.y) < 450.0
-                    && ball.pos.z > 170.0
-                    && ball.pos.z < 600.0
-                {
-                    output.jump = true;
-                    output.throttle = 1.0;
-                    self.out = output;
-                    return output;
-                }
-            } else if role == GOALIE {
+            if role == GOALIE {
                 let x = clamp(ball.pos.x * 0.3, -700.0, 700.0);
                 self.target = Vec3::new(x, own_goal.y + direction * settings.goalie, 0.0);
-                if car.boost < settings.goaliepad
-                    && ball.pos.y * direction > 0.0
-                    && let Some(pad) = nearest_pad(world, car.pos, true)
-                    && (pad.y - own_goal.y).abs() < 1500.0
-                {
-                    self.target = pad;
-                }
                 let distance = car.pos.distance(self.target);
                 if distance < 200.0 {
                     output.throttle = clamp(-car.forward_speed() / 400.0, -1.0, 1.0);
@@ -371,23 +309,6 @@ impl Bot {
                 {
                     self.target = pad;
                 }
-            } else if settings.shadow > 0.0
-                && (car.pos.y - ball.pos.y) * direction < 0.0
-                && opponent_arrival(world, car.team, predictor, settings.predict) + settings.shadow < ours
-            {
-                // Stay between the ball and the own goal until the opponent commits.
-                let back = own_goal.minus(ball.pos);
-                let back = Vec3::new(back.x, back.y, 0.0).normalized();
-                self.target = ball.pos.with_scaled(back, settings.shadowdist);
-                self.target.z = 0.0;
-                let distance = car.pos.distance(self.target);
-                if distance < 300.0 {
-                    self.target = ball.pos;
-                    speed = 600.0;
-                } else {
-                    speed = clamp(distance * 1.5, 600.0, 2300.0);
-                    boost = settings.boost && distance > 1500.0;
-                }
             } else {
                 let mut aim = goal_for(slice.pos).minus(slice.pos);
                 aim.z = 0.0;
@@ -398,7 +319,11 @@ impl Bot {
                 if ahead && (danger || (slice.pos.y - own_goal.y).abs() < 3000.0) {
                     let signed = sign(if slice.pos.x == 0.0 { 1.0 } else { slice.pos.x });
                     let side = if settings.farpost { -signed } else { signed };
-                    let save = Vec3::new(side * settings.sidepost, own_goal.y + direction * 200.0, 0.0);
+                    let save = Vec3::new(
+                        side * settings.sidepost,
+                        own_goal.y + direction * 200.0,
+                        0.0,
+                    );
                     if (car.pos.y - own_goal.y) * direction > 800.0 {
                         self.target = save;
                         if settings.avoid {
@@ -411,8 +336,11 @@ impl Bot {
                         boost = settings.boost;
                     }
                 } else {
-                    let offset = clamp(car.pos.distance(slice.pos) * settings.lineup, 91.25 + 40.0, 700.0)
-                        * settings.aim
+                    let offset = clamp(
+                        car.pos.distance(slice.pos) * settings.lineup,
+                        91.25 + 40.0,
+                        700.0,
+                    ) * settings.aim
                         + (91.25 + 40.0) * (1.0 - settings.aim);
                     self.target = slice.pos.with_scaled(aim, -offset);
                     let distance = car.pos.distance(self.target);
@@ -467,13 +395,6 @@ impl Bot {
                     }
                 }
             }
-        }
-        if settings.avoidall
-            && !kickoff
-            && self.role != ATTACK
-            && (car.pos.y - ball.pos.y) * direction > 0.0
-        {
-            self.target = avoid_ball(car.pos, self.target, ball.pos, own_goal);
         }
         self.drive_to(
             car,
@@ -619,34 +540,6 @@ impl Bot {
         Some(out)
     }
 }
-/// The earliest time any opponent can reach the ball, by the same estimate the bot uses for itself.
-fn opponent_arrival(world: &World, team: usize, predictor: &Predictor, horizon: f64) -> f64 {
-    let mut best = f64::INFINITY;
-    for car in &world.cars {
-        if car.team == team || car.is_demoed {
-            continue;
-        }
-        let speed = car.forward_speed().max(0.0);
-        let maximum = if car.boost > 10.0 { 2000.0 } else { 1350.0 };
-        let time = ((maximum - speed) / 1400.0).max(0.0);
-        let pace = (speed + (maximum - speed) * (0.5 * time).min(1.0)).max(400.0);
-        for slice in &predictor.slices {
-            if slice.t > horizon || slice.t >= best {
-                break;
-            }
-            if slice.pos.z > 300.0 {
-                continue;
-            }
-            let distance = hypot2(slice.pos.x - car.pos.x, slice.pos.y - car.pos.y) - 141.25;
-            let travel = distance.max(0.0) / pace;
-            if travel <= slice.t && estimate_time(car, slice.pos, slice.pos.z, travel, 0.45) <= slice.t {
-                best = slice.t;
-                break;
-            }
-        }
-    }
-    best
-}
 /// If the ball lies near the straight path to `target`, go to a point beside it, toward the goal center line.
 fn avoid_ball(from: Vec3, target: Vec3, ball: Vec3, own_goal: Vec3) -> Vec3 {
     let path = Vec3::new(target.x - from.x, target.y - from.y, 0.0);
@@ -666,8 +559,16 @@ fn avoid_ball(from: Vec3, target: Vec3, ball: Vec3, own_goal: Vec3) -> Vec3 {
     }
     // Pass between the ball and the center line, so a graze pushes the ball toward the side wall.
     let normal = Vec3::new(along.y, -along.x, 0.0);
-    let side = if (ball.x - own_goal.x) * normal.x >= 0.0 { -1.0 } else { 1.0 };
-    Vec3::new(ball.x + normal.x * side * 500.0, ball.y + normal.y * side * 500.0, 0.0)
+    let side = if (ball.x - own_goal.x) * normal.x >= 0.0 {
+        -1.0
+    } else {
+        1.0
+    };
+    Vec3::new(
+        ball.x + normal.x * side * 500.0,
+        ball.y + normal.y * side * 500.0,
+        0.0,
+    )
 }
 /// `travel` is the horizontal distance divided by the average speed.
 fn estimate_time(car: &Car, target: Vec3, height: f64, travel: f64, turn: f64) -> f64 {
@@ -718,7 +619,8 @@ fn assign_roles(world: &World, team: usize, bots: &mut [Bot], player: Option<usi
     };
     let cost = |id: usize| {
         let car = &world.cars[id];
-        car.pos.distance(world.ball.pos) + ((car.pos.y - world.ball.pos.y) * direction).max(0.0) * 1.5
+        car.pos.distance(world.ball.pos)
+            + ((car.pos.y - world.ball.pos.y) * direction).max(0.0) * 1.5
     };
     let best = ids().reduce(|a, b| if cost(a) < cost(b) { a } else { b });
     let mut goalie = None;
