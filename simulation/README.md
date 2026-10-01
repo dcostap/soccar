@@ -172,6 +172,10 @@ It checks full hidden state and the browser state buffer. It has no tolerances o
 Cases cover menu play, freeplay, all team sizes and skills, player controls, commands, and restarts.
 `--full` adds three complete five-minute 3v3 matches, including overtime and replay timing.
 
+Use `node scripts/check-simulation.mjs --full --brains blue.brain orange.brain` to check custom brains with the same state stream.
+This checks native/WASM parity, not the classic baseline hashes. Custom brain checks reject `--record`.
+The normal check still compares every existing baseline hash.
+
 `simulation/regression.json` stores SHA-256 hashes of accepted Rust state streams and match results.
 These hashes detect changes even when native and WASM implementations change together.
 The current baseline was recorded after replacing the JavaScript-compatible math with `libm` trigonometry

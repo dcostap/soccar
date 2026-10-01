@@ -10,6 +10,19 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const debug = process.argv.includes("--debug"),
   record = process.argv.includes("--record"),
   full = process.argv.includes("--full");
+const brainArg = process.argv.indexOf("--brains");
+const brainPaths =
+  brainArg < 0 ? [] : process.argv.slice(brainArg + 1, brainArg + 3);
+if (
+  brainArg >= 0 &&
+  (brainPaths.length !== 2 || brainPaths.some((p) => p.startsWith("--")))
+)
+  throw new Error("Use --brains blue.brain orange.brain");
+if (brainPaths.length && record)
+  throw new Error("Custom brain checks cannot record the regression baseline");
+const brainTexts = await Promise.all(
+  brainPaths.map((p) => readFile(p, "utf8")),
+);
 const scenarios = cases(full);
 const build = spawnSync(
   "cargo",
@@ -59,7 +72,10 @@ const bin = fileURLToPath(
     import.meta.url,
   ),
 );
-const child = spawn(bin, [], { cwd: root, stdio: ["pipe", "pipe", "pipe"] });
+const child = spawn(bin, brainPaths, {
+  cwd: root,
+  stdio: ["pipe", "pipe", "pipe"],
+});
 let stderr = "";
 child.stderr.on("data", (b) => (stderr += b));
 const exited = new Promise((resolve, reject) => {
@@ -79,6 +95,13 @@ let index = 0,
 function start() {
   const c = scenarios[index];
   handle = wasm.sim_create(c.seed);
+  for (const [team, text] of brainTexts.entries()) {
+    const bytes = new TextEncoder().encode(text);
+    const pointer = wasm.sim_text(handle, bytes.length);
+    new Uint8Array(wasm.memory.buffer, pointer, bytes.length).set(bytes);
+    if (!wasm.sim_brain(handle, team))
+      throw new Error(`Invalid brain for team ${team}`);
+  }
   if (
     !wasm.sim_start(handle, c.mode, c.size, c.skill, c.player, c.duration, 0.5)
   )
@@ -140,7 +163,11 @@ try {
         };
         if (c.name.startsWith("full-") && model.phase !== "ended")
           throw new Error(`Incomplete match: ${c.name}`);
-        if (!record && !isDeepStrictEqual(result, golden[c.name])) {
+        if (
+          !record &&
+          !brainPaths.length &&
+          !isDeepStrictEqual(result, golden[c.name])
+        ) {
           difference = {
             case: c.name,
             reason: "Rust regression changed",
@@ -233,6 +260,7 @@ try {
   const report = {
     status: difference ? "FAIL" : "PASS",
     mode: debug ? "debug" : "release",
+    ...(brainPaths.length ? { brains: brainPaths } : {}),
     cases: scenarios.length,
     states,
     fields,
@@ -244,7 +272,7 @@ try {
   });
   await writeFile(
     new URL(
-      `../artifacts/simulation/${debug ? "debug" : "release"}.json`,
+      `../artifacts/simulation/${debug ? "debug" : "release"}${brainPaths.length ? "-brains" : ""}.json`,
       import.meta.url,
     ),
     JSON.stringify(report, null, 2),

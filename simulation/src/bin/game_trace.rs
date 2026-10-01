@@ -24,6 +24,21 @@ fn block(out: &mut impl Write, values: Vec<f64>) -> io::Result<()> {
     Ok(())
 }
 fn run() -> io::Result<()> {
+    // Optional brain files let the same exact-state check cover new modules.
+    let paths: Vec<_> = std::env::args().skip(1).collect();
+    let custom = match paths.as_slice() {
+        [] => None,
+        [blue, orange] => Some(
+            [blue, orange]
+                .map(|path| {
+                    let text = std::fs::read_to_string(path)?;
+                    BrainSpec::parse("custom", &text).map_err(io::Error::other)
+                })
+                .into_iter()
+                .collect::<io::Result<Vec<_>>>()?,
+        ),
+        _ => return Err(io::Error::other("Expected zero or two brain file paths")),
+    };
     let mut input = io::stdin().lock();
     let mut out = io::BufWriter::new(io::stdout().lock());
     let mut magic = [0; 4];
@@ -49,7 +64,10 @@ fn run() -> io::Result<()> {
         let mut game = Game::new(seed);
         let config = Config {
             team_size: size,
-            brains: [BrainSpec::preset(skill), BrainSpec::preset(skill)],
+            brains: custom.as_ref().map_or_else(
+                || [BrainSpec::preset(skill), BrainSpec::preset(skill)],
+                |brains| [brains[0].clone(), brains[1].clone()],
+            ),
             player_team: player,
             duration,
             ..Config::default()
