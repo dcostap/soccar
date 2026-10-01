@@ -18,7 +18,9 @@
     "test:browser": "node scripts/check-browser.mjs",
     "test:cli": "node scripts/check-native-cli.mjs",
     "benchmark": "node scripts/benchmark-matches.mjs",
-    "sim": "cargo run --release --locked --manifest-path simulation/Cargo.toml --bin soccar_sim --"
+    "sim": "cargo run --release --locked --manifest-path simulation/Cargo.toml --bin soccar_sim --",
+    "arena": "cargo run --release --locked --manifest-path arena/Cargo.toml --",
+    "test:arena": "cargo test --release --locked --manifest-path arena/Cargo.toml && npm run build:wasm && node scripts/check-arena-replay.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

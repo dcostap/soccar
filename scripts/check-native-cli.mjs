@@ -32,7 +32,9 @@ const parse = (text) =>
     .trim()
     .split("\n")
     .map((line) => {
+      // Wall-clock timings vary between runs.
       const { elapsedMs, ...result } = JSON.parse(line);
+      for (const team of result.teams) delete team.brainMs;
       return result;
     })
     .sort((a, b) => a.match - b.match);

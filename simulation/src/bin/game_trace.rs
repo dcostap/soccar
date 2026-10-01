@@ -1,6 +1,6 @@
 //! Bounded native state stream for regression and native/WASM consistency checks.
 use soccar_simulation::{
-    bot::Skill,
+    brains::{BrainSpec, Skill},
     car::Controls,
     game::{Config, Game, Phase},
     snapshot,
@@ -49,7 +49,7 @@ fn run() -> io::Result<()> {
         let mut game = Game::new(seed);
         let config = Config {
             team_size: size,
-            skills: [skill; 2],
+            brains: [BrainSpec::preset(skill), BrainSpec::preset(skill)],
             player_team: player,
             duration,
             ..Config::default()
@@ -57,7 +57,7 @@ fn run() -> io::Result<()> {
         match mode {
             0 => game.start_menu(),
             1 => game.start_freeplay(),
-            _ => game.start_match(config),
+            _ => game.start_match(config.clone()),
         }
         for tick in 0..=ticks {
             if tick > 0 {
@@ -78,7 +78,7 @@ fn run() -> io::Result<()> {
             }
             for &(_, op, value) in actions.iter().filter(|a| a.0 == tick) {
                 match op {
-                    7 => game.start_match(config),
+                    7 => game.start_match(config.clone()),
                     8 => game.start_freeplay(),
                     9 => game.start_menu(),
                     _ => game.command(op, value),

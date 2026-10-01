@@ -18,7 +18,7 @@ fn expired_game(score: [u32; 2]) -> Game {
         duration: 1.0 / 120.0,
         ..Config::default()
     });
-    g.bots.clear();
+    g.drivers.clear();
     g.phase = Phase::Playing;
     for c in &mut g.world.cars {
         c.frozen = false;

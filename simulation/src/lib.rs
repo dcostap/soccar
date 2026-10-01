@@ -2,11 +2,12 @@
 
 pub mod arena;
 pub mod ball;
-pub mod bot;
+pub mod brains;
 pub mod car;
 pub mod game;
 pub mod harness;
 pub mod math;
+pub mod predictor;
 pub mod random;
 pub mod rotation;
 pub mod snapshot;

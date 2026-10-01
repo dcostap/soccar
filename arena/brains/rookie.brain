@@ -1,0 +1,3 @@
+# The original bot at rookie difficulty: slow, no boost, no flips.
+module = classic
+preset = rookie

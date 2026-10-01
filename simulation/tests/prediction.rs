@@ -1,9 +1,9 @@
 //! Reused predictions must equal predictions computed from scratch, bit for bit.
 use soccar_simulation::{
     ball::Ball,
-    bot::Predictor,
     car::Controls,
     game::{Config, Game},
+    predictor::Predictor,
 };
 fn bits(b: &Ball) -> Vec<u64> {
     b.trace().map(f64::to_bits).to_vec()
@@ -31,7 +31,7 @@ fn reused_ball_predictions_match_fresh_predictions() {
             assert_eq!(bits(&reused.sim), bits(&fresh.sim));
             assert_eq!(reused.slices.len(), fresh.slices.len());
             for (a, b) in reused.slices.iter().zip(&fresh.slices) {
-                let values = |s: &soccar_simulation::bot::Slice| {
+                let values = |s: &soccar_simulation::predictor::Slice| {
                     [s.t, s.pos.x, s.pos.y, s.pos.z, s.vel.x, s.vel.y, s.vel.z].map(f64::to_bits)
                 };
                 assert_eq!(values(a), values(b), "tick {}", game.world.tick);

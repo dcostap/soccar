@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soccar Arena</title>
+    <link rel="stylesheet" href="/src/arena.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='%23d8dce2' stroke='%232f7bff' stroke-width='8'/></svg>"
+    />
+    <script type="module" src="/src/arena.js"></script>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>SOCCAR <span>ARENA</span></h1>
+        <p id="summary">Loading results…</p>
+      </div>
+      <a class="button" href="./">Play</a>
+    </header>
+    <main>
+      <section>
+        <h2>Leaderboard</h2>
+        <p class="note">
+          Bradley-Terry ratings from every match between current brain versions.
+          Rookie is fixed at 1000. ± is a 95% interval. Statistics are team
+          totals per match. Click a column to sort, a brain for its settings.
+        </p>
+        <div class="scroll"><table id="leaderboard"></table></div>
+      </section>
+      <section>
+        <h2>Head to head</h2>
+        <p class="note">
+          Win percentage of the row brain against the column brain.
+        </p>
+        <div class="scroll"><table id="matrix"></table></div>
+      </section>
+      <section>
+        <h2>Matches</h2>
+        <div class="controls">
+          <label
+            >Sort by
+            <select id="sort"></select
+          ></label>
+          <label
+            >Order
+            <select id="order">
+              <option value="desc">Largest first</option>
+              <option value="asc">Smallest first</option>
+            </select>
+          </label>
+          <label
+            >Brain
+            <select id="brain">
+              <option value="">Any</option>
+            </select></label
+          >
+          <label
+            ><input type="checkbox" id="current" checked /> Current versions
+            only</label
+          >
+          <label><input type="checkbox" id="overtime" /> Overtime only</label>
+        </div>
+        <p class="note" id="matchCount"></p>
+        <div class="scroll"><table id="matches"></table></div>
+      </section>
+    </main>
+  </body>
+</html>

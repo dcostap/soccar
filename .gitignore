@@ -5,3 +5,8 @@ dist/
 simulation/target/
 artifacts/
 public/simulation/
+
+# Arena results and browser export
+arena/target/
+arena/results/
+public/arena/

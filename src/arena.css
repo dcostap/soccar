@@ -1,0 +1,192 @@
+:root {
+  --blue: #2f7bff;
+  --orange: #ff8a2a;
+  --ink: #f4f7ff;
+  --muted: #93a0bb;
+  --line: #1c2436;
+  --panel: #0b1120;
+  --hover: #131c31;
+  --background: #05070b;
+  --font:
+    "Bahnschrift", "DIN Alternate", "Segoe UI", "Arial Narrow", Arial,
+    sans-serif;
+  color-scheme: dark;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, #0c3a9e33, transparent 40%, #b3470a33);
+}
+h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.08em;
+}
+h1 span {
+  color: var(--orange);
+}
+h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+header p,
+.note {
+  margin: 4px 0 12px;
+  color: var(--muted);
+}
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8px 16px 48px;
+}
+section {
+  margin-top: 28px;
+}
+.scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+th,
+td {
+  padding: 7px 10px;
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  position: sticky;
+  top: 0;
+  background: var(--panel);
+}
+th.sortable {
+  cursor: pointer;
+}
+th.sorted {
+  color: var(--ink);
+}
+td.text,
+th.text {
+  text-align: left;
+}
+tbody tr.row {
+  cursor: pointer;
+}
+tbody tr.row:hover {
+  background: var(--hover);
+}
+.description {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: normal;
+  max-width: 340px;
+}
+.blue {
+  color: var(--blue);
+}
+.orange {
+  color: var(--orange);
+}
+.win {
+  font-weight: 700;
+}
+.stale {
+  color: var(--muted);
+  font-size: 11px;
+}
+.detail td {
+  background: #070b15;
+  text-align: left;
+  white-space: normal;
+}
+.detail pre {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: 13px;
+}
+.detail table th,
+.detail table td {
+  padding: 3px 10px;
+  text-align: right;
+}
+.detail table .text {
+  text-align: left;
+}
+.button {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 4px;
+  background: var(--blue);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.button.small {
+  padding: 3px 9px;
+  font-size: 12px;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+  margin: 8px 0;
+}
+select {
+  margin-left: 4px;
+  padding: 4px 6px;
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font: inherit;
+}
+.bar {
+  display: inline-block;
+  height: 6px;
+  margin-left: 6px;
+  border-radius: 3px;
+  background: var(--blue);
+  vertical-align: middle;
+  opacity: 0.6;
+}
+@media (max-width: 640px) {
+  header {
+    padding: 14px 16px;
+  }
+  main {
+    padding: 4px 16px 32px;
+  }
+  .description {
+    max-width: 200px;
+  }
+}

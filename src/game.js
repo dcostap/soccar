@@ -41402,6 +41402,7 @@ function rx(e) {
           { value: `rookie`, label: `Rookie` },
           { value: `pro`, label: `Pro` },
           { value: `allstar`, label: `All-Star` },
+          ...(globalThis.soccarArenaBrains ?? []),
         ],
         get: () => tx.skill,
         set: (e) => (tx.skill = e),
@@ -41916,6 +41917,7 @@ var kx = {
       `Soccar needs a keyboard or a controller (no touch controls yet)`,
     ),
   Ex.push(nx(kx)),
+  Dx.startFromUrl(kx),
   window.addEventListener(`keydown`, (e) => {
     (e.code === `KeyM` &&
       Cx.notify(Tx.toggleMute() ? `Sound muted (M)` : `Sound on (M)`),

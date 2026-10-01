@@ -59,19 +59,25 @@ Run a batch across CPU threads:
 npm run sim -- --seed 12345 --matches 32 --threads 8
 ```
 
-Pit two skills against each other with `--skill blue,orange`:
+Pit two brains against each other with `--skill blue,orange`. Each side takes a preset or a `.brain` file:
 
 ```sh
 npm run sim -- --skill rookie,allstar --matches 1000 --threads 16 > results.jsonl
+npm run sim -- --skill arena/brains/pro.brain,allstar --matches 100 --threads 16
 ```
+
+For ratings, paired tests, and a result log, use [the arena](../arena/README.md).
 
 Each match uses `seed + match index`, with unsigned 32-bit wrapping.
 Each worker owns an independent simulation and random generator, so results do not depend on the thread count.
 The runner writes one JSON result per match to stdout, in completion order.
 Use the `match` field to order results. Blue is team zero; orange is team one.
 
-Results include completion, score, winner, overtime, clock, controller ticks, physics ticks, elapsed milliseconds,
-and per-player team, score, goals, assists, shots, and saves.
+Results include completion, score, winner, overtime, clock, live play seconds, controller ticks, physics ticks,
+elapsed milliseconds, per-team possession, time with the ball in their half, and brain milliseconds,
+and per-player statistics: score, goals, assists, shots, saves, touches, demos, times demolished, bumps, jumps, flips,
+big and small pads, boost used, distance, supersonic, airborne, and offensive-half seconds, and mean ball distance.
+Times count live play only. Touches count ball hits strong enough to raise a hit event.
 After the batch, a single JSON summary goes to stderr: wins per team, overtimes, total goals, wall time,
 matches per second, and physics ticks per second.
 The runner stops after match completion or the tick limit.
@@ -85,7 +91,7 @@ Options:
 ```text
 --team-size 1..3
 --duration seconds
---skill rookie|pro|allstar[,orange skill]
+--skill rookie|pro|allstar|file.brain[,orange]
 --seed unsigned-32-bit-integer
 --matches count
 --threads count
@@ -103,17 +109,33 @@ Exit code two means at least one match reached its limit. Invalid arguments retu
 Other Rust projects can depend on this crate and call `soccar_simulation::harness` directly:
 
 ```rust
-use soccar_simulation::{bot::Skill, harness::{self, MatchSpec, Summary}};
+use soccar_simulation::{
+    brains::{BrainSpec, Skill},
+    harness::{self, MatchSpec, Summary},
+};
 
+let brains = [BrainSpec::preset(Skill::Pro), BrainSpec::preset(Skill::Allstar)];
 let specs: Vec<_> = (0..1000)
-    .map(|i| MatchSpec { seed: i, skills: [Skill::Pro, Skill::Allstar], ..MatchSpec::default() })
+    .map(|i| MatchSpec { seed: i, brains: brains.clone(), ..MatchSpec::default() })
     .collect();
 let mut summary = Summary::default();
 harness::run_batch(&specs, 16, |_index, result| summary.add(&result));
 ```
 
 `run_match` plays one match on the calling thread. `MatchSpec::default()` is a five-minute 3v3 all-star match.
-For custom control loops, drive `game::Game` directly as `harness::run_match` does.
+`run_until` stops a batch when its callback returns false.
+`harness::start` builds the `Game` for a spec. For custom control loops, drive it as `harness::run_match` does.
+
+### Brains
+
+A brain drives every bot car on one team. Brains live in `src/brains/`.
+Each module implements the `Brain` trait and reads its settings from `Params`; `MODULES` lists them.
+`BrainSpec` pairs a module with settings in `key = value` text. Unknown settings are errors.
+The built-in difficulties are the `classic` module with `preset = rookie`, `pro`, or `allstar`.
+
+The game updates one shared `Predictor` per tick before brains run. Brains read the world through `Context`
+and write controls only for their own cars. They must be deterministic. Do not use clocks or the game random generator.
+The browser loads brain text through `sim_text` and `sim_brain`, so any brain can play in the game.
 
 ## Checks
 

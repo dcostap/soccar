@@ -1,4 +1,4 @@
-use crate::{bot::Maneuver, game::Game};
+use crate::game::Game;
 use crate::{
     car::{Car, Controls},
     vector::Vec3,
@@ -185,21 +185,9 @@ pub fn game(g: &Game) -> Vec<f64> {
         v(&mut out, s.pos);
         v(&mut out, s.vel);
     }
-    out.push(g.bots.len() as f64);
-    for b in &g.bots {
-        out.extend([b.car as f64, b.skill.number() as f64, b.reaction_timer]);
-        v(&mut out, b.target);
-        out.extend([b.kickoff_flip_done as u8 as f64, b.support as u8 as f64]);
-        controls(&mut out, b.out);
-        match b.maneuver {
-            Maneuver::None => out.push(0.0),
-            Maneuver::Flip { t, pitch, yaw } => out.extend([1.0, t, pitch, yaw]),
-            Maneuver::Aerial { t, target, arrive } => {
-                out.extend([2.0, t]);
-                v(&mut out, target);
-                out.push(arrive);
-            }
-        }
+    out.push(g.drivers.iter().map(|d| d.cars.len()).sum::<usize>() as f64);
+    for d in &g.drivers {
+        d.brain.trace(&mut out);
     }
     out
 }

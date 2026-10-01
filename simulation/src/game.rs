@@ -1,8 +1,9 @@
 use crate::{
     DT,
     ball::Ball,
-    bot::{Bot, Predictor, Skill, assign_roles},
+    brains::{Brain, BrainSpec, Context, Skill},
     car::Controls,
+    predictor::Predictor,
     random::Random,
     rotation::Quat,
     vector::Vec3,
@@ -48,11 +49,11 @@ impl Mode {
         }
     }
 }
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 pub struct Config {
     pub team_size: usize,
-    /// Bot skill for blue (team zero) and orange (team one).
-    pub skills: [Skill; 2],
+    /// Bot brains for blue (team zero) and orange (team one).
+    pub brains: [BrainSpec; 2],
     pub player_team: i32,
     pub duration: f64,
     pub dodge_deadzone: f64,
@@ -61,7 +62,7 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             team_size: 1,
-            skills: [Skill::Pro; 2],
+            brains: [BrainSpec::preset(Skill::Pro), BrainSpec::preset(Skill::Pro)],
             player_team: 0,
             duration: 300.0,
             dodge_deadzone: 0.5,
@@ -76,10 +77,32 @@ pub struct Stats {
     pub shots: u32,
     pub saves: u32,
 }
+/// One brain and the bot cars it drives.
+#[derive(Clone, Debug)]
+pub struct Driver {
+    pub team: usize,
+    pub cars: Vec<usize>,
+    pub brain: Box<dyn Brain>,
+    out: Vec<Controls>,
+}
+impl Driver {
+    fn new(spec: &BrainSpec, team: usize, cars: Vec<usize>) -> Self {
+        let brain = spec
+            .create(team, &cars)
+            .unwrap_or_else(|e| panic!("Brain {}: {e}", spec.name));
+        Self {
+            team,
+            out: vec![Controls::default(); cars.len()],
+            cars,
+            brain,
+        }
+    }
+}
 #[derive(Clone, Debug)]
 pub struct Game {
     pub world: World,
-    pub bots: Vec<Bot>,
+    /// Brains in team order. A team without bot cars has none.
+    pub drivers: Vec<Driver>,
     pub predictor: Predictor,
     pub player: Option<usize>,
     pub mode: Mode,
@@ -109,6 +132,10 @@ pub struct Game {
     pub notifications: Vec<Event>,
     pub skip_replays: bool,
     pub has_snapshot: bool,
+    /// Measure time spent in each team's brain. Native only.
+    pub measure_brains: bool,
+    /// Seconds spent in each team's brain while `measure_brains` is set.
+    pub brain_seconds: [f64; 2],
     /// Ball states of the last goal prediction, reused while the ball stays on that path.
     goal_path: VecDeque<Ball>,
     goal_path_tick: i64,
@@ -117,7 +144,7 @@ impl Game {
     pub fn new(seed: u32) -> Self {
         Self {
             world: World::default(),
-            bots: Vec::new(),
+            drivers: Vec::new(),
             predictor: Predictor::default(),
             player: None,
             mode: Mode::Menu,
@@ -147,13 +174,15 @@ impl Game {
             notifications: Vec::new(),
             skip_replays: false,
             has_snapshot: false,
+            measure_brains: false,
+            brain_seconds: [0.0; 2],
             goal_path: VecDeque::with_capacity(GOAL_STEPS),
             goal_path_tick: 0,
         }
     }
     fn reset_world(&mut self) {
         self.world = World::default();
-        self.bots.clear();
+        self.drivers.clear();
         self.player = None;
         self.stats.clear();
         self.names.clear();
@@ -170,10 +199,10 @@ impl Game {
     pub fn start_match(&mut self, config: Config) {
         self.reset_world();
         self.mode = Mode::Match;
-        self.config = config;
         let names = self.random.names();
         let mut name = 0;
         for team in 0..2 {
+            let mut cars = Vec::new();
             for index in 0..config.team_size {
                 let player = team as i32 == config.player_team && index == 0;
                 let id = self.world.add_car(team);
@@ -183,13 +212,18 @@ impl Game {
                     self.world.cars[id].dodge_deadzone = config.dodge_deadzone;
                     self.names.push(-1);
                 } else {
-                    self.bots.push(Bot::new(id, config.skills[team]));
+                    cars.push(id);
                     self.names.push(names[name] as i32);
                     name += 1;
                 }
             }
+            if !cars.is_empty() {
+                self.drivers
+                    .push(Driver::new(&config.brains[team], team, cars));
+            }
         }
         self.clock = config.duration;
+        self.config = config;
         self.start_kickoff();
     }
     pub fn start_menu(&mut self) {
@@ -197,7 +231,11 @@ impl Game {
         self.mode = Mode::Menu;
         for team in 0..2 {
             let id = self.world.add_car(team);
-            self.bots.push(Bot::new(id, Skill::Allstar));
+            self.drivers.push(Driver::new(
+                &BrainSpec::preset(Skill::Allstar),
+                team,
+                vec![id],
+            ));
             self.names.push(team as i32);
         }
         self.world.setup_kickoff(self.random.next_f64());
@@ -256,8 +294,8 @@ impl Game {
             c.frozen = true;
         }
         self.world.ball.frozen = true;
-        for b in &mut self.bots {
-            b.reset();
+        for d in &mut self.drivers {
+            d.brain.reset();
         }
         self.phase = Phase::Countdown;
         self.phase_timer = 3.0;
@@ -300,11 +338,7 @@ impl Game {
             self.world.cars[player].controls = controls;
         }
         self.predictor.update(&self.world);
-        assign_roles(&self.world, &mut self.bots, self.player);
-        for b in &mut self.bots {
-            let out = b.tick(&self.world, &self.predictor);
-            self.world.cars[b.car].controls = out;
-        }
+        self.think();
         if self.phase == Phase::Countdown {
             self.phase_timer -= DT;
             let shown = self.phase_timer.ceil() as i32;
@@ -410,11 +444,33 @@ impl Game {
             e.position = self.world.ball.pos;
             self.notifications.push(e);
             self.world.setup_kickoff(self.random.next_f64());
-            for b in &mut self.bots {
-                b.reset();
+            for d in &mut self.drivers {
+                d.brain.reset();
             }
         }
         self.has_snapshot = true;
+    }
+    /// Runs every brain on the same world state, then applies their controls.
+    fn think(&mut self) {
+        let ctx = Context {
+            world: &self.world,
+            predictor: &self.predictor,
+            player: self.player,
+        };
+        for d in &mut self.drivers {
+            #[cfg(not(target_arch = "wasm32"))]
+            let start = self.measure_brains.then(std::time::Instant::now);
+            d.brain.tick(&ctx, &mut d.out);
+            #[cfg(not(target_arch = "wasm32"))]
+            if let Some(start) = start {
+                self.brain_seconds[d.team] += start.elapsed().as_secs_f64();
+            }
+        }
+        for d in &self.drivers {
+            for (&car, &out) in d.cars.iter().zip(&d.out) {
+                self.world.cars[car].controls = out;
+            }
+        }
     }
     fn step_world(&mut self) {
         let reverse = self.random.next_f64() < 0.5;

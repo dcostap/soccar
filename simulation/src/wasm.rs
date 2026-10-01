@@ -1,7 +1,7 @@
 //! Narrow browser ABI. Each handle owns one independent simulation.
 use crate::{
     DT, arena,
-    bot::Skill,
+    brains::{BrainSpec, Skill},
     car::Controls,
     car::{Car, HALF, OFFSET},
     game::{Config, Game},
@@ -72,6 +72,10 @@ pub extern "C" fn sim_arena_query(kind: u32, x: f64, y: f64, z: f64) -> f64 {
 struct Engine {
     game: Game,
     view: Vec<f64>,
+    /// Brains for the next match, overriding the skill preset per team.
+    brains: [Option<BrainSpec>; 2],
+    /// Text written by JavaScript, read by `sim_brain`.
+    text: Vec<u8>,
 }
 fn engine<'a>(handle: usize) -> &'a mut Engine {
     unsafe { &mut *(handle as *mut Engine) }
@@ -81,6 +85,8 @@ pub extern "C" fn sim_create(seed: u32) -> usize {
     Box::into_raw(Box::new(Engine {
         game: Game::new(seed),
         view: Vec::new(),
+        brains: [None, None],
+        text: Vec::new(),
     })) as usize
 }
 #[unsafe(no_mangle)]
@@ -116,7 +122,11 @@ pub extern "C" fn sim_start(
         1 => e.game.start_freeplay(),
         2 => e.game.start_match(Config {
             team_size: size as usize,
-            skills: [Skill::from_number(skill); 2],
+            brains: [0, 1].map(|team| {
+                e.brains[team]
+                    .clone()
+                    .unwrap_or_else(|| BrainSpec::preset(Skill::from_number(skill)))
+            }),
             player_team: player,
             duration,
             dodge_deadzone: dodge,
@@ -171,4 +181,35 @@ pub extern "C" fn sim_trace(handle: usize) -> usize {
     let e = engine(handle);
     e.view = snapshot::game(&e.game);
     e.view.as_ptr() as usize
+}
+/// Returns a buffer of `len` bytes for JavaScript to fill before `sim_brain`.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_text(handle: usize, len: usize) -> usize {
+    let e = engine(handle);
+    e.text.clear();
+    e.text.resize(len, 0);
+    e.text.as_mut_ptr() as usize
+}
+/// Sets the brain for `team` in later matches from the `.brain` text in the text buffer.
+/// Empty text restores the skill preset. Returns 0 when the text is invalid.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_brain(handle: usize, team: u32) -> u32 {
+    let e = engine(handle);
+    let Some(slot) = e.brains.get_mut(team as usize) else {
+        return 0;
+    };
+    let Ok(text) = std::str::from_utf8(&e.text) else {
+        return 0;
+    };
+    if text.trim().is_empty() {
+        *slot = None;
+        return 1;
+    }
+    match BrainSpec::parse("custom", text) {
+        Ok(spec) => {
+            *slot = Some(spec);
+            1
+        }
+        Err(_) => 0,
+    }
 }

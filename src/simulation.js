@@ -29,6 +29,36 @@ export function simulationGeometry(wasm) {
     floorExtent: values[22],
   };
 }
+/** Reads a watch link written by the arena: `?watch=<id>&seed=&size=&duration=&blue=&orange=&names=&expect=`. */
+export function parseWatch(search) {
+  const q = new URLSearchParams(search);
+  if (!q.has("watch")) return null;
+  const [blueName = "blue", orangeName = "orange"] = (
+    q.get("names") ?? ""
+  ).split(",");
+  return {
+    id: q.get("watch"),
+    seed: Number(q.get("seed") ?? 1) >>> 0,
+    size: Number(q.get("size") ?? 3),
+    duration: Number(q.get("duration") ?? 300),
+    brains: [q.get("blue") ?? "", q.get("orange") ?? ""],
+    names: [blueName, orangeName],
+    expect: q.get("expect")?.split("-").map(Number) ?? null,
+  };
+}
+/** Brains published by the arena export, offered in the match menu. Empty when the arena has not run. */
+async function loadArenaBrains() {
+  try {
+    const response = await fetch(
+      `${import.meta.env?.BASE_URL ?? "/"}arena/brains.json`,
+      { cache: "no-cache" },
+    );
+    if (!response.ok) return [];
+    return (await response.json()).brains ?? [];
+  } catch {
+    return [];
+  }
+}
 let simulation;
 export function loadSimulation() {
   return (simulation ??= (async () => {
@@ -41,9 +71,16 @@ export function loadSimulation() {
     const { instance } = await WebAssembly.instantiate(
       await response.arrayBuffer(),
     );
+    const brains = await loadArenaBrains();
+    // The match menu lists these after the built-in difficulties.
+    globalThis.soccarArenaBrains = brains.map((b) => ({
+      value: `arena:${b.name}`,
+      label: b.games ? `${b.name} (${Math.round(b.elo)})` : b.name,
+    }));
     return {
       wasm: instance.exports,
       geometry: simulationGeometry(instance.exports),
+      brains,
     };
   })());
 }
@@ -93,10 +130,34 @@ export async function createRustGame(
       this.hud.setReplay(false);
       this.hud.showScoreboard(false);
     }
+    /** Sets the brain for a team from `.brain` text. Empty text restores the difficulty preset. */
+    setBrain(team, text) {
+      const bytes = new TextEncoder().encode(text);
+      const pointer = wasm.sim_text(this.handle, bytes.length);
+      new Uint8Array(wasm.memory.buffer, pointer, bytes.length).set(bytes);
+      return wasm.sim_brain(this.handle, team) === 1;
+    }
     start(mode, config = this.config) {
       this.clearPresentation();
       this.config = config;
-      const skill = { rookie: 0, pro: 1, allstar: 2 }[config.skill] ?? 1;
+      this.watch = mode === 2 && config.watch ? config.watch : null;
+      if (this.watch) {
+        // A fresh simulation with the recorded seed replays the arena match exactly.
+        wasm.sim_destroy(this.handle);
+        this.handle = wasm.sim_create(this.watch.seed);
+        this.watch.follow = 0;
+        this.watch.speed ??= 1;
+        this.watch.paused = false;
+      }
+      const arena = engine.brains?.find(
+        (b) => `arena:${b.name}` === config.skill,
+      );
+      for (const team of [0, 1]) {
+        const text = this.watch?.brains[team] ?? arena?.text ?? "";
+        if (!this.setBrain(team, text))
+          throw new Error(`Invalid brain settings for team ${team}`);
+      }
+      const skill = { rookie: 0, pro: 1, allstar: 2 }[config.skill] ?? 2;
       if (
         !wasm.sim_start(
           this.handle,
@@ -132,8 +193,60 @@ export async function createRustGame(
       this.hud.setVisible(true);
       this.hud.setMatchUi(true);
       this.hud.setTip("");
+      if (this.watch) this.showWatchTip();
       this.renderer.ball.visible = true;
       this.snapshotNow();
+    }
+    /** Starts the match in the page URL, if any. Called once after the menu opens. */
+    startFromUrl(app) {
+      const watch = parseWatch(location.search);
+      if (!watch) return;
+      app.menu.closeAll();
+      this.startMatch({
+        teamSize: watch.size,
+        skill: "allstar",
+        playerTeam: -1,
+        duration: watch.duration,
+        watch,
+      });
+      app.setPaused(false);
+    }
+    showWatchTip() {
+      const w = this.watch;
+      const car = this.world.cars[w.follow];
+      const side = car?.team === 1 ? "orange" : "blue";
+      this.hud.setTip(
+        `WATCHING #${w.id} &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ` +
+          `CAMERA ${car ? `${car.name} (${side})` : "-"} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
+          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ESC MENU`,
+      );
+    }
+    /** Spectator keys while watching. */
+    watchKey(event) {
+      const w = this.watch;
+      if (!w) return;
+      const digit = /^Digit([1-6])$/.exec(event.code);
+      if (digit && Number(digit[1]) <= this.world.cars.length) {
+        w.follow = Number(digit[1]) - 1;
+        this.camera.reset();
+      } else if (event.code === "Period") w.speed = Math.min(16, w.speed * 2);
+      else if (event.code === "Comma") w.speed = Math.max(0.25, w.speed / 2);
+      else if (event.code === "KeyP") w.paused = !w.paused;
+      else return;
+      this.showWatchTip();
+    }
+    showMatchEnded(team) {
+      super.showMatchEnded(team);
+      const expect = this.watch?.expect;
+      if (expect) {
+        const same = expect[0] === this.score[0] && expect[1] === this.score[1];
+        this.hud.notify(
+          same
+            ? `Replay matches the arena result ${expect.join("-")}`
+            : `Arena recorded ${expect.join("-")}: brain code or physics changed since`,
+          same ? "blue" : "orange",
+        );
+      }
     }
     resetFreeplay() {
       wasm.sim_command(this.handle, 1, 0);
@@ -255,5 +368,7 @@ export async function createRustGame(
       this.hud.notify(`GOAL ${name}`, color);
     }
   }
-  return new RustGame();
+  const game = new RustGame();
+  globalThis.addEventListener?.("keydown", (event) => game.watchKey(event));
+  return game;
 }

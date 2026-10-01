@@ -1,24 +1,29 @@
 //! Headless match runner for batch experiments. It skips rendering state and replay playback.
+//!
+//! A bot-only match depends only on its `MatchSpec`, so any result can be replayed exactly,
+//! natively or in the browser.
 use crate::{
-    bot::Skill,
+    DT,
+    brains::{BrainSpec, Skill},
     car::Controls,
-    game::{Config, Game, Phase, Stats},
+    game::{Config, Game, Phase},
+    world::{BALL_HIT, BOOST_PICKUP, BUMP, DEMO, FLIP, JUMP, RESPAWN},
 };
 use std::{
     sync::{
-        atomic::{AtomicUsize, Ordering},
+        atomic::{AtomicBool, AtomicUsize, Ordering},
         mpsc,
     },
     thread,
     time::{Duration, Instant},
 };
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 pub struct MatchSpec {
     pub seed: u32,
     pub team_size: usize,
-    /// Bot skill for blue (team zero) and orange (team one).
-    pub skills: [Skill; 2],
+    /// Brains for blue (team zero) and orange (team one).
+    pub brains: [BrainSpec; 2],
     /// Match length in seconds. Zero means unlimited play.
     pub duration: f64,
     /// Controller tick limit. A match that reaches it is incomplete.
@@ -31,12 +36,81 @@ impl Default for MatchSpec {
         Self {
             seed: 12345,
             team_size: 3,
-            skills: [Skill::Allstar; 2],
+            brains: [
+                BrainSpec::preset(Skill::Allstar),
+                BrainSpec::preset(Skill::Allstar),
+            ],
             duration: 300.0,
             max_ticks: 216_000,
             replays: false,
         }
     }
+}
+
+/// Everything recorded about one car. Times are in seconds of live play, distances in unreal units.
+#[derive(Clone, Copy, Debug, Default)]
+pub struct PlayerReport {
+    pub car: usize,
+    pub team: usize,
+    pub score: u32,
+    pub goals: u32,
+    pub assists: u32,
+    pub shots: u32,
+    pub saves: u32,
+    /// Ball hits strong enough to raise a hit event.
+    pub touches: u32,
+    pub demos: u32,
+    pub demoed: u32,
+    pub bumps: u32,
+    pub jumps: u32,
+    pub flips: u32,
+    pub big_pads: u32,
+    pub small_pads: u32,
+    pub boost_used: f64,
+    pub distance: f64,
+    pub supersonic: f64,
+    pub airborne: f64,
+    /// Time in the opponent's half.
+    pub offense: f64,
+    /// Mean distance to the ball.
+    pub ball_distance: f64,
+}
+impl PlayerReport {
+    /// Field names and values, in a fixed order, for tables and JSON.
+    pub fn fields(&self) -> [(&'static str, f64); 19] {
+        [
+            ("score", self.score as f64),
+            ("goals", self.goals as f64),
+            ("assists", self.assists as f64),
+            ("shots", self.shots as f64),
+            ("saves", self.saves as f64),
+            ("touches", self.touches as f64),
+            ("demos", self.demos as f64),
+            ("demoed", self.demoed as f64),
+            ("bumps", self.bumps as f64),
+            ("jumps", self.jumps as f64),
+            ("flips", self.flips as f64),
+            ("bigPads", self.big_pads as f64),
+            ("smallPads", self.small_pads as f64),
+            ("boostUsed", self.boost_used),
+            ("distance", self.distance),
+            ("supersonic", self.supersonic),
+            ("airborne", self.airborne),
+            ("offense", self.offense),
+            ("ballDistance", self.ball_distance),
+        ]
+    }
+}
+
+/// Team totals that are not sums of player values.
+#[derive(Clone, Copy, Debug, Default)]
+pub struct TeamReport {
+    /// Live time with this team holding the last touch.
+    pub possession: f64,
+    /// Live time with the ball in this team's half.
+    pub defending: f64,
+    /// Wall-clock milliseconds spent in this team's brain.
+    pub brain_ms: f64,
 }
 
 #[derive(Clone, Debug)]
@@ -48,8 +122,11 @@ pub struct MatchResult {
     pub clock: f64,
     pub controller_ticks: u32,
     pub physics_ticks: i64,
-    /// Team and statistics for each car, in car order.
-    pub players: Vec<(usize, Stats)>,
+    /// Seconds of live play, from kickoff to goal or end.
+    pub live: f64,
+    pub teams: [TeamReport; 2],
+    /// One report per car, in car order.
+    pub players: Vec<PlayerReport>,
     pub elapsed: Duration,
 }
 impl MatchResult {
@@ -60,22 +137,104 @@ impl MatchResult {
     }
 }
 
-/// Plays one bot-only match to completion or to its tick limit.
-pub fn run_match(spec: MatchSpec) -> MatchResult {
-    let start = Instant::now();
+/// Starts a bot-only match. Every tool that replays a spec must start it this way.
+pub fn start(spec: &MatchSpec) -> Game {
     let mut game = Game::new(spec.seed);
     game.skip_replays = !spec.replays;
     game.start_match(Config {
         team_size: spec.team_size,
-        skills: spec.skills,
+        brains: spec.brains.clone(),
         player_team: -1,
         duration: spec.duration,
         ..Config::default()
     });
+    game
+}
+
+/// Plays one bot-only match to completion or to its tick limit.
+pub fn run_match(spec: MatchSpec) -> MatchResult {
+    let begin = Instant::now();
+    let mut game = start(&spec);
+    game.measure_brains = true;
+    let cars = game.world.cars.len();
+    let mut players: Vec<_> = game
+        .world
+        .cars
+        .iter()
+        .map(|c| PlayerReport {
+            car: c.id,
+            team: c.team,
+            ..PlayerReport::default()
+        })
+        .collect();
+    let mut teams = [TeamReport::default(); 2];
+    let mut boost: Vec<f64> = game.world.cars.iter().map(|c| c.boost).collect();
+    let mut respawned = vec![false; cars];
+    let mut live = 0.0;
     let mut ticks = 0;
     while game.phase != Phase::Ended && ticks < spec.max_ticks {
+        let before = game.phase;
         game.tick(Controls::default());
         ticks += 1;
+        respawned.fill(false);
+        for e in &game.notifications {
+            let car = e.car as usize;
+            match e.kind {
+                BALL_HIT => players[car].touches += 1,
+                DEMO => {
+                    players[car].demos += 1;
+                    players[e.other as usize].demoed += 1;
+                }
+                BUMP => players[car].bumps += 1,
+                JUMP => players[car].jumps += 1,
+                FLIP => players[car].flips += 1,
+                BOOST_PICKUP if game.world.pads[e.pad as usize].big => players[car].big_pads += 1,
+                BOOST_PICKUP => players[car].small_pads += 1,
+                RESPAWN => respawned[car] = true,
+                _ => {}
+            }
+        }
+        if before == Phase::Playing && game.phase == Phase::Playing {
+            live += DT;
+            let ball = game.world.ball.pos;
+            if let Some(car) = game.world.last_touch {
+                teams[game.world.cars[car].team].possession += DT;
+            }
+            teams[usize::from(ball.y > 0.0)].defending += DT;
+            for (p, c) in players.iter_mut().zip(&game.world.cars) {
+                if !respawned[c.id] {
+                    p.boost_used += (boost[c.id] - c.boost).max(0.0);
+                }
+                if c.is_demoed {
+                    continue;
+                }
+                p.distance += c.vel.length() * DT;
+                p.ball_distance += c.pos.distance(ball) * DT;
+                if c.is_supersonic {
+                    p.supersonic += DT;
+                }
+                if !c.is_on_ground {
+                    p.airborne += DT;
+                }
+                if (c.pos.y > 0.0) == (c.team == 0) {
+                    p.offense += DT;
+                }
+            }
+        }
+        for (b, c) in boost.iter_mut().zip(&game.world.cars) {
+            *b = c.boost;
+        }
+    }
+    for p in &mut players {
+        let s = game.stats[p.car];
+        (p.score, p.goals, p.assists, p.shots, p.saves) =
+            (s.score, s.goals, s.assists, s.shots, s.saves);
+        if live > 0.0 {
+            p.ball_distance /= live;
+        }
+    }
+    for (t, seconds) in teams.iter_mut().zip(game.brain_seconds) {
+        t.brain_ms = seconds * 1000.0;
     }
     MatchResult {
         spec,
@@ -85,36 +244,35 @@ pub fn run_match(spec: MatchSpec) -> MatchResult {
         clock: game.clock,
         controller_ticks: ticks,
         physics_ticks: game.world.tick,
-        players: game
-            .world
-            .cars
-            .iter()
-            .map(|c| (c.team, game.stats[c.id]))
-            .collect(),
-        elapsed: start.elapsed(),
+        live,
+        teams,
+        players,
+        elapsed: begin.elapsed(),
     }
 }
 
-/// Plays matches on `threads` workers. Each match is independent, so results do not depend on the thread count.
+/// Plays matches on `threads` workers until all are done or `on_result` returns false.
+/// Each match is independent, so results do not depend on the thread count.
 /// `on_result` receives the spec index and result in completion order.
-pub fn run_batch(
+pub fn run_until(
     specs: &[MatchSpec],
     threads: usize,
-    mut on_result: impl FnMut(usize, MatchResult),
+    mut on_result: impl FnMut(usize, MatchResult) -> bool,
 ) {
     let next = AtomicUsize::new(0);
+    let stop = AtomicBool::new(false);
     let (tx, rx) = mpsc::channel();
     thread::scope(|scope| {
         for _ in 0..threads.clamp(1, specs.len().max(1)) {
             let tx = tx.clone();
-            let next = &next;
+            let (next, stop) = (&next, &stop);
             scope.spawn(move || {
-                loop {
+                while !stop.load(Ordering::Relaxed) {
                     let index = next.fetch_add(1, Ordering::Relaxed);
-                    let Some(&spec) = specs.get(index) else {
+                    let Some(spec) = specs.get(index) else {
                         break;
                     };
-                    if tx.send((index, run_match(spec))).is_err() {
+                    if tx.send((index, run_match(spec.clone()))).is_err() {
                         break;
                     }
                 }
@@ -122,8 +280,22 @@ pub fn run_batch(
         }
         drop(tx);
         for (index, result) in rx {
-            on_result(index, result);
+            if !stop.load(Ordering::Relaxed) && !on_result(index, result) {
+                stop.store(true, Ordering::Relaxed);
+            }
         }
+    });
+}
+
+/// Plays every match. See `run_until`.
+pub fn run_batch(
+    specs: &[MatchSpec],
+    threads: usize,
+    mut on_result: impl FnMut(usize, MatchResult),
+) {
+    run_until(specs, threads, |index, result| {
+        on_result(index, result);
+        true
     });
 }
 

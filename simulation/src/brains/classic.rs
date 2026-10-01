@@ -1,132 +1,131 @@
+//! The original bot: a ball chaser that predicts the ball, picks an intercept, and drives to it.
+//! The closest car attacks and its teammates hold a support position.
+//! Copy this file to start a new brain module.
+use super::{Brain, Context, Params, Skill};
 use crate::{
     DT,
-    ball::Ball,
     car::{Car, Controls},
     math::{atan2, clamp, cos, hypot2, sign, sin},
+    predictor::{Predictor, Slice},
     vector::Vec3,
     world::World,
 };
-use std::collections::VecDeque;
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub enum Skill {
-    Rookie,
-    Pro,
-    Allstar,
+#[derive(Clone, Copy, Debug)]
+pub struct Settings {
+    /// Fraction of the target speed the car drives at.
+    pub speed: f64,
+    pub boost: bool,
+    pub flip: bool,
+    pub aerial: bool,
+    /// Seconds between control updates. Between updates the bot eases steering toward its new choice.
+    pub reaction: f64,
+    /// Ignore the reaction delay.
+    pub instant: bool,
+    /// Prediction horizon in seconds.
+    pub predict: f64,
+    /// How far behind the ball the car lines up for a shot, from 0 (close) to 1 (far).
+    pub aim: f64,
+    /// Skill number recorded in regression traces.
+    pub level: u32,
 }
-impl Skill {
-    pub fn from_number(n: u32) -> Self {
-        match n {
-            0 => Self::Rookie,
-            1 => Self::Pro,
-            _ => Self::Allstar,
-        }
-    }
-    pub fn number(self) -> u32 {
-        match self {
-            Self::Rookie => 0,
-            Self::Pro => 1,
-            Self::Allstar => 2,
-        }
-    }
-    fn settings(self) -> Settings {
-        match self {
-            Self::Rookie => Settings {
+impl Settings {
+    pub fn preset(skill: Skill) -> Self {
+        match skill {
+            Skill::Rookie => Self {
                 speed: 0.72,
                 boost: false,
                 flip: false,
                 aerial: false,
                 reaction: 0.35,
+                instant: false,
                 predict: 1.5,
                 aim: 0.5,
+                level: 0,
             },
-            Self::Pro => Settings {
+            Skill::Pro => Self {
                 speed: 0.9,
                 boost: true,
                 flip: true,
                 aerial: false,
                 reaction: 0.16,
+                instant: false,
                 predict: 3.0,
                 aim: 0.8,
+                level: 1,
             },
-            Self::Allstar => Settings {
+            Skill::Allstar => Self {
                 speed: 1.0,
                 boost: true,
                 flip: true,
                 aerial: true,
                 reaction: 0.06,
+                instant: true,
                 predict: 4.0,
                 aim: 1.0,
+                level: 2,
             },
         }
     }
-}
-#[derive(Clone, Copy)]
-struct Settings {
-    speed: f64,
-    boost: bool,
-    flip: bool,
-    aerial: bool,
-    reaction: f64,
-    predict: f64,
-    aim: f64,
-}
-#[derive(Clone, Copy, Debug)]
-pub struct Slice {
-    pub t: f64,
-    pub pos: Vec3,
-    pub vel: Vec3,
-}
-const PREDICTION_STEPS: usize = 480;
-#[derive(Clone, Debug)]
-pub struct Predictor {
-    pub slices: Vec<Slice>,
-    pub sim: Ball,
-    pub last_tick: i64,
-    /// Ball state after each step of the current prediction.
-    path: VecDeque<Ball>,
-}
-impl Default for Predictor {
-    fn default() -> Self {
-        Self {
-            slices: Vec::with_capacity(PREDICTION_STEPS / 2),
-            sim: Ball::default(),
-            last_tick: -100,
-            path: VecDeque::with_capacity(PREDICTION_STEPS),
-        }
+    /// Reads `preset` (default allstar), then any individual overrides.
+    pub fn from_params(params: &mut Params) -> Result<Self, String> {
+        let preset = Skill::parse(&params.text("preset", "allstar"))?;
+        let mut s = Self::preset(preset);
+        s.speed = params.number("speed", s.speed)?;
+        s.boost = params.flag("boost", s.boost)?;
+        s.flip = params.flag("flip", s.flip)?;
+        s.aerial = params.flag("aerial", s.aerial)?;
+        s.reaction = params.number("reaction", s.reaction)?;
+        s.instant = params.flag("instant", s.instant)?;
+        s.predict = params.number("predict", s.predict)?;
+        s.aim = params.number("aim", s.aim)?;
+        Ok(s)
     }
 }
-impl Predictor {
-    pub fn update(&mut self, world: &World) {
-        let elapsed = world.tick - self.last_tick;
-        if elapsed < 4 {
-            return;
+/// One `Bot` per car, with roles assigned each tick.
+#[derive(Clone, Debug)]
+pub struct Classic {
+    pub team: usize,
+    pub bots: Vec<Bot>,
+}
+pub fn create(params: &mut Params, team: usize, cars: &[usize]) -> Result<Box<dyn Brain>, String> {
+    let settings = Settings::from_params(params)?;
+    Ok(Box::new(Classic {
+        team,
+        bots: cars.iter().map(|&car| Bot::new(car, settings)).collect(),
+    }))
+}
+impl Brain for Classic {
+    fn tick(&mut self, ctx: &Context, out: &mut [Controls]) {
+        assign_roles(ctx.world, self.team, &mut self.bots, ctx.player);
+        for (bot, out) in self.bots.iter_mut().zip(out) {
+            *out = bot.tick(ctx.world, ctx.predictor);
         }
-        self.last_tick = world.tick;
-        // An untouched ball follows the previous prediction exactly, so only the new tail is simulated.
-        let elapsed = elapsed as usize;
-        if self.path.len() == PREDICTION_STEPS
-            && elapsed <= PREDICTION_STEPS
-            && self.path[elapsed - 1].same_motion(&world.ball)
-        {
-            self.path.drain(..elapsed);
-        } else {
-            self.path.clear();
-            self.sim.copy_from(&world.ball);
-            self.sim.frozen = world.ball.frozen;
+    }
+    fn reset(&mut self) {
+        for bot in &mut self.bots {
+            bot.reset();
         }
-        while self.path.len() < PREDICTION_STEPS {
-            self.sim.step();
-            self.path.push_back(self.sim);
+    }
+    fn trace(&self, out: &mut Vec<f64>) {
+        let v = |out: &mut Vec<f64>, v: Vec3| out.extend([v.x, v.y, v.z]);
+        for b in &self.bots {
+            out.extend([b.car as f64, b.settings.level as f64, b.reaction_timer]);
+            v(out, b.target);
+            out.extend([b.kickoff_flip_done as u8 as f64, b.support as u8 as f64]);
+            crate::snapshot::controls(out, b.out);
+            match b.maneuver {
+                Maneuver::None => out.push(0.0),
+                Maneuver::Flip { t, pitch, yaw } => out.extend([1.0, t, pitch, yaw]),
+                Maneuver::Aerial { t, target, arrive } => {
+                    out.extend([2.0, t]);
+                    v(out, target);
+                    out.push(arrive);
+                }
+            }
         }
-        self.slices.clear();
-        for tick in (2..=PREDICTION_STEPS).step_by(2) {
-            let state = &self.path[tick - 1];
-            self.slices.push(Slice {
-                t: tick as f64 * DT,
-                pos: state.pos,
-                vel: state.vel,
-            });
-        }
+    }
+    fn clone_box(&self) -> Box<dyn Brain> {
+        Box::new(self.clone())
     }
 }
 #[derive(Clone, Copy, Debug)]
@@ -138,7 +137,7 @@ pub enum Maneuver {
 #[derive(Clone, Debug)]
 pub struct Bot {
     pub car: usize,
-    pub skill: Skill,
+    pub settings: Settings,
     pub maneuver: Maneuver,
     pub out: Controls,
     pub reaction_timer: f64,
@@ -147,10 +146,10 @@ pub struct Bot {
     pub support: bool,
 }
 impl Bot {
-    pub fn new(car: usize, skill: Skill) -> Self {
+    pub fn new(car: usize, settings: Settings) -> Self {
         Self {
             car,
-            skill,
+            settings,
             maneuver: Maneuver::None,
             out: Controls::default(),
             reaction_timer: 0.0,
@@ -165,7 +164,7 @@ impl Bot {
     }
     pub fn tick(&mut self, world: &World, predictor: &Predictor) -> Controls {
         let car = &world.cars[self.car];
-        let settings = self.skill.settings();
+        let settings = self.settings;
         let mut output = Controls::default();
         if car.is_demoed || car.frozen {
             self.out = output;
@@ -338,7 +337,7 @@ impl Bot {
         self.out
     }
     fn average_speed(&self, car: &Car) -> f64 {
-        let settings = self.skill.settings();
+        let settings = self.settings;
         let speed = car.forward_speed().max(0.0);
         let maximum = (if settings.boost && car.boost > 10.0 {
             2000.0
@@ -380,9 +379,9 @@ impl Bot {
     }
     fn apply_reaction(&mut self, out: Controls, dt: f64) {
         self.reaction_timer -= dt;
-        if self.reaction_timer <= 0.0 || self.skill == Skill::Allstar {
+        if self.reaction_timer <= 0.0 || self.settings.instant {
             self.out = out;
-            self.reaction_timer = self.skill.settings().reaction;
+            self.reaction_timer = self.settings.reaction;
         } else {
             self.out.steer += (out.steer - self.out.steer) * 0.35;
             self.out.throttle = out.throttle;
@@ -509,24 +508,22 @@ fn nearest_pad(world: &World, position: Vec3, big: bool) -> Option<Vec3> {
     }
     closest
 }
-pub fn assign_roles(world: &World, bots: &mut [Bot], player: Option<usize>) {
-    for team in 0..2 {
-        let ids = bots
-            .iter()
-            .filter(|b| world.cars[b.car].team == team)
-            .map(|b| b.car)
-            .chain(player.filter(|&p| world.cars[p].team == team));
-        let best = ids.reduce(|a, b| {
-            let direction = if team == 0 { 1.0 } else { -1.0 };
-            let cost = |id: usize| {
-                let car = &world.cars[id];
-                car.pos.distance(world.ball.pos)
-                    + ((car.pos.y - world.ball.pos.y) * direction).max(0.0) * 1.5
-            };
-            if cost(a) < cost(b) { a } else { b }
-        });
-        for bot in bots.iter_mut().filter(|b| world.cars[b.car].team == team) {
-            bot.support = Some(bot.car) != best;
-        }
+/// The car with the lowest cost attacks. A human teammate takes part in the choice but is never steered.
+fn assign_roles(world: &World, team: usize, bots: &mut [Bot], player: Option<usize>) {
+    let ids = bots
+        .iter()
+        .map(|b| b.car)
+        .chain(player.filter(|&p| world.cars[p].team == team));
+    let best = ids.reduce(|a, b| {
+        let direction = if team == 0 { 1.0 } else { -1.0 };
+        let cost = |id: usize| {
+            let car = &world.cars[id];
+            car.pos.distance(world.ball.pos)
+                + ((car.pos.y - world.ball.pos.y) * direction).max(0.0) * 1.5
+        };
+        if cost(a) < cost(b) { a } else { b }
+    });
+    for bot in bots.iter_mut() {
+        bot.support = Some(bot.car) != best;
     }
 }

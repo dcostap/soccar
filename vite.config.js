@@ -13,6 +13,11 @@ export function rebaseGameAssets(code, base) {
 let assetBase = "/";
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: { main: "index.html", arena: "arena.html" },
+    },
+  },
   plugins: [
     {
       name: "soccar-asset-base",

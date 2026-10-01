@@ -99,8 +99,8 @@ export class Presentation {
       this.fps = this.fpsFrames / this.fpsAcc;
       this.fpsAcc = this.fpsFrames = 0;
     }
-    if (!this.paused) {
-      if (this.player) {
+    if (!this.paused && !this.watch?.paused) {
+      if (this.followed()) {
         if (this.settings.camera.ballCamMode === "hold")
           this.camera.ballCam =
             this.settings.gameplay.defaultBallCam !== input.ballCamHeld;
@@ -113,16 +113,25 @@ export class Presentation {
         else if (input.freeplay.ballTop) this.placeBall("top");
       }
       if (this.phase === "replay" && input.jumpPressed) this.endReplay();
-      this.acc += delta;
+      const speed = this.watch?.speed ?? 1;
+      const limit = Math.ceil(12 * speed);
+      this.acc += delta * speed;
       let ticks = 0;
-      while (this.acc >= step && ticks < 12) {
+      while (this.acc >= step && ticks < limit) {
         this.acc -= step;
         ticks++;
         this.tick(input);
       }
-      if (ticks >= 12) this.acc = 0;
+      if (ticks >= limit) this.acc = 0;
     }
     this.render(delta, this.paused ? 1 : this.acc / step, input);
+  }
+  /** The car the camera follows: the player, or the watched car when spectating. */
+  followed() {
+    return (
+      this.player ??
+      (this.watch ? (this.world.cars[this.watch.follow] ?? null) : null)
+    );
   }
   snapshotNow() {
     this.prev = this.cur;
@@ -245,8 +254,8 @@ export class Presentation {
       ),
         i.camera.up.set(0, 0, 1),
         i.camera.lookAt(d.x * 0.3, d.y * 0.3, 200));
-    } else if (this.player) {
-      let n = this.player,
+    } else if (this.followed()) {
+      let n = this.followed(),
         i = u.indexOf(n),
         l = a.cars[i],
         f = o.cars[i],

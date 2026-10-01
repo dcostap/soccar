@@ -19,3 +19,12 @@ npm run sim -- --seed 12345
 ```
 
 See [the simulation core](simulation/README.md) for headless matches and exact native/WASM checks.
+
+Rate bot brains against each other, browse every match, and watch any of them in the game:
+
+```sh
+npm run arena -- ladder
+npm run dev   # then open /arena.html
+```
+
+See [the arena](arena/README.md).
