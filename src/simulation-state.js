@@ -209,22 +209,11 @@ export function readSimulationState(data, game) {
   game.lastGoalTeam = read();
   game.freeplayGoalTimer = read();
   const names = read();
-  const botNames = [
-    "Nova",
-    "Blitz",
-    "Comet",
-    "Vortex",
-    "Jet",
-    "Rogue",
-    "Flux",
-    "Apex",
-    "Talon",
-    "Echo",
-  ];
+  // Bots are numbered by car, matching the arena and the spectator keys. Rust still sends name indices.
   for (let i = 0; i < names; i++) {
     const name = read();
     w.cars[i].name =
-      name < 0 ? game.settings.gameplay.playerName : botNames[name];
+      name < 0 ? game.settings.gameplay.playerName : `Car ${i + 1}`;
   }
   const stats = read();
   game.stats = new Map();
