@@ -116,7 +116,7 @@ pub extern "C" fn sim_start(
         1 => e.game.start_freeplay(),
         2 => e.game.start_match(Config {
             team_size: size as usize,
-            skill: Skill::from_number(skill),
+            skills: [Skill::from_number(skill); 2],
             player_team: player,
             duration,
             dodge_deadzone: dodge,

@@ -420,9 +420,6 @@ impl Car {
         self.vel.z += -650.0 * dt;
         self.last_controls = controls;
     }
-    // TODO(post-port): Test a reduced tire-grip expression against native and WASM traces.
-    // Equal coefficients do not make the original operation order bit-neutral.
-    #[allow(clippy::eq_op)] // Preserve the original equal tire-grip coefficients during parity.
     fn update_wheels(
         &mut self,
         dt: f64,
@@ -436,7 +433,12 @@ impl Car {
         let left = self.left;
         let mass = self.mass;
         let driving = self.controls.throttle != 0.0 || self.is_boosting;
-        let mut impulses: Vec<(Vec3, Vec3, bool)> = Vec::with_capacity(12);
+        let mut impulses = [(Vec3::default(), Vec3::default(), false); 12];
+        let mut count = 0;
+        let mut push = |impulse| {
+            impulses[count] = impulse;
+            count += 1;
+        };
         for index in 0..4 {
             let mut wheel = self.wheels[index];
             if !wheel.in_contact {
@@ -472,7 +474,7 @@ impl Car {
             if force < 0.0 || jumping {
                 force = 0.0;
             }
-            impulses.push((normal.scaled(force * mass * dt), point, wheel.on_ball));
+            push((normal.scaled(force * mass * dt), point, wheel.on_ball));
             let stop_length = wheel.rest_length + wheel.radius - 2.5;
             if !wheel.on_ball && wheel.trace_length < stop_length {
                 let penetration = wheel.trace_length - stop_length;
@@ -481,7 +483,7 @@ impl Car {
                 let mut impulse = ((0.2 * -penetration) / dt - speed) * inverse;
                 if impulse > 0.0 {
                     impulse /= self.num_wheels_in_contact.max(1) as f64;
-                    impulses.push((normal.scaled(impulse), point, false));
+                    push((normal.scaled(impulse), point, false));
                 }
             }
             if wheel.on_ball
@@ -510,8 +512,7 @@ impl Car {
             let mut side_grip = curve(&[(0.0, 1.0), (1.0, 0.2)], ratio);
             let mut long_grip = 1.0;
             if self.handbrake_val > 0.0 {
-                let grip = 0.1 + (0.1 - 0.1) * ratio;
-                side_grip *= (grip - 1.0) * self.handbrake_val * 1.0 + 1.0;
+                side_grip *= (0.1 - 1.0) * self.handbrake_val + 1.0;
                 long_grip *=
                     (curve(&[(0.0, 0.5), (1.0, 0.9)], ratio) - 1.0) * self.handbrake_val + 1.0;
             }
@@ -537,7 +538,7 @@ impl Car {
                 long_impulse = clamp(-long_speed / inverse / 4.0, -limit, limit);
             }
             long_impulse *= long_grip;
-            impulses.push((
+            push((
                 lateral
                     .scaled(side_impulse)
                     .with_scaled(longitudinal, long_impulse),
@@ -547,7 +548,7 @@ impl Car {
             wheel.spin += (long_speed / wheel.radius) * dt;
             self.wheels[index] = wheel;
         }
-        for (impulse, point, on_ball) in impulses {
+        for &(impulse, point, on_ball) in &impulses[..count] {
             self.apply_impulse(impulse, point);
             if on_ball && let Some(ball) = ball.as_deref_mut() {
                 ball.vel.add_scaled(impulse, -1.0 / ball.mass);
@@ -765,6 +766,7 @@ impl Car {
             normal: Vec3,
             depth: f64,
         }
+        #[derive(Clone, Copy)]
         struct Solver {
             c: Contact,
             t1: Vec3,
@@ -778,7 +780,12 @@ impl Car {
             j2: f64,
         }
         let center = self.hitbox_center();
-        let mut contacts = Vec::new();
+        let mut contacts = [Contact {
+            point: Vec3::default(),
+            normal: Vec3::default(),
+            depth: 0.0,
+        }; 26];
+        let mut count = 0;
         for x in [-1.0_f64, -0.5, 0.0, 0.5, 1.0] {
             for y in [-1.0_f64, 0.0, 1.0] {
                 for z in [-1.0_f64, 0.0, 1.0] {
@@ -789,27 +796,30 @@ impl Car {
                             .plus(center);
                         let distance = arena::distance(point) - 3.0;
                         if distance < 0.0 {
-                            contacts.push(Contact {
+                            contacts[count] = Contact {
                                 point,
                                 normal: arena::normal(point),
                                 depth: -distance,
-                            });
+                            };
+                            count += 1;
                         }
                     }
                 }
             }
         }
-        if contacts.is_empty() {
+        if count == 0 {
             return;
         }
+        let contacts = &mut contacts[..count];
         contacts.sort_by(|a, b| b.depth.partial_cmp(&a.depth).unwrap());
-        let mut chosen = vec![contacts[0]];
-        while chosen.len() < 4 && chosen.len() < contacts.len() {
+        let mut chosen = [contacts[0]; 4];
+        let mut chosen_count = 1;
+        while chosen_count < 4 && chosen_count < contacts.len() {
             let mut best = None;
             let mut maximum = 4.0;
             for (index, contact) in contacts.iter().enumerate() {
                 let mut minimum = f64::INFINITY;
-                for prior in &chosen {
+                for prior in &chosen[..chosen_count] {
                     minimum = minimum.min(prior.point.minus(contact.point).length_sq());
                 }
                 if minimum > maximum {
@@ -818,16 +828,17 @@ impl Car {
                 }
             }
             if let Some(index) = best {
-                chosen.push(contacts[index]);
+                chosen[chosen_count] = contacts[index];
+                chosen_count += 1;
             } else {
                 break;
             }
         }
         self.world_contact = true;
         self.world_normal = chosen[0].normal;
-        let mut solvers: Vec<_> = chosen
-            .iter()
-            .map(|c| {
+        let mut solvers = [None; 4];
+        for (solver, c) in solvers.iter_mut().zip(&chosen[..chosen_count]) {
+            *solver = Some({
                 let arm = c.point.minus(self.pos);
                 let speed = self.point_velocity(c.point).dot(c.normal);
                 let axis = if c.normal.z.abs() < 0.9 {
@@ -849,10 +860,10 @@ impl Car {
                     j1: 0.0,
                     j2: 0.0,
                 }
-            })
-            .collect();
+            });
+        }
         for _ in 0..10 {
-            for solver in &mut solvers {
+            for solver in solvers.iter_mut().flatten() {
                 let speed = self.point_velocity(solver.c.point).dot(solver.c.normal);
                 let impulse = 0.0_f64.max(solver.jn + (solver.target - speed) * solver.kn);
                 let change = impulse - solver.jn;

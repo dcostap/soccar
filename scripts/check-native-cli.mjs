@@ -37,6 +37,21 @@ const parse = (text) =>
     })
     .sort((a, b) => a.match - b.match);
 assert.deepEqual(parse(one.stdout), parse(parallel.stdout));
+const summary = JSON.parse(parallel.stderr);
+assert.equal(summary.matches, 4);
+assert.equal(summary.completed, 4);
+assert.equal(summary.blueWins + summary.orangeWins, 4);
+const mixed = run([
+  "--duration",
+  "5",
+  "--team-size",
+  "1",
+  "--skill",
+  "rookie,allstar",
+]);
+assert.equal(mixed.status, 0);
+assert.equal(JSON.parse(mixed.stdout).players.length, 2);
+assert.equal(run(["--skill", "rookie,expert"]).status, 1);
 const limited = run(["--duration", "0", "--max-ticks", "1"]);
 assert.equal(limited.status, 2);
 const result = JSON.parse(limited.stdout);
@@ -50,6 +65,8 @@ console.log(
       status: "PASS",
       checks: [
         "parallel determinism",
+        "batch summary",
+        "per-team skills",
         "tick-limit status",
         "invalid arguments",
       ],

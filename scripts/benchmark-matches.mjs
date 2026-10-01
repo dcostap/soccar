@@ -46,6 +46,21 @@ for (const seed of [12345, 67890, 24680]) {
     throw new Error(`Benchmark regression for ${seed}`);
   runs.push(actual);
 }
+// Batch throughput: independent matches on every logical CPU.
+const threads = cpus().length;
+const batch = spawnSync(
+  binary,
+  [
+    "--seed",
+    "1",
+    "--matches",
+    String(threads * 4),
+    "--threads",
+    String(threads),
+  ],
+  { cwd: root, encoding: "utf8", maxBuffer: 64 << 20 },
+);
+if (batch.status !== 0) throw new Error(batch.stderr);
 const median = (values) =>
   [...values].sort((a, b) => a - b)[values.length >> 1];
 const report = {
@@ -55,6 +70,7 @@ const report = {
     "Native Rust: complete 300-second 3v3 allstar matches, including overtime; no rendering or replay playback",
   runs,
   medianMs: median(runs.map((r) => r.elapsedMs)),
+  batch: JSON.parse(batch.stderr),
 };
 await mkdir(new URL("../artifacts/benchmark/", import.meta.url), {
   recursive: true,

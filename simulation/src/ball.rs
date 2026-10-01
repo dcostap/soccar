@@ -6,7 +6,7 @@ pub const TRACE_FIELDS: usize = 17;
 pub const PHYSICAL_RADIUS: f64 = 91.25;
 pub const COLLISION_RADIUS: f64 = 93.15;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Copy, Debug)]
 pub struct Ball {
     pub pos: Vec3,
     pub vel: Vec3,
@@ -42,6 +42,26 @@ impl Ball {
         self.pos = other.pos;
         self.vel = other.vel;
         self.ang_vel = other.ang_vel;
+    }
+    /// True when both balls evolve identically from here: every input of `step` matches bit for bit.
+    pub fn same_motion(&self, other: &Self) -> bool {
+        let bits = |b: &Self| {
+            [
+                b.pos.x,
+                b.pos.y,
+                b.pos.z,
+                b.vel.x,
+                b.vel.y,
+                b.vel.z,
+                b.ang_vel.x,
+                b.ang_vel.y,
+                b.ang_vel.z,
+                b.radius,
+                b.mass,
+            ]
+            .map(f64::to_bits)
+        };
+        self.frozen == other.frozen && bits(self) == bits(other)
     }
     pub fn from_state(state: [f64; STATE_FIELDS]) -> Self {
         Self {

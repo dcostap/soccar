@@ -175,6 +175,12 @@ impl World {
         self.reset_pads();
     }
     pub fn step(&mut self) {
+        self.step_with(false);
+    }
+    /// `reverse_ball_contacts` resolves car-ball contacts from the last car to the first.
+    /// Mirrored kickoffs reach the ball on the same tick, and the car resolved second wins,
+    /// so a fixed order gives one team every tied touch. Matches pick the order with a seeded coin flip.
+    pub fn step_with(&mut self, reverse_ball_contacts: bool) {
         self.events.clear();
         self.goal_scored = None;
         for car in &mut self.cars {
@@ -195,7 +201,13 @@ impl World {
         for car in &mut self.cars {
             car.collide_world();
         }
-        for car in &mut self.cars {
+        let count = self.cars.len();
+        for index in 0..count {
+            let car = &mut self.cars[if reverse_ball_contacts {
+                count - 1 - index
+            } else {
+                index
+            }];
             if let Some((strength, point)) = car_ball(car, &mut self.ball, self.tick) {
                 self.last_touch = Some(car.id);
                 self.ball_touched = true;
@@ -418,17 +430,20 @@ fn separating_axis(a: BoxShape, b: BoxShape) -> Option<(Vec3, f64)> {
     let delta = b.center.minus(a.center);
     let mut depth = f64::INFINITY;
     let mut normal = Vec3::default();
-    let mut axes = Vec::from(a.axes);
-    axes.extend(b.axes);
+    let mut axes = [Vec3::default(); 15];
+    axes[..3].copy_from_slice(&a.axes);
+    axes[3..6].copy_from_slice(&b.axes);
+    let mut count = 6;
     for x in a.axes {
         for y in b.axes {
             let axis = x.cross(y);
             if axis.length_sq() > 1e-6 {
-                axes.push(axis.normalized());
+                axes[count] = axis.normalized();
+                count += 1;
             }
         }
     }
-    for axis in axes {
+    for &axis in &axes[..count] {
         let ar = HALF.x * a.axes[0].dot(axis).abs()
             + HALF.y * a.axes[1].dot(axis).abs()
             + HALF.z * a.axes[2].dot(axis).abs();

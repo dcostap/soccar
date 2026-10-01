@@ -33,10 +33,15 @@ fn outline_distance(x: f64, y: f64) -> f64 {
     a.min(b).min(c)
 }
 
-// TODO(post-port): Compare clamp replacements before changing the original max/min order.
-#[allow(clippy::manual_clamp)] // Keep the JavaScript max/min operation order.
 pub fn ramp_radius(x: f64) -> f64 {
-    let fraction = ((x.abs() - 893.0) / 450.0).max(0.0).min(1.0);
+    // Exact shortcuts for the flat ends of the smoothstep, which skip the division.
+    if x.abs() <= 893.0 {
+        return 256.0 * 0.02;
+    }
+    if x.abs() >= 893.0 + 450.0 {
+        return 256.0;
+    }
+    let fraction = ((x.abs() - 893.0) / 450.0).clamp(0.0, 1.0);
     256.0 * 0.02_f64.max(fraction * fraction * (3.0 - 2.0 * fraction))
 }
 
@@ -46,9 +51,20 @@ fn field_distance(x: f64, y: f64, z: f64) -> f64 {
     let vertical = (radius - z).max(z - (HEIGHT - radius));
     let positive_h = if horizontal > 0.0 { horizontal } else { 0.0 };
     let positive_v = if vertical > 0.0 { vertical } else { 0.0 };
-    radius
-        - ((positive_h * positive_h + positive_v * positive_v).sqrt()
-            + horizontal.max(vertical).min(0.0))
+    radius - (length(positive_h, positive_v) + horizontal.max(vertical).min(0.0))
+}
+
+/// `(a * a + b * b).sqrt()` for non-negative inputs, bit for bit.
+/// With one term zero, the square root of a correctly rounded square returns the other term exactly
+/// unless the square underflows.
+fn length(a: f64, b: f64) -> f64 {
+    if b == 0.0 && a >= 1e-150 {
+        a
+    } else if a == 0.0 && b >= 1e-150 {
+        b
+    } else {
+        (a * a + b * b).sqrt()
+    }
 }
 
 fn rounded_min(a: f64, b: f64, radius: f64) -> f64 {
@@ -84,8 +100,6 @@ fn goal_profile(y: f64, z: f64) -> f64 {
     distance
 }
 
-// TODO(post-port): Compare clamp replacements before changing the original max/min order.
-#[allow(clippy::manual_clamp)] // Keep the JavaScript max/min operation order.
 pub fn goal_distance(x: f64, y: f64, z: f64) -> f64 {
     if y < HALF_LENGTH {
         if x >= 893.0 || z >= GOAL_HEIGHT || z <= 0.0 {
@@ -99,7 +113,7 @@ pub fn goal_distance(x: f64, y: f64, z: f64) -> f64 {
         return side.min(top).min(z);
     }
     let depth_fraction = ((y - HALF_LENGTH) / 60.0).min(1.0);
-    let height_fraction = (z / GOAL_HEIGHT).max(0.0).min(1.0);
+    let height_fraction = (z / GOAL_HEIGHT).clamp(0.0, 1.0);
     rounded_min(
         893.0 - x,
         goal_profile(y, z),

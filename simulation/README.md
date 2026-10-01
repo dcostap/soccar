@@ -41,7 +41,8 @@ The generated binary is `public/simulation/soccar_simulation.wasm`.
 Do not commit it or Cargo build outputs.
 
 CI uses Node 24.14.0 and Rust 1.91.1.
-The Rust library uses `f64`, preserves arithmetic order, and pins `libm`.
+The Rust library uses `f64` and pins `libm` for trigonometry.
+Do not use platform `f64::sin`, `cos`, or `atan2`: they call the C library, which differs between Windows, Linux, and WASM.
 Do not enable unsafe floating-point optimizations.
 
 ## Run headless matches
@@ -58,12 +59,21 @@ Run a batch across CPU threads:
 npm run sim -- --seed 12345 --matches 32 --threads 8
 ```
 
+Pit two skills against each other with `--skill blue,orange`:
+
+```sh
+npm run sim -- --skill rookie,allstar --matches 1000 --threads 16 > results.jsonl
+```
+
 Each match uses `seed + match index`, with unsigned 32-bit wrapping.
-Each worker owns an independent simulation and random generator.
-The runner writes one JSON result per match, in completion order.
+Each worker owns an independent simulation and random generator, so results do not depend on the thread count.
+The runner writes one JSON result per match to stdout, in completion order.
 Use the `match` field to order results. Blue is team zero; orange is team one.
 
-Results include completion, score, winner, overtime, clock, controller ticks, physics ticks, and elapsed milliseconds.
+Results include completion, score, winner, overtime, clock, controller ticks, physics ticks, elapsed milliseconds,
+and per-player team, score, goals, assists, shots, and saves.
+After the batch, a single JSON summary goes to stderr: wins per team, overtimes, total goals, wall time,
+matches per second, and physics ticks per second.
 The runner stops after match completion or the tick limit.
 Kickoffs, goals, airborne expiry, and overtime can extend a five-minute match.
 
@@ -75,7 +85,7 @@ Options:
 ```text
 --team-size 1..3
 --duration seconds
---skill rookie|pro|allstar
+--skill rookie|pro|allstar[,orange skill]
 --seed unsigned-32-bit-integer
 --matches count
 --threads count
@@ -87,6 +97,23 @@ Options:
 Duration zero means unlimited play. The default limit is 216,000 controller ticks.
 A limited match returns `completed: false` and `winner: null`.
 Exit code two means at least one match reached its limit. Invalid arguments return exit code one.
+
+### Rust API
+
+Other Rust projects can depend on this crate and call `soccar_simulation::harness` directly:
+
+```rust
+use soccar_simulation::{bot::Skill, harness::{self, MatchSpec, Summary}};
+
+let specs: Vec<_> = (0..1000)
+    .map(|i| MatchSpec { seed: i, skills: [Skill::Pro, Skill::Allstar], ..MatchSpec::default() })
+    .collect();
+let mut summary = Summary::default();
+harness::run_batch(&specs, 16, |_index, result| summary.add(&result));
+```
+
+`run_match` plays one match on the calling thread. `MatchSpec::default()` is a five-minute 3v3 all-star match.
+For custom control loops, drive `game::Game` directly as `harness::run_match` does.
 
 ## Checks
 
@@ -114,13 +141,15 @@ Cases cover menu play, freeplay, all team sizes and skills, player controls, com
 
 `simulation/regression.json` stores SHA-256 hashes of accepted Rust state streams and match results.
 These hashes detect changes even when native and WASM implementations change together.
-The initial baseline includes 162,960 states and 721,810,980 fields across 16 cases.
+The current baseline was recorded after replacing the JavaScript-compatible math with `libm` trigonometry
+and a plain `hypot`, and after randomizing car-ball contact order. It includes 170,333 states and 755,073,539 fields
+across 16 cases.
 
 | Seed  | Score | Overtime | Controller ticks | Physics ticks |
 | ----- | ----- | -------- | ---------------- | ------------- |
-| 12345 | 4–3   | Yes      | 51,486           | 47,706        |
-| 67890 | 3–5   | No       | 48,944           | 44,624        |
-| 24680 | 2–4   | No       | 46,074           | 42,834        |
+| 12345 | 7–8   | Yes      | 60,223           | 52,077        |
+| 67890 | 3–4   | No       | 47,526           | 43,746        |
+| 24680 | 2–4   | No       | 46,128           | 42,888        |
 
 The state runner streams bounded blocks instead of retaining complete traces in memory.
 A difference reports the case, tick, block, field index, and floating-point bits.
@@ -148,15 +177,22 @@ The completed port passed exact JavaScript comparisons before removing the JavaS
 Rust is now authoritative. Those comparisons are history, not a current runtime or test dependency.
 The removed engine remains available in Git history at commit `9983451`.
 
-The existing `TODO(post-port)` comments still identify inherited compatibility choices:
+The V8 trigonometry kernels, the scaled V8 `hypot`, the equal tire-grip coefficients, and the manual
+max/min bounds were replaced with plain Rust math. This changed results, so the regression baseline was recorded again.
 
-- Software trigonometry and scaled `hypot` preserve the accepted floating-point behavior.
-- Equal tire-grip coefficients and manual bounds preserve arithmetic order.
+Car-ball contacts used to resolve in car order, blue first. Mirrored kickoffs reach the ball on the same tick,
+and the car resolved second wins, so every tied touch went to one team. Mirrored all-star matches were heavily
+one-sided: orange won 72% of 3v3 and 66% of 1v1 matches, and blue never recorded an assist.
+Each physics step now picks forward or reverse contact order with a coin flip from the match's seeded generator.
+Mirrored matches are now even within sampling noise for every team size and skill tested.
+Other per-car loops (car-car bumps, pad pickups, wheel contacts on the ball) still run in car order.
+
+The remaining `TODO(post-port)` comments identify inherited behavior choices:
+
 - Random name sorting preserves the accepted random draw sequence.
 - Restart retains predictor state, as the original game did.
 - One boost pad retains its asymmetric position.
 
-This cleanup does not change those rules or calculations.
 Review each item as a separate behavior or performance change.
 Compare native and WASM results and performance before replacing it.
 Update regression states only after reviewing the intended change.
@@ -172,8 +208,25 @@ It checks scores and physics ticks against the Rust regression baseline before a
 It skips rendering and replay playback, but retains statistics, bot prediction, and match rules.
 Results go into `artifacts/benchmark/report.json`.
 
-The initial native median was approximately 2.3 seconds on a Ryzen 7 5800X3D.
+It then runs four matches per logical CPU in parallel and records the batch summary.
+
+On a Ryzen 7 5800X3D (8 cores, 16 threads), the native median per match fell from about 2.4 seconds to about 0.76 seconds.
+The batch runs about 13 complete 3v3 matches per second, or about 580,000 physics ticks per second.
 Trace checks include serialization and transfer. Do not use their times as performance measurements.
+
+### Exact optimizations
+
+Performance changes must keep every regression hash unchanged. The current shortcuts are exact:
+
+- Ball and goal predictions reuse the previous trajectory while the real ball still matches a stored state bit for bit.
+  Only the new tail is simulated. `tests/prediction.rs` compares reused and fresh predictions.
+- Bots skip `atan2` and distance work for predicted slices that cannot pass the reach estimate.
+  The skipped terms are non-negative, so rounding cannot change the comparison.
+- Arena distance skips divisions and square roots where the result is already determined,
+  such as the flat ends of the ramp smoothstep and `sqrt(v * v) == v`.
+- Hot paths use fixed arrays instead of heap allocations.
+
+Most remaining time is in arena distance queries for wheel rays and hitbox contacts, then bot decisions.
 
 ## Test stream
 

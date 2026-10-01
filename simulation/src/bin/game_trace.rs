@@ -49,7 +49,7 @@ fn run() -> io::Result<()> {
         let mut game = Game::new(seed);
         let config = Config {
             team_size: size,
-            skill,
+            skills: [skill; 2],
             player_team: player,
             duration,
             ..Config::default()

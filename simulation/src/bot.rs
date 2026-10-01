@@ -6,6 +6,7 @@ use crate::{
     vector::Vec3,
     world::World,
 };
+use std::collections::VecDeque;
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Skill {
     Rookie,
@@ -75,39 +76,56 @@ pub struct Slice {
     pub pos: Vec3,
     pub vel: Vec3,
 }
+const PREDICTION_STEPS: usize = 480;
 #[derive(Clone, Debug)]
 pub struct Predictor {
     pub slices: Vec<Slice>,
     pub sim: Ball,
     pub last_tick: i64,
+    /// Ball state after each step of the current prediction.
+    path: VecDeque<Ball>,
 }
 impl Default for Predictor {
     fn default() -> Self {
         Self {
-            slices: Vec::with_capacity(240),
+            slices: Vec::with_capacity(PREDICTION_STEPS / 2),
             sim: Ball::default(),
             last_tick: -100,
+            path: VecDeque::with_capacity(PREDICTION_STEPS),
         }
     }
 }
 impl Predictor {
     pub fn update(&mut self, world: &World) {
-        if world.tick - self.last_tick < 4 {
+        let elapsed = world.tick - self.last_tick;
+        if elapsed < 4 {
             return;
         }
         self.last_tick = world.tick;
-        self.sim.copy_from(&world.ball);
-        self.sim.frozen = world.ball.frozen;
-        self.slices.clear();
-        for tick in 1..=480 {
+        // An untouched ball follows the previous prediction exactly, so only the new tail is simulated.
+        let elapsed = elapsed as usize;
+        if self.path.len() == PREDICTION_STEPS
+            && elapsed <= PREDICTION_STEPS
+            && self.path[elapsed - 1].same_motion(&world.ball)
+        {
+            self.path.drain(..elapsed);
+        } else {
+            self.path.clear();
+            self.sim.copy_from(&world.ball);
+            self.sim.frozen = world.ball.frozen;
+        }
+        while self.path.len() < PREDICTION_STEPS {
             self.sim.step();
-            if tick % 2 == 0 {
-                self.slices.push(Slice {
-                    t: tick as f64 * DT,
-                    pos: self.sim.pos,
-                    vel: self.sim.vel,
-                });
-            }
+            self.path.push_back(self.sim);
+        }
+        self.slices.clear();
+        for tick in (2..=PREDICTION_STEPS).step_by(2) {
+            let state = &self.path[tick - 1];
+            self.slices.push(Slice {
+                t: tick as f64 * DT,
+                pos: state.pos,
+                vel: state.vel,
+            });
         }
     }
 }
@@ -198,6 +216,7 @@ impl Bot {
             self.kickoff_flip_done = false;
             let mut chosen = None;
             let mut last = None;
+            let pace = self.average_speed(car).max(400.0);
             for &slice in &predictor.slices {
                 if slice.t > settings.predict {
                     continue;
@@ -206,11 +225,20 @@ impl Bot {
                 if slice.pos.z > 300.0 && !(settings.aerial && slice.pos.z < 1500.0) {
                     continue;
                 }
+                // Exact shortcut: the aim point lies 141.25 from the slice, and angle and height only add time.
+                // Slices that are out of reach by more than a unit of margin cannot pass the estimate below.
+                let reach = slice.t * pace + (91.25 + 50.0) + 1.0;
+                let dx = slice.pos.x - car.pos.x;
+                let dy = slice.pos.y - car.pos.y;
+                if dx * dx + dy * dy > reach * reach {
+                    continue;
+                }
                 let mut aim = target_goal.minus(slice.pos);
                 aim.z = 0.0;
                 aim = aim.normalized();
                 let point = slice.pos.with_scaled(aim, -(91.25 + 50.0));
-                if self.estimate_time(car, point, slice.pos.z) <= slice.t {
+                let travel = hypot2(point.x - car.pos.x, point.y - car.pos.y) / pace;
+                if travel <= slice.t && estimate_time(car, point, slice.pos.z, travel) <= slice.t {
                     chosen = Some(slice);
                     break;
                 }
@@ -309,11 +337,8 @@ impl Bot {
         self.apply_reaction(output, DT);
         self.out
     }
-    fn estimate_time(&self, car: &Car, target: Vec3, height: f64) -> f64 {
+    fn average_speed(&self, car: &Car) -> f64 {
         let settings = self.skill.settings();
-        let distance = hypot2(target.x - car.pos.x, target.y - car.pos.y);
-        let offset = target.minus(car.pos);
-        let angle = atan2(offset.dot(car.left), offset.dot(car.forward)).abs();
         let speed = car.forward_speed().max(0.0);
         let maximum = (if settings.boost && car.boost > 10.0 {
             2000.0
@@ -321,8 +346,7 @@ impl Bot {
             1350.0
         }) * settings.speed;
         let time = ((maximum - speed) / 1400.0).max(0.0);
-        let average = speed + (maximum - speed) * (0.5 * time).min(1.0);
-        distance / average.max(400.0) + angle * 0.45 + (height - 150.0).max(0.0) * 0.004
+        speed + (maximum - speed) * (0.5 * time).min(1.0)
     }
     fn drive_to(&self, car: &Car, out: &mut Controls, target: Vec3, boost: bool, speed: f64) {
         let offset = target.minus(car.pos);
@@ -447,6 +471,12 @@ impl Bot {
         Some(out)
     }
 }
+/// `travel` is the horizontal distance divided by the average speed.
+fn estimate_time(car: &Car, target: Vec3, height: f64, travel: f64) -> f64 {
+    let offset = target.minus(car.pos);
+    let angle = atan2(offset.dot(car.left), offset.dot(car.forward)).abs();
+    travel + angle * 0.45 + (height - 150.0).max(0.0) * 0.004
+}
 fn orient(car: &Car, forward: Vec3, up: Vec3, out: &mut Controls) {
     let f = car.mat.transpose_mul(forward);
     let u = car.mat.transpose_mul(up);
@@ -481,17 +511,12 @@ fn nearest_pad(world: &World, position: Vec3, big: bool) -> Option<Vec3> {
 }
 pub fn assign_roles(world: &World, bots: &mut [Bot], player: Option<usize>) {
     for team in 0..2 {
-        let mut ids: Vec<_> = bots
+        let ids = bots
             .iter()
             .filter(|b| world.cars[b.car].team == team)
             .map(|b| b.car)
-            .collect();
-        if let Some(player) = player
-            && world.cars[player].team == team
-        {
-            ids.push(player);
-        }
-        let best = ids.into_iter().reduce(|a, b| {
+            .chain(player.filter(|&p| world.cars[p].team == team));
+        let best = ids.reduce(|a, b| {
             let direction = if team == 0 { 1.0 } else { -1.0 };
             let cost = |id: usize| {
                 let car = &world.cars[id];

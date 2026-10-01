@@ -8,10 +8,12 @@ use crate::{
     vector::Vec3,
     world::{BALL_HIT, Event, GOAL, KICKOFF, World},
 };
+use std::collections::VecDeque;
 pub const COUNTDOWN: u32 = 11;
 pub const OVERTIME: u32 = 12;
 pub const ENDED: u32 = 13;
 pub const SAVE: u32 = 14;
+const GOAL_STEPS: usize = 240;
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Phase {
     Countdown,
@@ -49,7 +51,8 @@ impl Mode {
 #[derive(Clone, Copy, Debug)]
 pub struct Config {
     pub team_size: usize,
-    pub skill: Skill,
+    /// Bot skill for blue (team zero) and orange (team one).
+    pub skills: [Skill; 2],
     pub player_team: i32,
     pub duration: f64,
     pub dodge_deadzone: f64,
@@ -58,7 +61,7 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             team_size: 1,
-            skill: Skill::Pro,
+            skills: [Skill::Pro; 2],
             player_team: 0,
             duration: 300.0,
             dodge_deadzone: 0.5,
@@ -106,6 +109,9 @@ pub struct Game {
     pub notifications: Vec<Event>,
     pub skip_replays: bool,
     pub has_snapshot: bool,
+    /// Ball states of the last goal prediction, reused while the ball stays on that path.
+    goal_path: VecDeque<Ball>,
+    goal_path_tick: i64,
 }
 impl Game {
     pub fn new(seed: u32) -> Self {
@@ -141,6 +147,8 @@ impl Game {
             notifications: Vec::new(),
             skip_replays: false,
             has_snapshot: false,
+            goal_path: VecDeque::with_capacity(GOAL_STEPS),
+            goal_path_tick: 0,
         }
     }
     fn reset_world(&mut self) {
@@ -175,7 +183,7 @@ impl Game {
                     self.world.cars[id].dodge_deadzone = config.dodge_deadzone;
                     self.names.push(-1);
                 } else {
-                    self.bots.push(Bot::new(id, config.skill));
+                    self.bots.push(Bot::new(id, config.skills[team]));
                     self.names.push(names[name] as i32);
                     name += 1;
                 }
@@ -312,7 +320,7 @@ impl Game {
                 self.world.ball.frozen = false;
                 self.countdown(0);
             }
-            self.world.step();
+            self.step_world();
             self.has_snapshot = true;
             return;
         }
@@ -321,13 +329,13 @@ impl Game {
         {
             self.world.cars[player].boost = 100.0;
         }
-        self.world.step();
+        self.step_world();
         if !self.world.ball.frozen {
             self.ball_rot.integrate(self.world.ball.ang_vel, DT);
         }
         if self.mode != Mode::Menu {
-            let events = self.world.events.clone();
-            for event in events {
+            let events = std::mem::take(&mut self.world.events);
+            for &event in &events {
                 self.notifications.push(event);
                 match event.kind {
                     BALL_HIT => {
@@ -344,6 +352,7 @@ impl Game {
                     _ => {}
                 }
             }
+            self.world.events = events;
         }
         if self.has_snapshot {
             self.replay_length = (self.replay_length + 1).min(1080);
@@ -406,6 +415,10 @@ impl Game {
             }
         }
         self.has_snapshot = true;
+    }
+    fn step_world(&mut self) {
+        let reverse = self.random.next_f64() < 0.5;
+        self.world.step_with(reverse);
     }
     fn countdown(&mut self, shown: i32) {
         let mut e = Event::new(COUNTDOWN);
@@ -495,19 +508,36 @@ impl Game {
         self.replay_end = self.replay_length + 120;
     }
     pub fn predict_goal(&mut self) -> Option<usize> {
-        self.predict_ball.copy_from(&self.world.ball);
-        for _ in 0..240 {
+        fn crossed(ball: &Ball) -> Option<usize> {
+            if ball.pos.y > crate::arena::GOAL_LINE + ball.radius {
+                Some(0)
+            } else if ball.pos.y < -(crate::arena::GOAL_LINE + ball.radius) {
+                Some(1)
+            } else {
+                None
+            }
+        }
+        // The prediction skips velocity clamps. Reuse requires the real ball to match a stored state exactly.
+        let elapsed = self.world.tick - self.goal_path_tick;
+        self.goal_path_tick = self.world.tick;
+        if elapsed > 0
+            && (elapsed as usize) < self.goal_path.len()
+            && self.goal_path[elapsed as usize - 1].same_motion(&self.world.ball)
+        {
+            self.goal_path.drain(..elapsed as usize);
+        } else {
+            self.goal_path.clear();
+            self.predict_ball.copy_from(&self.world.ball);
+        }
+        let mut result = self.goal_path.back().and_then(crossed);
+        while result.is_none() && self.goal_path.len() < GOAL_STEPS {
             self.predict_ball.integrate_forces(DT);
             self.predict_ball.integrate_position(DT);
             self.predict_ball.collide_world();
-            if self.predict_ball.pos.y > crate::arena::GOAL_LINE + self.predict_ball.radius {
-                return Some(0);
-            }
-            if self.predict_ball.pos.y < -(crate::arena::GOAL_LINE + self.predict_ball.radius) {
-                return Some(1);
-            }
+            self.goal_path.push_back(self.predict_ball);
+            result = crossed(&self.predict_ball);
         }
-        None
+        result
     }
     fn evaluate_shot_save(&mut self, car: usize) {
         let previous = self.goal_prediction;
