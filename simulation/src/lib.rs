@@ -10,6 +10,7 @@ pub mod math;
 pub mod predictor;
 pub mod random;
 pub mod rotation;
+pub mod scenario;
 pub mod snapshot;
 pub mod vector;
 #[cfg(target_arch = "wasm32")]

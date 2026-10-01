@@ -4,11 +4,13 @@ mod heat;
 mod ledger;
 mod rating;
 mod roster;
+mod setpieces;
 
 use heat::HeatLog;
 use ledger::{Format, Ledger, Record};
 use rating::Pairs;
 use roster::Entry;
+use setpieces::SetPieces;
 use soccar_simulation::harness::{self, MatchResult, MatchSpec, PlayerReport};
 use std::{
     collections::{BTreeMap, HashMap},
@@ -28,6 +30,8 @@ Commands:
   show <id>                 Every statistic of one match, plus a link to watch it
   heatmap <brain|id>        Where a brain's cars and the ball spend their time, or one match's maps
   backfill                  Replay logged matches without heatmaps to add them (up to --limit)
+  setpieces [brain ...]     Play set pieces each brain has no current result for, then summarize
+  setpieces show <suite|id> Results of every brain per scenario, or one scenario with a watch link
   export                    Write public/arena/arena.json for the leaderboard page
 
 Options:
@@ -46,9 +50,11 @@ Options:
   --all-versions            matches and ratings: include results of older brain versions
   --url base                Watch link base (default http://127.0.0.1:5173)
   --limit count             backfill: matches to replay (default all)
+  --suite name              setpieces: only this suite
 
 Brains live in arena/brains/*.brain. Results are appended to arena/results/matches.jsonl,
-and heatmaps to arena/results/heatmaps.jsonl.";
+and heatmaps to arena/results/heatmaps.jsonl. Set pieces live in arena/scenarios/*.txt,
+and their results in arena/results/setpieces.jsonl.";
 
 pub struct Options {
     pub format: Format,
@@ -65,6 +71,7 @@ pub struct Options {
     pub all_versions: bool,
     pub url: String,
     pub limit: usize,
+    pub suite: Option<String>,
 }
 
 pub struct Arena {
@@ -72,6 +79,7 @@ pub struct Arena {
     pub brains: Vec<Entry>,
     pub ledger: Ledger,
     pub heat: HeatLog,
+    pub setpieces: SetPieces,
     pub options: Options,
 }
 
@@ -115,6 +123,7 @@ fn run() -> Result<(), String> {
         all_versions: false,
         url: "http://127.0.0.1:5173".into(),
         limit: usize::MAX,
+        suite: None,
     };
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -155,6 +164,7 @@ fn run() -> Result<(), String> {
             "--brain" => options.brain = Some(value),
             "--url" => options.url = value.trim_end_matches('/').to_string(),
             "--limit" => options.limit = value.parse().map_err(|_| bad())?,
+            "--suite" => options.suite = Some(value),
             _ => return Err(format!("Unknown option: {arg}")),
         }
     }
@@ -176,11 +186,13 @@ fn run() -> Result<(), String> {
     }
     let ledger = Ledger::load(&root.join("results/matches.jsonl"))?;
     let heat = HeatLog::load(&root.join("results/heatmaps.jsonl"))?;
+    let setpieces = SetPieces::load(&root)?;
     let mut arena = Arena {
         root,
         brains,
         ledger,
         heat,
+        setpieces,
         options,
     };
     let rest = &words[1..];
@@ -202,6 +214,11 @@ fn run() -> Result<(), String> {
         "show" => arena.show(rest),
         "export" => arena.export(),
         "heatmap" => arena.heatmap(rest),
+        "setpieces" if rest.first().is_some_and(|w| w == "show") => arena.setpieces(rest),
+        "setpieces" => {
+            arena.setpieces(rest)?;
+            arena.export()
+        }
         "backfill" => {
             arena.backfill()?;
             arena.export()
@@ -211,7 +228,7 @@ fn run() -> Result<(), String> {
 }
 
 impl Arena {
-    fn index(&self, name: &str) -> Result<usize, String> {
+    pub fn index(&self, name: &str) -> Result<usize, String> {
         self.brains
             .iter()
             .position(|b| b.spec.name == name)

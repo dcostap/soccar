@@ -12,6 +12,8 @@ pub mod classic;
 // Contest entries. See arena/CONTEST.md.
 pub mod alpha;
 pub mod bravo;
+// Fixed rivals for set pieces. See crate::scenario.
+pub mod scripted;
 
 /// What a brain can see each tick.
 pub struct Context<'a> {
@@ -60,6 +62,11 @@ pub const MODULES: &[Module] = &[
         name: "bravo",
         source: include_str!("bravo.rs"),
         create: bravo::create,
+    },
+    Module {
+        name: "scripted",
+        source: include_str!("scripted.rs"),
+        create: scripted::create,
     },
 ];
 pub fn module(name: &str) -> Option<&'static Module> {

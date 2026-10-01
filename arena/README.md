@@ -66,6 +66,8 @@ challenge <brain> [rival] Paired matches until the test decides. The rival defau
 ratings                   Leaderboard and head-to-head table
 matches                   Matches sorted by any statistic: --sort touches, --sort total:demos, --sort upset
 show <id>                 Every statistic of one match and a link to watch it
+setpieces [brain ...]     Play set pieces without a current result, then summarize per suite and kind
+setpieces show <suite|id> Per-scenario results beside an idle baseline; one scenario adds a watch link
 export                    Write public/arena/ for the page and the game menu (ladder and challenge do this)
 ```
 
@@ -112,6 +114,46 @@ npm run arena -- backfill --brain alpha --limit 200   # replay logged matches to
 
 `backfill` replays only current brain versions and stops if a replayed score differs from the log.
 The page shows the maps under Positions, in each brain's details, and in each match's details.
+
+## Set pieces
+
+Matches reward whatever beats the current rivals. Set pieces grade one skill at a time instead:
+the ball and cars start placed, and a judge decides one outcome within a few seconds.
+In an attack, blue must score. In a defense, blue must not concede.
+The brain under test always drives blue, which attacks positive y, so it must also work with no teammates or rivals.
+
+Suites are `arena/scenarios/*.txt`. Each scenario starts with a `[name]` header and uses the text form in
+`simulation/src/scenario.rs`:
+
+```text
+[goalie-angle]
+note = Angled run against a goalie.
+kind = attack
+time = 4                       # seconds before the judge waits for the ball to land
+ball = -1500 2500 93.15        # also ball_vel and ball_spin, x y z
+car = blue -1500 800 90 0 33   # team, x, y, yaw in degrees (90 faces orange's goal), speed, boost
+car = orange 0 5000 270 0 33
+rival = scripted mode=goalie   # idle, throttle, chase, or goalie; boost=true, speed=1400
+```
+
+As at the end of a match, the clock runs out and play continues until the ball touches the ground.
+A goal ends a set piece at once. A ball still predicted to go in may finish its path, so a shot before the buzzer counts.
+Play stops three seconds after the time in any case.
+
+Credit is 1 for a success. A missed attack earns up to 0.5 for how close the ball came to the goal mouth.
+An own goal or a conceded goal earns nothing. `setpieces show` compares every brain with an idle car,
+which marks scenarios that play themselves.
+
+```sh
+npm run arena -- setpieces                       # every brain, every suite
+npm run arena -- setpieces alpha --suite saves   # one brain, one suite
+npm run arena -- setpieces show saves            # per-scenario table
+npm run arena -- setpieces show saves/breakaway --brain alpha   # one scenario and a watch link
+```
+
+Results are in `arena/results/setpieces.jsonl`, one line per brain fingerprint and scenario hash.
+The hash covers the scenario text and the rival module source, so editing either reruns it.
+Set pieces take about a millisecond each, so a full run takes well under a second.
 
 ## Watching
 

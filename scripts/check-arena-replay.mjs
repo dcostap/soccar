@@ -77,4 +77,46 @@ for (const r of picked) {
     `match ${r.id}: ${r.brains[0]} ${r.score[0]}-${r.score[1]} ${r.brains[1]}${r.overtime ? " (OT)" : ""} replayed exactly, ${r.ticks} physics ticks`,
   );
 }
+
+// Set pieces: replay a spread of logged results through the browser path and compare each verdict.
+const setpieces = await readFile(
+  new URL("../public/arena/setpieces.json", import.meta.url),
+  "utf8",
+)
+  .then(JSON.parse)
+  .catch(() => null);
+const cells = [];
+for (const brain of setpieces?.brains ?? [])
+  setpieces.results[brain.name].forEach((r, i) => {
+    if (r) cells.push({ brain, scenario: setpieces.scenarios[i], r });
+  });
+const step = Math.max(1, Math.floor(cells.length / 6));
+for (const { brain, scenario, r } of cells.filter((_, i) => i % step === 0)) {
+  const watch = parseWatch(
+    `?${new URLSearchParams({ setpiece: scenario.id, scenario: scenario.text, names: brain.name, blue: brain.text, expect: r[0] ? "pass" : "fail" })}`,
+  );
+  game.startMatch({ teamSize: 1, playerTeam: -1, duration: 0, watch });
+  let ticks = 0;
+  while (game.phase !== "ended" && ticks < 10000) {
+    game.tick({
+      controls: { throttle: 0, steer: 0, pitch: 0, yaw: 0, roll: 0 },
+    });
+    ticks++;
+  }
+  assert.equal(game.phase, "ended", `set piece ${scenario.id} did not end`);
+  const result = game.setPieceResult();
+  assert.equal(
+    result.success,
+    r[0] === 1,
+    `${brain.name} on ${scenario.id}: ${result.note}`,
+  );
+  assert.equal(
+    Math.round(ticks / 1.2) / 100,
+    r[2],
+    `${brain.name} on ${scenario.id} length`,
+  );
+  console.log(
+    `set piece ${scenario.id} for ${brain.name}: ${result.success ? "passed" : "failed"} (${result.detail}) in ${r[2]} s, replayed exactly`,
+  );
+}
 game.destroy();

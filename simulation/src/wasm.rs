@@ -239,3 +239,21 @@ pub extern "C" fn sim_brain(handle: usize, team: u32) -> u32 {
         Err(_) => 0,
     }
 }
+/// Starts a set piece from the scenario text in the text buffer. Blue plays the team-zero brain set by
+/// `sim_brain`, or the allstar preset. Returns 0 when the text is invalid.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_scenario(handle: usize, dodge: f64) -> u32 {
+    let e = engine(handle);
+    let Ok(text) = std::str::from_utf8(&e.text) else {
+        return 0;
+    };
+    let Ok(scenario) = crate::scenario::Scenario::parse(text) else {
+        return 0;
+    };
+    let brain = e.brains[0]
+        .clone()
+        .unwrap_or_else(|| BrainSpec::preset(Skill::Allstar));
+    e.game.config.dodge_deadzone = dodge;
+    e.game.start_scenario(&scenario, &brain);
+    1
+}

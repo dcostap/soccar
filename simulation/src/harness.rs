@@ -7,6 +7,7 @@ use crate::{
     brains::{BrainSpec, Skill},
     car::Controls,
     game::{Config, Game, Phase},
+    scenario::{Outcome, Scenario},
     world::{BALL_HIT, BOOST_PICKUP, BUMP, DEMO, FLIP, JUMP, RESPAWN},
 };
 use std::{
@@ -334,6 +335,61 @@ pub fn run_batch(
     run_until(specs, threads, |index, result| {
         on_result(index, result);
         true
+    });
+}
+
+/// One set piece for one brain.
+#[derive(Clone, Debug)]
+pub struct ScenarioJob {
+    pub scenario: Scenario,
+    pub brain: BrainSpec,
+}
+
+/// Starts a set piece. Every tool that replays one must start it this way.
+pub fn start_scenario(job: &ScenarioJob) -> Game {
+    let mut game = Game::new(job.scenario.seed);
+    game.skip_replays = true;
+    game.start_scenario(&job.scenario, &job.brain);
+    game
+}
+
+/// Plays one set piece to its outcome.
+pub fn run_scenario(job: &ScenarioJob) -> Outcome {
+    let mut game = start_scenario(job);
+    while game.outcome.is_none() {
+        game.tick(Controls::default());
+    }
+    game.outcome.unwrap()
+}
+
+/// Plays set pieces on `threads` workers. `on_result` receives the job index and outcome in completion order.
+pub fn run_scenarios(
+    jobs: &[ScenarioJob],
+    threads: usize,
+    mut on_result: impl FnMut(usize, Outcome),
+) {
+    let next = AtomicUsize::new(0);
+    let (tx, rx) = mpsc::channel();
+    thread::scope(|scope| {
+        for _ in 0..threads.clamp(1, jobs.len().max(1)) {
+            let tx = tx.clone();
+            let next = &next;
+            scope.spawn(move || {
+                loop {
+                    let index = next.fetch_add(1, Ordering::Relaxed);
+                    let Some(job) = jobs.get(index) else {
+                        break;
+                    };
+                    if tx.send((index, run_scenario(job))).is_err() {
+                        break;
+                    }
+                }
+            });
+        }
+        drop(tx);
+        for (index, outcome) in rx {
+            on_result(index, outcome);
+        }
     });
 }
 

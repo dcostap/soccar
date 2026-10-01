@@ -1,0 +1,138 @@
+# Finishing: blue alone or against a scripted rival, with a chance a good player takes within the time.
+# Blue attacks positive y. The orange goal mouth spans x -893..893 at y 5120.
+
+[open-close]
+note = Ball still in front of an empty goal, car straight behind it.
+kind = attack
+time = 3
+ball = 0 3800 93.15
+car = blue 0 2400 90 0 33
+
+[open-mid]
+note = Ball still at the top of the box, car straight behind it.
+kind = attack
+time = 3
+ball = 0 2000 93.15
+car = blue 0 0 90 0 33
+
+[open-far]
+note = Ball still at center, car behind it.
+kind = attack
+time = 4
+ball = 0 0 93.15
+car = blue 0 -1500 90 0 33
+
+[moving-start]
+note = Car already driving at the ball.
+kind = attack
+time = 3
+ball = 0 2500 93.15
+car = blue 0 0 90 1400 33
+
+[angle-left]
+note = Ball left of goal, car approaching at an angle.
+kind = attack
+time = 3
+ball = -2000 3500 93.15
+car = blue -2500 1500 70 0 33
+
+[angle-right]
+note = Mirror of angle-left.
+kind = attack
+time = 3
+ball = 2000 3500 93.15
+car = blue 2500 1500 110 0 33
+
+[tight-angle]
+note = Ball near the left corner of the goal line; the shot must be angled in.
+kind = attack
+time = 4
+ball = -2800 4400 93.15
+car = blue -2500 2500 90 0 33
+
+[facing-away]
+note = Ball behind the car, which faces its own goal.
+kind = attack
+time = 4
+ball = 0 3000 93.15
+car = blue 0 2000 270 0 33
+
+[side-on]
+note = Car beside the ball, facing across the field.
+kind = attack
+time = 4
+ball = 0 3000 93.15
+car = blue -1500 3000 0 0 33
+
+[wrong-side]
+note = Car between the ball and the goal it attacks, facing the ball.
+kind = attack
+time = 5
+ball = 0 2800 93.15
+car = blue 0 4200 270 0 33
+
+[rolling-cross]
+note = Ball rolling across the face of goal.
+kind = attack
+time = 3
+ball = -3000 4000 93.15
+ball_vel = 1200 0 0
+car = blue 0 2000 90 0 33
+
+[rolling-toward]
+note = Ball rolling toward the car from the goal end.
+kind = attack
+time = 4
+ball = 0 3500 93.15
+ball_vel = 0 -900 0
+car = blue 0 0 90 0 33
+
+[dropping]
+note = Ball dropped from height in front of goal.
+kind = attack
+time = 3
+ball = 0 3000 800
+car = blue 0 1500 90 0 33
+
+[bouncing-away]
+note = Ball bouncing toward the goal ahead of the car; it stops short on its own.
+kind = attack
+time = 4
+ball = 0 0 300
+ball_vel = 0 900 500
+car = blue 0 -1200 90 600 33
+
+[goalie-center]
+note = Shot from the top of the box against a goalie.
+kind = attack
+time = 4
+ball = 0 2500 93.15
+car = blue 0 1000 90 0 33
+car = orange 0 5000 270 0 33
+rival = scripted mode=goalie
+
+[goalie-angle]
+note = Angled run against a goalie.
+kind = attack
+time = 4
+ball = -1500 2500 93.15
+car = blue -1500 800 90 0 33
+car = orange 0 5000 270 0 33
+rival = scripted mode=goalie
+
+[chaser-race]
+note = A rival drives straight at the ball from the far side.
+kind = attack
+time = 4
+ball = 0 1000 93.15
+car = blue 0 -500 90 0 33
+car = orange 0 3500 270 0 33
+rival = scripted mode=chase
+
+[parked-rival]
+note = An idle rival stands in the shooting line.
+kind = attack
+time = 4
+ball = 0 2000 93.15
+car = blue 0 500 90 0 33
+car = orange 0 3500 270 0 33

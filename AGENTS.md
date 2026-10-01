@@ -16,6 +16,8 @@ Soccar is a car-soccer game, a headless match harness, and a bot-brain arena. Al
   and the baseline table in `simulation/README.md`. Never re-record only to make a failing check pass.
 - **Brain fingerprints include the module source text.** Any edit to a brain module, even formatting or comments, retires that brain's arena results.
   Add a new module instead of rewriting one whose results matter.
+- **Set pieces are fixed tests.** Editing a scenario or the `scripted` rival module reruns its results.
+  Add scenarios rather than tuning existing ones to a brain.
 
 ## Checks
 

@@ -66,9 +66,12 @@ fn describe(text: &str) -> String {
 }
 
 /// FNV-1a, stable across platforms and Rust versions.
-struct Hash(u64);
+pub struct Hash(pub u64);
 impl Hash {
-    fn bytes(&mut self, bytes: &[u8]) {
+    pub fn new() -> Self {
+        Self(0xcbf2_9ce4_8422_2325)
+    }
+    pub fn bytes(&mut self, bytes: &[u8]) {
         for &b in bytes {
             self.0 = (self.0 ^ u64::from(b)).wrapping_mul(0x100_0000_01b3);
         }
@@ -81,7 +84,7 @@ impl Hash {
 /// Hashes the name, settings, module source, and the car states of short mirror matches.
 /// The matches catch changes in shared code and physics that the source text does not show.
 pub fn fingerprint(spec: &BrainSpec) -> String {
-    let mut h = Hash(0xcbf2_9ce4_8422_2325);
+    let mut h = Hash::new();
     h.bytes(spec.name.as_bytes());
     h.bytes(spec.text().as_bytes());
     if let Some(module) = brains::module(&spec.module) {

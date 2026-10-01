@@ -139,6 +139,13 @@ The game updates one shared `Predictor` per tick before brains run. Brains read 
 and write controls only for their own cars. They must be deterministic. Do not use clocks or the game random generator.
 The browser loads brain text through `sim_text` and `sim_brain`, so any brain can play in the game.
 
+### Set pieces
+
+`scenario::Scenario` places the ball and cars, and `Game::start_scenario` starts play from it with no countdown.
+A `scenario::Judge` inside the game ends it with an `Outcome`, so the browser plays set pieces as the arena does.
+`harness::run_scenario` and `run_scenarios` play them headless. The `scripted` brain module provides fixed rivals.
+The browser starts one from scenario text with `sim_text` and `sim_scenario`. See `arena/README.md`.
+
 ## Checks
 
 ```sh

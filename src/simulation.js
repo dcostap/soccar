@@ -31,9 +31,31 @@ export function simulationGeometry(wasm) {
     floorExtent: values[22],
   };
 }
-/** Reads a watch link written by the arena: `?watch=<id>&seed=&size=&duration=&blue=&orange=&names=&expect=`. */
+/**
+ * Reads a watch link written by the arena: `?watch=<id>&seed=&size=&duration=&blue=&orange=&names=&expect=`,
+ * or a set piece: `?setpiece=<suite/name>&scenario=<text>&blue=&names=&expect=pass|fail`.
+ */
 export function parseWatch(search) {
   const q = new URLSearchParams(search);
+  if (q.has("setpiece") && q.has("scenario")) {
+    const scenario = q.get("scenario");
+    const kind = /^\s*kind\s*=\s*(\w+)/m.exec(scenario)?.[1] ?? "attack";
+    const rival = /^\s*rival\s*=\s*\w+\s*(.*)$/m.exec(scenario)?.[1];
+    return {
+      id: q.get("setpiece"),
+      scenario,
+      kind,
+      seed: 1,
+      size: 1,
+      duration: 0,
+      brains: [q.get("blue") ?? "", ""],
+      names: [
+        q.get("names") || "blue",
+        rival?.replace("mode=", "") || "no rival",
+      ],
+      expect: q.get("expect"),
+    };
+  }
   if (!q.has("watch")) return null;
   const [blueName = "blue", orangeName = "orange"] = (
     q.get("names") ?? ""
@@ -171,6 +193,15 @@ export async function createRustGame(
         if (!this.setBrain(team, text))
           throw new Error(`Invalid brain settings for team ${team}`);
       }
+      if (this.watch?.scenario !== undefined) {
+        const bytes = new TextEncoder().encode(this.watch.scenario);
+        const pointer = wasm.sim_text(this.handle, bytes.length);
+        new Uint8Array(wasm.memory.buffer, pointer, bytes.length).set(bytes);
+        if (!wasm.sim_scenario(this.handle, this.settings.input.dodgeDeadzone))
+          throw new Error("Invalid set piece");
+        this.sync();
+        return;
+      }
       const skill = { rookie: 0, pro: 1, allstar: 2 }[config.skill] ?? 2;
       if (
         !wasm.sim_start(
@@ -241,6 +272,13 @@ export async function createRustGame(
       const w = this.watch;
       const car = this.world.cars[w.follow];
       const side = car?.team === 1 ? "orange" : "blue";
+      if (w.scenario !== undefined) {
+        this.hud.setTip(
+          `SET PIECE ${w.id} (${w.kind}) &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
+            `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; ESC MENU`,
+        );
+        return;
+      }
       this.hud.setTip(
         `WATCHING #${w.id} &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ` +
           `CAMERA ${car ? `${car.name} (${side})` : "-"} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
@@ -311,7 +349,9 @@ export async function createRustGame(
         const frame = this.replayBuf[this.replayIdx];
         if (frame) this.replayCam.snap(frame.ballPos);
       }
-      if (this.phase === "ended") {
+      if (this.phase === "ended" && this.watch?.scenario !== undefined)
+        this.showSetPieceEnded();
+      else if (this.phase === "ended") {
         const winner = this.score[0] > this.score[1] ? 0 : 1;
         this.hud.showBanner(
           winner === 0 ? "BLUE WINS" : "ORANGE WINS",
@@ -323,7 +363,47 @@ export async function createRustGame(
       }
       this.showWatchTip();
     }
+    /** Set piece verdict: an attack needs a blue goal, a defense must not concede. */
+    setPieceResult() {
+      const w = this.watch;
+      const [blue, orange] = this.score;
+      const success = w.kind === "defend" ? orange === 0 : blue > 0;
+      const detail =
+        orange > 0
+          ? "CONCEDED"
+          : blue > 0
+            ? "GOAL"
+            : w.kind === "defend"
+              ? "HELD"
+              : "NO GOAL";
+      const recorded = w.expect === "pass" || w.expect === "fail";
+      const same = recorded && (w.expect === "pass") === success;
+      return {
+        success,
+        detail,
+        note: recorded
+          ? same
+            ? "Replay matches the arena result"
+            : `Arena recorded ${w.expect}: brain code or physics changed since`
+          : "",
+      };
+    }
+    showSetPieceEnded() {
+      const r = this.setPieceResult();
+      this.hud.showBanner(
+        r.success ? "PASSED" : "FAILED",
+        [r.detail, r.note].filter(Boolean).join(" · "),
+        r.success ? "blue" : "orange",
+        999,
+      );
+    }
     showMatchEnded(team) {
+      if (this.watch?.scenario !== undefined) {
+        this.showSetPieceEnded();
+        this.audio.whistle();
+        this.audio.silenceCars();
+        return;
+      }
       super.showMatchEnded(team);
       const result = this.watchResult();
       if (result) this.hud.notify(result.text, result.color);

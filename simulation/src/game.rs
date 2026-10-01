@@ -6,6 +6,7 @@ use crate::{
     predictor::Predictor,
     random::Random,
     rotation::Quat,
+    scenario::{Judge, Outcome, Scenario},
     vector::Vec3,
     world::{BALL_HIT, Event, GOAL, KICKOFF, World},
 };
@@ -139,6 +140,17 @@ pub struct Game {
     /// Ball states of the last goal prediction, reused while the ball stays on that path.
     goal_path: VecDeque<Ball>,
     goal_path_tick: i64,
+    /// Decides when a set piece ends. Set by `start_scenario`.
+    pub judge: Option<Judge>,
+    /// Result of the last set piece, once it has ended.
+    pub outcome: Option<Outcome>,
+}
+/// Cars on the larger team of a set piece.
+fn teams_size(cars: &[crate::scenario::CarStart]) -> usize {
+    (0..2)
+        .map(|t| cars.iter().filter(|c| c.team == t).count())
+        .max()
+        .unwrap_or(0)
 }
 impl Game {
     pub fn new(seed: u32) -> Self {
@@ -178,6 +190,8 @@ impl Game {
             brain_seconds: [0.0; 2],
             goal_path: VecDeque::with_capacity(GOAL_STEPS),
             goal_path_tick: 0,
+            judge: None,
+            outcome: None,
         }
     }
     fn reset_world(&mut self) {
@@ -193,6 +207,8 @@ impl Game {
         self.last_touches.clear();
         self.goal_prediction = None;
         self.waiting_for_ground = false;
+        self.judge = None;
+        self.outcome = None;
         // TODO(post-port): Reset predictor state here. JavaScript retains its old tick and slices.
         // Preserve this restart error during parity. Correct both paths in a separate change.
     }
@@ -225,6 +241,49 @@ impl Game {
         self.clock = config.duration;
         self.config = config;
         self.start_kickoff();
+    }
+    /// Starts a set piece: `brain` drives the blue cars and the scenario's rival drives the orange ones.
+    /// There is no countdown or kickoff. The game ends itself when the judge decides the outcome.
+    pub fn start_scenario(&mut self, scenario: &Scenario, brain: &BrainSpec) {
+        self.reset_world();
+        self.mode = Mode::Match;
+        self.random = Random::new(scenario.seed);
+        let names = self.random.names();
+        let mut teams = [Vec::new(), Vec::new()];
+        for start in &scenario.cars {
+            let id = self.world.add_car(start.team);
+            let yaw = start.yaw.to_radians();
+            let car = &mut self.world.cars[id];
+            car.spawn(start.x, start.y, yaw, start.boost);
+            car.vel = car.forward.scaled(start.speed);
+            self.stats.push(Stats::default());
+            self.names.push(names[id % names.len()] as i32);
+            teams[start.team].push(id);
+        }
+        for (team, cars) in teams.into_iter().enumerate() {
+            if !cars.is_empty() {
+                let spec = if team == 0 { brain } else { &scenario.rival };
+                self.drivers.push(Driver::new(spec, team, cars));
+            }
+        }
+        let ball = &mut self.world.ball;
+        let p = scenario.ball_pos;
+        ball.reset(p.x, p.y, p.z);
+        ball.vel = scenario.ball_vel;
+        ball.ang_vel = scenario.ball_spin;
+        // Brains treat an untouched ball as a kickoff.
+        self.world.ball_touched = true;
+        self.config = Config {
+            team_size: teams_size(&scenario.cars),
+            brains: [brain.clone(), scenario.rival.clone()],
+            player_team: -1,
+            duration: 0.0,
+            dodge_deadzone: self.config.dodge_deadzone,
+        };
+        self.clock = scenario.time;
+        self.phase = Phase::Playing;
+        self.has_snapshot = true;
+        self.judge = Some(Judge::new(scenario, self));
     }
     pub fn start_menu(&mut self) {
         self.reset_world();
@@ -434,6 +493,18 @@ impl Game {
                 self.world.ball.reset(0.0, 0.0, 93.15);
                 self.world.ball.pos.z = 400.0;
                 self.phase = Phase::Playing;
+            }
+        }
+        if let Some(mut judge) = self.judge.take() {
+            match judge.update(self) {
+                Some(outcome) => {
+                    self.outcome = Some(outcome);
+                    self.end_match();
+                }
+                None => {
+                    self.clock = judge.remaining();
+                    self.judge = Some(judge);
+                }
             }
         }
         if self.mode == Mode::Menu

@@ -1,0 +1,113 @@
+# Saves: the ball or a scripted rival threatens blue's goal. Success is not conceding.
+# Blue defends negative y. Its goal mouth spans x -893..893 at y -5120.
+
+[roll-in-goal]
+note = Rolling shot toward the post, car on the goal line.
+kind = defend
+time = 3
+ball = 0 -2500 93.15
+ball_vel = 250 -1500 0
+car = blue 0 -4900 90 0 33
+
+[roll-from-side]
+note = Rolling shot, car waiting beside the goal.
+kind = defend
+time = 3
+ball = -500 -2000 93.15
+ball_vel = 150 -1500 0
+car = blue 1500 -4700 180 0 33
+
+[fast-shot]
+note = Fast low shot, car off to one side.
+kind = defend
+time = 3
+ball = 200 -1500 93.15
+ball_vel = 0 -2500 0
+car = blue -1200 -4500 0 0 33
+
+[high-shot]
+note = Shot in the air.
+kind = defend
+time = 3
+ball = 0 -2000 300
+ball_vel = 300 -2000 400
+car = blue 0 -4800 90 0 33
+
+[chase-back]
+note = Slow ball rolling at the goal, car behind the play.
+kind = defend
+time = 4
+ball = 0 -2000 93.15
+ball_vel = 0 -1100 0
+car = blue 0 -500 270 1000 33
+
+[chase-back-far]
+note = Ball rolling at the goal from halfway, car further back.
+kind = defend
+time = 5
+ball = 300 -1000 93.15
+ball_vel = 0 -1300 0
+car = blue 800 1000 270 1200 50
+
+[lob-drop]
+note = Ball falling near the goal, bouncing in slowly.
+kind = defend
+time = 4
+ball = 0 -4000 1200
+ball_vel = 0 -300 0
+car = blue 0 -2500 270 0 33
+
+[breakaway]
+note = A rival drives the ball at the goal; car in goal.
+kind = defend
+time = 4
+ball = 0 -2500 93.15
+car = blue 0 -4900 90 0 33
+car = orange 0 -1300 270 0 33
+rival = scripted mode=chase
+
+[breakaway-angle]
+note = A rival drives the ball in from the right.
+kind = defend
+time = 4
+ball = 1000 -2800 93.15
+car = blue 0 -4900 90 0 33
+car = orange 1800 -1200 240 0 33
+rival = scripted mode=chase
+
+[breakaway-boost]
+note = A boosting rival from midfield; car in goal.
+kind = defend
+time = 4
+ball = 0 -1500 93.15
+car = blue 0 -4900 90 0 33
+car = orange 0 500 270 0 100
+rival = scripted mode=chase boost=true
+
+[cross-and-run]
+note = Ball crossing the box while a rival runs in.
+kind = defend
+time = 4
+ball = -3500 -4300 93.15
+ball_vel = 1000 0 0
+car = blue 0 -5000 90 0 33
+car = orange 1500 -2500 225 0 33
+rival = scripted mode=chase
+
+[loose-in-box]
+note = Ball still near the goal, rival coming; car facing its own goal.
+kind = defend
+time = 4
+ball = 0 -4200 93.15
+car = blue 0 -2000 270 1000 33
+car = orange 0 0 270 0 33
+rival = scripted mode=chase
+
+[clear-corner]
+note = Ball in the corner, rival pressing; car in goal.
+kind = defend
+time = 5
+ball = -3000 -4600 93.15
+car = blue 0 -5000 90 0 33
+car = orange -1000 -2000 225 0 33
+rival = scripted mode=chase

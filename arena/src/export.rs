@@ -7,7 +7,7 @@ use std::{collections::HashMap, fs};
 /// Newest matches kept in the export, to bound the page's download.
 const EXPORT_MATCHES: usize = 10_000;
 
-fn encode(text: &str) -> String {
+pub fn encode(text: &str) -> String {
     let mut out = String::new();
     for b in text.bytes() {
         if b.is_ascii_alphanumeric() || b"-_.~".contains(&b) {
@@ -36,7 +36,7 @@ pub fn watch_url(base: &str, r: &Record) -> String {
     )
 }
 
-fn round(x: f64, digits: i32) -> f64 {
+pub fn round(x: f64, digits: i32) -> f64 {
     let scale = 10f64.powi(digits);
     (x * scale).round() / scale
 }
@@ -159,6 +159,7 @@ impl Arena {
             })).collect::<Vec<_>>(),
         });
         fs::write(dir.join("brains.json"), menu.to_string()).map_err(|e| e.to_string())?;
+        self.export_setpieces(&dir)?;
         eprintln!(
             "Exported {} matches to public/arena/arena.json",
             matches.len()
