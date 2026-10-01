@@ -71,6 +71,8 @@ pub struct Settings {
     pub boxdist: f64,
     /// Supports also attack a ball this close to the own goal while goal-side of it. Zero disables it.
     pub supportbox: f64,
+    /// Supports and the goalie steer around the ball when retreating past it.
+    pub avoidall: bool,
     /// Distance the shadowing attacker keeps from the ball, toward its own goal.
     pub shadowdist: f64,
 }
@@ -92,7 +94,7 @@ impl Settings {
             depth: params.number("depth", 2600.0)?,
             post: params.number("post", 0.0)?,
             farpost: params.flag("farpost", true)?,
-            flipdist: params.number("flipdist", 250.0)?,
+            flipdist: params.number("flipdist", 330.0)?,
             lineup: params.number("lineup", 0.2)?,
             padboost: params.number("padboost", 40.0)?,
             sidepost: params.number("sidepost", 700.0)?,
@@ -100,14 +102,15 @@ impl Settings {
             avoid: params.flag("avoid", true)?,
             shadow: params.number("shadow", 0.0)?,
             goaliepad: params.number("goaliepad", 0.0)?,
-            supportspeed: params.number("supportspeed", 1200.0)?,
+            supportspeed: params.number("supportspeed", 1700.0)?,
             attackboost: params.number("attackboost", 1300.0)?,
             keeper: params.flag("keeper", false)?,
             clear: params.number("clear", 0.6)?,
             turn: params.number("turn", 0.3)?,
             pace: params.number("pace", 1.0)?,
-            boxdist: params.number("boxdist", 20000.0)?,
+            boxdist: params.number("boxdist", 6000.0)?,
             supportbox: params.number("supportbox", 20000.0)?,
+            avoidall: params.flag("avoidall", false)?,
             shadowdist: params.number("shadowdist", 1400.0)?,
         })
     }
@@ -464,6 +467,13 @@ impl Bot {
                     }
                 }
             }
+        }
+        if settings.avoidall
+            && !kickoff
+            && self.role != ATTACK
+            && (car.pos.y - ball.pos.y) * direction > 0.0
+        {
+            self.target = avoid_ball(car.pos, self.target, ball.pos, own_goal);
         }
         self.drive_to(
             car,
