@@ -337,8 +337,11 @@ pub fn generate(seed: u64, count: usize, threads: usize) -> Vec<(&'static str, S
     let mut out = Vec::new();
     for (f, family) in FAMILIES.iter().enumerate() {
         let mut g = Rng::new(seed.wrapping_mul(0x1000_0000_01b3).wrapping_add(f as u64));
-        // Draw extra candidates, since the idle filter drops some.
-        let candidates: Vec<String> = (0..count * 3).map(|_| (family.make)(&mut g)).collect();
+        // Draw extra candidates for the idle filter and rounded-corner placement limits.
+        let candidates: Vec<String> = (0..count * 3)
+            .map(|_| (family.make)(&mut g))
+            .filter(|text| Scenario::parse(text).is_ok())
+            .collect();
         let jobs: Vec<ScenarioJob> = candidates
             .iter()
             .map(|text| ScenarioJob {
@@ -364,4 +367,19 @@ pub fn generate(seed: u64, count: usize, threads: usize) -> Vec<(&'static str, S
         }
     }
     out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn holdout_skips_starts_outside_the_rounded_field() {
+        // This seed previously placed an awkward-start car at (-2994, 4900).
+        let scenarios = generate(400792678, 200, 4);
+        assert_eq!(scenarios.len(), FAMILIES.len() * 200);
+        for (_, _, text) in scenarios {
+            assert!(Scenario::parse(&text).is_ok());
+        }
+    }
 }
