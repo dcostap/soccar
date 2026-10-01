@@ -1,126 +1,44 @@
-// Set pieces on the arena page: a suite-by-brain summary and a filterable list of scenarios with start diagrams.
+// Set pieces view: a suite-by-brain summary and a filterable list of scenarios with start diagrams.
 // Data comes from public/arena/setpieces.json, written by `npm run arena -- setpieces`.
-// A result is `[success, credit, seconds, goal, touches]`, with goal -1 when nobody scored.
+import { describe, scenarioDiagram, setPieceUrl } from "./arena-scenarios.js";
+import {
+  command,
+  copy,
+  element,
+  empty,
+  field,
+  href,
+  panel,
+  percent,
+  scroll,
+  search,
+  select,
+} from "./arena-ui.js";
 
-const HALF_WIDTH = 4096;
-const HALF_LENGTH = 5120;
-const MOUTH = 893;
-const COLORS = ["#2f7bff", "#ff8a2a"];
-const PAGE = 60;
+const PAGE = 40;
 
-const element = (tag, attributes = {}, ...children) => {
-  const node = document.createElement(tag);
-  for (const [k, v] of Object.entries(attributes)) {
-    if (k === "class") node.className = v;
-    else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
-    else node.setAttribute(k, v);
+export async function renderSetPieces(root, ctx, route) {
+  root.dataset.title = "Set pieces";
+  const data = await ctx.setpieces;
+  if (!data) {
+    root.append(
+      panel(
+        "Set pieces",
+        empty(
+          "No set piece results yet",
+          "Short placed scenarios that grade one skill at a time. Generate results, then reload.",
+        ),
+        {},
+      ),
+      element(
+        "p",
+        { class: "empty-line" },
+        command("npm run arena -- setpieces"),
+      ),
+    );
+    return;
   }
-  node.append(...children.flat().filter((c) => c != null));
-  return node;
-};
-
-/** Top-down start of a scenario: blue defends the bottom goal, as in the heatmaps. */
-export function scenarioDiagram(s, width = 72) {
-  const scale = width / (2 * HALF_WIDTH);
-  const height = Math.round(2 * HALF_LENGTH * scale);
-  const goal = 5;
-  const canvas = document.createElement("canvas");
-  const ratio = globalThis.devicePixelRatio || 1;
-  canvas.width = (width + 2) * ratio;
-  canvas.height = (height + 2 * goal + 2) * ratio;
-  canvas.style.width = `${width + 2}px`;
-  canvas.style.height = `${height + 2 * goal + 2}px`;
-  const g = canvas.getContext("2d");
-  g.scale(ratio, ratio);
-  g.translate(1, goal + 1);
-  const px = (x) => (x + HALF_WIDTH) * scale;
-  const py = (y) => (HALF_LENGTH - y) * scale;
-  g.fillStyle = "#0b1120";
-  g.fillRect(0, 0, width, height);
-  g.strokeStyle = "rgba(244,247,255,0.3)";
-  g.lineWidth = 1;
-  g.strokeRect(0, 0, width, height);
-  g.beginPath();
-  g.moveTo(0, height / 2);
-  g.lineTo(width, height / 2);
-  g.stroke();
-  const mouth = 2 * MOUTH * scale;
-  g.strokeStyle = COLORS[1];
-  g.strokeRect(width / 2 - mouth / 2, -goal, mouth, goal);
-  g.strokeStyle = COLORS[0];
-  g.strokeRect(width / 2 - mouth / 2, height, mouth, goal);
-  const arrow = (x, y, vx, vy, color) => {
-    // Arrows show one second of travel.
-    if (Math.hypot(vx, vy) < 1) return;
-    g.strokeStyle = color;
-    g.beginPath();
-    g.moveTo(px(x), py(y));
-    g.lineTo(px(x + vx), py(y + vy));
-    g.stroke();
-  };
-  for (const c of s.cars) {
-    const yaw = (c.yaw * Math.PI) / 180;
-    const [fx, fy] = [Math.cos(yaw), Math.sin(yaw)];
-    arrow(c.x, c.y, fx * c.speed, fy * c.speed, `${COLORS[c.team]}aa`);
-    g.save();
-    g.translate(px(c.x), py(c.y));
-    g.rotate(-yaw);
-    // Glyphs grow with the diagram but stay larger than true size, so small diagrams stay readable.
-    const k = Math.max(1, width / 110);
-    g.fillStyle = COLORS[c.team];
-    g.fillRect(-4 * k, -2.5 * k, 8 * k, 5 * k);
-    g.fillStyle = "#f4f7ff";
-    g.fillRect(2.5 * k, -1 * k, 2 * k, 2 * k);
-    g.restore();
-  }
-  const [bx, by, bz] = s.ball;
-  arrow(bx, by, s.ballVel[0], s.ballVel[1], "rgba(244,247,255,0.8)");
-  g.fillStyle = "#f4f7ff";
-  g.beginPath();
-  g.arc(
-    px(bx),
-    py(by),
-    Math.max(1, width / 110) * (2.5 + Math.min(2.5, bz / 400)),
-    0,
-    Math.PI * 2,
-  );
-  g.fill();
-  canvas.title =
-    `ball (${bx}, ${by}, ${bz})` +
-    s.cars
-      .map(
-        (c) =>
-          `\n${c.team ? "orange" : "blue"} car (${c.x}, ${c.y}) facing ${c.yaw}°` +
-          (c.speed ? ` at ${c.speed}` : ""),
-      )
-      .join("");
-  return canvas;
-}
-
-/** Short text for a result. */
-function describe(r, kind) {
-  if (!r) return "-";
-  const [success, credit, seconds, goal] = r;
-  if (goal === 0 && kind === "attack") return `goal ${seconds.toFixed(1)}s`;
-  if (goal === 1) return `conceded ${seconds.toFixed(1)}s`;
-  if (goal === 0) return `scored ${seconds.toFixed(1)}s`;
-  if (success) return "held";
-  return credit > 0 ? `miss ${credit.toFixed(2)}` : "miss";
-}
-
-export function setPieceUrl(base, s, brain, r) {
-  const q = new URLSearchParams({
-    setpiece: s.id,
-    scenario: s.text,
-    names: brain.name,
-    blue: brain.text,
-  });
-  if (r) q.set("expect", r[0] ? "pass" : "fail");
-  return `${base}?${q}`;
-}
-
-/** Renders the section into `root`. */
-export function renderSetPieces(root, data, base) {
+  const { base } = ctx;
   const brains = data.brains;
   const scenarios = data.scenarios;
   const result = (brain, i) => data.results[brain.name]?.[i] ?? null;
@@ -131,26 +49,39 @@ export function renderSetPieces(root, data, base) {
       ? played.filter((r) => !r[0]).length / played.length
       : 0;
   });
+  const q = route.query;
   const state = {
-    suite: "",
-    kind: "",
-    brain: "",
-    filter: "",
-    sort: "id",
+    suite: q.get("suite") ?? "",
+    kind: q.get("kind") ?? "",
+    brain: q.get("brain") ?? "",
+    filter: q.get("show") ?? "",
+    sort: q.get("sort") ?? "id",
+    q: q.get("q") ?? "",
     shown: PAGE,
-    open: null,
+    open: q.get("open"),
   };
+  const save = () =>
+    ctx.replaceQuery({
+      suite: state.suite,
+      kind: state.kind,
+      brain: state.brain,
+      show: state.filter,
+      sort: state.sort === "id" ? "" : state.sort,
+      q: state.q,
+      open: state.open,
+      keep: 1,
+    });
 
   // Summary: suites as rows, brains as columns.
-  const summary = element("table");
+  const summary = element("table", { class: "sp-summary" });
   const rate = (indices, brain) => {
     const rs = indices.map((i) => result(brain, i)).filter(Boolean);
     return rs.length ? rs.filter((r) => r[0]).length / rs.length : null;
   };
-  const shade = (p) =>
+  const tint = (p) =>
     p === null
       ? ""
-      : `background:rgba(${p >= 0.5 ? "47,123,255" : "255,138,42"},${Math.min(0.55, Math.abs(p - 0.5) * 1.2)})`;
+      : `--tint:rgba(${p >= 0.5 ? "47,123,255" : "255,138,42"},${Math.min(0.38, Math.abs(p - 0.5) * 0.9)})`;
   function renderSummary() {
     const groups = [
       ...data.suites.map((s) => ({
@@ -169,44 +100,65 @@ export function renderSetPieces(root, data, base) {
     const head = element(
       "tr",
       {},
-      element("th", { class: "text" }, "suite"),
+      element("th", { class: "text" }, "Suite"),
       element("th", {}, "n"),
-      brains.map((b) => element("th", {}, b.name)),
+      brains.map((b) =>
+        element(
+          "th",
+          {
+            class: `sortable${state.brain === b.name ? " sorted" : ""}`,
+            title: `Focus on ${b.name}'s results`,
+            tabindex: 0,
+            onclick: () => {
+              state.brain = state.brain === b.name ? "" : b.name;
+              change();
+            },
+            onkeydown: (event) =>
+              event.key === "Enter" && event.currentTarget.click(),
+          },
+          b.name,
+        ),
+      ),
     );
-    const rows = groups.map((group) =>
-      element(
+    const rows = groups.map((group) => {
+      const active =
+        (group.suite && state.suite === group.suite) ||
+        (group.kind && state.kind === group.kind) ||
+        (group.name === "all" && !state.suite && !state.kind);
+      return element(
         "tr",
         {
-          class: `row${group.suite === undefined ? " total" : ""}${
-            (group.suite && state.suite === group.suite) ||
-            (group.kind && state.kind === group.kind)
-              ? " selected"
-              : ""
-          }`,
+          class: `row${group.suite === undefined ? " total" : ""}${active ? " selected" : ""}`,
           title: group.title ?? "",
           onclick: () => {
             state.suite = group.suite ?? "";
             state.kind = group.kind ?? "";
-            state.shown = PAGE;
-            sync();
+            change();
           },
         },
         element("td", { class: "text" }, element("b", {}, group.name)),
-        element("td", {}, String(group.indices.length)),
+        element("td", { class: "muted" }, String(group.indices.length)),
         brains.map((b) => {
           const p = rate(group.indices, b);
           return element(
             "td",
-            { style: shade(p) },
-            p === null ? "-" : `${Math.round(100 * p)}%`,
+            { class: "tinted", style: tint(p) },
+            p === null ? "-" : percent(p),
           );
         }),
-      ),
-    );
+      );
+    });
     const credit = element(
       "tr",
       { class: "total" },
-      element("td", { class: "text" }, "credit"),
+      element(
+        "td",
+        {
+          class: "text",
+          title: "Mean credit: a miss earns up to 0.5 for how close it came",
+        },
+        "credit",
+      ),
       element("td", {}, ""),
       brains.map((b) => {
         const rs = scenarios.map((_, i) => result(b, i)).filter(Boolean);
@@ -226,40 +178,35 @@ export function renderSetPieces(root, data, base) {
   }
 
   // Controls.
-  const select = (id, options, key) => {
-    const node = element(
-      "select",
-      { id },
-      options.map(([value, text]) => element("option", { value }, text)),
-    );
-    node.addEventListener("change", () => {
-      state[key] = node.value;
-      state.shown = PAGE;
-      sync();
-    });
-    return node;
-  };
   const suiteSelect = select(
-    "setSuite",
-    [["", "All"], ...data.suites.map((s) => [s.name, s.name])],
-    "suite",
+    [["", "All suites"], ...data.suites.map((s) => [s.name, s.name])],
+    state.suite,
+    (v) => {
+      state.suite = v;
+      change();
+    },
   );
   const kindSelect = select(
-    "setKind",
     [
-      ["", "Both"],
+      ["", "Attack and defend"],
       ["attack", "Attack"],
       ["defend", "Defend"],
     ],
-    "kind",
+    state.kind,
+    (v) => {
+      state.kind = v;
+      change();
+    },
   );
   const brainSelect = select(
-    "setBrain",
     [["", "Any brain"], ...brains.map((b) => [b.name, b.name])],
-    "brain",
+    state.brain,
+    (v) => {
+      state.brain = v;
+      change();
+    },
   );
   const filterSelect = select(
-    "setFilter",
     [
       ["", "All scenarios"],
       ["fail", "Failed"],
@@ -267,33 +214,51 @@ export function renderSetPieces(root, data, base) {
       ["unique-fail", "Failed, while another brain passed"],
       ["unique-pass", "Passed, while another brain failed"],
     ],
-    "filter",
+    state.filter,
+    (v) => {
+      state.filter = v;
+      change();
+    },
   );
   const sortSelect = select(
-    "setSort",
     [
       ["id", "Name"],
       ["easy", "Easiest first"],
       ["hard", "Hardest first"],
     ],
-    "sort",
+    state.sort,
+    (v) => {
+      state.sort = v;
+      change();
+    },
   );
-  const label = (text, node) => element("label", {}, text, " ", node);
   const controls = element(
     "div",
-    { class: "controls" },
-    label("Suite", suiteSelect),
-    label("Kind", kindSelect),
-    label("Brain", brainSelect),
-    label("Show", filterSelect),
-    label("Sort", sortSelect),
+    { class: "toolbar" },
+    field("Suite", suiteSelect),
+    field("Kind", kindSelect),
+    field("Brain", brainSelect),
+    field("Show", filterSelect),
+    field("Sort", sortSelect),
+    search(state.q, "Search scenarios  ( / )", (v) => {
+      state.q = v;
+      change();
+    }),
+    element(
+      "button",
+      {
+        class: "button ghost small",
+        onclick: () => location.assign(href(["setpieces"])),
+      },
+      "Clear",
+    ),
   );
-  const count = element("p", { class: "note" });
-  const list = element("table");
+  const count = element("p", { class: "summary-line" });
+  const list = element("table", { class: "sp-list" });
   const more = element(
     "button",
     {
-      class: "button more",
+      class: "button ghost more",
       onclick: () => {
         state.shown += PAGE;
         renderList();
@@ -303,12 +268,17 @@ export function renderSetPieces(root, data, base) {
   );
 
   function selected() {
+    const needle = state.q.trim().toLowerCase();
     let indices = scenarios
       .map((_, i) => i)
       .filter(
         (i) =>
           (!state.suite || scenarios[i].suite === state.suite) &&
-          (!state.kind || scenarios[i].kind === state.kind),
+          (!state.kind || scenarios[i].kind === state.kind) &&
+          (!needle ||
+            `${scenarios[i].id} ${scenarios[i].note} ${scenarios[i].rival ?? ""}`
+              .toLowerCase()
+              .includes(needle)),
       );
     const brain = brains.find((b) => b.name === state.brain);
     if (brain && state.filter) {
@@ -343,38 +313,52 @@ export function renderSetPieces(root, data, base) {
 
   function cell(s, i, brain) {
     const r = result(brain, i);
-    const text = describe(r, s.kind);
     if (!r) return element("td", {}, "-");
     return element(
       "td",
-      { class: r[0] ? "pass" : "fail", title: `${r[4]} touches` },
+      { class: `res${state.brain === brain.name ? " chosen" : ""}` },
       element(
         "a",
         {
+          class: `chip ${r[0] ? "pass" : "fail"}`,
           href: setPieceUrl(base, s, brain, r),
           target: "_blank",
-          title: `Watch ${brain.name} play ${s.id}`,
+          rel: "noopener",
+          title: `${r[4]} touches. Watch ${brain.name} play ${s.id}`,
         },
-        text,
+        describe(r, s.kind),
       ),
     );
   }
 
   function renderList() {
     const indices = selected();
-    count.textContent =
-      `${indices.length} of ${scenarios.length} scenarios.` +
-      (state.filter && !state.brain
-        ? " Choose a brain to filter by result."
-        : "");
+    count.replaceChildren(
+      ...[
+        element("b", {}, `${indices.length} of ${scenarios.length} scenarios`),
+        state.filter && !state.brain
+          ? element(
+              "span",
+              { class: "stale" },
+              " Choose a brain to filter by result.",
+            )
+          : null,
+      ].filter(Boolean),
+    );
     const head = element(
       "tr",
       {},
       element("th", {}, ""),
-      element("th", { class: "text" }, "scenario"),
-      element("th", {}, "time"),
-      element("th", { title: "A car that does nothing" }, "idle"),
-      brains.map((b) => element("th", {}, b.name)),
+      element("th", { class: "text" }, "Scenario"),
+      element("th", {}, "Time"),
+      element("th", { title: "A car that does nothing" }, "Idle"),
+      brains.map((b) =>
+        element(
+          "th",
+          { class: state.brain === b.name ? "sorted" : "" },
+          b.name,
+        ),
+      ),
     );
     const rows = [];
     for (const i of indices.slice(0, state.shown)) {
@@ -383,10 +367,11 @@ export function renderSetPieces(root, data, base) {
         element(
           "tr",
           {
-            class: "row",
+            class: `row${state.open === s.id ? " open" : ""}`,
             onclick: (event) => {
               if (event.target.closest("a")) return;
-              state.open = state.open === i ? null : i;
+              state.open = state.open === s.id ? null : s.id;
+              save();
               renderList();
             },
           },
@@ -400,16 +385,20 @@ export function renderSetPieces(root, data, base) {
             s.rival ? element("span", { class: "rival" }, s.rival) : null,
             element("span", { class: "description" }, s.note),
           ),
-          element("td", {}, `${s.time} s`),
+          element("td", { class: "muted" }, `${s.time} s`),
           element(
             "td",
-            { class: `idle ${s.idle[0] ? "pass" : "fail"}` },
-            describe(s.idle, s.kind),
+            { class: "res" },
+            element(
+              "span",
+              { class: `chip idle ${s.idle[0] ? "pass" : "fail"}` },
+              describe(s.idle, s.kind),
+            ),
           ),
           brains.map((b) => cell(s, i, b)),
         ),
       );
-      if (state.open === i)
+      if (state.open === s.id)
         rows.push(
           element(
             "tr",
@@ -428,7 +417,15 @@ export function renderSetPieces(root, data, base) {
                   element(
                     "p",
                     { class: "note" },
-                    `Failed by ${Math.round(difficulty[i] * 100)}% of brains. Click a result to watch it in the game.`,
+                    `Failed by ${Math.round(difficulty[i] * 100)}% of brains. A result opens the replay in the game.`,
+                  ),
+                  element(
+                    "button",
+                    {
+                      class: "button ghost small",
+                      onclick: () => copy(s.text, "Scenario copied"),
+                    },
+                    "Copy scenario",
                   ),
                 ),
               ),
@@ -436,6 +433,18 @@ export function renderSetPieces(root, data, base) {
           ),
         );
     }
+    if (!indices.length)
+      rows.push(
+        element(
+          "tr",
+          {},
+          element(
+            "td",
+            { colspan: 4 + brains.length },
+            empty("No scenarios fit these filters"),
+          ),
+        ),
+      );
     list.replaceChildren(
       element("thead", {}, head),
       element("tbody", {}, rows),
@@ -443,19 +452,28 @@ export function renderSetPieces(root, data, base) {
     more.hidden = indices.length <= state.shown;
   }
 
-  function sync() {
+  function change() {
+    state.shown = PAGE;
     suiteSelect.value = state.suite;
     kindSelect.value = state.kind;
+    brainSelect.value = state.brain;
+    save();
     renderSummary();
     renderList();
   }
 
-  root.replaceChildren(
-    element("div", { class: "scroll" }, summary),
-    controls,
-    count,
-    element("div", { class: "scroll" }, list),
-    more,
+  root.append(
+    panel("Set pieces", scroll(summary), {
+      note: "Short placed scenarios that grade one skill at a time. The brain drives blue, which attacks up. An attack passes on a blue goal, a defense passes if blue does not concede. Idle is a car that does nothing: a scenario it passes plays itself. Click a suite row to list it, a brain header to focus on it.",
+    }),
+    panel(
+      "Scenarios",
+      element("div", {}, controls, count, scroll(list), more),
+      {
+        note: "Click a scenario for its start and text, a result to watch it in the game.",
+      },
+    ),
   );
-  sync();
+  renderSummary();
+  renderList();
 }

@@ -12,101 +12,17 @@
     <script type="module" src="/src/arena.js"></script>
   </head>
   <body>
-    <header>
-      <div>
-        <h1>SOCCAR <span>ARENA</span></h1>
-        <p id="summary">Loading results…</p>
-      </div>
+    <header class="top">
+      <a class="brand" href="#/">SOCCAR <span>ARENA</span></a>
+      <nav id="nav" aria-label="Sections">
+        <a href="#/" data-tab="leaderboard">Leaderboard</a>
+        <a href="#/matches" data-tab="matches">Matches</a>
+        <a href="#/compare" data-tab="compare">Compare</a>
+        <a href="#/setpieces" data-tab="setpieces">Set pieces</a>
+      </nav>
+      <p id="summary" class="meta">Loading results…</p>
       <a class="button" href="./">Play</a>
     </header>
-    <main>
-      <section>
-        <h2>Leaderboard</h2>
-        <p class="note">
-          Bradley-Terry ratings from every match between current brain versions.
-          Rookie is fixed at 1000. ± is a 95% interval. Statistics are team
-          totals per match. Click a column to sort, a brain for its settings.
-        </p>
-        <div class="scroll"><table id="leaderboard"></table></div>
-      </section>
-      <section>
-        <h2>Head to head</h2>
-        <p class="note">
-          Win percentage of the row brain against the column brain.
-        </p>
-        <div class="scroll"><table id="matrix"></table></div>
-      </section>
-      <section>
-        <h2>Positions</h2>
-        <p class="note">
-          Where cars and the ball spend live play, averaged over matches with
-          heatmaps. Each brain attacks up. Brighter is more time; hover a cell
-          for seconds per match. The bar shows time in the defensive, middle,
-          and attacking thirds. The difference map compares shares of time: blue
-          where the first brain spends more, orange where the second does. Older
-          matches get heatmaps with
-          <code>npm run arena -- backfill</code>.
-        </p>
-        <div class="controls">
-          <label
-            >Brain
-            <select id="heatA"></select
-          ></label>
-          <label
-            >Compare with
-            <select id="heatB"></select
-          ></label>
-          <label
-            >Show
-            <select id="heatView">
-              <option value="car">One car</option>
-              <option value="ball">Ball</option>
-            </select></label
-          >
-        </div>
-        <div id="positions" class="heat-row"></div>
-      </section>
-      <section id="setpieceSection" hidden>
-        <h2>Set pieces</h2>
-        <p class="note">
-          Short placed scenarios that grade one skill at a time. The brain
-          drives blue, which attacks up. An attack passes on a blue goal, a
-          defense passes if blue does not concede. Click a suite to list it, a
-          scenario for its start and text, and a result to watch it. Idle is a
-          car that does nothing. Run
-          <code>npm run arena -- setpieces</code> to update.
-        </p>
-        <div id="setpieces"></div>
-      </section>
-      <section>
-        <h2>Matches</h2>
-        <div class="controls">
-          <label
-            >Sort by
-            <select id="sort"></select
-          ></label>
-          <label
-            >Order
-            <select id="order">
-              <option value="desc">Largest first</option>
-              <option value="asc">Smallest first</option>
-            </select>
-          </label>
-          <label
-            >Brain
-            <select id="brain">
-              <option value="">Any</option>
-            </select></label
-          >
-          <label
-            ><input type="checkbox" id="current" checked /> Current versions
-            only</label
-          >
-          <label><input type="checkbox" id="overtime" /> Overtime only</label>
-        </div>
-        <p class="note" id="matchCount"></p>
-        <div class="scroll"><table id="matches"></table></div>
-      </section>
-    </main>
+    <main id="view"></main>
   </body>
 </html>

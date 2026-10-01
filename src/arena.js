@@ -1,66 +1,60 @@
-// Leaderboard and match explorer for arena results. Data comes from `npm run arena -- export`.
-import { difference, heatFigure } from "./arena-heat.js";
+// Arena page: loads exported results once, then routes between views on the URL hash.
+// Data comes from `npm run arena -- export`. Views live in the arena-*.js files.
+import { ago, element, href } from "./arena-ui.js";
+import { renderBoard } from "./arena-board.js";
+import { renderBrain } from "./arena-brain.js";
+import { renderCompare } from "./arena-compare.js";
+import { renderMatches, renderMatch } from "./arena-matches.js";
 import { renderSetPieces } from "./arena-setpieces.js";
+
 const base = import.meta.env?.BASE_URL ?? "/";
-const $ = (id) => document.getElementById(id);
-const TEAM = ["blue", "orange"];
-const LABELS = {
-  score: "Score",
-  goals: "Goals",
-  assists: "Assists",
-  shots: "Shots",
-  saves: "Saves",
-  touches: "Touches",
-  demos: "Demos",
-  demoed: "Demoed",
-  bumps: "Bumps",
-  jumps: "Jumps",
-  flips: "Flips",
-  bigPads: "Big pads",
-  smallPads: "Small pads",
-  boostUsed: "Boost used",
-  distance: "Distance",
-  supersonic: "Supersonic s",
-  airborne: "Airborne s",
-  offense: "Offense s",
-  ballDistance: "Ball distance",
-  possession: "Possession",
-};
-const label = (stat) => LABELS[stat] ?? stat;
-const fixed = (x, digits = 1) => (Number.isFinite(x) ? x.toFixed(digits) : "-");
-const element = (tag, attributes = {}, ...children) => {
-  const node = document.createElement(tag);
-  for (const [k, v] of Object.entries(attributes)) {
-    if (k === "class") node.className = v;
-    else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
-    else node.setAttribute(k, v);
+const view = document.getElementById("view");
+const summary = document.getElementById("summary");
+
+async function loadJson(name, required) {
+  try {
+    const response = await fetch(`${base}arena/${name}`, { cache: "no-cache" });
+    if (!response.ok) throw new Error(String(response.status));
+    return await response.json();
+  } catch (error) {
+    if (required) throw error;
+    return null;
   }
-  node.append(...children.flat().filter((c) => c != null));
-  return node;
-};
+}
 
 let data;
 try {
-  const response = await fetch(`${base}arena/arena.json`, {
-    cache: "no-cache",
-  });
-  if (!response.ok) throw new Error(String(response.status));
-  data = await response.json();
+  data = await loadJson("arena.json", true);
 } catch {
-  $("summary").textContent =
-    "No arena data yet. Run `npm run arena -- ladder` and reload.";
+  summary.textContent = "No data yet";
+  view.replaceChildren(
+    element(
+      "div",
+      { class: "empty big" },
+      element("b", {}, "No arena data yet"),
+      element("p", {}, "Play some matches, then reload this page:"),
+      element("code", { class: "command" }, "npm run arena -- ladder"),
+    ),
+  );
   throw new Error("Missing arena data");
 }
 
+// Derived data -------------------------------------------------------------------
 const stats = data.stats;
 const statIndex = Object.fromEntries(stats.map((s, i) => [s, i + 1]));
 const brains = new Map(data.brains.map((b) => [b.name, b]));
-const current = data.brains.filter((b) => b.games > 0);
+const rated = data.brains
+  .filter((b) => b.games > 0)
+  .sort((a, b) => b.elo - a.elo);
+const rank = new Map(rated.map((b, i) => [b.name, i + 1]));
 const matches = data.matches;
-const minutes = Math.round((Date.now() / 1000 - data.generated) / 60);
-$("summary").textContent =
-  `${data.format.size}v${data.format.size} · ${data.format.duration / 60} min · ` +
-  `${data.brains.length} brains · ${matches.length} matches · updated ${minutes < 1 ? "just now" : `${minutes} min ago`}`;
+const byId = new Map();
+for (const m of matches) {
+  m.win = m.score[0] > m.score[1] ? 0 : m.score[1] > m.score[0] ? 1 : -1;
+  m.total = m.score[0] + m.score[1];
+  m.margin = Math.abs(m.score[0] - m.score[1]);
+  byId.set(m.id, m);
+}
 
 /** A link that opens the game and replays the match from its seed and brain settings. */
 function watchUrl(m) {
@@ -77,515 +71,110 @@ function watchUrl(m) {
   return `${base}?${q}`;
 }
 
-// Leaderboard ------------------------------------------------------------
-const columns = [
-  ["elo", "Elo", (b) => b.elo, (b) => `${fixed(b.elo, 0)}`],
-  ["error", "±", (b) => b.error * 1.96, (b) => fixed(b.error * 1.96, 0)],
-  ["games", "Games", (b) => b.games, (b) => b.games],
-  [
-    "win",
-    "Win %",
-    (b) => b.wins / b.games,
-    (b) => fixed((100 * b.wins) / b.games),
-  ],
-  [
-    "setPieces",
-    "Set pieces %",
-    (b) => (b.setPieces?.played ? b.setPieces.passed / b.setPieces.played : -1),
-    (b) =>
-      b.setPieces?.played
-        ? fixed((100 * b.setPieces.passed) / b.setPieces.played)
-        : "-",
-  ],
-  ["gf", "GF", (b) => b.goalsFor, (b) => fixed(b.goalsFor, 2)],
-  ["ga", "GA", (b) => b.goalsAgainst, (b) => fixed(b.goalsAgainst, 2)],
-  ...[
-    "shots",
-    "saves",
-    "assists",
-    "touches",
-    "demos",
-    "bumps",
-    "boostUsed",
-    "airborne",
-    "supersonic",
-  ].map((s) => [
-    s,
-    label(s),
-    (b) => b.averages[s],
-    (b) => fixed(b.averages[s], s === "boostUsed" ? 0 : 2),
-  ]),
-  [
-    "possession",
-    "Poss %",
-    (b) => b.averages.possession,
-    (b) => fixed(100 * b.averages.possession),
-  ],
-  ["ms", "Brain ms", (b) => b.brainMs, (b) => fixed(b.brainMs, 0)],
-];
-let boardSort = "elo";
-let openBrain = null;
-function renderLeaderboard() {
-  const column = columns.find((c) => c[0] === boardSort);
-  const rows = [...current].sort((a, b) => column[2](b) - column[2](a));
-  const unrated = data.brains.filter((b) => b.games === 0);
-  const maxElo = Math.max(...current.map((b) => b.elo));
-  const minElo = Math.min(...current.map((b) => b.elo));
-  const head = element(
-    "tr",
-    {},
-    element("th", {}, "#"),
-    element("th", { class: "text" }, "Brain"),
-    columns.map(([key, name]) =>
-      element(
-        "th",
-        {
-          class: `sortable${key === boardSort ? " sorted" : ""}`,
-          onclick: () => {
-            boardSort = key;
-            renderLeaderboard();
-          },
-        },
-        name,
-      ),
-    ),
-  );
-  const body = [];
-  [...rows, ...unrated].forEach((b, i) => {
-    const rated = b.games > 0;
-    body.push(
-      element(
-        "tr",
-        {
-          class: "row",
-          onclick: () => {
-            openBrain = openBrain === b.name ? null : b.name;
-            renderLeaderboard();
-          },
-        },
-        element("td", {}, rated ? i + 1 : "-"),
-        element(
-          "td",
-          { class: "text" },
-          element("b", {}, b.name),
-          element("span", { class: "description" }, b.description),
-        ),
-        rated
-          ? columns.map(([key, , , show]) =>
-              element(
-                "td",
-                {},
-                show(b),
-                key === "elo"
-                  ? element("span", {
-                      class: "bar",
-                      style: `width:${4 + (40 * (b.elo - minElo)) / Math.max(1, maxElo - minElo)}px`,
-                    })
-                  : null,
-              ),
-            )
-          : element(
-              "td",
-              { colspan: columns.length, class: "text stale" },
-              "unrated: run the ladder",
-            ),
-      ),
-    );
-    if (openBrain === b.name) {
-      body.push(
-        element(
-          "tr",
-          { class: "detail" },
-          element(
-            "td",
-            { colspan: columns.length + 2 },
-            element("pre", {}, b.text),
-            element(
-              "div",
-              { class: "stale" },
-              `module ${b.module} · fingerprint ${b.fingerprint} · pick "${b.name}" under Bot Difficulty to play against it`,
-            ),
-            brainHeat(b),
-          ),
-        ),
-      );
-    }
-  });
-  $("leaderboard").replaceChildren(
-    element("thead", {}, head),
-    element("tbody", {}, body),
-  );
-}
-
-// Positions ---------------------------------------------------------------
-const grid = data.heat;
-const hasHeat = (b) => grid && b.heat?.matches > 0;
-function brainHeat(b) {
-  if (!hasHeat(b)) return null;
-  return element(
-    "div",
-    { class: "heat-row" },
-    heatFigure(b.heat.car, grid, {
-      title: "One car",
-      caption: `${b.heat.matches} matches`,
-      scale: 8,
-    }),
-    heatFigure(b.heat.ball, grid, { title: "Ball", scale: 8 }),
-  );
-}
-function renderPositions() {
-  const view = $("heatView").value;
-  const a = brains.get($("heatA").value);
-  const b = brains.get($("heatB").value);
-  const figures = [];
-  // One color scale for both brains, so their maps compare directly.
-  const shared = Math.max(
-    1e-9,
-    ...[a, b].filter((x) => x && hasHeat(x)).flatMap((x) => x.heat[view]),
-  );
-  for (const brain of [a, b]) {
-    if (!brain) continue;
-    figures.push(
-      hasHeat(brain)
-        ? heatFigure(brain.heat[view], grid, {
-            title: brain.name,
-            caption: `${brain.heat.matches} matches · seconds per match`,
-            max: shared,
-          })
-        : element(
-            "p",
-            { class: "note" },
-            `${brain.name}: no heatmaps yet. Run \`npm run arena -- backfill\`.`,
-          ),
-    );
-  }
-  if (a && b && a !== b && hasHeat(a) && hasHeat(b)) {
-    figures.push(
-      heatFigure(difference(a.heat[view], b.heat[view]), grid, {
-        title: `${a.name} − ${b.name}`,
-        caption: "share of time, blue: first brain more",
-        diff: true,
-      }),
-    );
-  }
-  $("positions").replaceChildren(...figures);
-}
-{
-  const withHeat = [...current].sort((x, y) => y.elo - x.elo).filter(hasHeat);
-  const names = (withHeat.length ? withHeat : current).map((b) => b.name);
-  for (const [id, pick] of [
-    ["heatA", names[0]],
-    ["heatB", names[1] ?? names[0]],
-  ]) {
-    $(id).replaceChildren(
-      ...names.map((n) => element("option", { value: n }, n)),
-    );
-    if (pick) $(id).value = pick;
-  }
-  for (const id of ["heatA", "heatB", "heatView"])
-    $(id).addEventListener("change", renderPositions);
-}
-
-// Head to head -------------------------------------------------------------
-function renderMatrix() {
-  const order = [...current].sort((a, b) => b.elo - a.elo).slice(0, 16);
-  const table = new Map();
+/** Per-opponent records of one brain over current matches. */
+function records(name) {
+  const out = new Map();
   for (const m of matches) {
     if (!m.current) continue;
-    const winner = m.score[0] > m.score[1] ? 0 : 1;
-    for (const side of [0, 1]) {
-      const key = `${m.brains[side]}|${m.brains[1 - side]}`;
-      const cell = table.get(key) ?? { wins: 0, games: 0 };
-      cell.games++;
-      if (winner === side) cell.wins++;
-      table.set(key, cell);
-    }
+    const side = m.brains.indexOf(name);
+    if (side < 0) continue;
+    const other = m.brains[1 - side];
+    const r = out.get(other) ?? {
+      wins: 0,
+      losses: 0,
+      draws: 0,
+      games: 0,
+      gf: 0,
+      ga: 0,
+    };
+    r.games++;
+    if (m.win === side) r.wins++;
+    else if (m.win < 0) r.draws++;
+    else r.losses++;
+    r.gf += m.score[side];
+    r.ga += m.score[1 - side];
+    out.set(other, r);
   }
-  const head = element(
-    "tr",
-    {},
-    element("th", { class: "text" }, ""),
-    order.map((b) => element("th", {}, b.name)),
-  );
-  const body = order.map((row) =>
-    element(
-      "tr",
-      {},
-      element("td", { class: "text" }, element("b", {}, row.name)),
-      order.map((col) => {
-        const cell = table.get(`${row.name}|${col.name}`);
-        if (row === col || !cell) return element("td", {}, "-");
-        const p = cell.wins / cell.games;
-        const color = p >= 0.5 ? "47,123,255" : "255,138,42";
-        return element(
-          "td",
-          {
-            title: `${cell.wins} of ${cell.games} matches`,
-            style: `background:rgba(${color},${Math.min(0.55, Math.abs(p - 0.5) * 1.6)})`,
-          },
-          fixed(100 * p),
-        );
-      }),
-    ),
-  );
-  $("matrix").replaceChildren(
-    element("thead", {}, head),
-    element("tbody", {}, body),
-  );
+  return out;
 }
 
-// Matches ------------------------------------------------------------------
-const stat = (player, name) => player[statIndex[name]];
-const teamTotal = (m, team, name) =>
-  m.players
-    .filter((p) => p[0] === team)
-    .reduce((sum, p) => sum + stat(p, name), 0);
-/** Sort keys: [id, label, value(m) → number or [number, player index]]. */
-const sorts = [
-  ["id", "Newest", (m) => m.id],
-  ["goals", "Total goals", (m) => m.score[0] + m.score[1]],
-  ["margin", "Goal margin", (m) => Math.abs(m.score[0] - m.score[1])],
-  ["length", "Match length (s)", (m) => m.live],
-  [
-    "upset",
-    "Upset (loser's Elo lead)",
-    (m) => {
-      const w = m.score[0] > m.score[1] ? 0 : 1;
-      const [winner, loser] = [
-        brains.get(m.brains[w]),
-        brains.get(m.brains[1 - w]),
-      ];
-      return m.current && winner && loser ? loser.elo - winner.elo : NaN;
-    },
-  ],
-  ["brainMs", "Brain time (ms)", (m) => m.teams[0][2] + m.teams[1][2]],
-  [
-    "possessionGap",
-    "Possession gap (s)",
-    (m) => Math.abs(m.teams[0][0] - m.teams[1][0]),
-  ],
-  ...stats.flatMap((s) => [
-    [
-      `best:${s}`,
-      `Best player: ${label(s)}`,
-      (m) => {
-        let best = 0;
-        m.players.forEach((p, i) => {
-          if (stat(p, s) > stat(m.players[best], s)) best = i;
-        });
-        return [stat(m.players[best], s), best];
-      },
-    ],
-    [
-      `total:${s}`,
-      `Match total: ${label(s)}`,
-      (m) => teamTotal(m, 0, s) + teamTotal(m, 1, s),
-    ],
-    [
-      `gap:${s}`,
-      `Team gap: ${label(s)}`,
-      (m) => Math.abs(teamTotal(m, 0, s) - teamTotal(m, 1, s)),
-    ],
-  ]),
-];
-$("sort").append(
-  ...sorts.map(([key, name]) => element("option", { value: key }, name)),
-);
-$("brain").append(
-  ...data.brains.map((b) => element("option", { value: b.name }, b.name)),
-);
-let openMatch = null;
-function renderMatches() {
-  const sort = sorts.find((s) => s[0] === $("sort").value) ?? sorts[0];
-  const ascending = $("order").value === "asc";
-  const brain = $("brain").value;
-  const rows = [];
-  for (const m of matches) {
-    if ($("current").checked && !m.current) continue;
-    if ($("overtime").checked && !m.overtime) continue;
-    if (brain && !m.brains.includes(brain)) continue;
-    const value = sort[2](m);
-    const [number, player] = Array.isArray(value) ? value : [value, null];
-    if (!Number.isFinite(number)) continue;
-    rows.push({ m, number, player });
-  }
-  rows.sort(
-    (a, b) =>
-      (ascending ? a.number - b.number : b.number - a.number) ||
-      b.m.id - a.m.id,
-  );
-  $("matchCount").textContent =
-    `${rows.length} matches. Showing the first 100. * means overtime.`;
-  const head = element(
-    "tr",
-    {},
-    ["#", "Blue", "Orange", "Score", "Length", sort[1], "Standout", ""].map(
-      (h, i) =>
-        element(
-          "th",
-          { class: i === 1 || i === 2 || i === 6 ? "text" : "" },
-          h,
-        ),
-    ),
-  );
-  const body = [];
-  for (const { m, number, player } of rows.slice(0, 100)) {
-    const w = m.score[0] > m.score[1] ? 0 : 1;
-    const p = player == null ? null : m.players[player];
-    body.push(
-      element(
-        "tr",
-        {
-          class: "row",
-          onclick: (event) => {
-            if (event.target.closest("a")) return;
-            openMatch = openMatch === m.id ? null : m.id;
-            renderMatches();
-          },
-        },
-        element("td", {}, m.id),
-        element(
-          "td",
-          { class: `text blue${w === 0 ? " win" : ""}` },
-          m.brains[0],
-        ),
-        element(
-          "td",
-          { class: `text orange${w === 1 ? " win" : ""}` },
-          m.brains[1],
-        ),
-        element(
-          "td",
-          {},
-          `${m.score[0]}-${m.score[1]}${m.overtime ? "*" : ""}`,
-        ),
-        element(
-          "td",
-          {},
-          `${Math.floor(m.live / 60)}:${String(Math.round(m.live % 60)).padStart(2, "0")}`,
-        ),
-        element("td", {}, fixed(number, Number.isInteger(number) ? 0 : 1)),
-        element(
-          "td",
-          { class: `text ${p ? TEAM[p[0]] : ""}` },
-          p ? `car ${player + 1} (${m.brains[p[0]]})` : "",
-          m.current
-            ? null
-            : element("span", { class: "stale" }, " older version"),
-        ),
-        element(
-          "td",
-          {},
-          element(
-            "a",
-            { class: "button small", href: watchUrl(m), target: "_blank" },
-            "Watch",
-          ),
-        ),
-      ),
-    );
-    if (openMatch === m.id) body.push(matchDetail(m));
-  }
-  $("matches").replaceChildren(
-    element("thead", {}, head),
-    element("tbody", {}, body),
-  );
-}
-function matchDetail(m) {
-  const head = element(
-    "tr",
-    {},
-    element("th", { class: "text" }, `seed ${m.seed}`),
-    m.players.map((p, i) =>
-      element("th", { class: TEAM[p[0]] }, `car ${i + 1}`),
-    ),
-    element("th", { class: "blue" }, "blue"),
-    element("th", { class: "orange" }, "orange"),
-  );
-  const rows = stats.map((s) =>
-    element(
-      "tr",
-      {},
-      element("td", { class: "text" }, label(s)),
-      m.players.map((p) =>
-        element(
-          "td",
-          {},
-          fixed(stat(p, s), Number.isInteger(stat(p, s)) ? 0 : 1),
-        ),
-      ),
-      [0, 1].map((t) => element("td", {}, fixed(teamTotal(m, t, s), 0))),
-    ),
-  );
-  for (const [i, name] of [
-    "Possession s",
-    "Ball in own half s",
-    "Brain ms",
-  ].entries()) {
-    rows.push(
-      element(
-        "tr",
-        {},
-        element("td", { class: "text" }, name),
-        m.players.map(() => element("td", {}, "")),
-        [0, 1].map((t) => element("td", {}, fixed(m.teams[t][i], 0))),
-      ),
-    );
-  }
-  const heat = element("div", { class: "heat-row" });
-  if (m.heat && grid) {
-    fetch(`${base}arena/heatmaps/${m.id}.json`)
-      .then((response) => (response.ok ? response.json() : null))
-      .then((maps) => {
-        if (!maps) return;
-        const seconds = (map) => map.map((v) => v / 10);
-        heat.replaceChildren(
-          ...[0, 1].map((t) =>
-            heatFigure(seconds(maps.teams[t]), grid, {
-              title: `${m.brains[t]} (${TEAM[t]}) cars`,
-              caption: "attacking up · seconds",
-              scale: 8,
-            }),
-          ),
-          heatFigure(seconds(maps.ball), grid, {
-            title: "Ball",
-            caption: `${m.brains[0]} attacking up · seconds`,
-            scale: 8,
-          }),
-        );
-      })
-      .catch(() => {});
-  }
-  return element(
-    "tr",
-    { class: "detail" },
-    element(
-      "td",
-      { colspan: 8 },
-      element(
-        "table",
-        {},
-        element("thead", {}, head),
-        element("tbody", {}, rows),
-      ),
-      heat,
-    ),
-  );
-}
-for (const id of ["sort", "order", "brain", "current", "overtime"])
-  $(id).addEventListener("change", renderMatches);
+const route = () => {
+  const raw = location.hash.replace(/^#\/?/, "");
+  const [path, query = ""] = raw.split("?");
+  return {
+    parts: path.split("/").filter(Boolean).map(decodeURIComponent),
+    query: new URLSearchParams(query),
+  };
+};
 
-renderLeaderboard();
-renderMatrix();
-renderPositions();
-renderMatches();
+const ctx = {
+  base,
+  data,
+  stats,
+  statIndex,
+  brains,
+  rated,
+  rank,
+  matches,
+  byId,
+  watchUrl,
+  records,
+  setpieces: loadJson("setpieces.json", false).then((s) =>
+    s?.scenarios?.length ? s : null,
+  ),
+  /** Rewrites the query of the current URL without re-rendering the view. */
+  replaceQuery(query) {
+    const { parts } = route();
+    history.replaceState(null, "", href(parts, query));
+  },
+};
 
-// Set pieces are optional: the section stays hidden until `npm run arena -- setpieces` has run.
-fetch(`${base}arena/setpieces.json`, { cache: "no-cache" })
-  .then((r) => (r.ok ? r.json() : null))
-  .then((setpieces) => {
-    if (!setpieces?.scenarios?.length) return;
-    $("setpieceSection").hidden = false;
-    renderSetPieces($("setpieces"), setpieces, base);
-  })
-  .catch(() => {});
+summary.textContent =
+  `${data.format.size}v${data.format.size} · ${data.format.duration / 60} min · ` +
+  `${data.brains.length} brains · ${matches.length.toLocaleString()} matches · updated ${ago(data.generated)}`;
+
+// Router ----------------------------------------------------------------------------
+const VIEWS = {
+  "": ["leaderboard", renderBoard],
+  brain: ["leaderboard", renderBrain],
+  matches: ["matches", renderMatches],
+  match: ["matches", renderMatch],
+  compare: ["compare", renderCompare],
+  setpieces: ["setpieces", renderSetPieces],
+};
+let cleanup = null;
+let token = 0;
+async function show() {
+  const current = route();
+  const [tab, render] = VIEWS[current.parts[0] ?? ""] ?? VIEWS[""];
+  const mine = ++token;
+  cleanup?.();
+  cleanup = null;
+  for (const link of document.querySelectorAll("#nav a"))
+    link.setAttribute("aria-current", String(link.dataset.tab === tab));
+  const root = element("div", { class: "view" });
+  const result = await render(root, ctx, current);
+  if (mine !== token) {
+    result?.();
+    return;
+  }
+  cleanup = result ?? null;
+  view.replaceChildren(root);
+  document.title = `${root.dataset.title ? `${root.dataset.title} · ` : ""}Soccar Arena`;
+  if (!current.query.has("keep")) window.scrollTo(0, 0);
+}
+addEventListener("hashchange", show);
+
+// "/" jumps to the view's search box.
+addEventListener("keydown", (event) => {
+  if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey)
+    return;
+  if (event.target.closest?.("input, select, textarea")) return;
+  const box = view.querySelector("input[type=search]");
+  if (!box) return;
+  event.preventDefault();
+  box.focus();
+  box.select();
+});
+
+await show();
