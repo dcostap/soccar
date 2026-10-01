@@ -1,5 +1,6 @@
 //! Brain arena: plays bot brains against each other, keeps every result, and rates them.
 mod export;
+mod generate;
 mod heat;
 mod ledger;
 mod rating;
@@ -32,6 +33,7 @@ Commands:
   backfill                  Replay logged matches without heatmaps to add them (up to --limit)
   setpieces [brain ...]     Play set pieces each brain has no current result for, then summarize
   setpieces show <suite|id> Results of every brain per scenario, or one scenario with a watch link
+  setpieces generate        Rewrite arena/scenarios/gen-*.txt (--count per family, default 40)
   export                    Write public/arena/arena.json for the leaderboard page
 
 Options:
@@ -51,6 +53,7 @@ Options:
   --url base                Watch link base (default http://127.0.0.1:5173)
   --limit count             backfill: matches to replay (default all)
   --suite name              setpieces: only this suite
+  --holdout seed            setpieces: play freshly generated families with this seed instead of the suites
 
 Brains live in arena/brains/*.brain. Results are appended to arena/results/matches.jsonl,
 and heatmaps to arena/results/heatmaps.jsonl. Set pieces live in arena/scenarios/*.txt,
@@ -72,6 +75,8 @@ pub struct Options {
     pub url: String,
     pub limit: usize,
     pub suite: Option<String>,
+    pub count: usize,
+    pub holdout: Option<u64>,
 }
 
 pub struct Arena {
@@ -124,6 +129,8 @@ fn run() -> Result<(), String> {
         url: "http://127.0.0.1:5173".into(),
         limit: usize::MAX,
         suite: None,
+        count: 40,
+        holdout: None,
     };
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -165,6 +172,8 @@ fn run() -> Result<(), String> {
             "--url" => options.url = value.trim_end_matches('/').to_string(),
             "--limit" => options.limit = value.parse().map_err(|_| bad())?,
             "--suite" => options.suite = Some(value),
+            "--count" => options.count = value.parse().map_err(|_| bad())?,
+            "--holdout" => options.holdout = Some(value.parse().map_err(|_| bad())?),
             _ => return Err(format!("Unknown option: {arg}")),
         }
     }
@@ -214,7 +223,9 @@ fn run() -> Result<(), String> {
         "show" => arena.show(rest),
         "export" => arena.export(),
         "heatmap" => arena.heatmap(rest),
-        "setpieces" if rest.first().is_some_and(|w| w == "show") => arena.setpieces(rest),
+        "setpieces" if options_only_print(rest) || arena.options.holdout.is_some() => {
+            arena.setpieces(rest)
+        }
         "setpieces" => {
             arena.setpieces(rest)?;
             arena.export()
@@ -225,6 +236,11 @@ fn run() -> Result<(), String> {
         }
         _ => Err(format!("Unknown command: {command}. Try --help.")),
     }
+}
+
+/// `setpieces show` and `setpieces generate` change no results, so they skip the export.
+fn options_only_print(rest: &[String]) -> bool {
+    rest.first().is_some_and(|w| w == "show" || w == "generate")
 }
 
 impl Arena {

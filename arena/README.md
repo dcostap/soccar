@@ -68,6 +68,7 @@ matches                   Matches sorted by any statistic: --sort touches, --sor
 show <id>                 Every statistic of one match and a link to watch it
 setpieces [brain ...]     Play set pieces without a current result, then summarize per suite and kind
 setpieces show <suite|id> Per-scenario results beside an idle baseline; one scenario adds a watch link
+setpieces generate        Rewrite the generated suites, arena/scenarios/gen-*.txt
 export                    Write public/arena/ for the page and the game menu (ladder and challenge do this)
 ```
 
@@ -149,6 +150,18 @@ npm run arena -- setpieces                       # every brain, every suite
 npm run arena -- setpieces alpha --suite saves   # one brain, one suite
 npm run arena -- setpieces show saves            # per-scenario table
 npm run arena -- setpieces show saves/breakaway --brain alpha   # one scenario and a watch link
+```
+
+`finishing` and `saves` are written by hand. The `gen-*` suites come from randomized families in `arena/src/generate.rs`:
+shots, awkward starts, moving balls, a goalie, saves, chase-backs, breakaways, and scrambles in the box.
+`setpieces generate` writes `--count` scenarios per family (default 40) with seed 1, after dropping every candidate
+that an idle car passes. Change a family by adding a new one, since regenerating replaces the scenarios.
+
+The generated suites are public, so a brain can be tuned to them. `--holdout <seed>` plays the same families
+with another seed in memory instead of the suites. Use an unannounced seed to check a brain on scenarios nobody saw:
+
+```sh
+npm run arena -- setpieces --holdout 90210 --count 20
 ```
 
 Results are in `arena/results/setpieces.jsonl`, one line per brain fingerprint and scenario hash.

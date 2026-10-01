@@ -4,10 +4,11 @@
 use crate::{
     Arena,
     export::{encode, round},
+    generate,
     roster::Hash,
 };
-use serde_json::{Value, json};
 use serde::{Deserialize, Serialize};
+use serde_json::{Value, json};
 use soccar_simulation::{
     brains::{self, BrainSpec},
     harness::{self, ScenarioJob},
@@ -32,6 +33,25 @@ pub struct SetPiece {
     pub text: String,
     /// Changes with the scenario text or the rival's module source.
     pub hash: String,
+}
+
+impl SetPiece {
+    pub fn parse(suite: &str, name: &str, body: &str) -> Result<Self, String> {
+        let scenario = Scenario::parse(body)?;
+        let text = scenario.text();
+        let mut h = Hash::new();
+        h.bytes(text.as_bytes());
+        if let Some(module) = brains::module(&scenario.rival.module) {
+            h.bytes(module.source.as_bytes());
+        }
+        Ok(Self {
+            id: format!("{suite}/{name}"),
+            suite: suite.to_string(),
+            scenario,
+            text,
+            hash: format!("{:016x}", h.0),
+        })
+    }
 }
 
 pub struct Suite {
@@ -69,7 +89,11 @@ pub fn load(dir: &Path) -> Result<(Vec<Suite>, Vec<SetPiece>), String> {
         // Blocks of (name, first line number, text).
         let mut blocks: Vec<(String, usize, String)> = Vec::new();
         for (number, line) in text.lines().enumerate() {
-            if let Some(name) = line.trim().strip_prefix('[').and_then(|l| l.strip_suffix(']')) {
+            if let Some(name) = line
+                .trim()
+                .strip_prefix('[')
+                .and_then(|l| l.strip_suffix(']'))
+            {
                 blocks.push((name.trim().to_string(), number + 2, String::new()));
             } else if let Some(block) = blocks.last_mut() {
                 block.2 += line;
@@ -79,25 +103,13 @@ pub fn load(dir: &Path) -> Result<(Vec<Suite>, Vec<SetPiece>), String> {
         for (name, line, body) in blocks {
             let id = format!("{suite}/{name}");
             if pieces.iter().any(|p: &SetPiece| p.id == id) {
-                errors.push(format!("{suite}.txt line {line}: duplicate scenario {name}"));
+                errors.push(format!(
+                    "{suite}.txt line {line}: duplicate scenario {name}"
+                ));
                 continue;
             }
-            match Scenario::parse(&body) {
-                Ok(scenario) => {
-                    let text = scenario.text();
-                    let mut h = Hash::new();
-                    h.bytes(text.as_bytes());
-                    if let Some(module) = brains::module(&scenario.rival.module) {
-                        h.bytes(module.source.as_bytes());
-                    }
-                    pieces.push(SetPiece {
-                        id,
-                        suite: suite.clone(),
-                        scenario,
-                        text,
-                        hash: format!("{:016x}", h.0),
-                    });
-                }
+            match SetPiece::parse(&suite, &name, &body) {
+                Ok(piece) => pieces.push(piece),
                 Err(e) => errors.push(format!("{suite}.txt [{name}] (from line {line}): {e}")),
             }
         }
@@ -148,7 +160,8 @@ impl Log {
             }
             let r: Attempt = serde_json::from_str(&line)
                 .map_err(|e| format!("{} line {}: {e}", path.display(), number + 1))?;
-            log.results.insert((r.fingerprint.clone(), r.hash.clone()), r);
+            log.results
+                .insert((r.fingerprint.clone(), r.hash.clone()), r);
         }
         Ok(log)
     }
@@ -188,17 +201,6 @@ impl Tally {
         self.success += usize::from(r.success);
         self.credit += r.credit;
     }
-    fn cell(&self) -> String {
-        if self.played == 0 {
-            return "-".into();
-        }
-        format!(
-            "{}/{} {:.0}%",
-            self.success,
-            self.played,
-            100.0 * self.success as f64 / self.played as f64
-        )
-    }
 }
 
 impl Arena {
@@ -224,10 +226,31 @@ impl Arena {
 
     /// Plays every selected scenario that a chosen brain has no current result for, then prints a summary.
     pub fn setpieces(&mut self, words: &[String]) -> Result<(), String> {
-        if let Some(word) = words.first()
-            && word == "show"
-        {
-            return self.setpiece_show(&words[1..]);
+        match words.first().map(String::as_str) {
+            Some("show") => return self.setpiece_show(&words[1..]),
+            Some("generate") => return self.setpiece_generate(),
+            _ => {}
+        }
+        if let Some(seed) = self.options.holdout {
+            // Scenarios nobody has seen: the generated families with another seed, in memory only.
+            self.setpieces.suites = generate::FAMILIES
+                .iter()
+                .map(|f| Suite {
+                    name: f.name.replacen("gen-", "holdout-", 1),
+                    description: f.description.into(),
+                })
+                .collect();
+            self.setpieces.pieces =
+                generate::generate(seed, self.options.count, self.options.threads)
+                    .into_iter()
+                    .map(|(family, name, text)| {
+                        SetPiece::parse(&family.replacen("gen-", "holdout-", 1), &name, &text)
+                    })
+                    .collect::<Result<_, _>>()?;
+            eprintln!(
+                "Holdout seed {seed}: {} scenarios.",
+                self.setpieces.pieces.len()
+            );
         }
         if self.setpieces.pieces.is_empty() {
             return Err("No scenarios in arena/scenarios".into());
@@ -298,6 +321,7 @@ impl Arena {
         Ok(())
     }
 
+    /// Success rates with suites as rows and brains as columns.
     fn setpiece_summary(&self, chosen: &[usize], pieces: &[usize]) {
         let suites: Vec<&str> = self
             .setpieces
@@ -306,41 +330,84 @@ impl Arena {
             .map(|s| s.name.as_str())
             .filter(|s| pieces.iter().any(|&p| self.setpieces.pieces[p].suite == *s))
             .collect();
-        print!("{:<14}", "brain");
-        for s in &suites {
-            print!(" {s:>14}");
+        // Rows: each suite, then attack, defend, and all.
+        let rows = suites.len() + 3;
+        let mut tallies = vec![vec![Tally::default(); chosen.len()]; rows];
+        let mut sizes = vec![0; rows];
+        for &p in pieces {
+            let piece = &self.setpieces.pieces[p];
+            let s = suites.iter().position(|s| *s == piece.suite).unwrap();
+            let kind = suites.len() + usize::from(piece.scenario.kind == Kind::Defend);
+            for row in [s, kind, rows - 1] {
+                sizes[row] += 1;
+                for (column, &b) in chosen.iter().enumerate() {
+                    if let Some(r) = self.setpiece_result(b, piece) {
+                        tallies[row][column].add(r);
+                    }
+                }
+            }
         }
-        println!(" {:>14} {:>14} {:>14} {:>7}", "attack", "defend", "all", "credit");
+        let width = suites.iter().map(|s| s.len()).max().unwrap_or(0).max(6);
+        print!("{:<width$} {:>4}", "suite", "n");
         for &b in chosen {
-            let mut by_suite = vec![Tally::default(); suites.len()];
-            let mut by_kind = [Tally::default(); 2];
-            let mut all = Tally::default();
-            for &p in pieces {
-                let piece = &self.setpieces.pieces[p];
-                let Some(r) = self.setpiece_result(b, piece) else {
-                    continue;
-                };
-                let s = suites.iter().position(|s| *s == piece.suite).unwrap();
-                by_suite[s].add(r);
-                by_kind[usize::from(piece.scenario.kind == Kind::Defend)].add(r);
-                all.add(r);
+            print!(" {:>9}", self.brains[b].spec.name);
+        }
+        println!();
+        let names: Vec<&str> = suites
+            .iter()
+            .copied()
+            .chain(["attack", "defend", "all"])
+            .collect();
+        for (row, name) in names.iter().enumerate() {
+            if row == suites.len() {
+                println!();
             }
-            print!("{:<14}", self.brains[b].spec.name);
-            for t in &by_suite {
-                print!(" {:>14}", t.cell());
+            print!("{name:<width$} {:>4}", sizes[row]);
+            for t in &tallies[row] {
+                if t.played == 0 {
+                    print!(" {:>9}", "-");
+                } else {
+                    print!(" {:>8.0}%", 100.0 * t.success as f64 / t.played as f64);
+                }
             }
-            println!(
-                " {:>14} {:>14} {:>14} {:>7.3}",
-                by_kind[0].cell(),
-                by_kind[1].cell(),
-                all.cell(),
-                all.credit / all.played.max(1) as f64
-            );
+            println!();
+        }
+        print!("{:<width$} {:>4}", "credit", "");
+        for t in &tallies[rows - 1] {
+            print!(" {:>9.3}", t.credit / t.played.max(1) as f64);
         }
         println!(
-            "\nCredit: 1 per success; a missed attack earns up to 0.5 for bringing the ball toward the goal.\n\
-             `setpieces show <suite>` lists every scenario."
+            "\n\nPercent of scenarios passed. Credit: 1 per success; a missed attack earns up to 0.5\n\
+             for bringing the ball toward the goal. `setpieces show <suite>` lists every scenario."
         );
+    }
+
+    /// Writes the generated families to arena/scenarios/gen-*.txt.
+    fn setpiece_generate(&self) -> Result<(), String> {
+        let seed = 1;
+        let pieces = generate::generate(seed, self.options.count, self.options.threads);
+        let dir = self.root.join("scenarios");
+        for family in generate::FAMILIES {
+            let mut text = format!(
+                "# {}\n# Generated by `npm run arena -- setpieces generate --count {}` (seed {seed}). Do not edit by hand.\n",
+                family.description, self.options.count
+            );
+            for (_, name, body) in pieces.iter().filter(|p| p.0 == family.name) {
+                text += &format!(
+                    "
+[{name}]
+{body}"
+                );
+            }
+            let path = dir.join(format!("{}.txt", family.name));
+            fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+            eprintln!(
+                "{}: {} scenarios",
+                family.name,
+                pieces.iter().filter(|p| p.0 == family.name).count()
+            );
+        }
+        Ok(())
     }
 
     /// Per-scenario results of every brain for a suite, or details of one scenario.
@@ -373,12 +440,17 @@ impl Arena {
                 "{:<width$} {:<6} {:>9}",
                 piece.id,
                 piece.scenario.kind.name(),
-                describe(baseline.success, baseline.goal, baseline.seconds, baseline.credit)
+                describe(
+                    baseline.success,
+                    baseline.goal,
+                    baseline.seconds,
+                    baseline.credit
+                )
             );
             for b in 0..self.brains.len() {
-                let cell = self
-                    .setpiece_result(b, piece)
-                    .map_or("-".into(), |r| describe(r.success, r.goal, r.seconds, r.credit));
+                let cell = self.setpiece_result(b, piece).map_or("-".into(), |r| {
+                    describe(r.success, r.goal, r.seconds, r.credit)
+                });
                 print!(" {cell:>9}");
             }
             println!();
@@ -408,8 +480,12 @@ impl Arena {
 
 /// The do-nothing baseline.
 pub fn idle_brain() -> BrainSpec {
-    BrainSpec::parse("idle", "module = scripted
-mode = idle").expect("idle brain")
+    BrainSpec::parse(
+        "idle",
+        "module = scripted
+mode = idle",
+    )
+    .expect("idle brain")
 }
 
 /// Short text for one outcome: a goal with its time, a held defense, a concession, or a miss with its credit.
