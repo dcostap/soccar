@@ -43,8 +43,15 @@ fn bad_text_is_rejected() {
     assert!(Scenario::parse("time = 3\ncar = blue 0 0 90 0 33").is_err());
     assert!(Scenario::parse("kind = attack").is_err());
     assert!(Scenario::parse("kind = attack\ncar = green 0 0 90 0 33").is_err());
-    assert!(Scenario::parse("kind = attack\ncar = blue 0 0 90 0 33\nrival = scripted mode=dance").is_err());
+    assert!(
+        Scenario::parse("kind = attack\ncar = blue 0 0 90 0 33\nrival = scripted mode=dance")
+            .is_err()
+    );
     assert!(Scenario::parse("kind = attack\ncar = blue 0 0 90 0 33\nwind = 3").is_err());
+    // Inside a rounded corner, behind a goal line, and a ball under the floor.
+    assert!(Scenario::parse("kind = attack\ncar = blue 3900 4950 90 0 33").is_err());
+    assert!(Scenario::parse("kind = attack\ncar = blue 0 7000 90 0 33").is_err());
+    assert!(Scenario::parse("kind = attack\nball = 0 0 20\ncar = blue 0 0 90 0 33").is_err());
 }
 
 #[test]
@@ -96,8 +103,53 @@ fn set_pieces_start_without_kickoff_and_with_moving_cars() {
     assert!(!g.world.ball.frozen);
     let car = &g.world.cars[0];
     assert!(!car.frozen);
-    assert!((car.vel.y - 1000.0).abs() < 1e-6 && car.vel.x.abs() < 1e-6, "{:?}", car.vel);
+    assert!(
+        (car.vel.y - 1000.0).abs() < 1e-6 && car.vel.x.abs() < 1e-6,
+        "{:?}",
+        car.vel
+    );
     assert_eq!(car.boost, 50.0);
     assert_eq!(g.world.ball.vel.y, 500.0);
 }
 
+#[test]
+fn captured_moments_turn_the_tested_team_into_blue() {
+    use soccar_simulation::harness::{MatchSpec, start};
+    let mut game = start(&MatchSpec {
+        team_size: 2,
+        ..MatchSpec::default()
+    });
+    for _ in 0..1200 {
+        game.tick(Default::default());
+    }
+    let blue = Scenario::capture(&game, 0, Kind::Attack, 3.0);
+    let orange = Scenario::capture(&game, 1, Kind::Defend, 3.0);
+    assert_eq!(blue.cars.len(), 4);
+    assert_eq!(blue.cars.iter().filter(|c| c.team == 0).count(), 2);
+    let ball = game.world.ball.pos;
+    assert_eq!(blue.ball_pos.x, ball.x.round());
+    assert_eq!(orange.ball_pos.x, (-ball.x).round());
+    assert_eq!(orange.ball_pos.y, (-ball.y).round());
+    // Orange's first car becomes the first blue car, turned half a circle.
+    let car = &game.world.cars[2];
+    let turned = &orange.cars[0];
+    assert_eq!(turned.team, 0);
+    if soccar_simulation::scenario::fits(-car.pos.x, -car.pos.y) {
+        assert_eq!(turned.x, (-car.pos.x).round());
+    }
+    let yaw = |c: &soccar_simulation::scenario::CarStart| c.yaw;
+    let difference = (yaw(turned) - yaw(&blue.cars[2])).rem_euclid(360.0);
+    assert!((difference - 180.0).abs() < 0.2, "{difference}");
+    let mut back = blue.mirrored();
+    back.kind = Kind::Defend;
+    assert_eq!(back.text(), orange.text());
+    assert_eq!(blue.mirrored().mirrored().text(), blue.text());
+    // The text form is exact.
+    for s in [&blue, &orange] {
+        assert_eq!(Scenario::parse(&s.text()).unwrap().text(), s.text());
+        run_scenario(&ScenarioJob {
+            scenario: s.clone(),
+            brain: BrainSpec::preset(Skill::Pro),
+        });
+    }
+}

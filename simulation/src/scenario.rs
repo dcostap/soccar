@@ -33,6 +33,7 @@ use crate::{
 
 /// Longest wait for the ball to land after the scenario time.
 pub const GROUND_WAIT: f64 = 3.0;
+const BALL_RADIUS: f64 = 93.15;
 /// Half the width of the goal mouth.
 const GOAL_HALF_WIDTH: f64 = 893.0;
 
@@ -88,6 +89,12 @@ pub struct Scenario {
     pub note: String,
 }
 
+/// Whether a car start at (x, y) clears the walls, corners, and goals with room to spare.
+/// Measured above the floor, so the floor itself does not count.
+pub fn fits(x: f64, y: f64) -> bool {
+    crate::arena::distance(Vec3::new(x, y, 120.0)) > 110.0
+}
+
 fn numbers<const N: usize>(text: &str) -> Result<[f64; N], String> {
     let values: Vec<f64> = text
         .split_whitespace()
@@ -126,11 +133,7 @@ impl Scenario {
             ball_vel: Vec3::default(),
             ball_spin: Vec3::default(),
             cars: Vec::new(),
-            rival: BrainSpec::parse(
-                "idle",
-                "module = scripted
-mode = idle",
-            )?,
+            rival: BrainSpec::parse("idle", "module = scripted\nmode = idle")?,
             note: String::new(),
         };
         for (number, line) in text.lines().enumerate() {
@@ -175,18 +178,12 @@ mode = idle",
                 "rival" => {
                     let mut words = value.split_whitespace();
                     let module = words.next().ok_or_else(|| fail("missing module".into()))?;
-                    let mut spec = format!(
-                        "module = {module}
-"
-                    );
+                    let mut spec = format!("module = {module}\n");
                     for word in words {
                         let (k, v) = word
                             .split_once('=')
                             .ok_or_else(|| fail(format!("expected key=value, got {word}")))?;
-                        spec += &format!(
-                            "{k} = {v}
-"
-                        );
+                        spec += &format!("{k} = {v}\n");
                     }
                     scenario.rival = BrainSpec::parse(value, &spec).map_err(fail)?;
                 }
@@ -201,19 +198,26 @@ mode = idle",
         if scenario.cars.len() > 8 {
             return Err("At most eight cars".into());
         }
+        if let Some(c) = scenario.cars.iter().find(|c| !fits(c.x, c.y)) {
+            return Err(format!(
+                "A car at ({}, {}) is outside the field or too close to a wall",
+                c.x, c.y
+            ));
+        }
+        let b = scenario.ball_pos;
+        if crate::arena::distance(b) < BALL_RADIUS - 1.0 || b.z > 1900.0 {
+            return Err(format!(
+                "The ball at ({}, {}, {}) is outside the field",
+                b.x, b.y, b.z
+            ));
+        }
         Ok(scenario)
     }
     /// Canonical text form, accepted by `parse`. Numbers print in Rust's shortest exact form.
     pub fn text(&self) -> String {
         let v = |v: Vec3| format!("{} {} {}", v.x, v.y, v.z);
         let mut out = format!(
-            "kind = {}
-time = {}
-seed = {}
-ball = {}
-ball_vel = {}
-ball_spin = {}
-",
+            "kind = {}\ntime = {}\nseed = {}\nball = {}\nball_vel = {}\nball_spin = {}\n",
             self.kind.name(),
             self.time,
             self.seed,
@@ -223,8 +227,7 @@ ball_spin = {}
         );
         for c in &self.cars {
             out += &format!(
-                "car = {} {} {} {} {} {}
-",
+                "car = {} {} {} {} {} {}\n",
                 ["blue", "orange"][c.team],
                 c.x,
                 c.y,
@@ -237,16 +240,107 @@ ball_spin = {}
         for (k, val) in &self.rival.settings {
             out += &format!(" {k}={val}");
         }
-        out += "
-";
+        out += "\n";
         if !self.note.is_empty() {
-            out += &format!(
-                "note = {}
-",
-                self.note
-            );
+            out += &format!("note = {}\n", self.note);
         }
         out
+    }
+}
+
+/// Rounds to `digits` decimals, keeping captured text short. Dividing by a power of ten prints
+/// the shortest decimal; `+ 0.0` turns negative zero into zero.
+fn step(x: f64, digits: i32) -> f64 {
+    let scale = 10f64.powi(digits);
+    (x * scale).round() / scale + 0.0
+}
+
+impl Scenario {
+    /// The current moment of a game as a set piece in which `team` becomes blue, the side under test.
+    /// Orange's view is turned half a circle, so blue always attacks positive y.
+    /// Cars keep their ground position, heading, forward speed, and boost; cars in the air or on a wall
+    /// are placed on the floor below them, and demolished cars are left out. Orange cars chase the ball.
+    pub fn capture(game: &Game, team: usize, kind: Kind, time: f64) -> Self {
+        let turn = if team == 1 { -1.0 } else { 1.0 };
+        let world = &game.world;
+        let ball = &world.ball;
+        let mut cars = world
+            .cars
+            .iter()
+            .filter(|c| !c.is_demoed)
+            .map(|c| {
+                let yaw = crate::math::atan2(c.forward.y * turn, c.forward.x * turn).to_degrees();
+                // Cars on walls and in corners move toward the center until they fit on the floor.
+                let (mut x, mut y) = (c.pos.x * turn, c.pos.y * turn);
+                for _ in 0..200 {
+                    if fits(step(x, 0), step(y, 0)) {
+                        break;
+                    }
+                    x *= 0.98;
+                    y *= 0.98;
+                }
+                CarStart {
+                    team: usize::from(c.team != team),
+                    x: step(x, 0),
+                    y: step(y, 0),
+                    yaw: step(yaw.rem_euclid(360.0), 1) % 360.0,
+                    speed: step(c.vel.dot(c.forward), 0),
+                    boost: step(c.boost, 0),
+                }
+            })
+            .collect::<Vec<_>>();
+        // Blue cars first, as in a match.
+        cars.sort_by_key(|c| c.team);
+        let flip = |v: Vec3, digits: i32| {
+            Vec3::new(
+                step(v.x * turn, digits),
+                step(v.y * turn, digits),
+                step(v.z, digits),
+            )
+        };
+        let rival = if cars.iter().any(|c| c.team == 1) {
+            "module = scripted\nmode = chase"
+        } else {
+            "module = scripted\nmode = idle"
+        };
+        Self {
+            kind,
+            time,
+            seed: 1,
+            ball_pos: flip(ball.pos, 0),
+            ball_vel: flip(ball.vel, 0),
+            ball_spin: flip(ball.ang_vel, 2),
+            cars,
+            rival: BrainSpec::parse("rival", rival).expect("scripted rival"),
+            note: String::new(),
+        }
+    }
+}
+
+impl Scenario {
+    /// The same moment with the teams swapped: the field turns half a circle and orange becomes blue.
+    /// The rival keeps its brain and the kind is unchanged.
+    pub fn mirrored(&self) -> Self {
+        let turn = |v: Vec3| Vec3::new(-v.x + 0.0, -v.y + 0.0, v.z);
+        let mut cars: Vec<CarStart> = self
+            .cars
+            .iter()
+            .map(|c| CarStart {
+                team: 1 - c.team,
+                x: -c.x + 0.0,
+                y: -c.y + 0.0,
+                yaw: step((c.yaw + 180.0).rem_euclid(360.0), 1) % 360.0,
+                ..*c
+            })
+            .collect();
+        cars.sort_by_key(|c| c.team);
+        Self {
+            ball_pos: turn(self.ball_pos),
+            ball_vel: turn(self.ball_vel),
+            ball_spin: turn(self.ball_spin),
+            cars,
+            ..self.clone()
+        }
     }
 }
 

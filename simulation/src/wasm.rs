@@ -257,3 +257,23 @@ pub extern "C" fn sim_scenario(handle: usize, dodge: f64) -> u32 {
     e.game.start_scenario(&scenario, &brain);
     1
 }
+/// Writes the current moment as set piece text into the text buffer and returns its length in bytes.
+/// `team` becomes blue, the side under test. `kind` is 0 for attack and 1 for defend.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_capture(handle: usize, team: u32, kind: u32, time: f64) -> usize {
+    use crate::scenario::{Kind, Scenario};
+    let e = engine(handle);
+    let kind = if kind == 1 {
+        Kind::Defend
+    } else {
+        Kind::Attack
+    };
+    let scenario = Scenario::capture(&e.game, (team as usize).min(1), kind, time);
+    e.text = scenario.text().into_bytes();
+    e.text.len()
+}
+/// Address of the text buffer, for reading what `sim_capture` wrote.
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_text_pointer(handle: usize) -> usize {
+    engine(handle).text.as_ptr() as usize
+}

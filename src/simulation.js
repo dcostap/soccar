@@ -275,14 +275,14 @@ export async function createRustGame(
       if (w.scenario !== undefined) {
         this.hud.setTip(
           `SET PIECE ${w.id} (${w.kind}) &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
-            `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; ESC MENU`,
+            `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C COPY SET PIECE &nbsp; ESC MENU`,
         );
         return;
       }
       this.hud.setTip(
         `WATCHING #${w.id} &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ` +
           `CAMERA ${car ? `${car.name} (${side})` : "-"} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
-          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; ESC MENU`,
+          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C COPY SET PIECE &nbsp; ESC MENU`,
       );
     }
     /** Spectator keys while watching. */
@@ -307,7 +307,11 @@ export async function createRustGame(
       } else if (event.code === "Period") w.speed = Math.min(16, w.speed * 2);
       else if (event.code === "Comma") w.speed = Math.max(0.25, w.speed / 2);
       else if (event.code === "KeyP" && !event.repeat) w.paused = !w.paused;
-      else if (
+      else if (event.code === "KeyC" && !event.repeat) {
+        this.captureSetPiece(event.shiftKey);
+        event.preventDefault();
+        return;
+      } else if (
         ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.code)
       ) {
         const replay = this.watchReplay;
@@ -327,6 +331,38 @@ export async function createRustGame(
     frame(delta, input) {
       super.frame(delta, input);
       this.timeline?.update();
+    }
+    /**
+     * Copies the current moment as set piece text, with the followed car's team as blue.
+     * Paste it into a suite in arena/scenarios/ to add it to the arena.
+     */
+    captureSetPiece(defend) {
+      if (this.phase !== "playing") {
+        this.hud.notify("Set pieces copy only during live play", "orange");
+        return null;
+      }
+      const team = this.world.cars[this.watch?.follow ?? 0]?.team ?? 0;
+      const length = wasm.sim_capture(this.handle, team, defend ? 1 : 0, 4);
+      const text = new TextDecoder().decode(
+        new Uint8Array(
+          wasm.memory.buffer,
+          wasm.sim_text_pointer(this.handle),
+          length,
+        ),
+      );
+      const names = this.watch?.names ?? ["blue", "orange"];
+      const block =
+        `[${this.watch?.id ?? "match"}-t${this.world.tick}-${defend ? "defend" : "attack"}]\n` +
+        `note = Copied from ${this.watch?.id ?? "a match"} (${names[0]} vs ${names[1]}) at tick ${this.world.tick}. Blue is ${names[team]}.\n` +
+        text;
+      this.lastSetPiece = block;
+      globalThis.navigator?.clipboard?.writeText(block).catch(() => {});
+      console.log(block);
+      this.hud.notify(
+        `${defend ? "Defense" : "Attack"} for ${names[team]} copied: paste it into arena/scenarios/`,
+        team === 0 ? "blue" : "orange",
+      );
+      return block;
     }
     seekWatch(tick) {
       return this.watchReplay?.seek(this, tick) ?? Promise.resolve(false);

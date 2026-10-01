@@ -78,6 +78,43 @@ for (const r of picked) {
   );
 }
 
+// A moment copied while watching (key C) must start as a set piece.
+{
+  const r = records[0];
+  game.startMatch({
+    teamSize: r.size,
+    skill: "allstar",
+    playerTeam: -1,
+    duration: r.duration,
+    watch: parseWatch(
+      `?${new URLSearchParams({ watch: r.id, seed: r.seed, size: r.size, duration: r.duration, blue: r.specs[0], orange: r.specs[1], names: r.brains.join(",") })}`,
+    ),
+  });
+  for (let i = 0; i < 1500; i++)
+    game.tick({
+      controls: { throttle: 0, steer: 0, pitch: 0, yaw: 0, roll: 0 },
+    });
+  game.watch.follow = r.size; // An orange car, so the capture turns the field.
+  const block = game.captureSetPiece(true);
+  assert.ok(block?.includes("kind = defend"), "captured a defense");
+  const text = block.split("\n").slice(1).join("\n");
+  const ball = game.world.ball.pos;
+  const [x, y] = /^ball = (\S+) (\S+)/m.exec(text).slice(1).map(Number);
+  assert.equal(x, Math.round(-ball.x) + 0, "captured ball x, turned");
+  assert.equal(y, Math.round(-ball.y) + 0, "captured ball y, turned");
+  game.startMatch({
+    teamSize: 1,
+    playerTeam: -1,
+    duration: 0,
+    watch: parseWatch(
+      `?${new URLSearchParams({ setpiece: "captured", scenario: text })}`,
+    ),
+  });
+  console.log(
+    `captured match ${r.id} at tick ${game.world.tick}: ${game.world.cars.length} cars, starts as a set piece`,
+  );
+}
+
 // Set pieces: replay a spread of logged results through the browser path and compare each verdict.
 const setpieces = await readFile(
   new URL("../public/arena/setpieces.json", import.meta.url),

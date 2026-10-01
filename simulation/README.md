@@ -144,7 +144,9 @@ The browser loads brain text through `sim_text` and `sim_brain`, so any brain ca
 `scenario::Scenario` places the ball and cars, and `Game::start_scenario` starts play from it with no countdown.
 A `scenario::Judge` inside the game ends it with an `Outcome`, so the browser plays set pieces as the arena does.
 `harness::run_scenario` and `run_scenarios` play them headless. The `scripted` brain module provides fixed rivals.
-The browser starts one from scenario text with `sim_text` and `sim_scenario`. See `arena/README.md`.
+`Scenario::capture` turns the current moment of any game into a scenario for either team, and `mirrored` swaps the teams.
+The browser starts one from scenario text with `sim_text` and `sim_scenario`, and copies moments with `sim_capture`.
+See `arena/README.md`.
 
 ## Checks
 

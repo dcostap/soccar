@@ -3,6 +3,7 @@ mod export;
 mod generate;
 mod heat;
 mod ledger;
+mod mine;
 mod rating;
 mod roster;
 mod setpieces;
@@ -34,6 +35,8 @@ Commands:
   setpieces [brain ...]     Play set pieces each brain has no current result for, then summarize
   setpieces show <suite|id> Results of every brain per scenario, or one scenario with a watch link
   setpieces generate        Rewrite arena/scenarios/gen-*.txt (--count per family, default 40)
+  setpieces mine            Rewrite arena/scenarios/mined-goals.txt from the moments before goals
+                            in the newest --count current matches of the format (default 10)
   export                    Write public/arena/arena.json for the leaderboard page
 
 Options:
@@ -75,7 +78,7 @@ pub struct Options {
     pub url: String,
     pub limit: usize,
     pub suite: Option<String>,
-    pub count: usize,
+    pub count: Option<usize>,
     pub holdout: Option<u64>,
 }
 
@@ -129,7 +132,7 @@ fn run() -> Result<(), String> {
         url: "http://127.0.0.1:5173".into(),
         limit: usize::MAX,
         suite: None,
-        count: 40,
+        count: None,
         holdout: None,
     };
     let mut args = std::env::args().skip(1);
@@ -172,7 +175,7 @@ fn run() -> Result<(), String> {
             "--url" => options.url = value.trim_end_matches('/').to_string(),
             "--limit" => options.limit = value.parse().map_err(|_| bad())?,
             "--suite" => options.suite = Some(value),
-            "--count" => options.count = value.parse().map_err(|_| bad())?,
+            "--count" => options.count = Some(value.parse().map_err(|_| bad())?),
             "--holdout" => options.holdout = Some(value.parse().map_err(|_| bad())?),
             _ => return Err(format!("Unknown option: {arg}")),
         }
@@ -238,9 +241,10 @@ fn run() -> Result<(), String> {
     }
 }
 
-/// `setpieces show` and `setpieces generate` change no results, so they skip the export.
+/// `setpieces show`, `generate`, and `mine` change no results, so they skip the export.
 fn options_only_print(rest: &[String]) -> bool {
-    rest.first().is_some_and(|w| w == "show" || w == "generate")
+    rest.first()
+        .is_some_and(|w| w == "show" || w == "generate" || w == "mine")
 }
 
 impl Arena {

@@ -69,6 +69,7 @@ show <id>                 Every statistic of one match and a link to watch it
 setpieces [brain ...]     Play set pieces without a current result, then summarize per suite and kind
 setpieces show <suite|id> Per-scenario results beside an idle baseline; one scenario adds a watch link
 setpieces generate        Rewrite the generated suites, arena/scenarios/gen-*.txt
+setpieces mine            Rewrite arena/scenarios/mined-goals.txt from goals in logged matches
 export                    Write public/arena/ for the page and the game menu (ladder and challenge do this)
 ```
 
@@ -157,6 +158,16 @@ shots, awkward starts, moving balls, a goalie, saves, chase-backs, breakaways, a
 `setpieces generate` writes `--count` scenarios per family (default 40) with seed 1, after dropping every candidate
 that an idle car passes. Change a family by adding a new one, since regenerating replaces the scenarios.
 
+`mined-goals` comes from real play. `setpieces mine` replays the newest `--count` current matches of the format
+(default 10) and captures the moment three seconds before each goal twice: as an attack with the scoring team as blue,
+and as a defense with the conceding team as blue. Orange's view is turned half a circle, so blue always attacks up.
+Teammates and rivals start where they were, and rivals chase the ball. Cars in the air or on a wall start on the floor
+below them. Moments that an idle car passes are dropped.
+
+To copy any moment yourself, watch a match and press `C` during live play. The followed car's team becomes blue,
+as an attack; `Shift+C` copies a defense. The scenario text goes to the clipboard and the browser console.
+Paste it into a suite file and rerun `setpieces`.
+
 The generated suites are public, so a brain can be tuned to them. `--holdout <seed>` plays the same families
 with another seed in memory instead of the suites. Use an unannounced seed to check a brain on scenarios nobody saw:
 
@@ -177,7 +188,8 @@ Set pieces take about a millisecond each, so a full run takes well under a secon
 
 `show <id>` and the page's Watch buttons open the game with the match in the link.
 The game replays it from the seed and the brain settings, with goal replays.
-Keys: `1`-`6` follow a car, `,` and `.` change speed, `P` pauses, `Esc` opens the menu.
+Keys: `1`-`6` follow a car, `,` and `.` change speed, `P` pauses, `C` copies the moment as a set piece,
+`Esc` opens the menu.
 Keys `Left` and `Right` seek five seconds. `Home` and `End` seek to the start and end.
 
 The watch timeline shows elapsed playback time and total playback time.

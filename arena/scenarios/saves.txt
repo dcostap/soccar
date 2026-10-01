@@ -88,7 +88,7 @@ rival = scripted mode=chase boost=true
 note = Ball crossing the box while a rival runs in.
 kind = defend
 time = 4
-ball = -3500 -4300 93.15
+ball = -3000 -4300 93.15
 ball_vel = 1000 0 0
 car = blue 0 -5000 90 0 33
 car = orange 1500 -2500 225 0 33
