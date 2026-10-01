@@ -1,5 +1,6 @@
 // Leaderboard and match explorer for arena results. Data comes from `npm run arena -- export`.
 import { difference, heatFigure } from "./arena-heat.js";
+import { renderSetPieces } from "./arena-setpieces.js";
 const base = import.meta.env?.BASE_URL ?? "/";
 const $ = (id) => document.getElementById(id);
 const TEAM = ["blue", "orange"];
@@ -569,3 +570,13 @@ renderLeaderboard();
 renderMatrix();
 renderPositions();
 renderMatches();
+
+// Set pieces are optional: the section stays hidden until `npm run arena -- setpieces` has run.
+fetch(`${base}arena/setpieces.json`, { cache: "no-cache" })
+  .then((r) => (r.ok ? r.json() : null))
+  .then((setpieces) => {
+    if (!setpieces?.scenarios?.length) return;
+    $("setpieceSection").hidden = false;
+    renderSetPieces($("setpieces"), setpieces, base);
+  })
+  .catch(() => {});

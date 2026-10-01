@@ -244,3 +244,79 @@ figure.heat canvas {
     gap: 12px;
   }
 }
+/* Set pieces */
+#setpieces .controls {
+  margin-top: 14px;
+}
+#setpieces tr.total td {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+#setpieces tr.selected {
+  background: var(--hover);
+  box-shadow: inset 3px 0 var(--blue);
+}
+#setpieces td.diagram {
+  width: 76px;
+  padding: 4px 6px;
+}
+#setpieces td.diagram canvas {
+  display: block;
+}
+#setpieces td.pass a,
+#setpieces td.idle.pass {
+  color: #7fb0ff;
+}
+#setpieces td.fail a,
+#setpieces td.idle.fail {
+  color: #ffb27a;
+}
+#setpieces td.idle {
+  color: var(--muted);
+  opacity: 0.8;
+}
+#setpieces td a {
+  text-decoration: none;
+}
+#setpieces td a:hover {
+  text-decoration: underline;
+}
+#setpieces .kind,
+#setpieces .rival {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+#setpieces .kind.attack {
+  background: #2f7bff33;
+  color: #9cc1ff;
+}
+#setpieces .kind.defend {
+  background: #ff8a2a33;
+  color: #ffc08e;
+}
+#setpieces .rival {
+  background: #ffffff14;
+  color: var(--muted);
+  text-transform: none;
+}
+#setpieces .setpiece-detail {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 8px 4px;
+  text-align: left;
+  white-space: normal;
+}
+#setpieces pre {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+}
+#setpieces .more {
+  margin-top: 10px;
+}

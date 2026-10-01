@@ -164,6 +164,11 @@ with another seed in memory instead of the suites. Use an unannounced seed to ch
 npm run arena -- setpieces --holdout 90210 --count 20
 ```
 
+The page's Set pieces section shows success rates per suite and brain, then every scenario with a start diagram,
+the idle baseline, and each brain's result. Filter by suite, kind, or a brain's failures, for example
+"Failed, while another brain passed", and sort by difficulty, the share of brains that fail.
+Each result links to the game, which replays the set piece and checks its verdict against the log.
+
 Results are in `arena/results/setpieces.jsonl`, one line per brain fingerprint and scenario hash.
 The hash covers the scenario text and the rival module source, so editing either reruns it.
 Set pieces take about a millisecond each, so a full run takes well under a second.
