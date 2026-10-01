@@ -1,3 +1,5 @@
-# Contest entry "bravo". See arena/CONTEST.md.
+# Bravo coordinates predicted shots, close support, and deep goal defense.
 module = bravo
 preset = allstar
+spacing = 1800
+keeper = 4000
