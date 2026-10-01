@@ -1,3 +1,5 @@
+import { createRustGame } from "./simulation.js";
+
 (function () {
   let e = document.createElement(`link`).relList;
   if (e && e.supports && e.supports(`modulepreload`)) return;
@@ -44673,7 +44675,22 @@ var Cx = new hb(yx),
   Tx = new Fy(gx.audio);
 new URLSearchParams(location.search).has(`mute`) && (Tx.muted = !0);
 var Ex = new _b(yx),
-  Dx = new Qb(Sx, Cx, Tx, wx, gx);
+  Dx = await createRustGame(
+    {
+      Game: Qb,
+      World: Ub,
+      Car: Et,
+      Vec3: e,
+      Quat: t,
+      promptDevice: cb,
+      prompt: fb,
+    },
+    Sx,
+    Cx,
+    Tx,
+    wx,
+    gx,
+  );
 ((Ex.onNavigate = () => Tx.uiMove()), (Ex.onSelect = () => Tx.uiSelect()));
 var Ox = document.createElement(`div`);
 ((Ox.className = `pad-status ui-layer`), yx.appendChild(Ox));

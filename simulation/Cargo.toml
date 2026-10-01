@@ -1,0 +1,20 @@
+[package]
+name = "soccar-simulation"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+libm = "=0.2.15"
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["rlib", "cdylib"]
+
+[[bin]]
+name = "ball-trace"
+path = "src/bin/ball_trace.rs"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"

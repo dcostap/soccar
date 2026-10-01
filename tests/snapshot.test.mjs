@@ -25,7 +25,7 @@ test("downloaded assets match the capture hashes", async () => {
   }
 });
 
-test("working code changes only formatting and approved controller changes", async () => {
+test("working code changes only formatting, controller bindings, and the Rust bootstrap", async () => {
   for (const [original, working, parser] of [
     ["provenance/original-game.js", "src/game.js", "babel"],
     ["provenance/original-style.css", "src/style.css", "css"],
@@ -42,6 +42,13 @@ test("working code changes only formatting and approved controller changes", asy
         .replace("    airRollLeft: Ot.L1,", "    airRollLeft: Ot.R1,")
         .replace("    airRollRight: Ot.R1,", "    airRollRight: Ot.L1,")
         .replace("    ballCam: Ot.TRIANGLE,", "    ballCam: Ot.L1,");
+      // The browser now uses Rust through WASM. Keep the original simulation as the port reference.
+      expected = `import { createRustGame } from "./simulation.js";\n\n${expected}`;
+      expected = expected.replace(
+        "Dx = new Qb(Sx, Cx, Tx, wx, gx);",
+        "Dx = await createRustGame({ Game: Qb, World: Ub, Car: Et, Vec3: e, Quat: t, promptDevice: cb, prompt: fb }, Sx, Cx, Tx, wx, gx);",
+      );
+      expected = await format(expected, { parser });
     }
     assert.equal(await readFile(working, "utf8"), expected);
   }
