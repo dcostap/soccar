@@ -9,6 +9,9 @@ use crate::{car::Controls, predictor::Predictor, world::World};
 use std::fmt::Debug;
 
 pub mod classic;
+// Contest entries. See arena/CONTEST.md.
+pub mod alpha;
+pub mod bravo;
 
 /// What a brain can see each tick.
 pub struct Context<'a> {
@@ -42,11 +45,23 @@ pub struct Module {
     pub source: &'static str,
     pub create: Create,
 }
-pub const MODULES: &[Module] = &[Module {
-    name: "classic",
-    source: include_str!("classic.rs"),
-    create: classic::create,
-}];
+pub const MODULES: &[Module] = &[
+    Module {
+        name: "classic",
+        source: include_str!("classic.rs"),
+        create: classic::create,
+    },
+    Module {
+        name: "alpha",
+        source: include_str!("alpha.rs"),
+        create: alpha::create,
+    },
+    Module {
+        name: "bravo",
+        source: include_str!("bravo.rs"),
+        create: bravo::create,
+    },
+];
 pub fn module(name: &str) -> Option<&'static Module> {
     MODULES.iter().find(|m| m.name == name)
 }

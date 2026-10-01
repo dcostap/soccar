@@ -33,6 +33,8 @@ Options:
   --pairs count             Ladder seeds per pairing; each seed is played twice with sides swapped (default 10)
   --elo0 x --elo1 y         Challenge hypotheses: not better than x, at least y better (default 0 and 10)
   --max-pairs count         Challenge limit (default 2000)
+  --seed-base n             Play seeds n+1, n+2, ... instead of 1, 2, ... A challenge then counts only those seeds.
+                            Use an unannounced base to test on matches nobody tuned against.
   --sort key                matches: id, goals, margin, length, upset, any player stat (best player), total:<stat>
   --top count               matches: rows to print (default 20)
   --asc                     matches: smallest first
@@ -49,6 +51,7 @@ pub struct Options {
     elo0: f64,
     elo1: f64,
     max_pairs: u32,
+    seed_base: u32,
     sort: String,
     top: usize,
     asc: bool,
@@ -96,6 +99,7 @@ fn run() -> Result<(), String> {
         elo0: 0.0,
         elo1: 10.0,
         max_pairs: 2000,
+        seed_base: 0,
         sort: "id".into(),
         top: 20,
         asc: false,
@@ -136,6 +140,7 @@ fn run() -> Result<(), String> {
             "--elo0" => options.elo0 = value.parse().map_err(|_| bad())?,
             "--elo1" => options.elo1 = value.parse().map_err(|_| bad())?,
             "--max-pairs" => options.max_pairs = value.parse().map_err(|_| bad())?,
+            "--seed-base" => options.seed_base = value.parse().map_err(|_| bad())?,
             "--sort" => options.sort = value,
             "--top" => options.top = value.parse().map_err(|_| bad())?,
             "--brain" => options.brain = Some(value),
@@ -311,7 +316,8 @@ impl Arena {
         let mut specs = Vec::new();
         for (i, &a) in chosen.iter().enumerate() {
             for &b in &chosen[i + 1..] {
-                for seed in 1..=self.options.pairs {
+                for k in 1..=self.options.pairs {
+                    let seed = self.options.seed_base.wrapping_add(k);
                     for (blue, orange) in [(a, b), (b, a)] {
                         let fingerprints = self.fingerprints(blue, orange);
                         if !self
@@ -381,7 +387,11 @@ impl Arena {
         );
         let mut pairs = Pairs::default();
         let mut wins = [0usize; 2];
+        let (base, limit) = (self.options.seed_base, self.options.max_pairs);
         let mut add = |record: &Record, pairs: &mut Pairs, wins: &mut [usize; 2]| {
+            if record.seed.wrapping_sub(base).wrapping_sub(1) >= limit {
+                return;
+            }
             let side = if record.fingerprints == [fp_a.clone(), fp_b.clone()] {
                 0
             } else if record.fingerprints == [fp_b.clone(), fp_a.clone()] {
@@ -428,7 +438,8 @@ impl Arena {
         }
         if !decided(&pairs) && pairs.count < self.options.max_pairs as usize {
             let mut specs = Vec::new();
-            for seed in 1..=self.options.max_pairs {
+            for k in 1..=self.options.max_pairs {
+                let seed = self.options.seed_base.wrapping_add(k);
                 for (blue, orange) in [(a, b), (b, a)] {
                     let fingerprints = self.fingerprints(blue, orange);
                     if !self
