@@ -74,3 +74,23 @@ provided the 95% interval that `challenge` prints for the head-to-head Elo diffe
 Otherwise it is a draw.
 The 1v1, 2v2, and ladder results against the built-in brains are reported but do not decide the winner.
 Then open `/arena.html`, sort matches by upset, and watch the highlights.
+
+## Result of the first contest (2026-10-01)
+
+Seed base 1644621265. Both entries passed `check-contest`, and the merged build passed every check.
+
+| Main event, 3v3 | Wins | Elo difference |
+| --- | --- | --- |
+| alpha vs bravo | 1585-415 (79.2%) | +233 [+214, +252] |
+
+Context ladders, 100 seed pairs per pairing:
+
+| Format | alpha | bravo | allstar | pro | rookie |
+| --- | --- | --- | --- | --- | --- |
+| 3v3 | 1812 | 1577 | 1131 | 1136 | 1000 |
+| 2v2 | 1492 | 1281 | 1177 | 1134 | 1000 |
+| 1v1 | 1020 | 962 | 1068 | 1033 | 1000 |
+
+Brain time in the 3v3 ladder: alpha 207, bravo 489, allstar 240 ms per match.
+Both brains are built for team play. In 1v1 the classic allstar beats both.
+The entrants' notes are in `arena/contest/`. Both brains are now part of the regular roster.

@@ -9,10 +9,18 @@ const log = await readFile(
   new URL("../arena/results/matches.jsonl", import.meta.url),
   "utf8",
 ).catch(() => "");
+// Edited brains retire their old records, which no longer replay. The export lists current fingerprints.
+const current = await readFile(
+  new URL("../public/arena/arena.json", import.meta.url),
+  "utf8",
+)
+  .then((text) => new Set(JSON.parse(text).brains.map((b) => b.fingerprint)))
+  .catch(() => null);
 const records = log
   .split("\n")
   .filter(Boolean)
-  .map((line) => JSON.parse(line));
+  .map((line) => JSON.parse(line))
+  .filter((r) => !current || r.fingerprints.every((f) => current.has(f)));
 if (!records.length) {
   console.log("No arena results yet. Run `npm run arena -- ladder` first.");
   process.exit(0);

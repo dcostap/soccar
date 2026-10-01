@@ -27,6 +27,9 @@ aim = 0.7
 `speed`, `boost`, `flip`, `aerial`, `reaction`, `instant`, `predict`, `aim`. See `Settings` in `classic.rs`.
 Unknown or malformed settings are errors.
 
+`alpha` and `bravo` are the two entries of the first brain contest, see `CONTEST.md` and `contest/`.
+`alpha` leads the 3v3 and 2v2 ladders. `alpha` settings are fields of `Settings` in `alpha.rs`. `bravo` takes the classic settings plus `spacing`, `keeper`, and `rotation`.
+
 ### Try a settings change
 
 Add a file such as `arena/brains/allstar-close.brain`, then challenge the original:
