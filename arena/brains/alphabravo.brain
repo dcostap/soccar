@@ -1,0 +1,3 @@
+# Alphabravo combines goal-side pressure, predicted strikes, and safe recovery paths.
+module = alphabravo
+shotzone = 5000

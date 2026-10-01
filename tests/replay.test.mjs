@@ -288,7 +288,7 @@ test("Rust checkpoints retain every brain module and team size", async () => {
   const { game, wasm } = await createTestPresentation();
   const step = () => wasm.sim_tick(game.handle, 0, 0, 0, 0, 0, 0, 0, 0, -1);
   try {
-    for (const module of ["classic", "alpha", "bravo"])
+    for (const module of ["classic", "alpha", "bravo", "alphabravo"])
       for (const size of [1, 2, 3]) {
         const match = config();
         match.teamSize = size;

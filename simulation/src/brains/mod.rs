@@ -12,6 +12,7 @@ pub mod classic;
 // Contest entries. See arena/CONTEST.md.
 pub mod alpha;
 pub mod bravo;
+pub mod alphabravo;
 // Fixed rivals for set pieces. See crate::scenario.
 pub mod scripted;
 
@@ -62,6 +63,11 @@ pub const MODULES: &[Module] = &[
         name: "bravo",
         source: include_str!("bravo.rs"),
         create: bravo::create,
+    },
+    Module {
+        name: "alphabravo",
+        source: concat!(include_str!("alphabravo.rs"), "\n", include_str!("alpha.rs")),
+        create: alphabravo::create,
     },
     Module {
         name: "scripted",

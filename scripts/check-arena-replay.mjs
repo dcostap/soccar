@@ -1,9 +1,14 @@
 // Replays recorded arena matches through the browser watch path and compares them with the log.
-// Usage: node scripts/check-arena-replay.mjs [count]
+// Usage: node scripts/check-arena-replay.mjs [count] [--brain name]
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createTestPresentation } from "./simulation-fixtures.mjs";
 import { parseWatch } from "../src/simulation.js";
+
+const brainArg = process.argv.indexOf("--brain");
+const onlyBrain = brainArg < 0 ? null : process.argv[brainArg + 1];
+if (brainArg >= 0 && (!onlyBrain || onlyBrain.startsWith("--")))
+  throw new Error("Use --brain name");
 
 const log = await readFile(
   new URL("../arena/results/matches.jsonl", import.meta.url),
@@ -20,13 +25,18 @@ const records = log
   .split("\n")
   .filter(Boolean)
   .map((line) => JSON.parse(line))
-  .filter((r) => !current || r.fingerprints.every((f) => current.has(f)));
+  .filter((r) => !current || r.fingerprints.every((f) => current.has(f)))
+  .filter((r) => !onlyBrain || r.brains.includes(onlyBrain));
 if (!records.length) {
+  if (onlyBrain) throw new Error(`No current matches for ${onlyBrain}`);
   console.log("No arena results yet. Run `npm run arena -- ladder` first.");
   process.exit(0);
 }
 // The first, the last, and evenly spaced records between them, preferring an overtime match.
-const count = Math.min(Number(process.argv[2] ?? 4), records.length);
+const count = Math.min(
+  Number(process.argv[2]?.startsWith("--") ? 4 : (process.argv[2] ?? 4)),
+  records.length,
+);
 const picked = new Set(
   Array.from({ length: count }, (_, i) =>
     Math.round((i * (records.length - 1)) / Math.max(1, count - 1)),
@@ -123,10 +133,12 @@ const setpieces = await readFile(
   .then(JSON.parse)
   .catch(() => null);
 const cells = [];
-for (const brain of setpieces?.brains ?? [])
+for (const brain of setpieces?.brains ?? []) {
+  if (onlyBrain && brain.name !== onlyBrain) continue;
   setpieces.results[brain.name].forEach((r, i) => {
     if (r) cells.push({ brain, scenario: setpieces.scenarios[i], r });
   });
+}
 const step = Math.max(1, Math.floor(cells.length / 6));
 for (const { brain, scenario, r } of cells.filter((_, i) => i % step === 0)) {
   const watch = parseWatch(

@@ -28,7 +28,10 @@ aim = 0.7
 Unknown or malformed settings are errors.
 
 `alpha` and `bravo` are the two entries of the first brain contest, see `CONTEST.md` and `contest/`.
-`alpha` leads the 3v3 and 2v2 ladders. `alpha` settings are fields of `Settings` in `alpha.rs`. `bravo` takes the classic settings plus `spacing`, `keeper`, and `rotation`.
+`alpha` led the first 3v3 and 2v2 ladders. `alpha` settings are fields of `Settings` in `alpha.rs`. `bravo` takes the classic settings plus `spacing`, `keeper`, and `rotation`.
+
+`alphabravo` combines their controllers with goal-side pressure and safe ground paths.
+See [its design and checks](alphabravo.md). Its fingerprint includes alpha's shared flight controller source.
 
 ### Try a settings change
 
