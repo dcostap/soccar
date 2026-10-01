@@ -190,3 +190,57 @@ select {
     max-width: 200px;
   }
 }
+.heat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 12px;
+}
+figure.heat {
+  margin: 0;
+}
+figure.heat canvas {
+  display: block;
+  cursor: crosshair;
+}
+.heat-title {
+  margin-bottom: 6px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+.heat-caption {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.thirds {
+  display: flex;
+  margin-top: 6px;
+  height: 16px;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.third {
+  flex-basis: 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.third-0 {
+  background: #1d2a46;
+}
+.third-1 {
+  background: #2b3d63;
+}
+.third-2 {
+  background: #3d5a92;
+}
+@media (max-width: 600px) {
+  .heat-row {
+    gap: 12px;
+  }
+}

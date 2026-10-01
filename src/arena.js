@@ -1,4 +1,5 @@
 // Leaderboard and match explorer for arena results. Data comes from `npm run arena -- export`.
+import { difference, heatFigure } from "./arena-heat.js";
 const base = import.meta.env?.BASE_URL ?? "/";
 const $ = (id) => document.getElementById(id);
 const TEAM = ["blue", "orange"];
@@ -194,6 +195,7 @@ function renderLeaderboard() {
               { class: "stale" },
               `module ${b.module} · fingerprint ${b.fingerprint} · pick "${b.name}" under Bot Difficulty to play against it`,
             ),
+            brainHeat(b),
           ),
         ),
       );
@@ -203,6 +205,75 @@ function renderLeaderboard() {
     element("thead", {}, head),
     element("tbody", {}, body),
   );
+}
+
+// Positions ---------------------------------------------------------------
+const grid = data.heat;
+const hasHeat = (b) => grid && b.heat?.matches > 0;
+function brainHeat(b) {
+  if (!hasHeat(b)) return null;
+  return element(
+    "div",
+    { class: "heat-row" },
+    heatFigure(b.heat.car, grid, {
+      title: "One car",
+      caption: `${b.heat.matches} matches`,
+      scale: 8,
+    }),
+    heatFigure(b.heat.ball, grid, { title: "Ball", scale: 8 }),
+  );
+}
+function renderPositions() {
+  const view = $("heatView").value;
+  const a = brains.get($("heatA").value);
+  const b = brains.get($("heatB").value);
+  const figures = [];
+  // One color scale for both brains, so their maps compare directly.
+  const shared = Math.max(
+    1e-9,
+    ...[a, b].filter((x) => x && hasHeat(x)).flatMap((x) => x.heat[view]),
+  );
+  for (const brain of [a, b]) {
+    if (!brain) continue;
+    figures.push(
+      hasHeat(brain)
+        ? heatFigure(brain.heat[view], grid, {
+            title: brain.name,
+            caption: `${brain.heat.matches} matches · seconds per match`,
+            max: shared,
+          })
+        : element(
+            "p",
+            { class: "note" },
+            `${brain.name}: no heatmaps yet. Run \`npm run arena -- backfill\`.`,
+          ),
+    );
+  }
+  if (a && b && a !== b && hasHeat(a) && hasHeat(b)) {
+    figures.push(
+      heatFigure(difference(a.heat[view], b.heat[view]), grid, {
+        title: `${a.name} − ${b.name}`,
+        caption: "share of time, blue: first brain more",
+        diff: true,
+      }),
+    );
+  }
+  $("positions").replaceChildren(...figures);
+}
+{
+  const withHeat = [...current].sort((x, y) => y.elo - x.elo).filter(hasHeat);
+  const names = (withHeat.length ? withHeat : current).map((b) => b.name);
+  for (const [id, pick] of [
+    ["heatA", names[0]],
+    ["heatB", names[1] ?? names[0]],
+  ]) {
+    $(id).replaceChildren(
+      ...names.map((n) => element("option", { value: n }, n)),
+    );
+    if (pick) $(id).value = pick;
+  }
+  for (const id of ["heatA", "heatB", "heatView"])
+    $(id).addEventListener("change", renderPositions);
 }
 
 // Head to head -------------------------------------------------------------
@@ -451,6 +522,30 @@ function matchDetail(m) {
       ),
     );
   }
+  const heat = element("div", { class: "heat-row" });
+  if (m.heat && grid) {
+    fetch(`${base}arena/heatmaps/${m.id}.json`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((maps) => {
+        if (!maps) return;
+        const seconds = (map) => map.map((v) => v / 10);
+        heat.replaceChildren(
+          ...[0, 1].map((t) =>
+            heatFigure(seconds(maps.teams[t]), grid, {
+              title: `${m.brains[t]} (${TEAM[t]}) cars`,
+              caption: "attacking up · seconds",
+              scale: 8,
+            }),
+          ),
+          heatFigure(seconds(maps.ball), grid, {
+            title: "Ball",
+            caption: `${m.brains[0]} attacking up · seconds`,
+            scale: 8,
+          }),
+        );
+      })
+      .catch(() => {});
+  }
   return element(
     "tr",
     { class: "detail" },
@@ -463,6 +558,7 @@ function matchDetail(m) {
         element("thead", {}, head),
         element("tbody", {}, rows),
       ),
+      heat,
     ),
   );
 }
@@ -471,4 +567,5 @@ for (const id of ["sort", "order", "brain", "current", "overtime"])
 
 renderLeaderboard();
 renderMatrix();
+renderPositions();
 renderMatches();

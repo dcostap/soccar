@@ -1,9 +1,11 @@
 //! Brain arena: plays bot brains against each other, keeps every result, and rates them.
 mod export;
+mod heat;
 mod ledger;
 mod rating;
 mod roster;
 
+use heat::HeatLog;
 use ledger::{Format, Ledger, Record};
 use rating::Pairs;
 use roster::Entry;
@@ -24,6 +26,8 @@ Commands:
   ratings                   Leaderboard and head-to-head table
   matches                   List matches, sorted by any statistic
   show <id>                 Every statistic of one match, plus a link to watch it
+  heatmap <brain|id>        Where a brain's cars and the ball spend their time, or one match's maps
+  backfill                  Replay logged matches without heatmaps to add them (up to --limit)
   export                    Write public/arena/arena.json for the leaderboard page
 
 Options:
@@ -38,11 +42,13 @@ Options:
   --sort key                matches: id, goals, margin, length, upset, any player stat (best player), total:<stat>
   --top count               matches: rows to print (default 20)
   --asc                     matches: smallest first
-  --brain name              matches: only matches with this brain
+  --brain name              matches and backfill: only matches with this brain
   --all-versions            matches and ratings: include results of older brain versions
   --url base                Watch link base (default http://127.0.0.1:5173)
+  --limit count             backfill: matches to replay (default all)
 
-Brains live in arena/brains/*.brain. Results are appended to arena/results/matches.jsonl.";
+Brains live in arena/brains/*.brain. Results are appended to arena/results/matches.jsonl,
+and heatmaps to arena/results/heatmaps.jsonl.";
 
 pub struct Options {
     pub format: Format,
@@ -55,15 +61,17 @@ pub struct Options {
     sort: String,
     top: usize,
     asc: bool,
-    brain: Option<String>,
+    pub brain: Option<String>,
     pub all_versions: bool,
     pub url: String,
+    pub limit: usize,
 }
 
 pub struct Arena {
     pub root: PathBuf,
     pub brains: Vec<Entry>,
     pub ledger: Ledger,
+    pub heat: HeatLog,
     pub options: Options,
 }
 
@@ -106,6 +114,7 @@ fn run() -> Result<(), String> {
         brain: None,
         all_versions: false,
         url: "http://127.0.0.1:5173".into(),
+        limit: usize::MAX,
     };
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -145,6 +154,7 @@ fn run() -> Result<(), String> {
             "--top" => options.top = value.parse().map_err(|_| bad())?,
             "--brain" => options.brain = Some(value),
             "--url" => options.url = value.trim_end_matches('/').to_string(),
+            "--limit" => options.limit = value.parse().map_err(|_| bad())?,
             _ => return Err(format!("Unknown option: {arg}")),
         }
     }
@@ -165,10 +175,12 @@ fn run() -> Result<(), String> {
         return Err("No brains in arena/brains".into());
     }
     let ledger = Ledger::load(&root.join("results/matches.jsonl"))?;
+    let heat = HeatLog::load(&root.join("results/heatmaps.jsonl"))?;
     let mut arena = Arena {
         root,
         brains,
         ledger,
+        heat,
         options,
     };
     let rest = &words[1..];
@@ -189,6 +201,11 @@ fn run() -> Result<(), String> {
         "matches" => arena.matches(),
         "show" => arena.show(rest),
         "export" => arena.export(),
+        "heatmap" => arena.heatmap(rest),
+        "backfill" => {
+            arena.backfill()?;
+            arena.export()
+        }
         _ => Err(format!("Unknown command: {command}. Try --help.")),
     }
 }
@@ -280,6 +297,7 @@ impl Arena {
         let mut error = None;
         let mut played = 0;
         let ledger = &mut self.ledger;
+        let heat = &mut self.heat;
         harness::run_until(
             &specs,
             self.options.threads,
@@ -292,7 +310,10 @@ impl Arena {
                     return false;
                 }
                 played += 1;
-                match ledger.append(&result, fingerprints[index].clone()) {
+                match ledger
+                    .append(&result, fingerprints[index].clone())
+                    .and_then(|record| heat.append(record.id, &result.heatmaps).map(|_| record))
+                {
                     Ok(record) => on_result(record),
                     Err(e) => {
                         error = Some(e);

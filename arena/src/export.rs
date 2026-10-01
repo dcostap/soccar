@@ -1,7 +1,7 @@
 //! Data for the leaderboard page and watch links for the game.
 use crate::{Arena, ledger::Record};
 use serde_json::{Value, json};
-use soccar_simulation::harness::PlayerReport;
+use soccar_simulation::harness::{HEAT_COLUMNS, HEAT_ROWS, PlayerReport};
 use std::{collections::HashMap, fs};
 
 /// Newest matches kept in the export, to bound the page's download.
@@ -53,7 +53,10 @@ impl Arena {
             .brains
             .iter()
             .zip(&standings)
-            .map(|(b, s)| {
+            .enumerate()
+            .map(|(i, (b, s))| {
+                let heat = self.heat_average(i);
+                let seconds = |m: &[f64]| m.iter().map(|v| round(*v, 2)).collect::<Vec<_>>();
                 json!({
                     "name": b.spec.name,
                     "description": b.description,
@@ -68,6 +71,8 @@ impl Arena {
                     "goalsAgainst": round(s.goals_against, 3),
                     "brainMs": round(s.brain_ms, 1),
                     "averages": s.averages.iter().map(|(k, v)| (k.clone(), json!(round(*v, 3)))).collect::<serde_json::Map<_, _>>(),
+                    // Seconds per match in each cell for one car and for the ball, with this brain attacking up.
+                    "heat": { "matches": heat.matches, "car": seconds(&heat.car), "ball": seconds(&heat.ball) },
                 })
             })
             .collect();
@@ -100,6 +105,7 @@ impl Arena {
                     "brains": r.brains,
                     "specs": [spec_index[r.specs[0].as_str()], spec_index[r.specs[1].as_str()]],
                     "current": current.is_some(),
+                    "heat": self.heat.maps.contains_key(&r.id),
                     "score": r.score,
                     "overtime": r.overtime,
                     "live": round(r.live, 1),
@@ -116,6 +122,7 @@ impl Arena {
             "generated": std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_secs()),
             "format": { "size": self.options.format.size, "duration": self.options.format.duration },
             "stats": stats,
+            "heat": { "columns": HEAT_COLUMNS, "rows": HEAT_ROWS, "cell": 512 },
             "brains": brains,
             "specs": specs,
             "matches": matches,
@@ -128,6 +135,19 @@ impl Arena {
             serde_json::to_string(&data).map_err(|e| e.to_string())?,
         )
         .map_err(|e| format!("{}: {e}", path.display()))?;
+        // One small file per exported match with heatmaps, loaded when its details open.
+        let heat_dir = dir.join("heatmaps");
+        if heat_dir.exists() {
+            fs::remove_dir_all(&heat_dir).map_err(|e| e.to_string())?;
+        }
+        fs::create_dir_all(&heat_dir).map_err(|e| e.to_string())?;
+        for (record, _) in &all[start..] {
+            if let Some(heat) = self.heat.maps.get(&record.id) {
+                let text = serde_json::to_string(heat).map_err(|e| e.to_string())?;
+                fs::write(heat_dir.join(format!("{}.json", record.id)), text)
+                    .map_err(|e| e.to_string())?;
+            }
+        }
         // The game menu loads this small file to offer arena brains as opponents.
         let menu = json!({
             "brains": self.brains.iter().zip(&standings).map(|(b, s)| json!({

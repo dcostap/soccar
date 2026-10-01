@@ -37,6 +37,36 @@
         <div class="scroll"><table id="matrix"></table></div>
       </section>
       <section>
+        <h2>Positions</h2>
+        <p class="note">
+          Where cars and the ball spend live play, averaged over matches with
+          heatmaps. Each brain attacks up. Brighter is more time; hover a cell
+          for seconds per match. The bar shows time in the defensive, middle,
+          and attacking thirds. The difference map compares shares of time: blue
+          where the first brain spends more, orange where the second does. Older
+          matches get heatmaps with
+          <code>npm run arena -- backfill</code>.
+        </p>
+        <div class="controls">
+          <label
+            >Brain
+            <select id="heatA"></select
+          ></label>
+          <label
+            >Compare with
+            <select id="heatB"></select
+          ></label>
+          <label
+            >Show
+            <select id="heatView">
+              <option value="car">One car</option>
+              <option value="ball">Ball</option>
+            </select></label
+          >
+        </div>
+        <div id="positions" class="heat-row"></div>
+      </section>
+      <section>
         <h2>Matches</h2>
         <div class="controls">
           <label

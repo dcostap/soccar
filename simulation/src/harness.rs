@@ -113,6 +113,38 @@ pub struct TeamReport {
     pub brain_ms: f64,
 }
 
+/// Columns and rows of a heatmap. Cells are 512 units square and cover the field from wall to wall
+/// and goal line to goal line. Positions beyond the edges, such as inside a goal, count in the edge cells.
+pub const HEAT_COLUMNS: usize = 16;
+pub const HEAT_ROWS: usize = 20;
+const HEAT_CELL: f64 = 512.0;
+
+/// Live ticks spent in each cell, row by row from the bottom goal line, `HEAT_COLUMNS` per row.
+/// Each team's map is turned so that the team attacks up the rows; orange positions are rotated half a turn.
+/// The ball map is seen from blue's side.
+#[derive(Clone, Debug, Default)]
+pub struct Heatmaps {
+    pub teams: [Vec<u32>; 2],
+    pub ball: Vec<u32>,
+}
+impl Heatmaps {
+    fn new() -> Self {
+        let empty = vec![0; HEAT_COLUMNS * HEAT_ROWS];
+        Self {
+            teams: [empty.clone(), empty.clone()],
+            ball: empty,
+        }
+    }
+    /// The cell of a position, after rotating it half a turn when `flip` is set.
+    pub fn cell(x: f64, y: f64, flip: bool) -> usize {
+        let (x, y) = if flip { (-x, -y) } else { (x, y) };
+        let index = |v: f64, count: usize| {
+            ((v / HEAT_CELL + count as f64 / 2.0).floor().max(0.0) as usize).min(count - 1)
+        };
+        index(y, HEAT_ROWS) * HEAT_COLUMNS + index(x, HEAT_COLUMNS)
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct MatchResult {
     pub spec: MatchSpec,
@@ -127,6 +159,8 @@ pub struct MatchResult {
     pub teams: [TeamReport; 2],
     /// One report per car, in car order.
     pub players: Vec<PlayerReport>,
+    /// Where the cars and the ball spent live play.
+    pub heatmaps: Heatmaps,
     pub elapsed: Duration,
 }
 impl MatchResult {
@@ -168,6 +202,7 @@ pub fn run_match(spec: MatchSpec) -> MatchResult {
         })
         .collect();
     let mut teams = [TeamReport::default(); 2];
+    let mut heatmaps = Heatmaps::new();
     let mut boost: Vec<f64> = game.world.cars.iter().map(|c| c.boost).collect();
     let mut respawned = vec![false; cars];
     let mut live = 0.0;
@@ -201,6 +236,7 @@ pub fn run_match(spec: MatchSpec) -> MatchResult {
                 teams[game.world.cars[car].team].possession += DT;
             }
             teams[usize::from(ball.y > 0.0)].defending += DT;
+            heatmaps.ball[Heatmaps::cell(ball.x, ball.y, false)] += 1;
             for (p, c) in players.iter_mut().zip(&game.world.cars) {
                 if !respawned[c.id] {
                     p.boost_used += (boost[c.id] - c.boost).max(0.0);
@@ -208,6 +244,7 @@ pub fn run_match(spec: MatchSpec) -> MatchResult {
                 if c.is_demoed {
                     continue;
                 }
+                heatmaps.teams[c.team][Heatmaps::cell(c.pos.x, c.pos.y, c.team == 1)] += 1;
                 p.distance += c.vel.length() * DT;
                 p.ball_distance += c.pos.distance(ball) * DT;
                 if c.is_supersonic {
@@ -247,6 +284,7 @@ pub fn run_match(spec: MatchSpec) -> MatchResult {
         live,
         teams,
         players,
+        heatmaps,
         elapsed: begin.elapsed(),
     }
 }

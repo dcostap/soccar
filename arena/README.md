@@ -97,6 +97,22 @@ and wall-clock milliseconds spent in the brain. Times count live play only.
 
 The log is `arena/results/matches.jsonl`, one JSON record per line, including both brains' settings text.
 
+### Heatmaps
+
+Every match also records where each team's cars and the ball spent live play, on a 16 by 20 grid of 512-unit cells.
+Each team's map is turned so that the team attacks up the field, so a brain's maps compare across sides.
+They are in `arena/results/heatmaps.jsonl`, one line per match id: `teams` (blue, orange) and `ball` (seen from blue's side),
+in tenths of a second per cell, row by row from the bottom goal line. See `Heatmaps` in `simulation/src/harness.rs`.
+
+```sh
+npm run arena -- heatmap alpha              # average of one car and of the ball, with time in each third
+npm run arena -- heatmap 2                  # one match: both teams and the ball
+npm run arena -- backfill --brain alpha --limit 200   # replay logged matches to add missing heatmaps
+```
+
+`backfill` replays only current brain versions and stops if a replayed score differs from the log.
+The page shows the maps under Positions, in each brain's details, and in each match's details.
+
 ## Watching
 
 `show <id>` and the page's Watch buttons open the game with the match in the link.
