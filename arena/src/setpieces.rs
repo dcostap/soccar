@@ -44,6 +44,8 @@ impl SetPiece {
         if let Some(module) = brains::module(&scenario.rival.module) {
             h.bytes(module.source.as_bytes());
         }
+        // The judge's rules decide every outcome.
+        h.bytes(soccar_simulation::scenario::SOURCE.as_bytes());
         Ok(Self {
             id: format!("{suite}/{name}"),
             suite: suite.to_string(),
@@ -210,6 +212,21 @@ impl Arena {
             .log
             .results
             .get(&(self.brains[brain].fingerprint.clone(), piece.hash.clone()))
+    }
+
+    /// A brain's totals over every loaded set piece, for the leaderboard.
+    pub fn setpiece_totals(&self, brain: usize) -> Value {
+        let mut tally = Tally::default();
+        for piece in &self.setpieces.pieces {
+            if let Some(r) = self.setpiece_result(brain, piece) {
+                tally.add(r);
+            }
+        }
+        json!({
+            "played": tally.played,
+            "passed": tally.success,
+            "credit": round(tally.credit / tally.played.max(1) as f64, 3),
+        })
     }
 
     /// Scenarios selected by `--suite`, or all of them.

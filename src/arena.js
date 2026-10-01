@@ -88,6 +88,15 @@ const columns = [
     (b) => b.wins / b.games,
     (b) => fixed((100 * b.wins) / b.games),
   ],
+  [
+    "setPieces",
+    "Set pieces %",
+    (b) => (b.setPieces?.played ? b.setPieces.passed / b.setPieces.played : -1),
+    (b) =>
+      b.setPieces?.played
+        ? fixed((100 * b.setPieces.passed) / b.setPieces.played)
+        : "-",
+  ],
   ["gf", "GF", (b) => b.goalsFor, (b) => fixed(b.goalsFor, 2)],
   ["ga", "GA", (b) => b.goalsAgainst, (b) => fixed(b.goalsAgainst, 2)],
   ...[

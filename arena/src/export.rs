@@ -73,6 +73,7 @@ impl Arena {
                     "averages": s.averages.iter().map(|(k, v)| (k.clone(), json!(round(*v, 3)))).collect::<serde_json::Map<_, _>>(),
                     // Seconds per match in each cell for one car and for the ball, with this brain attacking up.
                     "heat": { "matches": heat.matches, "car": seconds(&heat.car), "ball": seconds(&heat.ball) },
+                    "setPieces": self.setpiece_totals(i),
                 })
             })
             .collect();

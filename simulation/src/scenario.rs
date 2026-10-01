@@ -31,6 +31,8 @@ use crate::{
     world::BALL_HIT,
 };
 
+/// This file's text. Tools that cache outcomes hash it, since it holds the judge's rules.
+pub const SOURCE: &str = include_str!("scenario.rs");
 /// Longest wait for the ball to land after the scenario time.
 pub const GROUND_WAIT: f64 = 3.0;
 const BALL_RADIUS: f64 = 93.15;
