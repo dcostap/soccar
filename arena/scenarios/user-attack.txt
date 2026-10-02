@@ -1,0 +1,2 @@
+# Attacks from player replays. The tested brain controls one selected car.
+# Import a new recording with: npm run arena -- setpieces import <file>

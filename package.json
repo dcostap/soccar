@@ -16,6 +16,8 @@
     "test:simulation:full": "npm run test:simulation -- --full",
     "test:presentation": "npm run build:wasm && node scripts/check-presentation.mjs",
     "test:browser": "node scripts/check-browser.mjs",
+    "test:recordings": "npm run build:wasm && node scripts/check-recordings.mjs",
+    "test:replay-browser": "npm run build && node scripts/check-replay-browser.mjs",
     "test:cli": "node scripts/check-native-cli.mjs",
     "benchmark": "node scripts/benchmark-matches.mjs",
     "sim": "cargo run --release --locked --manifest-path simulation/Cargo.toml --bin soccar_sim --",

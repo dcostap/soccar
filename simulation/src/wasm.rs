@@ -277,3 +277,109 @@ pub extern "C" fn sim_capture(handle: usize, team: u32, kind: u32, time: f64) ->
 pub extern "C" fn sim_text_pointer(handle: usize) -> usize {
     engine(handle).text.as_ptr() as usize
 }
+
+fn text_result(e: &mut Engine, result: Result<String, String>) -> i32 {
+    match result {
+        Ok(text) => {
+            e.text = text.into_bytes();
+            e.text.len() as i32
+        }
+        Err(error) => {
+            e.text = error.into_bytes();
+            -1
+        }
+    }
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_record_begin(handle: usize) {
+    engine(handle).game.begin_recording();
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_record_export(handle: usize) -> i32 {
+    let e = engine(handle);
+    let result = e
+        .game
+        .recording
+        .as_ref()
+        .ok_or("No live recording".to_string())
+        .and_then(|r| r.text());
+    text_result(e, result)
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_text_len(handle: usize) -> usize {
+    engine(handle).text.len()
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_record_load(handle: usize) -> i32 {
+    let e = engine(handle);
+    let result = std::str::from_utf8(&e.text)
+        .map_err(|e| e.to_string())
+        .and_then(crate::recording::Replay::parse);
+    match result {
+        Ok(replay) => {
+            e.game = replay.start();
+            e.text.clear();
+            e.text.shrink_to_fit();
+            1
+        }
+        Err(error) => {
+            e.text = error.into_bytes();
+            -1
+        }
+    }
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_record_length(handle: usize) -> usize {
+    engine(handle)
+        .game
+        .playback
+        .as_ref()
+        .filter(|p| !p.scenario)
+        .map_or(0, |p| p.frames.len())
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_record_count(handle: usize) -> usize {
+    engine(handle)
+        .game
+        .recording
+        .as_ref()
+        .map_or(0, |r| r.frames.len())
+}
+#[unsafe(no_mangle)]
+pub extern "C" fn sim_clip_export(
+    handle: usize,
+    car: usize,
+    kind: u32,
+    time: f64,
+    mode: u32,
+) -> i32 {
+    let e = engine(handle);
+    let others = match mode {
+        0 => Ok(None),
+        1..=4 => BrainSpec::parse(
+            "fixed",
+            &format!(
+                "module = scripted\nmode = {}",
+                ["idle", "chase", "goalie", "throttle"][mode as usize - 1]
+            ),
+        )
+        .map(Some),
+        _ => Err("Invalid other-car controller".into()),
+    };
+    let result = others
+        .and_then(|others| {
+            crate::scenario::Scenario::capture_car(
+                &e.game,
+                car,
+                if kind == 1 {
+                    crate::scenario::Kind::Defend
+                } else {
+                    crate::scenario::Kind::Attack
+                },
+                time,
+                others,
+            )
+        })
+        .map(|s| s.text());
+    text_result(e, result)
+}

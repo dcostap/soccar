@@ -1,0 +1,100 @@
+.replay-tools {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  z-index: 60;
+  max-width: min(660px, calc(100vw - 24px));
+  color: #f4f7ff;
+  font: 12px system-ui;
+}
+.replay-tools-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.replay-tools p {
+  margin: 5px 0;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #0b1120dd;
+  text-align: right;
+}
+.replay-tools button,
+.setpiece-editor button {
+  color: #f4f7ff;
+  background: #17243c;
+  border: 1px solid #53627c;
+  border-radius: 5px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.replay-tools button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.setpiece-editor {
+  box-sizing: border-box;
+  width: min(540px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  overflow: auto;
+  color: #f4f7ff;
+  background: #0b1120;
+  border: 1px solid #53627c;
+  border-radius: 12px;
+  padding: 24px;
+  font: 14px system-ui;
+}
+.setpiece-editor::backdrop {
+  background: #000b;
+}
+.setpiece-editor h2 {
+  margin: 0 0 8px;
+}
+.setpiece-editor p {
+  line-height: 1.4;
+}
+.setpiece-editor label {
+  display: block;
+  margin: 12px 0;
+  font-weight: 600;
+}
+.setpiece-editor input,
+.setpiece-editor select,
+.setpiece-editor textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+  color: #f4f7ff;
+  background: #17243c;
+  border: 1px solid #53627c;
+  border-radius: 5px;
+  font: inherit;
+}
+.setpiece-editor small {
+  display: block;
+  color: #b7c4db;
+  line-height: 1.4;
+}
+.setpiece-status {
+  min-height: 1.4em;
+  color: #f7c873;
+}
+.setpiece-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.setpiece-actions button:first-child {
+  background: #245ab0;
+}
+.replay-tools button:focus-visible,
+.setpiece-editor :focus-visible {
+  outline: 2px solid #8dc7ff;
+  outline-offset: 2px;
+}
+.replay-tools [hidden] {
+  display: none;
+}

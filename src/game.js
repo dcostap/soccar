@@ -1,4 +1,5 @@
 import { createRustGame, loadSimulation } from "./simulation.js";
+import { mountReplayTools } from "./replay-tools.js";
 import { ViewVector as e } from "./view.js";
 const simulation = await loadSimulation();
 
@@ -33076,10 +33077,16 @@ function tg(e) {
           f.add(E));
       }
       (t.add(f),
-        o.push({ big: c, on: u, fire: E, dome: T, shafts: S, phase: d }));
+        o.push({ group: f, big: c, on: u, fire: E, dome: T, shafts: S, phase: d }));
     }),
     {
       group: t,
+      setLayout(pads) {
+        for (let i = 0; i < pads.length; i++) {
+          const p = o[i].group.position, v = pads[i].pos;
+          if (p.x !== v.x || p.y !== v.y) p.set(v.x, v.y, 0);
+        }
+      },
       update(e, t) {
         ((a.value = e),
           o.forEach((n, r) => {
@@ -33992,6 +33999,7 @@ function yg(e) {
     group: t,
     wallMaterials: h,
     padVisuals: m,
+    setPadLayout(pads) { p.setLayout(pads); },
     goalLights: u,
     update(e, t, n) {
       Nh.uGrassTime.value = e;
@@ -41931,6 +41939,7 @@ var kx = {
     Dx.paused = e;
   },
 };
+mountReplayTools(Dx, kx);
 ((Dx.onMatchEnd = () => {
   setTimeout(() => {
     !Dx.watch && Dx.phase === `ended` && Ex.push(ax(kx));

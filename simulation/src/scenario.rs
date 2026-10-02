@@ -89,6 +89,8 @@ pub struct Scenario {
     /// Brain of the orange cars.
     pub rival: BrainSpec,
     pub note: String,
+    /// Exact recorded state and controls. Only the selected car uses the tested brain.
+    pub clip: Option<crate::recording::Clip>,
 }
 
 /// Whether a car start at (x, y) clears the walls, corners, and goals with room to spare.
@@ -137,8 +139,27 @@ impl Scenario {
             cars: Vec::new(),
             rival: BrainSpec::parse("idle", "module = scripted\nmode = idle")?,
             note: String::new(),
+            clip: None,
         };
+        let mut clip_text = None;
         for (number, line) in text.lines().enumerate() {
+            if let Some((key, value)) = line.split_once('=')
+                && key.trim() == "note"
+                && value.trim().starts_with('"')
+            {
+                scenario.note =
+                    serde_json::from_str(value.trim()).map_err(|e| format!("Invalid note: {e}"))?;
+                continue;
+            }
+            if let Some((key, value)) = line.split_once('=')
+                && key.trim() == "clip"
+            {
+                if clip_text.is_some() {
+                    return Err("Duplicate clip".into());
+                }
+                clip_text = Some(value.trim());
+                continue;
+            }
             let line = line.split('#').next().unwrap_or("").trim();
             if line.is_empty() {
                 continue;
@@ -194,20 +215,27 @@ impl Scenario {
             }
         }
         scenario.kind = kind.ok_or("Missing kind = attack or defend")?;
+        if let Some(text) = clip_text {
+            scenario.clip = Some(crate::recording::Clip::parse(text, scenario.time)?);
+        }
         if !scenario.cars.iter().any(|c| c.team == 0) {
             return Err("A scenario needs at least one blue car".into());
         }
         if scenario.cars.len() > 8 {
             return Err("At most eight cars".into());
         }
-        if let Some(c) = scenario.cars.iter().find(|c| !fits(c.x, c.y)) {
+        if scenario.clip.is_none()
+            && let Some(c) = scenario.cars.iter().find(|c| !fits(c.x, c.y))
+        {
             return Err(format!(
                 "A car at ({}, {}) is outside the field or too close to a wall",
                 c.x, c.y
             ));
         }
         let b = scenario.ball_pos;
-        if crate::arena::distance(b) < BALL_RADIUS - 1.0 || b.z > 1900.0 {
+        if scenario.clip.is_none()
+            && (crate::arena::distance(b) < BALL_RADIUS - 1.0 || b.z > 1900.0)
+        {
             return Err(format!(
                 "The ball at ({}, {}, {}) is outside the field",
                 b.x, b.y, b.z
@@ -244,7 +272,18 @@ impl Scenario {
         }
         out += "\n";
         if !self.note.is_empty() {
-            out += &format!("note = {}\n", self.note);
+            let note = if self.note.contains(['#', '\n', '\r']) {
+                serde_json::to_string(&self.note).unwrap()
+            } else {
+                self.note.clone()
+            };
+            out += &format!("note = {note}\n");
+        }
+        if let Some(clip) = &self.clip {
+            out += &format!(
+                "clip = {}\n",
+                serde_json::to_string(clip).expect("finite captured state")
+            );
         }
         out
     }
@@ -315,7 +354,42 @@ impl Scenario {
             cars,
             rival: BrainSpec::parse("rival", rival).expect("scripted rival"),
             note: String::new(),
+            clip: None,
         }
+    }
+    /// Export an exact single-car test. The selected team becomes blue without changing car IDs.
+    pub fn capture_car(
+        game: &Game,
+        car: usize,
+        kind: Kind,
+        time: f64,
+        others: Option<BrainSpec>,
+    ) -> Result<Self, String> {
+        let clip = crate::recording::Clip::capture(game, car, time, others)?;
+        let mut scenario = Self::capture(&clip.state, 0, kind, time);
+        // These fields describe the diagram. The full state supplies all physics values.
+        scenario.cars = clip
+            .state
+            .world
+            .cars
+            .iter()
+            .map(|c| CarStart {
+                team: c.team,
+                x: c.pos.x,
+                y: c.pos.y,
+                yaw: crate::math::atan2(c.forward.y, c.forward.x).to_degrees(),
+                speed: c.forward_speed(),
+                boost: c.boost,
+            })
+            .collect();
+        scenario.ball_pos = clip.state.world.ball.pos;
+        scenario.ball_vel = clip.state.world.ball.vel;
+        scenario.ball_spin = clip.state.world.ball.ang_vel;
+        scenario.rival = clip.others.clone().unwrap_or_else(|| {
+            BrainSpec::parse("recorded", "module = scripted\nmode = idle").unwrap()
+        });
+        scenario.clip = Some(clip);
+        Ok(scenario)
     }
 }
 

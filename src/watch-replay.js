@@ -29,6 +29,7 @@ export class WatchReplay {
     this.disposed = false;
     this.revision = 0;
     this.indexHandle = wasm.sim_clone(handle);
+    this.recordedLength = wasm.sim_record_length?.(handle) || null;
     this.checkpoint();
   }
   checkpoint() {
@@ -59,7 +60,8 @@ export class WatchReplay {
       if (this.disposed) return false;
       this.read(this.indexHandle, view);
       const interval = Math.round(5 / this.dt);
-      while (view.phase !== "ended" && this.indexed < 300000) {
+      const limit = this.recordedLength ?? 300000;
+      while (view.phase !== "ended" && this.indexed < limit) {
         const deadline = performance.now() + 8;
         do {
           const before = view.phase;
@@ -78,13 +80,13 @@ export class WatchReplay {
           if (this.indexed % interval === 0) this.checkpoint();
         } while (
           view.phase !== "ended" &&
-          this.indexed < 300000 &&
+          this.indexed < limit &&
           performance.now() < deadline
         );
         await yieldToPage();
         if (this.disposed) return false;
       }
-      if (view.phase !== "ended")
+      if (view.phase !== "ended" && !this.recordedLength)
         throw new Error("Match exceeded the replay preparation limit.");
       this.total = this.indexed;
       return true;

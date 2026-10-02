@@ -15,7 +15,7 @@ const INERTIA: Vec3 = Vec3::new(
 );
 const SPRING_OFFSET: f64 = 975.0 / ((500.0 / 180.0) * (2.0 * (36.25 + 54.4375)));
 
-#[derive(Clone, Copy, Debug, Default)]
+#[derive(Clone, Copy, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct Controls {
     pub throttle: f64,
     pub steer: f64,
@@ -27,7 +27,7 @@ pub struct Controls {
     pub handbrake: bool,
     pub dodge_mag: Option<f64>,
 }
-#[derive(Clone, Copy, Debug, Default)]
+#[derive(Clone, Copy, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct CarEvents {
     pub jumped: bool,
     pub double_jumped: bool,
@@ -35,7 +35,7 @@ pub struct CarEvents {
     pub landed: bool,
     pub ball_hit: f64,
 }
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Wheel {
     pub front: bool,
     pub local: Vec3,
@@ -77,7 +77,7 @@ impl Wheel {
         }
     }
 }
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Car {
     pub id: usize,
     pub team: usize,

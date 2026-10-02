@@ -16,7 +16,7 @@ pub const OVERTIME: u32 = 12;
 pub const ENDED: u32 = 13;
 pub const SAVE: u32 = 14;
 const GOAL_STEPS: usize = 240;
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub enum Phase {
     Countdown,
     Playing,
@@ -35,7 +35,7 @@ impl Phase {
         }
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub enum Mode {
     Menu,
     Freeplay,
@@ -50,7 +50,7 @@ impl Mode {
         }
     }
 }
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Config {
     pub team_size: usize,
     /// Bot brains for blue (team zero) and orange (team one).
@@ -70,7 +70,7 @@ impl Default for Config {
         }
     }
 }
-#[derive(Clone, Copy, Debug, Default)]
+#[derive(Clone, Copy, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct Stats {
     pub score: u32,
     pub goals: u32,
@@ -87,7 +87,7 @@ pub struct Driver {
     out: Vec<Controls>,
 }
 impl Driver {
-    fn new(spec: &BrainSpec, team: usize, cars: Vec<usize>) -> Self {
+    pub(crate) fn new(spec: &BrainSpec, team: usize, cars: Vec<usize>) -> Self {
         let brain = spec
             .create(team, &cars)
             .unwrap_or_else(|e| panic!("Brain {}: {e}", spec.name));
@@ -99,10 +99,11 @@ impl Driver {
         }
     }
 }
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Game {
     pub world: World,
     /// Brains in team order. A team without bot cars has none.
+    #[serde(skip)]
     pub drivers: Vec<Driver>,
     pub predictor: Predictor,
     pub player: Option<usize>,
@@ -134,16 +135,24 @@ pub struct Game {
     pub skip_replays: bool,
     pub has_snapshot: bool,
     /// Measure time spent in each team's brain. Native only.
+    #[serde(skip)]
     pub measure_brains: bool,
     /// Seconds spent in each team's brain while `measure_brains` is set.
+    #[serde(skip)]
     pub brain_seconds: [f64; 2],
     /// Ball states of the last goal prediction, reused while the ball stays on that path.
-    goal_path: VecDeque<Ball>,
-    goal_path_tick: i64,
+    pub(crate) goal_path: VecDeque<Ball>,
+    pub(crate) goal_path_tick: i64,
     /// Decides when a set piece ends. Set by `start_scenario`.
+    #[serde(skip)]
     pub judge: Option<Judge>,
     /// Result of the last set piece, once it has ended.
+    #[serde(skip)]
     pub outcome: Option<Outcome>,
+    #[serde(skip)]
+    pub recording: Option<crate::recording::Recorder>,
+    #[serde(skip)]
+    pub playback: Option<crate::recording::Playback>,
 }
 /// Cars on the larger team of a set piece.
 fn teams_size(cars: &[crate::scenario::CarStart]) -> usize {
@@ -192,9 +201,13 @@ impl Game {
             goal_path_tick: 0,
             judge: None,
             outcome: None,
+            recording: None,
+            playback: None,
         }
     }
     fn reset_world(&mut self) {
+        self.recording = None;
+        self.playback = None;
         self.world = World::default();
         self.drivers.clear();
         self.player = None;
@@ -245,6 +258,10 @@ impl Game {
     /// Starts a set piece: `brain` drives the blue cars and the scenario's rival drives the orange ones.
     /// There is no countdown or kickoff. The game ends itself when the judge decides the outcome.
     pub fn start_scenario(&mut self, scenario: &Scenario, brain: &BrainSpec) {
+        if let Some(clip) = &scenario.clip {
+            *self = clip.start(scenario, brain);
+            return;
+        }
         self.reset_world();
         self.mode = Mode::Match;
         self.random = Random::new(scenario.seed);
@@ -364,6 +381,12 @@ impl Game {
     }
     /// Commands share one implementation across native tools and the browser ABI.
     pub fn command(&mut self, command: u32, value: f64) {
+        if command == 4
+            && self.phase == Phase::Replay
+            && let Some(r) = &mut self.recording
+        {
+            r.skip = true;
+        }
         match command {
             1 if self.mode == Mode::Freeplay => self.reset_freeplay(),
             2 if self.mode == Mode::Freeplay => self.place_ball(false),
@@ -382,6 +405,33 @@ impl Game {
         }
     }
     pub fn tick(&mut self, controls: Controls) {
+        if self.phase == Phase::Ended {
+            self.notifications.clear();
+            return;
+        }
+        if let Some(p) = &self.playback {
+            let Some(frame) = p.frames.get(p.cursor) else {
+                self.notifications.clear();
+                return;
+            };
+            self.unlimited_boost = frame.unlimited;
+            if let Some(id) = p.input_car {
+                self.world.cars[id].dodge_deadzone = frame.dodge;
+            }
+            if frame.skip && !p.scenario {
+                self.command(4, 0.0);
+            }
+        }
+        self.tick_inner(controls);
+        if let Some(p) = &mut self.playback {
+            p.cursor += 1;
+        }
+        if let Some(mut r) = self.recording.take() {
+            r.push(self);
+            self.recording = Some(r);
+        }
+    }
+    fn tick_inner(&mut self, controls: Controls) {
         self.notifications.clear();
         if self.phase == Phase::Replay {
             self.replay_idx += 1;
@@ -418,7 +468,9 @@ impl Game {
             return;
         }
         if self.unlimited_boost
-            && let Some(player) = self.player
+            && let Some(player) = self
+                .player
+                .or_else(|| self.playback.as_ref().and_then(|p| p.input_car))
         {
             self.world.cars[player].boost = 100.0;
         }
@@ -540,6 +592,15 @@ impl Game {
         for d in &self.drivers {
             for (&car, &out) in d.cars.iter().zip(&d.out) {
                 self.world.cars[car].controls = out;
+            }
+        }
+        if let Some(p) = &self.playback
+            && let Some(frame) = p.frames.get(p.cursor)
+        {
+            for (id, input) in frame.cars.iter().enumerate() {
+                if p.selected != Some(id) && (p.selected.is_none() || p.recorded) {
+                    self.world.cars[id].controls = crate::recording::controls(*input);
+                }
             }
         }
     }

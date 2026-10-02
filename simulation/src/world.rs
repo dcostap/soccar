@@ -6,7 +6,7 @@ use crate::{
     vector::Vec3,
 };
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Event {
     pub kind: u32,
     pub car: i32,
@@ -41,7 +41,7 @@ pub const LAND: u32 = 7;
 pub const BOOST_PICKUP: u32 = 8;
 pub const RESPAWN: u32 = 9;
 pub const GOAL: u32 = 10;
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Pad {
     pub pos: Vec3,
     pub big: bool,
@@ -97,7 +97,7 @@ pub const PADS: [(f64, f64, bool); 34] = [
     (1792.0, 4184.0, false),
     (0.0, 4240.0, false),
 ];
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct World {
     pub ball: Ball,
     pub cars: Vec<Car>,

@@ -3,7 +3,7 @@ use crate::{
     vector::Vec3,
 };
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Quat {
     pub x: f64,
     pub y: f64,
@@ -68,7 +68,7 @@ impl Quat {
     }
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Mat3 {
     pub values: [f64; 9],
 }

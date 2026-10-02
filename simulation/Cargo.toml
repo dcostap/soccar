@@ -6,6 +6,8 @@ publish = false
 
 [dependencies]
 libm = "=0.2.15"
+serde = { version = "=1.0.229", features = ["derive", "rc"] }
+serde_json = { version = "=1.0.151", features = ["float_roundtrip"] }
 
 [lib]
 path = "src/lib.rs"

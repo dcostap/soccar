@@ -34,6 +34,7 @@ Commands:
   backfill                  Replay logged matches without heatmaps to add them (up to --limit)
   setpieces [brain ...]     Play set pieces each brain has no current result for, then summarize
   setpieces show <suite|id> Results of every brain per scenario, or one scenario with a watch link
+  setpieces import <file>   Check a single-car recording and add it to user-attack or user-defend
   setpieces generate        Rewrite arena/scenarios/gen-*.txt (--count per family, default 40)
   setpieces mine            Rewrite arena/scenarios/mined-goals.txt from the moments before goals
                             in the newest --count current matches of the format (default 10)

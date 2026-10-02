@@ -189,6 +189,26 @@ pub fn game(g: &Game) -> Vec<f64> {
     for d in &g.drivers {
         d.brain.trace(&mut out);
     }
+    if let Some(p) = &g.playback {
+        out.extend([
+            -200.0,
+            p.cursor as f64,
+            p.frames.len() as f64,
+            p.selected.map_or(-1.0, |id| id as f64),
+            p.input_car.map_or(-1.0, |id| id as f64),
+            p.scenario as u8 as f64,
+            p.recorded as u8 as f64,
+        ]);
+        if let Some(f) = p.frames.get(p.cursor) {
+            out.extend([f.unlimited as u8 as f64, f.dodge, f.skip as u8 as f64]);
+            for car in &f.cars {
+                out.extend(car);
+            }
+        }
+    }
+    if let Some(r) = &g.recording {
+        out.extend([-201.0, r.frames.len() as f64, r.skip as u8 as f64]);
+    }
     out
 }
 

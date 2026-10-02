@@ -9,6 +9,7 @@ pub mod harness;
 pub mod math;
 pub mod predictor;
 pub mod random;
+pub mod recording;
 pub mod rotation;
 pub mod scenario;
 pub mod snapshot;

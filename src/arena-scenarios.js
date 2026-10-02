@@ -59,6 +59,11 @@ export function scenarioDiagram(s, width = 72) {
     g.fillRect(-4 * k, -2.5 * k, 8 * k, 5 * k);
     g.fillStyle = "#f4f7ff";
     g.fillRect(2.5 * k, -1 * k, 2 * k, 2 * k);
+    if (s.testedCar === s.cars.indexOf(c)) {
+      g.strokeStyle = "#8fffb5";
+      g.lineWidth = 1.5;
+      g.strokeRect(-5 * k, -3.5 * k, 10 * k, 7 * k);
+    }
     g.restore();
   }
   const [bx, by, bz] = s.ball;
@@ -97,12 +102,19 @@ export function describe(r, kind) {
 }
 
 export function setPieceUrl(base, s, brain, r) {
-  const q = new URLSearchParams({
-    setpiece: s.id,
-    scenario: s.text,
-    names: brain.name,
-    blue: brain.text,
-  });
+  const q = new URLSearchParams(
+    s.testedCar != null
+      ? {
+          setpiece: s.id,
+          brain: brain.name,
+        }
+      : {
+          setpiece: s.id,
+          scenario: s.text,
+          names: brain.name,
+          blue: brain.text,
+        },
+  );
   if (r) q.set("expect", r[0] ? "pass" : "fail");
   return `${base}?${q}`;
 }

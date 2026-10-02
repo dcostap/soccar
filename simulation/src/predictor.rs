@@ -1,20 +1,20 @@
 //! Shared ball prediction. The game updates one predictor per tick and every brain reads it.
 use crate::{DT, ball::Ball, vector::Vec3, world::World};
 use std::collections::VecDeque;
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Slice {
     pub t: f64,
     pub pos: Vec3,
     pub vel: Vec3,
 }
 const PREDICTION_STEPS: usize = 480;
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Predictor {
     pub slices: Vec<Slice>,
     pub sim: Ball,
     pub last_tick: i64,
     /// Ball state after each step of the current prediction.
-    path: VecDeque<Ball>,
+    pub(crate) path: VecDeque<Ball>,
 }
 impl Default for Predictor {
     fn default() -> Self {

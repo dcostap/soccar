@@ -11,8 +11,8 @@ use std::fmt::Debug;
 pub mod classic;
 // Contest entries. See arena/CONTEST.md.
 pub mod alpha;
-pub mod bravo;
 pub mod alphabravo;
+pub mod bravo;
 // Fixed rivals for set pieces. See crate::scenario.
 pub mod scripted;
 
@@ -25,7 +25,7 @@ pub struct Context<'a> {
     pub player: Option<usize>,
 }
 
-pub trait Brain: Debug + Send {
+pub trait Brain: Debug + Send + Sync {
     /// Sets controls for this brain's cars. `out[i]` drives the i-th car passed at creation.
     fn tick(&mut self, ctx: &Context, out: &mut [Controls]);
     /// Called at every kickoff.
@@ -66,7 +66,11 @@ pub const MODULES: &[Module] = &[
     },
     Module {
         name: "alphabravo",
-        source: concat!(include_str!("alphabravo.rs"), "\n", include_str!("alpha.rs")),
+        source: concat!(
+            include_str!("alphabravo.rs"),
+            "\n",
+            include_str!("alpha.rs")
+        ),
         create: alphabravo::create,
     },
     Module {
@@ -152,7 +156,7 @@ impl Params {
 }
 
 /// A named brain: module plus settings.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct BrainSpec {
     pub name: String,
     pub module: String,

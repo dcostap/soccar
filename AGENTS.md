@@ -21,6 +21,10 @@ Soccar is a car-soccer game, a headless match harness, and a bot-brain arena. Al
 
 ## Checks
 
+For player replay contributions, read `arena/CONTRIBUTING-SETPIECES.md`.
+Ask which car the brain should control, not which team.
+Ask for any missing objective, timeout, or description before adding a permanent test.
+
 ```sh
 npm run test:rust                 # Rust unit and integration tests
 npm run test:simulation:full      # native vs WASM vs baseline, bit for bit (several minutes)
@@ -29,6 +33,7 @@ npm run test:cli                  # native runner
 npm run test:presentation         # browser presentation on Node
 npm run test:arena                # arena unit tests and exact replay of logged matches
 npm run test:browser              # real Chrome via Playwright
+npm run test:recordings           # exact native/WASM recordings and selected-car tests
 npm run benchmark                 # speed, after checking results against the baseline
 ```
 

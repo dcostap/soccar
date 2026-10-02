@@ -148,6 +148,20 @@ A `scenario::Judge` inside the game ends it with an `Outcome`, so the browser pl
 The browser starts one from scenario text with `sim_text` and `sim_scenario`, and copies moments with `sim_capture`.
 See `arena/README.md`.
 
+`recording::Replay` saves the full starting state and resolved controls for every simulation tick.
+Playback does not run the original brains. Saved inputs drive the same physics and match rules.
+JSON floats use exact round trips. Files include a simulation version and reject incompatible state.
+
+`Scenario::capture_car` preserves an exact moment and assigns the tested brain to one car.
+Other cars use recorded controls or a fixed brain. The selected team becomes blue without changing car IDs.
+Recordings preserve physics caches, airborne motion, jumps, ball spin, and pad cooldowns.
+Recorded inputs must cover the timeout and three finishing seconds.
+
+The WASM exports are `sim_record_begin`, `sim_record_export`, `sim_record_load`, and `sim_clip_export`.
+`sim_record_length` reports playback length. `sim_record_count` reports live recording length.
+All text uses `sim_text`, `sim_text_pointer`, and `sim_text_len`.
+See `arena/CONTRIBUTING-SETPIECES.md` for the browser and contribution steps.
+
 ## Checks
 
 ```sh
@@ -159,6 +173,8 @@ npm run test:simulation -- --debug
 npm run test:presentation
 npm run build
 npm run test:browser -- --preview
+npm run test:recordings
+npm run test:replay-browser
 ```
 
 The browser check needs Chrome. It starts and closes its own preview server.

@@ -130,7 +130,7 @@ export async function createRustGame(
     }
     sync() {
       const pointer = wasm.sim_state(this.handle);
-      return readSimulationState(
+      const events = readSimulationState(
         new Float64Array(
           wasm.memory.buffer,
           pointer,
@@ -138,6 +138,8 @@ export async function createRustGame(
         ),
         this,
       );
+      this.renderer.arena?.setPadLayout?.(this.world.pads);
+      return events;
     }
     destroy() {
       clearTimeout(this.tipTimer);
@@ -158,6 +160,142 @@ export async function createRustGame(
       this.hud.setReplay(false);
       this.hud.showScoreboard(false);
     }
+    followed() {
+      return this.watch
+        ? (this.world.cars[this.watch.follow] ?? null)
+        : super.followed();
+    }
+    writeText(handle, text) {
+      const bytes = new TextEncoder().encode(text);
+      const pointer = wasm.sim_text(handle, bytes.length);
+      new Uint8Array(wasm.memory.buffer, pointer, bytes.length).set(bytes);
+    }
+    readText(handle = this.handle) {
+      return new TextDecoder().decode(
+        new Uint8Array(
+          wasm.memory.buffer,
+          wasm.sim_text_pointer(handle),
+          wasm.sim_text_len(handle),
+        ),
+      );
+    }
+    exportRecording() {
+      if (wasm.sim_record_export(this.handle) < 0)
+        throw new Error(this.readText());
+      return this.readText();
+    }
+    get recordingTicks() {
+      return wasm.sim_record_count(this.handle);
+    }
+    get brainChoices() {
+      const choices = new Map(
+        ["rookie", "pro", "allstar"].map((name) => [
+          name,
+          { name, text: `module = classic\npreset = ${name}` },
+        ]),
+      );
+      for (const brain of engine.brains ?? []) choices.set(brain.name, brain);
+      return [...choices.values()];
+    }
+    startUserScenario(text, name, brain) {
+      const handle = wasm.sim_create(1);
+      try {
+        this.writeText(handle, brain.text);
+        if (!wasm.sim_brain(handle, 0)) throw new Error("Invalid brain");
+        this.writeText(handle, text);
+        if (!wasm.sim_scenario(handle, this.settings.input.dodgeDeadzone))
+          throw new Error(
+            "Invalid set piece or incompatible simulation version",
+          );
+      } catch (error) {
+        wasm.sim_destroy(handle);
+        throw error;
+      }
+      this.clearPresentation();
+      wasm.sim_destroy(this.handle);
+      this.handle = handle;
+      this.watch = {
+        id: name,
+        scenario: text,
+        kind: /^kind\s*=\s*(\w+)/m.exec(text)?.[1] ?? "attack",
+        names: [
+          brain.name,
+          /^clip\s*=/m.test(text) ? "Recorded / fixed cars" : "Fixed rivals",
+        ],
+        follow: 0,
+        speed: 1,
+        paused: false,
+      };
+      this.config = { ...this.config, watch: this.watch };
+      this.sync();
+      const clipLine = /^clip\s*=\s*(.*)$/m.exec(text);
+      if (clipLine) this.watch.follow = JSON.parse(clipLine[1]).car;
+      this.hud.setVisible(true);
+      this.hud.setMatchUi(true);
+      this.hud.setReplay(false);
+      this.snapshotNow();
+      this.prepareWatch();
+    }
+    exportCarScenario(car, kind, seconds, mode = 0) {
+      if (
+        wasm.sim_clip_export(
+          this.handle,
+          car,
+          kind === "defend" ? 1 : 0,
+          seconds,
+          mode,
+        ) < 0
+      )
+        throw new Error(this.readText());
+      return this.readText();
+    }
+    startSavedReplay(text, label = "Your game") {
+      const handle = wasm.sim_create(1);
+      try {
+        this.writeText(handle, text);
+        if (wasm.sim_record_load(handle) < 0)
+          throw new Error(this.readText(handle));
+      } catch (error) {
+        wasm.sim_destroy(handle);
+        throw error;
+      }
+      if (this.mode === "match" && !this.watch && this.recordingTicks)
+        this.onRecordingLeaving?.();
+      this.clearPresentation();
+      wasm.sim_destroy(this.handle);
+      this.handle = handle;
+      this.watch = {
+        id: label,
+        recording: true,
+        follow: 0,
+        speed: 1,
+        paused: false,
+        names: ["Blue", "Orange"],
+      };
+      this.config = { ...this.config, watch: this.watch };
+      this.sync();
+      this.watch.follow = this.player?.id ?? 0;
+      this.hud.setVisible(true);
+      this.hud.setMatchUi(true);
+      this.hud.setReplay(false);
+      this.hud.setTip("");
+      this.renderer.ball.visible = true;
+      this.snapshotNow();
+      this.prepareWatch();
+    }
+    prepareWatch() {
+      this.watchReplay = new WatchReplay(
+        wasm,
+        this.handle,
+        this.settings,
+        api.geometry.dt,
+        this.unlimitedBoost,
+      );
+      this.watchPreparation = this.watchReplay.prepare();
+      if (this.hud.root?.nodeType === 1)
+        this.timeline = new ReplayTimeline(this, this.hud.root);
+      this.showWatchTip();
+    }
     stopWatchReplay() {
       if (this.watchReplay) this.clearWatchEffects();
       this.timeline?.destroy();
@@ -174,6 +312,8 @@ export async function createRustGame(
       return wasm.sim_brain(this.handle, team) === 1;
     }
     start(mode, config = this.config) {
+      if (this.mode === "match" && !this.watch && this.recordingTicks)
+        this.onRecordingLeaving?.();
       this.clearPresentation();
       this.config = config;
       this.watch = mode === 2 && config.watch ? config.watch : null;
@@ -216,6 +356,10 @@ export async function createRustGame(
       )
         throw new Error("Invalid simulation configuration");
       this.sync();
+      if (mode === 2 && !this.watch) {
+        wasm.sim_record_begin(this.handle);
+        this.recordingIdentity = {};
+      }
     }
     startMenuBackground() {
       this.start(0);
@@ -242,21 +386,45 @@ export async function createRustGame(
       this.renderer.ball.visible = true;
       this.snapshotNow();
       if (this.watch) {
-        this.watchReplay = new WatchReplay(
-          wasm,
-          this.handle,
-          this.settings,
-          api.geometry.dt,
-          this.unlimitedBoost,
-        );
-        this.watchPreparation = this.watchReplay.prepare();
-        if (this.hud.root?.nodeType === 1)
-          this.timeline = new ReplayTimeline(this, this.hud.root);
+        this.prepareWatch();
       }
     }
     /** Starts the match in the page URL, if any. Called once after the menu opens. */
-    startFromUrl(app) {
-      const watch = parseWatch(location.search);
+    async startFromUrl(app) {
+      let watch = parseWatch(location.search);
+      const query = new URLSearchParams(location.search);
+      if (!watch && query.has("setpiece")) {
+        try {
+          const base = import.meta.env?.BASE_URL ?? "/";
+          const response = await fetch(`${base}arena/setpieces.json`, {
+            cache: "no-cache",
+          });
+          if (!response.ok)
+            throw new Error(
+              "Set piece data is not available. Run the arena export",
+            );
+          const data = await response.json();
+          const scenario = data.scenarios.find(
+            (s) => s.id === query.get("setpiece"),
+          );
+          if (!scenario) throw new Error("Unknown set piece");
+          const brain = query.has("brain")
+            ? data.brains.find((b) => b.name === query.get("brain"))
+            : data.brains[0];
+          if (!brain) throw new Error("Unknown brain in arena data");
+          const q = new URLSearchParams({
+            setpiece: scenario.id,
+            scenario: scenario.text,
+            blue: brain.text,
+            names: brain.name,
+          });
+          if (query.has("expect")) q.set("expect", query.get("expect"));
+          watch = parseWatch(`?${q}`);
+        } catch (error) {
+          this.hud.notify(error.message, "orange");
+          return;
+        }
+      }
       if (!watch) return;
       app.menu.closeAll();
       this.startMatch({
@@ -308,7 +476,8 @@ export async function createRustGame(
       else if (event.code === "Comma") w.speed = Math.max(0.25, w.speed / 2);
       else if (event.code === "KeyP" && !event.repeat) w.paused = !w.paused;
       else if (event.code === "KeyC" && !event.repeat) {
-        this.captureSetPiece(event.shiftKey);
+        if (this.openScenarioEditor) this.openScenarioEditor(event.shiftKey);
+        else this.captureSetPiece(event.shiftKey);
         event.preventDefault();
         return;
       } else if (
@@ -398,6 +567,17 @@ export async function createRustGame(
         this.hud.showScoreboard(true, this.scoreRows());
       }
       this.showWatchTip();
+      if (
+        this.watch?.recording &&
+        this.watchReplay.position === this.watchReplay.total &&
+        this.phase !== "ended"
+      )
+        this.hud.showBanner(
+          "END OF RECORDING",
+          "Rewind to select a moment",
+          "white",
+          999,
+        );
     }
     /** Set piece verdict: an attack needs a blue goal, a defense must not concede. */
     setPieceResult() {
@@ -441,6 +621,7 @@ export async function createRustGame(
         return;
       }
       super.showMatchEnded(team);
+      if (!this.watch) this.onRecordingReady?.();
       const result = this.watchResult();
       if (result) this.hud.notify(result.text, result.color);
     }
@@ -482,15 +663,25 @@ export async function createRustGame(
       this.present(events);
     }
     tick(frame, silent = false) {
+      if (
+        this.watch?.recording &&
+        this.watchReplay?.total != null &&
+        this.watchReplay.position >= this.watchReplay.total
+      ) {
+        this.watch.paused = true;
+        return;
+      }
       const before = this.phase;
       const worldTick = this.world.tick;
       this.previousStats = this.stats;
-      wasm.sim_command(
-        this.handle,
-        5,
-        Number(this.watchReplay?.unlimitedBoost ?? this.unlimitedBoost),
-      );
-      wasm.sim_command(this.handle, 6, this.settings.input.dodgeDeadzone);
+      if (!this.watch?.recording)
+        wasm.sim_command(
+          this.handle,
+          5,
+          Number(this.watchReplay?.unlimitedBoost ?? this.unlimitedBoost),
+        );
+      if (!this.watch?.recording)
+        wasm.sim_command(this.handle, 6, this.settings.input.dodgeDeadzone);
       const c = this.watch ? REPLAY_INPUT.controls : frame.controls;
       wasm.sim_tick(
         this.handle,
@@ -516,6 +707,21 @@ export async function createRustGame(
       } else if (before === "replay" && this.phase === "countdown")
         this.snapshotNow();
       if (!silent) this.present(events);
+      if (
+        !silent &&
+        this.watch?.recording &&
+        this.watchReplay.total != null &&
+        this.watchReplay.position >= this.watchReplay.total &&
+        this.phase !== "ended"
+      ) {
+        this.watch.paused = true;
+        this.hud.showBanner(
+          "END OF RECORDING",
+          "Rewind to select a moment",
+          "white",
+          999,
+        );
+      }
     }
     phasePresentation(before) {
       if (before !== this.phase) {

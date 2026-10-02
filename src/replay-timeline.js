@@ -57,8 +57,9 @@ export class ReplayTimeline {
     };
     this.play = button("pause", "Pause replay", () => {
       if (this.dragging) return;
-      if (game.phase === "ended") this.requestSeek(0);
-      game.watch.paused = game.phase === "ended" ? false : !game.watch.paused;
+      const ended = game.phase === "ended" || game.watchReplay.position === game.watchReplay.total;
+      if (ended) this.requestSeek(0);
+      game.watch.paused = ended ? false : !game.watch.paused;
       game.showWatchTip();
     });
     this.previous = button("previous", "Previous highlight", () =>
@@ -241,7 +242,7 @@ export class ReplayTimeline {
     this.duration.textContent = ` / ${total}`;
     this.range.setAttribute("aria-valuetext", `${elapsed} of ${total}`);
     const action =
-      game.phase === "ended" ? "Restart" : game.watch.paused ? "Play" : "Pause";
+      game.phase === "ended" || replay.position === replay.total ? "Restart" : game.watch.paused ? "Play" : "Pause";
     setIcon(this.play, action.toLowerCase());
     this.play.title = `${action} replay`;
     this.play.setAttribute("aria-label", this.play.title);

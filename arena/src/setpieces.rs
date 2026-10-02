@@ -62,6 +62,38 @@ pub struct Suite {
     pub description: String,
 }
 
+fn parse_file(suite: &str, text: &str) -> Result<Vec<SetPiece>, String> {
+    let mut blocks: Vec<(String, usize, String)> = Vec::new();
+    for (number, line) in text.lines().enumerate() {
+        if let Some(name) = line
+            .trim()
+            .strip_prefix('[')
+            .and_then(|l| l.strip_suffix(']'))
+        {
+            blocks.push((name.trim().to_string(), number + 2, String::new()));
+        } else if let Some(block) = blocks.last_mut() {
+            block.2 += line;
+            block.2.push('\n');
+        }
+    }
+    let mut pieces = Vec::new();
+    for (name, line, body) in blocks {
+        if pieces
+            .iter()
+            .any(|p: &SetPiece| p.id == format!("{suite}/{name}"))
+        {
+            return Err(format!(
+                "{suite}.txt line {line}: duplicate scenario {name}"
+            ));
+        }
+        pieces.push(
+            SetPiece::parse(suite, &name, &body)
+                .map_err(|e| format!("{suite}.txt [{name}] (from line {line}): {e}"))?,
+        );
+    }
+    Ok(pieces)
+}
+
 /// Loads every `.txt` suite in `dir`, sorted by name. Each scenario starts with a `[name]` header.
 pub fn load(dir: &Path) -> Result<(Vec<Suite>, Vec<SetPiece>), String> {
     let Ok(listing) = fs::read_dir(dir) else {
@@ -88,32 +120,9 @@ pub fn load(dir: &Path) -> Result<(Vec<Suite>, Vec<SetPiece>), String> {
                 .collect::<Vec<_>>()
                 .join(" "),
         });
-        // Blocks of (name, first line number, text).
-        let mut blocks: Vec<(String, usize, String)> = Vec::new();
-        for (number, line) in text.lines().enumerate() {
-            if let Some(name) = line
-                .trim()
-                .strip_prefix('[')
-                .and_then(|l| l.strip_suffix(']'))
-            {
-                blocks.push((name.trim().to_string(), number + 2, String::new()));
-            } else if let Some(block) = blocks.last_mut() {
-                block.2 += line;
-                block.2.push('\n');
-            }
-        }
-        for (name, line, body) in blocks {
-            let id = format!("{suite}/{name}");
-            if pieces.iter().any(|p: &SetPiece| p.id == id) {
-                errors.push(format!(
-                    "{suite}.txt line {line}: duplicate scenario {name}"
-                ));
-                continue;
-            }
-            match SetPiece::parse(&suite, &name, &body) {
-                Ok(piece) => pieces.push(piece),
-                Err(e) => errors.push(format!("{suite}.txt [{name}] (from line {line}): {e}")),
-            }
+        match parse_file(&suite, &text) {
+            Ok(mut loaded) => pieces.append(&mut loaded),
+            Err(error) => errors.push(error),
         }
     }
     if errors.is_empty() {
@@ -247,6 +256,7 @@ impl Arena {
             Some("show") => return self.setpiece_show(&words[1..]),
             Some("generate") => return self.setpiece_generate(),
             Some("mine") => return self.setpiece_mine(),
+            Some("import") => return self.setpiece_import(&words[1..]),
             _ => {}
         }
         if let Some(seed) = self.options.holdout {
@@ -472,7 +482,22 @@ impl Arena {
             println!();
         }
         if let [piece] = pieces.as_slice() {
-            println!("\n{}", piece.text);
+            println!(
+                "\n{}",
+                piece
+                    .text
+                    .lines()
+                    .filter(|l| !l.starts_with("clip = "))
+                    .collect::<Vec<_>>()
+                    .join("\n")
+            );
+            if let Some(clip) = &piece.scenario.clip {
+                println!(
+                    "Brain controls car {}. Other cars: {}.",
+                    clip.car + 1,
+                    clip.others.as_ref().map_or("recorded", |s| s.name.as_str())
+                );
+            }
             let brain = match &self.options.brain {
                 Some(name) => self.index(name)?,
                 None => 0,
@@ -511,13 +536,17 @@ fn describe(success: bool, goal: Option<usize>, seconds: f64, credit: f64) -> St
 
 /// Query string that replays a set piece in the browser. `expect` is the logged verdict, if any.
 pub fn watch_query(piece: &SetPiece, brain: &str, spec: &str, expect: Option<bool>) -> String {
-    let mut query = format!(
-        "setpiece={}&scenario={}&names={}&blue={}",
-        encode(&piece.id),
-        encode(&piece.text),
-        encode(brain),
-        encode(spec)
-    );
+    let mut query = if piece.scenario.clip.is_some() {
+        format!("setpiece={}&brain={}", encode(&piece.id), encode(brain))
+    } else {
+        format!(
+            "setpiece={}&scenario={}&names={}&blue={}",
+            encode(&piece.id),
+            encode(&piece.text),
+            encode(brain),
+            encode(spec)
+        )
+    };
     if let Some(pass) = expect {
         query += if pass { "&expect=pass" } else { "&expect=fail" };
     }
@@ -525,6 +554,102 @@ pub fn watch_query(piece: &SetPiece, brain: &str, spec: &str, expect: Option<boo
 }
 
 impl Arena {
+    /// Import adds a new case. It cannot replace a case that already exists.
+    fn setpiece_import(&mut self, words: &[String]) -> Result<(), String> {
+        let [file] = words else {
+            return Err("Use setpieces import <file>".into());
+        };
+        let text = fs::read_to_string(file).map_err(|e| format!("{file}: {e}"))?;
+        if text.len() > soccar_simulation::recording::MAX_BYTES {
+            return Err("Set piece is too large".into());
+        }
+        if !text.lines().any(|line| {
+            line.split_once('=')
+                .is_some_and(|(key, _)| key.trim() == "time")
+        }) {
+            return Err("Add a timeout in seconds".into());
+        }
+        let parsed = parse_file("submission", &text)?;
+        let [piece] = parsed.as_slice() else {
+            return Err("Import one set piece at a time".into());
+        };
+        let clip = piece
+            .scenario
+            .clip
+            .as_ref()
+            .ok_or("Export an exact single-car test from a match replay")?;
+        if piece.scenario.note.trim().is_empty() {
+            return Err("Add a description: what should the selected car do?".into());
+        }
+        let suite = format!("user-{}", piece.scenario.kind.name());
+        let name = piece.id.strip_prefix("submission/").unwrap();
+        if name.is_empty()
+            || name.len() > 64
+            || !name
+                .bytes()
+                .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'-' || b == b'_')
+        {
+            return Err(
+                "Use a short test name with letters, numbers, dashes, or underscores".into(),
+            );
+        }
+        let piece = SetPiece::parse(&suite, name, &piece.text)?;
+        if self.setpieces.pieces.iter().any(|p| p.id == piece.id) {
+            return Err(format!("{} already exists; choose a new name", piece.id));
+        }
+        println!(
+            "Brain controls car {}. All other cars: {}.",
+            clip.car + 1,
+            clip.others
+                .as_ref()
+                .map_or("recorded controls", |s| s.name.as_str())
+        );
+        let brain = self.options.brain.as_deref().unwrap_or("alphabravo");
+        let index = self.index(brain)?;
+        for spec in [idle_brain(), self.brains[index].spec.clone()] {
+            let result = harness::run_scenario(&ScenarioJob {
+                scenario: piece.scenario.clone(),
+                brain: spec.clone(),
+            });
+            println!(
+                "{}: {}",
+                spec.name,
+                describe(result.success, result.goal, result.seconds, result.credit)
+            );
+            if spec.name == "idle" && result.success {
+                println!("Warning: idle passes. Check that this test needs the selected car.");
+            }
+        }
+        let target = self.root.join("scenarios").join(format!("{suite}.txt"));
+        let mut body =
+            fs::read_to_string(&target).map_err(|e| format!("{}: {e}", target.display()))?;
+        body += &format!("\n[{name}]\n{}", piece.text);
+        let temporary = target.with_extension("import-tmp");
+        use std::io::Write;
+        let mut output = fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(&temporary)
+            .map_err(|e| format!("{}: {e}", temporary.display()))?;
+        let result = output
+            .write_all(body.as_bytes())
+            .and_then(|_| output.sync_all());
+        drop(output);
+        if let Err(e) = result {
+            let _ = fs::remove_file(&temporary);
+            return Err(e.to_string());
+        }
+        if let Err(e) = fs::rename(&temporary, &target) {
+            let _ = fs::remove_file(&temporary);
+            return Err(e.to_string());
+        }
+        self.setpieces = SetPieces::load(&self.root)?;
+        println!(
+            "Added {}. Keep the accepted state and recording fixed.",
+            piece.id
+        );
+        Ok(())
+    }
     /// Writes public/arena/setpieces.json: suites, scenarios with an idle baseline, and every current result.
     /// Results are arrays `[success, credit, seconds, goal, touches]`, with goal -1 when nobody scored.
     pub fn export_setpieces(&self, dir: &Path) -> Result<(), String> {
@@ -565,6 +690,8 @@ impl Arena {
                     "time": s.time,
                     "note": s.note,
                     "text": p.text,
+                    "testedCar": s.clip.as_ref().map(|c| c.car),
+                    "otherControls": s.clip.as_ref().map(|c| c.others.as_ref().map_or("recorded", |s| s.name.as_str())),
                     "ball": v(s.ball_pos),
                     "ballVel": v(s.ball_vel),
                     "cars": s.cars.iter().map(|c| json!({
@@ -628,5 +755,115 @@ impl SetPieces {
             pieces,
             log: Log::load(&root.join("results/setpieces.jsonl"))?,
         })
+    }
+}
+
+#[cfg(test)]
+mod contribution_tests {
+    use super::*;
+    use crate::{
+        Options,
+        heat::HeatLog,
+        ledger::{Format, Ledger},
+        roster::Entry,
+    };
+    use soccar_simulation::{
+        car::Controls,
+        game::{Config, Game},
+    };
+
+    #[test]
+    fn importing_adds_one_case_and_cannot_replace_it() {
+        let root = std::env::temp_dir().join(format!("soccar-import-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        fs::create_dir_all(root.join("scenarios")).unwrap();
+        for suite in ["user-attack", "user-defend"] {
+            fs::write(
+                root.join(format!("scenarios/{suite}.txt")),
+                "# Player moments\n",
+            )
+            .unwrap();
+        }
+        let spec = BrainSpec::parse("alphabravo", "module = alphabravo\nshotzone = 5000").unwrap();
+        let mut arena = Arena {
+            root: root.clone(),
+            brains: vec![Entry {
+                spec,
+                description: String::new(),
+                fingerprint: "test".into(),
+            }],
+            ledger: Ledger::load(&root.join("results/matches.jsonl")).unwrap(),
+            heat: HeatLog::load(&root.join("results/heatmaps.jsonl")).unwrap(),
+            setpieces: SetPieces::load(&root).unwrap(),
+            options: Options {
+                format: Format {
+                    size: 3,
+                    duration: 300.0,
+                },
+                threads: 1,
+                pairs: 1,
+                elo0: 0.0,
+                elo1: 10.0,
+                max_pairs: 1,
+                seed_base: 0,
+                sort: String::new(),
+                top: 20,
+                asc: false,
+                brain: None,
+                all_versions: false,
+                url: "http://localhost".into(),
+                limit: usize::MAX,
+                suite: None,
+                count: None,
+                holdout: None,
+            },
+        };
+        let mut game = Game::new(12345);
+        game.start_match(Config {
+            team_size: 3,
+            player_team: -1,
+            ..Config::default()
+        });
+        for _ in 0..600 {
+            game.tick(Controls::default());
+        }
+        let mut scenario = Scenario::capture_car(&game, 3, Kind::Defend, 0.5, None).unwrap();
+        scenario.note = "Hold this car's goal #1.".into();
+        let file = root.join("submission.txt");
+        fs::write(&file, format!("[save]\n{}", scenario.text())).unwrap();
+        let words = vec![file.to_string_lossy().into_owned()];
+        arena.setpiece_import(&words).unwrap();
+        assert_eq!(arena.setpieces.pieces.len(), 1);
+        assert_eq!(arena.setpieces.pieces[0].id, "user-defend/save");
+        assert_eq!(
+            arena.setpieces.pieces[0]
+                .scenario
+                .clip
+                .as_ref()
+                .unwrap()
+                .car,
+            3
+        );
+        let before = fs::read(root.join("scenarios/user-defend.txt")).unwrap();
+        assert!(
+            arena
+                .setpiece_import(&words)
+                .unwrap_err()
+                .contains("already exists")
+        );
+        assert_eq!(
+            fs::read(root.join("scenarios/user-defend.txt")).unwrap(),
+            before
+        );
+        let query = watch_query(
+            &arena.setpieces.pieces[0],
+            "alphabravo",
+            "ignored",
+            Some(true),
+        );
+        assert!(query.contains("brain=alphabravo"));
+        assert!(!query.contains("clip"));
+        assert!(!query.contains("scenario="));
+        fs::remove_dir_all(root).unwrap();
     }
 }

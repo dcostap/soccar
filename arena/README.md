@@ -167,9 +167,17 @@ and as a defense with the conceding team as blue. Orange's view is turned half a
 Teammates and rivals start where they were, and rivals chase the ball. Cars in the air or on a wall start on the floor
 below them. Moments that an idle car passes are dropped.
 
-To copy any moment yourself, watch a match and press `C` during live play. The followed car's team becomes blue,
-as an attack; `Shift+C` copies a defense. The scenario text goes to the clipboard and the browser console.
-Paste it into a suite file and rerun `setpieces`.
+To export a moment, watch a match and press `C` during live play. `Shift+C` selects defense.
+The form first asks which car the brain should control. It preserves the full state, including airborne motion.
+Other cars use recorded controls or fixed behavior. Recorded controls drive physical cars, not stored positions.
+Use **Preview**, then **Download set piece**. Import accepted files into `user-attack` or `user-defend`:
+
+```sh
+npm run arena -- setpieces import "path/to/moment.soccar-setpiece.txt"
+```
+
+Player matches record automatically. Use **Save replay**, **Watch last game**, or **Open file** in the game.
+See [player replay contributions](CONTRIBUTING-SETPIECES.md) for contribution checks and file limits.
 
 The generated suites are public, so a brain can be tuned to them. `--holdout <seed>` plays the same families
 with another seed in memory instead of the suites. Use an unannounced seed to check a brain on scenarios nobody saw:

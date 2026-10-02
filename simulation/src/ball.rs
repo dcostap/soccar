@@ -6,7 +6,7 @@ pub const TRACE_FIELDS: usize = 17;
 pub const PHYSICAL_RADIUS: f64 = 91.25;
 pub const COLLISION_RADIUS: f64 = 93.15;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub struct Ball {
     pub pos: Vec3,
     pub vel: Vec3,
