@@ -12,28 +12,43 @@ All 4,786 public and archived set pieces give identical results.
 
 ```text
 simulation/src/brains/modular/
-  mod.rs       Brain, skill arbitration, fingerprint source       frozen
-  tactics.rs   alphabravo team tactics: roles, pressure, strikes   frozen
-  pilot.rs     alpha car control: intercepts, flips, aerials       frozen
-  kit.rs       Skill trait, Situation, shared tools                frozen
+  mod.rs       Brain, strategy choice, skill arbitration, fingerprint   frozen
+  tactics.rs   alphabravo strategy: roles, pressure, strikes (default)  frozen
+  pilot.rs     alpha car control: intercepts, flips, aerials            frozen
+  kit.rs       Strategy and Skill traits, Situation, shared tools       frozen
+  strategies/
+    mod.rs     registry: add one line per strategy
+    alpha.rs   alpha's strategy; plays exactly as the alpha brain; copy it to start
   skills/
     mod.rs     registry: add one line per skill
     template.rs  worked example; copy it to start
 ```
 
-The core keeps the strategy: roles, positioning, and a default action for every car.
-A **skill** overrides the core for a moment, as a player reacts to a bounce, a shot, or an opening.
+A **strategy** chooses roles, positioning, and a default action for every car.
+A **skill** overrides the strategy for a moment, as a player reacts to a bounce, a shot, or an opening.
+
+### Strategies
+
+The default strategy is alphabravo's. A brain can pick another for every team size or for one size:
+
+```text
+strategy = alpha        # every team size
+strategy.1 = alpha      # teams of one car; strategy.2 and strategy.3 likewise
+```
+
+Team size counts a human teammate. Teams larger than three use `strategy.3`.
+Each strategy reads its own settings, named `<strategy>.<key>`. `shotzone` belongs to `alphabravo`.
 
 Each tick, for each bot car:
 
-1. The core assigns roles and works out its `Mode`: the branch it would take this tick.
+1. The strategy assigns roles and works out its `Mode`: the branch it would take this tick.
    Modes are `Kickoff`, `Maneuver`, `Airborne`, `Wall`, `Position`, `Save`, `Intercept`, and `Strike`.
 2. The skill that drove the car on the previous tick is offered it first, with `holding = true`.
    This lets it finish a flip, an aerial, or a dribble without interruption.
 3. Every other selected skill is offered the car in priority order.
    The first skill that returns `Some(controls)` drives the car for this tick.
-   The core's own flip or aerial is abandoned; the core plans afresh when it gets the car back.
-4. If no skill claims the car, the core drives it. Every skill may then `adjust` the core's controls.
+   The strategy's own flip or aerial is abandoned; it plans afresh when it gets the car back.
+4. If no skill claims the car, the strategy drives it. Every skill may then `adjust` its controls.
 
 A brain selects skills in priority order:
 
@@ -45,13 +60,13 @@ aerial-a.minheight = 300
 ```
 
 Skill settings use the skill name as a prefix. Unknown settings are errors.
-Core settings are alpha's `Settings` and `shotzone`, but tracks should leave them unchanged.
+Core settings are alpha's `Settings`, `shotzone`, and the strategy choice. Skill tracks keep `modular`'s.
 
 ### Fingerprints
 
-A modular brain's fingerprint covers the four core files and the source of each selected skill.
-Editing your skill retires only the brains that select it.
-Adding a skill to the registry retires nothing.
+A modular brain's fingerprint covers the four core files and the source of each selected strategy and skill.
+Editing your skill or strategy retires only the brains that select it.
+Adding one to a registry retires nothing.
 Editing any core file retires every modular brain, so core files are frozen during the hackathon.
 
 ## Tracks
@@ -69,7 +84,33 @@ Baseline numbers are `modular` on the public suites.
 | `touch`    | First touches on moving balls and awkward starts               | `gen-moving`, `gen-awkward`                                                                 | 38%           | 0.469  |
 | `scramble` | Close play in the box with rivals near the ball                | `gen-scrambles`, `mined-goals`                                                              | 45%           | 0.554  |
 
-Kickoffs are a possible eighth track. No set piece measures them, so judge them only with matches.
+### The `solo` track: a 1v1 strategy
+
+alphabravo's strategy leads 2v2 and 3v3 but is last in 1v1. Alpha's strategy is stronger there,
+so `modular-solo` (`strategy.1 = alpha`) starts the track. It costs set pieces, because every set piece
+puts one car on a team and so runs the 1v1 strategy:
+
+| Brain                   | 1v1 Elo | Set pieces | Credit |
+| ----------------------- | ------- | ---------- | ------ |
+| `modular`               | 972     | 35%        | 0.360  |
+| `modular-solo`          | 1068    | 32%        | 0.334  |
+| `modular-aerial-a`      | 1036    | 73%        | 0.744  |
+| `modular-solo-aerial-a` | 1150    | 72%        | 0.726  |
+
+Alpha's strategy loses mostly attacking set pieces: `gen-breakaways` 25% to 8%, `finishing` 78% to 61%.
+The solo team writes `strategies/solo_<team>.rs`, starting from a copy of `strategies/alpha.rs`,
+and selects it with `strategy.1 = solo-<team>`. It must beat `modular-solo` in 1v1 matches
+and keep set-piece credit at least `modular-solo`'s, with and without `aerial-a`.
+Its 2v2 and 3v3 play does not change, so its ladders there need not run.
+
+```sh
+npm run arena -- challenge modular-solo-<team> modular-solo --size 1 --elo0 0 --elo1 30 --max-pairs 500
+npm run arena -- challenge modular-solo-<team>-aerial modular-solo-aerial-a --size 1 --elo0 0 --elo1 30 --max-pairs 500
+npm run arena -- ladder --size 1
+npm run arena -- setpieces modular-solo modular-solo-<team> modular-solo-aerial-a modular-solo-<team>-aerial
+```
+
+Kickoffs have no track. No set piece measures them, so judge them only with matches.
 
 Track commands, with `<skill>` for the brain under test:
 
@@ -115,6 +156,7 @@ prints a watch link. Run `npm run build:wasm` before watching a changed skill in
 1. **Write only your own files**: `skills/<track>_<team>.rs`, helper files named `skills/<track>_<team>_*.rs`,
    `arena/brains/modular-<track>-<team>*.brain`, and your report.
    Add one `pub mod` line and one `SKILLS` entry to `skills/mod.rs`.
+   The solo track writes `strategies/solo_<team>.rs` and its helpers instead, and registers it in `strategies/mod.rs`.
    List every file your skill uses in its `source`, with `concat!(include_str!(...), ...)`.
 2. **Do not edit the core**: `mod.rs`, `tactics.rs`, `pilot.rs`, `kit.rs`. Copy a helper into your file to change it.
    If the core needs a change, describe it in your report instead.
@@ -134,17 +176,42 @@ prints a watch link. Run `npm run build:wasm` before watching a changed skill in
 git worktree add ../soccar-<track>-<team> -b hackathon/<track>-<team>
 cd ../soccar-<track>-<team>
 npm ci
+cp -r ../soccar/arena/results arena/      # reuse logged matches, so ladders play only new pairings
 cp simulation/src/brains/modular/skills/template.rs simulation/src/brains/modular/skills/<track>_<team>.rs
 ```
 
 1. Rename the struct and the settings prefix. Register the skill in `skills/mod.rs` as `<track>-<team>`.
 2. Add `arena/brains/modular-<track>-<team>.brain` with `module = modular` and `skills = <track>-<team>`.
+   Add `arena/brains/modular-<track>-<team>-aerial.brain` with `skills = <track>-<team>, aerial-a`.
+   The final brain will include `aerial-a`, so a skill must also help next to it.
 3. Run your track's public suites. Study failures with `setpieces show` and watch links.
 4. Check holdouts with several seeds. A public gain that disappears on holdouts is overfitting.
-5. Check the guard rails below. Fix regressions before reporting.
-6. Write `arena/hackathon/<track>-<team>.md`: the idea, when the skill claims, settings, public and holdout
-   results against `modular`, guard-rail results, known failures, and any core change you would want.
-7. Commit on your branch. Do not merge it.
+5. Play matches (below) as you go, not only at the end. A set-piece gain that loses matches is not a gain.
+6. Check the guard rails below. Fix regressions before reporting.
+7. Write `arena/hackathon/<track>-<team>.md`: the idea, when the skill claims, settings, public and holdout
+   results against `modular`, match results, brain time per match, guard-rail results, known failures,
+   and any core change you would want.
+8. Commit on your branch. Do not merge it.
+
+## Matches
+
+Set pieces measure one moment. Matches measure whether the skill wins games. Every entry reports both.
+
+```sh
+# Paired matches against the baseline, 3v3 and 1v1.
+npm run arena -- challenge modular-<track>-<team> modular --elo0 -15 --elo1 0 --max-pairs 300
+npm run arena -- challenge modular-<track>-<team> modular --size 1 --elo0 -15 --elo1 0 --max-pairs 300
+# Next to aerial-a, against aerial-a alone.
+npm run arena -- challenge modular-<track>-<team>-aerial modular-aerial-a --elo0 -15 --elo1 0 --max-pairs 300
+# Against the field at every team size: rates both brains on the shared leaderboard.
+for n in 1 2 3; do npm run arena -- ladder --size $n; done
+npm run arena -- export --size 3          # the page shows the last exported format
+```
+
+Formats differ a lot. alphabravo leads 3v3 but is last in 1v1, where allstar and pro beat it.
+Report the challenge verdicts and win rates, the ladder Elo and rank of both brains at each size, and `brainMs` per match.
+Look at a few matches too: `arena matches --brain <name>` and `arena show <id>` print watch links.
+Watching shows what numbers miss, such as a car that leaves the goal empty to chase an aerial.
 
 ## Guard rails
 
@@ -153,24 +220,27 @@ A skill must not damage play outside its moments.
 ```sh
 cargo test --release --manifest-path simulation/Cargo.toml --test modular
 npm run arena -- setpieces modular modular-<track>-<team>          # every normal suite
-npm run arena -- challenge modular-<track>-<team> modular --elo0 -15 --elo1 0 --max-pairs 300
 npm run build:wasm
 node scripts/check-simulation.mjs --brains arena/brains/modular-<track>-<team>.brain arena/brains/modular.brain
 ```
 
 - Total set-piece credit, over all normal suites, must not fall.
-- The challenge should accept "not worse than 15 Elo" against `modular` in 3v3 matches.
-  If it reaches the limit undecided, report the win rate.
+- The 3v3 and 1v1 challenges against `modular` should accept "not worse than 15 Elo".
+  If one reaches the limit undecided, report the win rate.
+- At each team size, the ladder Elo must not fall below `modular`'s.
 - The native/WASM check must report `"difference": null`.
 
 ## Judging and combining
 
-1. **Per track**: rank entries by holdout credit on the track, then public credit, then match results.
-2. **Swap tests**: pit the winners against each other and against `modular` with `arena ladder` and `challenge`.
+1. **Per track**: an entry must pass the guard rails, including matches. Rank passing entries by holdout
+   credit on the track, then by ladder Elo. Report both for every entry.
+2. **Swap tests**: pit the winners against each other, against `modular`, and against the field with `arena ladder` and `challenge`.
 3. **Combine**: an integration branch merges the winning skill branches. Conflicts in `skills/mod.rs` only
    join two lists: keep both sides. Then add brains with several skills in priority order, for example
    `skills = recovery-a, aerial-b, bounce-a, blocking-c, shooting-a, touch-b`.
    Order matters: the first skill to claim a car wins the tick.
    Put defensive emergencies before attacking skills.
-4. **Final**: run every normal suite, fresh holdouts for every track, and paired matches against alphabravo.
+   Keep a skill in the combination only if removing it loses matches or set pieces.
+4. **Final**: run every normal suite, fresh holdouts for every track, the ladder against every brain,
+   and paired matches against alphabravo at 1v1, 2v2, and 3v3.
    Keep the best combination as a new brain. Keep earlier versions under their own names.

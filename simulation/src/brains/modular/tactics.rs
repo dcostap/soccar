@@ -1,15 +1,15 @@
 //! Team tactics copied from alphabravo: role selection, goal-side pressure, recovery, timed intercepts,
-//! and predicted strikes. This is part of the frozen core of the modular brain.
+//! and predicted strikes. This is the default strategy and part of the frozen core of the modular brain.
 //! With no skills selected, the modular brain drives exactly as alphabravo.
 //!
 //! The per-car body is split in two without changing its order: `mode` names the branch the core would take,
 //! and `act` runs it. Skills see the mode before the core acts, and may take the car instead.
 use super::{
-    kit::Mode,
-    pilot::{ATTACK, Bot, GOALIE, Maneuver, SUPPORT},
+    kit::{Mode, Strategy},
+    pilot::{ATTACK, Bot, GOALIE, Maneuver, SUPPORT, Settings},
 };
 use crate::{
-    brains::Context,
+    brains::{Context, Params},
     car::{Car, Controls},
     math::{atan2, clamp, cos, hypot2, sin},
     predictor::Slice,
@@ -23,6 +23,49 @@ pub struct Tactics {
     pub previous: Option<usize>,
     pub recovering: Vec<bool>,
     pub shotzone: f64,
+}
+
+/// The default strategy. Reads `shotzone`: balls this far upfield, low and slow, use the strike planner.
+pub fn create(
+    params: &mut Params,
+    team: usize,
+    cars: &[usize],
+    settings: Settings,
+) -> Result<Box<dyn Strategy>, String> {
+    Ok(Box::new(Tactics {
+        team,
+        bots: cars.iter().map(|&id| Bot::new(id, settings)).collect(),
+        previous: None,
+        recovering: vec![false; cars.len()],
+        shotzone: params.number("shotzone", 5000.0)?,
+    }))
+}
+
+impl Strategy for Tactics {
+    fn assign(&mut self, ctx: &Context) -> Team {
+        Tactics::assign(self, ctx)
+    }
+    fn mode(&self, i: usize, ctx: &Context, team: Team) -> Mode {
+        Tactics::mode(self, i, ctx, team)
+    }
+    fn act(&mut self, i: usize, ctx: &Context, team: Team) -> Controls {
+        Tactics::act(self, i, ctx, team)
+    }
+    fn bots(&self) -> &[Bot] {
+        &self.bots
+    }
+    fn bots_mut(&mut self) -> &mut [Bot] {
+        &mut self.bots
+    }
+    fn reset(&mut self) {
+        Tactics::reset(self)
+    }
+    fn trace(&self, out: &mut Vec<f64>) {
+        Tactics::trace(self, out)
+    }
+    fn clone_box(&self) -> Box<dyn Strategy> {
+        Box::new(self.clone())
+    }
 }
 
 /// Team facts computed once per tick.

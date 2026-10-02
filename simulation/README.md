@@ -134,7 +134,7 @@ A brain drives every bot car on one team. Brains live in `src/brains/`.
 Each module implements the `Brain` trait and reads its settings from `Params`; `MODULES` lists them.
 `BrainSpec` pairs a module with settings in `key = value` text. Unknown settings are errors.
 The built-in difficulties are the `classic` module with `preset = rookie`, `pro`, or `allstar`.
-The `modular` module runs alphabravo as a fixed core and lets selected skills take a car for a moment.
+The `modular` module runs a team strategy, alphabravo's by default, and lets selected skills take a car for a moment.
 See `src/brains/modular/kit.rs` and `arena/HACKATHON.md`.
 
 The game updates one shared `Predictor` per tick before brains run. Brains read the world through `Context`
@@ -158,6 +158,13 @@ JSON floats use exact round trips. Files include a simulation version and reject
 Other cars use recorded controls or a fixed brain. The selected team becomes blue without changing car IDs.
 Recordings preserve physics caches, airborne motion, jumps, ball spin, and pad cooldowns.
 Recorded inputs must cover the timeout and three finishing seconds.
+
+`replay_inspect` re-simulates a portable replay and writes a searchable JSON report.
+It reports all simulation events and exact state samples around a requested time.
+
+```sh
+npm run replay:inspect -- replay.json --at 2:14 --window 5 --output report.json
+```
 
 The WASM exports are `sim_record_begin`, `sim_record_export`, `sim_record_load`, and `sim_clip_export`.
 `sim_record_length` reports playback length. `sim_record_count` reports live recording length.

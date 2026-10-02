@@ -1,0 +1,4 @@
+# modular-solo with the aerial-a skill: the strongest brain at every team size so far.
+module = modular
+strategy.1 = alpha
+skills = aerial-a

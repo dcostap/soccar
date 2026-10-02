@@ -221,8 +221,8 @@ fn rollout(s: &Situation, plan: &Plan, path: &[Ball]) -> Rollout {
     let now = s.world.tick;
     let line = GOAL_LINE + ball.radius;
     let mut touched_at = None;
-    let end = (plan.arrive - now) as usize + FOLLOW;
-    let arrive = (plan.arrive - now) as usize;
+    let end = (plan.arrive - now + FOLLOW as i64) as usize;
+    let missed = (plan.arrive - now + 12) as usize;
     for k in 0..end {
         let tick = now + k as i64;
         if touched_at.is_some() {
@@ -248,7 +248,7 @@ fn rollout(s: &Situation, plan: &Plan, path: &[Ball]) -> Rollout {
                 goal: 1,
             };
         }
-        if touched_at.is_none() && k > arrive + 12 {
+        if touched_at.is_none() && k > missed {
             // Missed the planned touch.
             break;
         }

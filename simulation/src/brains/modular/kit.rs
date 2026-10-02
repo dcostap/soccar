@@ -1,17 +1,18 @@
-//! The skill API of the modular brain, and a toolbox for writing skills.
+//! The strategy and skill APIs of the modular brain, and a toolbox for writing them.
 //!
-//! The core (team tactics and alpha's car control) keeps the strategy. A skill overrides it for a moment:
-//! each tick, before the core acts, every selected skill is offered each bot car in priority order.
-//! The first skill that returns controls drives that car for the tick. A skill that drove the car last tick
-//! is asked first, with `holding = true`, so it can finish a flip or an aerial without being interrupted.
-//! When no skill claims the car, the core drives it, and then every skill may `adjust` the core's controls.
+//! A strategy (alphabravo's tactics by default) chooses roles and a default action for every car.
+//! A skill overrides it for a moment: each tick, before the strategy acts, every selected skill is offered
+//! each bot car in priority order. The first skill that returns controls drives that car for the tick.
+//! A skill that drove the car last tick is asked first, with `holding = true`, so it can finish a flip or
+//! an aerial without being interrupted. When no skill claims the car, the strategy drives it, and then
+//! every skill may `adjust` the strategy's controls.
 //!
 //! This file is part of the frozen core. Copy a helper into your skill file to change it.
 pub use super::pilot::{
     ATTACK, Bot, GOALIE, Maneuver, SUPPORT, Settings, avoid_ball, estimate_time, nearest_pad,
     orient,
 };
-pub use super::tactics::{Plan, drive, own_goal_touch, plan, retreat};
+pub use super::tactics::{Plan, Team, drive, own_goal_touch, plan, retreat};
 use crate::{
     DT,
     arena::{GOAL_LINE, HALF_LENGTH},
@@ -49,6 +50,38 @@ impl Clone for Box<dyn Skill> {
 
 /// Builds a skill from the brain's settings. Read settings named `<skill>.<key>`; unknown keys are errors.
 pub type Create = fn(&mut Params) -> Result<Box<dyn Skill>, String>;
+
+/// A team strategy: roles, positioning, and the default action of every car. Skills override it for moments.
+///
+/// The default is alphabravo's (`tactics.rs`). A brain may pick another per team size:
+/// `strategy = alpha` for every size, or `strategy.1 = alpha` for teams of one car only.
+/// Strategies must be deterministic, like skills.
+pub trait Strategy: Debug + Send + Sync {
+    /// Called once per tick before any car acts. Writes a role to every bot.
+    fn assign(&mut self, ctx: &Context) -> Team;
+    /// The branch `act` would take for bot `i` this tick. It must change nothing.
+    fn mode(&self, i: usize, ctx: &Context, team: Team) -> Mode;
+    /// Drives bot `i` when no skill claimed it. Keep `bots()[i].out` equal to the returned controls.
+    fn act(&mut self, i: usize, ctx: &Context, team: Team) -> Controls;
+    /// One bot per brain car, in the brain's car order.
+    fn bots(&self) -> &[Bot];
+    fn bots_mut(&mut self) -> &mut [Bot];
+    /// Called at every kickoff and set-piece start.
+    fn reset(&mut self);
+    /// Hidden state for the native/WASM consistency check.
+    fn trace(&self, out: &mut Vec<f64>);
+    fn clone_box(&self) -> Box<dyn Strategy>;
+}
+impl Clone for Box<dyn Strategy> {
+    fn clone(&self) -> Self {
+        self.clone_box()
+    }
+}
+
+/// Builds a strategy for `team` and its bot `cars`. `settings` are alpha's car settings, read once by the brain.
+/// Read other settings named `<strategy>.<key>`; unknown keys are errors.
+pub type CreateStrategy =
+    fn(&mut Params, usize, &[usize], Settings) -> Result<Box<dyn Strategy>, String>;
 
 /// The branch the core would take for this car this tick, before any skill acts.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

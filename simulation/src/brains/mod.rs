@@ -88,7 +88,7 @@ pub const MODULES: &[Module] = &[
     Module {
         name: "modular",
         source: modular::SOURCE,
-        extra: modular::skill_source,
+        extra: modular::extra_source,
         create: modular::create,
     },
     Module {

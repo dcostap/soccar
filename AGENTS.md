@@ -19,13 +19,17 @@ Soccar is a car-soccer game, a headless match harness, and a bot-brain arena. Al
 - **Set pieces are fixed tests.** Editing a scenario or the `scripted` rival module reruns its results.
   Add scenarios rather than tuning existing ones to a brain.
 - **The modular core is frozen.** `simulation/src/brains/modular/{mod,tactics,pilot,kit}.rs` must keep
-  `modular` identical to alphabravo. Change behavior with a new skill in `modular/skills/`. See `arena/HACKATHON.md`.
+  the `modular` module with default settings identical to alphabravo. Change behavior with a new skill in
+  `modular/skills/` or a new strategy in `modular/strategies/`. See `arena/HACKATHON.md`.
 
 ## Checks
 
 For player replay contributions, read `arena/CONTRIBUTING-SETPIECES.md`.
 Ask which car the brain should control, not which team.
-Ask for any missing objective, timeout, or description before adding a permanent test.
+Treat a user timestamp or **C** marker as an approximate anchor, never the accepted start.
+You MUST inspect the source replay and independently select the exact start tick.
+Derive the objective, timeout, name, and other-car behavior from the replay and user description when clear.
+Ask a follow-up question only when the selected car or intended challenge remains ambiguous.
 
 ```sh
 npm run test:rust                 # Rust unit and integration tests

@@ -20,6 +20,10 @@ fn bits(values: Vec<f64>) -> Vec<u64> {
 
 /// Plays two matches that differ only in one team's brain and compares the world on every tick.
 fn same_world(size: usize, side: usize, brain: BrainSpec, ticks: usize) {
+    same_world_as(alphabravo(), size, side, brain, ticks);
+}
+
+fn same_world_as(reference: BrainSpec, size: usize, side: usize, brain: BrainSpec, ticks: usize) {
     let start = |b: BrainSpec| {
         let mut brains = [BrainSpec::preset(Skill::Allstar), b];
         brains.swap(1, side);
@@ -30,7 +34,7 @@ fn same_world(size: usize, side: usize, brain: BrainSpec, ticks: usize) {
             ..MatchSpec::default()
         })
     };
-    let mut a = start(alphabravo());
+    let mut a = start(reference);
     let mut b = start(brain);
     for tick in 0..ticks {
         a.tick(Default::default());
@@ -51,6 +55,29 @@ fn without_skills_it_drives_exactly_as_alphabravo() {
             same_world(size, side, spec("modular", "module = modular"), 6000);
         }
     }
+}
+
+#[test]
+fn the_alpha_strategy_drives_exactly_as_alpha() {
+    for size in 1..=3 {
+        for side in 0..2 {
+            same_world_as(
+                spec("alpha", "module = alpha"),
+                size,
+                side,
+                spec("modular-alpha", "module = modular\nstrategy = alpha"),
+                6000,
+            );
+        }
+    }
+}
+
+#[test]
+fn a_strategy_for_one_team_size_leaves_the_others_unchanged() {
+    let solo = || spec("modular-solo", "module = modular\nstrategy.1 = alpha");
+    same_world_as(spec("alpha", "module = alpha"), 1, 0, solo(), 4000);
+    same_world(2, 1, solo(), 4000);
+    same_world(3, 0, solo(), 4000);
 }
 
 #[test]
@@ -126,6 +153,12 @@ fn settings_are_checked() {
         )
         .is_ok()
     );
+    assert!(BrainSpec::parse("x", "module = modular\nstrategy = nothing").is_err());
+    assert!(BrainSpec::parse("x", "module = modular\nstrategy.2 = nothing").is_err());
+    assert!(BrainSpec::parse("x", "module = modular\nstrategy.4 = alpha").is_err());
+    // `shotzone` belongs to the alphabravo strategy.
+    assert!(BrainSpec::parse("x", "module = modular\nstrategy = alpha\nshotzone = 4000").is_err());
+    assert!(BrainSpec::parse("x", "module = modular\nstrategy.1 = alpha\nshotzone = 4000").is_ok());
 }
 
 #[test]
@@ -140,6 +173,17 @@ fn the_fingerprint_source_covers_the_core_and_selected_skills_only() {
     assert!(!plain.contains(template));
     assert!(with.starts_with(&plain));
     assert!(with.ends_with(template));
+    let alpha = soccar_simulation::brains::modular::strategies::find("alpha")
+        .unwrap()
+        .source;
+    assert!(!plain.contains(alpha));
+    let solo = spec("modular", "module = modular\nstrategy.1 = alpha").source();
+    assert!(solo.starts_with(&plain) && solo.ends_with(alpha));
+    // The default strategy is part of the core.
+    assert_eq!(
+        spec("modular", "module = modular\nstrategy = alphabravo").source(),
+        plain
+    );
     // Other modules keep their exact source.
     assert_eq!(
         alphabravo().source(),

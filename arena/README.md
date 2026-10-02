@@ -33,9 +33,11 @@ Unknown or malformed settings are errors.
 `alphabravo` combines their controllers with goal-side pressure and safe ground paths.
 See [its design and checks](alphabravo.md). Its fingerprint includes alpha's shared flight controller source.
 
-`modular` is alphabravo split into a fixed core and swappable skills. Without skills it plays exactly as alphabravo.
+`modular` is alphabravo split into a fixed core, a swappable strategy, and swappable skills.
+With default settings it plays exactly as alphabravo. `strategy = alpha` plays exactly as alpha,
+and `strategy.1 = alpha` does so only for teams of one car.
 `skills = a, b` selects skills from `simulation/src/brains/modular/skills/` in priority order.
-Its fingerprint covers the core and the selected skills only. See [the skill hackathon](HACKATHON.md).
+Its fingerprint covers the core and the selected strategies and skills only. See [the skill hackathon](HACKATHON.md).
 
 ### Try a settings change
 
