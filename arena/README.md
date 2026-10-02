@@ -191,7 +191,7 @@ Use **Preview**, then **Download set piece**. Import accepted files into `user-a
 npm run arena -- setpieces import "path/to/moment.soccar-setpiece.txt"
 ```
 
-Player matches record automatically. Use **Save replay**, **Watch last game**, or **Open file** in the game.
+Player matches record automatically. Use **Replays** in the Arena to watch, download, delete, or import recordings.
 See [player replay contributions](CONTRIBUTING-SETPIECES.md) for contribution checks and file limits.
 
 The generated suites are public, so a brain can be tuned to them. `--holdout <seed>` plays the same families

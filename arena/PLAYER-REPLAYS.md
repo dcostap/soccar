@@ -12,6 +12,8 @@ Do not reduce stored data to summaries. Exact replay is the source record.
 ## Storage
 
 `src/replay-files.js` owns the IndexedDB database.
+`src/arena-replays.js` owns the visible replay library.
+The game page records in the background and does not show a replay toolbar.
 
 - Database: `soccar-replays`
 - Current database version: 3
@@ -19,9 +21,10 @@ Do not reduce stored data to summaries. Exact replay is the source record.
 - `history` store: small list metadata, keyed by the same ID
 - `replays/latest`: ID of the newest updated replay
 
-The separate metadata store keeps **Game history** fast when many large replays exist.
+The separate metadata store keeps the Arena **Replays** view fast with many large recordings.
 The application does not remove old games automatically.
-The user can watch, download, or delete one game from **Game history**.
+The user can watch, download, or delete one game from the Arena **Replays** view.
+The Arena can also import portable replay and set-piece files.
 
 Storage belongs to one browser profile and one web origin.
 The scheme, host, and port are part of the origin.

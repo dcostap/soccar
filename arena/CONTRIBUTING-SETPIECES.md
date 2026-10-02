@@ -3,24 +3,24 @@
 ## Save and select a moment
 
 1. Play a match. The game records resolved controls at each simulation tick.
-2. Select **Game history**, or select **Watch last game**.
-3. Select **Save replay** for a portable file. Select **Open file** to open one.
+2. Open **Replays** in the Arena. Select **Watch** for one recorded game.
+3. Select **Download** for a portable file. Select **Open file** to import one.
 4. Pause the replay. Move the timeline to a live-play moment.
-5. Select **Create set piece**, or press **C**. **Shift+C** selects defense.
+5. Press **C** to create a set piece. **Shift+C** selects defense.
 6. Answer **Which car should the brain control?** This is one car, not one team.
 7. Select the objective, timeout, and controls for all other cars.
 8. Add a short test name and a description.
-9. Select **Preview** to test a brain. **Back to moment** restores the source replay.
+9. Select **Preview** to test a brain. Press **B** to return to the source moment.
 10. Select **Download set piece**. Give this file to the contribution agent.
 
-The game keeps every match in **Game history** on this device.
+The game keeps every match in the Arena **Replays** view on this device.
 It creates a record after play starts and updates active matches once per minute.
 It saves the final recording when the match ends or you leave it.
 Starting another match does not replace an earlier recording.
-You can watch, download, or delete each stored game.
+You can watch, download, or delete each stored game from the Arena.
 The recording limit is 25 minutes of simulation ticks. A file saved earlier ends at that point.
 Clearing site data removes the local history. Browser storage can also become full or fail.
-**Save replay** downloads a portable recording from the current tab.
+**Download** in the Arena creates a portable recording.
 See [player replay history](PLAYER-REPLAYS.md) for storage, versioning, and future goal/save mining.
 
 ## What the set piece preserves

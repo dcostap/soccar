@@ -504,6 +504,11 @@ td.text,
 th.text {
   text-align: left;
 }
+.replay-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
 tr.row {
   cursor: pointer;
 }

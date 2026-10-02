@@ -1,13 +1,10 @@
 import "./replay-tools.css";
 import {
-  MAX_REPLAY_BYTES,
   scenarioFile,
   readScenarioFile,
   keepReplay,
-  latestReplay,
-  replayHistory,
   storedReplay,
-  deleteReplay,
+  deleteStoredFile,
   persistReplayStorage,
 } from "./replay-files.js";
 
@@ -51,22 +48,23 @@ function field(form, title, input) {
 }
 
 export function mountReplayTools(game, app) {
-  const root = node("section", "", "replay-tools");
-  root.setAttribute("aria-label", "Game recordings");
-  const row = node("div", "", "replay-tools-buttons");
-  const message = node("p", "Every game saves automatically in Game history.");
-  message.setAttribute("role", "status");
-  root.append(row, message);
-  document.body.append(root);
-  let latest = null,
-    opened = null,
+  let opened = null,
     returnToMoment = null,
-    busy = false,
     saved = null,
     checkpoint = null,
     autosaving = false;
   const report = (error) => {
-    message.textContent = error?.message ?? String(error);
+    console.error(error);
+    const dialog = node("dialog", "", "setpiece-editor");
+    const text = error?.message ?? String(error);
+    dialog.append(
+      node("h2", "Replay error"),
+      node("p", text),
+      button("Close", () => dialog.close()),
+    );
+    document.body.append(dialog);
+    dialog.addEventListener("close", () => dialog.remove(), { once: true });
+    dialog.showModal();
   };
   const active = () =>
     game.mode === "match" && !game.watch && game.recordingTicks > 0;
@@ -97,7 +95,6 @@ export function mountReplayTools(game, app) {
       teamSize: game.config.teamSize ?? 1,
       skill: game.config.skill ?? "pro",
     };
-    latest = value;
     saved = {
       identity: game.recordingIdentity,
       ticks: game.recordingTicks,
@@ -109,12 +106,9 @@ export function mountReplayTools(game, app) {
     };
     try {
       await keepReplay(value);
-      if (!quiet && !game.watch)
-        message.textContent = "Game saved in history on this device.";
-    } catch {
-      message.textContent = "Replay stays in this tab. Save a file to keep it.";
+    } catch (error) {
+      if (!quiet) report(error);
     }
-    update();
     return value;
   }
   game.onRecordingReady = () => {
@@ -123,195 +117,15 @@ export function mountReplayTools(game, app) {
   game.onRecordingLeaving = game.onRecordingReady;
 
   async function watch(value) {
-    busy = true;
-    update();
-    message.textContent = "Opening replay…";
     await new Promise((resolve) => setTimeout(resolve, 0));
-    try {
-      game.startSavedReplay(value.text, value.name);
-      opened = value;
-      app.menu.closeAll();
-      game.paused = false;
-      document.activeElement?.blur?.();
-      await game.watchPreparation;
-      message.textContent =
-        "Pause, seek to a moment, then select Create set piece. C also opens the form.";
-    } finally {
-      busy = false;
-      update();
-    }
-  }
-  const watchLast = button("Watch last game", async () => {
-    if (busy) return;
-    busy = true;
-    update();
-    try {
-      if (active()) await remember();
-      if (latest) await watch(latest);
-    } catch (error) {
-      report(error);
-    } finally {
-      busy = false;
-      update();
-    }
-  });
-  const history = button("Game history", async () => {
-    if (busy) return;
-    busy = true;
-    update();
-    try {
-      if (active()) await remember();
-      const games = await replayHistory();
-      const dialog = node("dialog", "", "setpiece-editor replay-library");
-      const content = node("div");
-      const title = node("h2", "Game history");
-      title.id = "replay-history-title";
-      dialog.setAttribute("aria-labelledby", title.id);
-      content.append(title);
-      content.append(
-        node(
-          "p",
-          "Games stay on this device. Clearing browser data removes them.",
-        ),
-      );
-      const list = node("div", "", "replay-library-list");
-      if (!games.length) list.append(node("p", "No saved games."));
-      for (const value of games) {
-        const item = node("article", "", "replay-library-item");
-        const date = new Date(value.createdAt ?? value.updatedAt ?? Date.now());
-        item.append(node("strong", date.toLocaleString()));
-        const score = Array.isArray(value.score)
-          ? ` · ${value.score[0]}–${value.score[1]}`
-          : "";
-        item.append(
-          node(
-            "span",
-            `${value.teamSize ?? 1}v${value.teamSize ?? 1}${score} · ${Number(value.ticks ?? 0).toLocaleString()} ticks`,
-          ),
-        );
-        const actions = node("div", "", "setpiece-actions");
-        actions.append(
-          button("Watch", async () => {
-            dialog.close();
-            try {
-              const replay = await storedReplay(value.id);
-              if (!replay) throw new Error("Saved replay is missing");
-              await watch(replay);
-            } catch (error) {
-              report(error);
-            }
-          }),
-          button("Save file", async () => {
-            try {
-              const replay = await storedReplay(value.id);
-              if (!replay) throw new Error("Saved replay is missing");
-              download(replay.text, replay.name);
-            } catch (error) {
-              report(error);
-            }
-          }),
-          button("Delete", async () => {
-            if (!confirm("Delete this saved game?")) return;
-            try {
-              await deleteReplay(value.id);
-              item.remove();
-              if (latest?.id === value.id) latest = await latestReplay();
-              if (!list.querySelector("article"))
-                list.append(node("p", "No saved games."));
-              update();
-            } catch (error) {
-              report(error);
-            }
-          }),
-        );
-        item.append(actions);
-        list.append(item);
-      }
-      content.append(list);
-      const actions = node("div", "", "setpiece-actions");
-      actions.append(button("Close", () => dialog.close()));
-      content.append(actions);
-      dialog.append(content);
-      document.body.append(dialog);
-      dialog.addEventListener("close", () => dialog.remove(), { once: true });
-      dialog.addEventListener("keydown", (event) => event.stopPropagation());
-      dialog.showModal();
-    } catch (error) {
-      report(error);
-    } finally {
-      busy = false;
-      update();
-    }
-  });
-  const save = button("Save replay", async () => {
-    try {
-      const value = active() ? await remember() : (opened ?? latest);
-      if (value) download(value.text, value.name);
-    } catch (error) {
-      report(error);
-    }
-  });
-  const file = node("input");
-  file.type = "file";
-  file.accept = ".json,.txt,.soccar-replay,.soccar-setpiece";
-  file.hidden = true;
-  file.setAttribute("aria-label", "Open replay or set piece file");
-  file.addEventListener("change", async () => {
-    const selected = file.files?.[0];
-    file.value = "";
-    if (!selected) return;
-    busy = true;
-    update();
-    try {
-      if (selected.size > MAX_REPLAY_BYTES)
-        throw new Error("Recording is too large");
-      const text = await selected.text();
-      if (text.trimStart().startsWith("{"))
-        await watch({ text, name: selected.name });
-      else {
-        const scenario = readScenarioFile(text);
-        const brain =
-          game.brainChoices.find((b) => b.name === "alphabravo") ??
-          game.brainChoices[0];
-        game.startUserScenario(scenario.text, scenario.name, brain);
-        app.menu.closeAll();
-        game.paused = false;
-        message.textContent = `Testing ${scenario.name} with ${brain.name}.`;
-      }
-    } catch (error) {
-      report(error);
-    }
-    busy = false;
-    update();
-  });
-  const open = button("Open file", () => file.click());
-  const create = button("Create set piece", () => editor(false));
-  const back = button("Back to moment", async () => {
-    if (!returnToMoment) return;
-    try {
-      await returnToMoment();
-    } catch (error) {
-      report(error);
-    }
-    update();
-  });
-  row.append(watchLast, history, save, open, create, back, file);
-
-  function update() {
-    watchLast.disabled = busy || (!latest && !active());
-    history.disabled = busy;
-    save.disabled = busy || (!latest && !opened && !active());
-    open.disabled = busy;
-    create.hidden = !game.watch || !!game.watch.scenario;
-    create.disabled =
-      busy ||
-      game.watchReplay?.total == null ||
-      game.phase !== "playing" ||
-      game.seeking;
-    back.hidden = !game.watch?.scenario || !returnToMoment;
+    game.startSavedReplay(value.text, value.name);
+    opened = value;
+    app.menu.closeAll();
+    game.paused = false;
+    document.activeElement?.blur?.();
+    await game.watchPreparation;
   }
   const timer = setInterval(() => {
-    update();
     if (
       active() &&
       !autosaving &&
@@ -326,14 +140,30 @@ export function mountReplayTools(game, app) {
         });
     }
   }, 1000);
-  latestReplay()
-    .then((value) => {
-      if (!latest) latest = value;
-      update();
-    })
-    .catch(() => {});
   persistReplayStorage();
-  update();
+  const replayId = new URLSearchParams(location.search).get("replay");
+  if (replayId)
+    storedReplay(replayId)
+      .then((value) => {
+        if (!value) throw new Error("Saved replay is missing");
+        return watch(value);
+      })
+      .catch(report);
+  const scenarioId = new URLSearchParams(location.search).get("scenarioFile");
+  if (scenarioId)
+    storedReplay(scenarioId)
+      .then((value) => {
+        if (!value) throw new Error("Stored set piece is missing");
+        const scenario = readScenarioFile(value.text);
+        const brain =
+          game.brainChoices.find((choice) => choice.name === "alphabravo") ??
+          game.brainChoices[0];
+        game.startUserScenario(scenario.text, scenario.name, brain);
+        app.menu.closeAll();
+        game.paused = false;
+        return deleteStoredFile(scenarioId);
+      })
+      .catch(report);
 
   function editor(defend) {
     if (
@@ -493,13 +323,12 @@ export function mountReplayTools(game, app) {
           await game.seekWatch(tick);
           game.watch.paused = true;
         };
+        game.returnToReplay = returnToMoment;
+        game.showWatchTip();
         dialog.close();
-        message.textContent =
-          "Watch the result. Back to moment restores the source replay.";
       } catch (error) {
         status.textContent = error.message;
       }
-      update();
     });
     actions.append(
       exportButton,
@@ -516,7 +345,6 @@ export function mountReplayTools(game, app) {
       () => {
         if (game.watch === owner) owner.paused = wasPaused;
         dialog.remove();
-        update();
       },
       { once: true },
     );
@@ -527,6 +355,7 @@ export function mountReplayTools(game, app) {
   game.openScenarioEditor = editor;
   return () => {
     clearInterval(timer);
-    root.remove();
+    game.openScenarioEditor = null;
+    game.returnToReplay = null;
   };
 }

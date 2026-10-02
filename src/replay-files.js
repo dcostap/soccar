@@ -152,6 +152,33 @@ export async function storedReplay(id) {
     db.close();
   }
 }
+export async function keepStoredFile(value) {
+  if (!value?.id || !value?.text) throw new Error("Invalid local file");
+  const db = await database();
+  try {
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction("replays", "readwrite");
+      tx.objectStore("replays").put(value, value.id);
+      tx.oncomplete = resolve;
+      tx.onabort = tx.onerror = () => reject(tx.error);
+    });
+  } finally {
+    db.close();
+  }
+}
+export async function deleteStoredFile(id) {
+  const db = await database();
+  try {
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction("replays", "readwrite");
+      tx.objectStore("replays").delete(id);
+      tx.oncomplete = resolve;
+      tx.onabort = tx.onerror = () => reject(tx.error);
+    });
+  } finally {
+    db.close();
+  }
+}
 export async function deleteReplay(id) {
   const db = await database();
   try {

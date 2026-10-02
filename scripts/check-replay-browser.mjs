@@ -38,6 +38,18 @@ await page.addInitScript(() => {
       delete Object.prototype.recordingIdentity;
     },
   });
+  Object.defineProperty(Object.prototype, "openScenarioEditor", {
+    configurable: true,
+    set(value) {
+      Object.defineProperty(this, "openScenarioEditor", {
+        value,
+        writable: true,
+        configurable: true,
+      });
+      window.__presentationGame = this;
+      delete Object.prototype.openScenarioEditor;
+    },
+  });
   const instantiate = WebAssembly.instantiate;
   WebAssembly.instantiate = async (...args) => {
     const result = await instantiate(...args),
@@ -99,6 +111,13 @@ try {
   await page.goto(`${server.resolvedUrls.local[0]}?mute`, {
     waitUntil: "networkidle",
   });
+  assert.equal(await page.locator(".replay-tools").count(), 0);
+  assert.equal(
+    await page
+      .getByRole("button", { name: "Game history", exact: true })
+      .count(),
+    0,
+  );
   await menu("HIT THE FIELD").click();
   await menu("Mode").locator(".mi-value").click();
   await menu("Mode").locator(".mi-value").click();
@@ -129,16 +148,6 @@ try {
         1,
       );
   });
-  const replayPath = path.resolve(
-    "artifacts/replays/player.soccar-replay.json",
-  );
-  let pending = page.waitForEvent("download");
-  await page.getByRole("button", { name: "Save replay", exact: true }).click();
-  const replayDownload = await pending;
-  await replayDownload.saveAs(replayPath);
-  const saved = JSON.parse(await readFile(replayPath, "utf8"));
-  assert.ok(saved.frames.length > 2000);
-  assert.equal(saved.initial.world.cars.length, 6);
   // A new match gets another history record. It does not replace the first match.
   await page.evaluate(() => {
     const game = window.__presentationGame;
@@ -147,34 +156,52 @@ try {
     for (let i = 0; i < 1800; i++)
       t.raw.sim_tick(t.handle, 1, 0.1, 0.2, 0, 0, 0, 0, 0, 1);
   });
-  await page.waitForFunction(
+  await page.waitForTimeout(1500);
+  const stored = await page.evaluate(
     () =>
       new Promise((resolve) => {
         const open = indexedDB.open("soccar-replays", 3);
         open.onsuccess = () => {
           const db = open.result;
-          const all = db.transaction("replays").objectStore("replays").getAll();
-          all.onsuccess = () => {
-            resolve(
-              all.result.filter((value) => value?.text && value?.id).length ===
-                2,
-            );
+          const tx = db.transaction(["replays", "history"]);
+          const replays = tx.objectStore("replays").getAll();
+          const history = tx.objectStore("history").getAll();
+          tx.oncomplete = () => {
+            resolve({
+              replays: replays.result.filter(
+                (value) => value?.text && value?.id,
+              ).length,
+              history: history.result.filter((value) => value?.id).length,
+            });
             db.close();
           };
-          all.onerror = () => resolve(false);
         };
-        open.onerror = () => resolve(false);
       }),
   );
-  await page.getByRole("button", { name: "Game history", exact: true }).click();
-  let library = page.getByRole("dialog", { name: "Game history" });
-  await library.waitFor();
-  assert.equal(await library.locator(".replay-library-item").count(), 2);
-  await library
-    .locator(".replay-library-item")
+  assert.deepEqual(stored, { replays: 2, history: 2 });
+  await page.goto(`${server.resolvedUrls.local[0]}arena.html#/replays`, {
+    waitUntil: "networkidle",
+  });
+  await page.waitForFunction(() =>
+    document
+      .querySelector(".summary-line")
+      ?.textContent.includes("2 recorded games"),
+  );
+  let rows = page.locator("table.replays tbody tr");
+  assert.equal(await rows.count(), 2);
+  const replayPath = path.resolve(
+    "artifacts/replays/player.soccar-replay.json",
+  );
+  let pending = page.waitForEvent("download");
+  await rows
     .nth(1)
-    .getByRole("button", { name: "Watch", exact: true })
+    .getByRole("button", { name: "Download", exact: true })
     .click();
+  await (await pending).saveAs(replayPath);
+  const saved = JSON.parse(await readFile(replayPath, "utf8"));
+  assert.ok(saved.frames.length > 2000);
+  assert.equal(saved.initial.world.cars.length, 6);
+  await rows.nth(1).getByRole("link", { name: "Watch", exact: true }).click();
   await range.waitFor();
   await page.waitForFunction(
     () => !document.querySelector(".watch-range")?.disabled,
@@ -188,9 +215,8 @@ try {
     await page.evaluate(() => window.__presentationGame.watch.follow),
     3,
   );
-  await page
-    .getByRole("button", { name: "Create set piece", exact: true })
-    .click();
+  await page.evaluate(() => document.activeElement?.blur());
+  await page.keyboard.press("c");
   const dialog = page.getByRole("dialog");
   await dialog.waitFor();
   const car = page.getByLabel("Which car should the brain control?");
@@ -231,54 +257,40 @@ try {
     }),
     "Pad visuals follow the exact rotated physics layout",
   );
-  await page
-    .getByRole("button", { name: "Back to moment", exact: true })
-    .waitFor();
   await page.waitForFunction(() =>
     document.querySelector(".hud-banner")?.textContent.match(/PASSED|FAILED/),
   );
-  await page
-    .getByRole("button", { name: "Back to moment", exact: true })
-    .click();
+  await page.keyboard.press("b");
   await page.waitForFunction(
     () =>
       Number(document.querySelector(".watch-range")?.value) === 400 &&
       !document.querySelector(".watch-timeline")?.classList.contains("busy"),
   );
   await page.reload({ waitUntil: "networkidle" });
-  await page.getByRole("button", { name: "Game history", exact: true }).click();
-  library = page.getByRole("dialog", { name: "Game history" });
-  await library.waitFor();
-  assert.equal(await library.locator(".replay-library-item").count(), 2);
-  await library.getByRole("button", { name: "Close", exact: true }).click();
-  const last = page.getByRole("button", {
-    name: "Watch last game",
-    exact: true,
-  });
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll(".replay-tools button")].some(
-      (b) => b.textContent === "Watch last game" && !b.disabled,
-    ),
-  );
-  await last.click();
   await page.waitForFunction(
     () => !document.querySelector(".watch-range")?.disabled,
   );
-  await page.locator("input[type=file]").setInputFiles(replayPath);
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll(".replay-tools button")].some(
-      (b) => b.textContent === "Open file" && !b.disabled,
-    ),
-  );
-  await page.locator("input[type=file]").setInputFiles({
+  assert.equal(await page.locator(".replay-tools").count(), 0);
+  await page.goto(`${server.resolvedUrls.local[0]}arena.html#/replays`, {
+    waitUntil: "networkidle",
+  });
+  rows = page.locator("table.replays tbody tr");
+  assert.equal(await rows.count(), 2);
+  const picker = page.getByLabel("Open replay or set piece file");
+  await picker.setInputFiles(replayPath);
+  await page.getByRole("status").filter({ hasText: "Replay added" }).waitFor();
+  assert.equal(await rows.count(), 3);
+  await picker.setInputFiles({
     name: "bad.json",
     mimeType: "application/json",
     buffer: Buffer.from("{}"),
   });
   await page
     .getByRole("status")
-    .filter({ hasText: "Invalid recording" })
+    .filter({ hasText: "Invalid replay file" })
     .waitFor();
+  await picker.setInputFiles(piecePath);
+  await range.waitFor();
   await page.route("**/arena/setpieces.json", (route) =>
     route.fulfill({
       json: {
@@ -332,25 +344,17 @@ try {
       }),
   );
   await migration.unroute(setupUrl);
-  await migration.goto(`${server.resolvedUrls.local[0]}?mute`, {
+  await migration.goto(`${server.resolvedUrls.local[0]}arena.html#/replays`, {
     waitUntil: "networkidle",
   });
-  await migration
-    .getByRole("button", { name: "Game history", exact: true })
-    .click();
-  const migratedLibrary = migration.getByRole("dialog", {
-    name: "Game history",
-  });
-  await migratedLibrary.waitFor();
-  assert.equal(
-    await migratedLibrary.locator(".replay-library-item").count(),
-    1,
-  );
-  assert.match(await migratedLibrary.innerText(), /1v1/);
+  const migratedRows = migration.locator("table.replays tbody tr");
+  await migratedRows.first().waitFor();
+  assert.equal(await migratedRows.count(), 1);
+  assert.match(await migratedRows.first().innerText(), /1v1/);
   await migrationContext.close();
   assert.deepEqual(errors, []);
   console.log(
-    "Replay browser checks passed: full history, save, reload, seek, select one car, export, preview, return, and invalid files",
+    "Replay browser checks passed: Arena history, imports, reload, seek, exact export, preview, return, and migration",
   );
 } catch (error) {
   console.error(

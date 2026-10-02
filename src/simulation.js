@@ -250,6 +250,7 @@ export async function createRustGame(
       return this.readText();
     }
     startSavedReplay(text, label = "Your game") {
+      this.returnToReplay = null;
       const handle = wasm.sim_create(1);
       try {
         this.writeText(handle, text);
@@ -312,6 +313,7 @@ export async function createRustGame(
       return wasm.sim_brain(this.handle, team) === 1;
     }
     start(mode, config = this.config) {
+      this.returnToReplay = null;
       if (this.mode === "match" && !this.watch && this.recordingTicks)
         this.onRecordingLeaving?.();
       this.clearPresentation();
@@ -443,14 +445,14 @@ export async function createRustGame(
       if (w.scenario !== undefined) {
         this.hud.setTip(
           `SET PIECE ${w.id} (${w.kind}) &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
-            `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C COPY SET PIECE &nbsp; ESC MENU`,
+            `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C CREATE SET PIECE${this.returnToReplay ? " &nbsp; B BACK TO MOMENT" : ""} &nbsp; ESC MENU`,
         );
         return;
       }
       this.hud.setTip(
         `WATCHING #${w.id} &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ` +
           `CAMERA ${car ? `${car.name} (${side})` : "-"} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
-          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C COPY SET PIECE &nbsp; ESC MENU`,
+          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C CREATE SET PIECE &nbsp; ESC MENU`,
       );
     }
     /** Spectator keys while watching. */
@@ -458,7 +460,7 @@ export async function createRustGame(
       const w = this.watch;
       if (
         !w ||
-        this.paused ||
+        (this.paused && !["KeyP", "KeyC", "KeyB"].includes(event.code)) ||
         event.defaultPrevented ||
         event.ctrlKey ||
         event.altKey ||
@@ -478,6 +480,14 @@ export async function createRustGame(
       else if (event.code === "KeyC" && !event.repeat) {
         if (this.openScenarioEditor) this.openScenarioEditor(event.shiftKey);
         else this.captureSetPiece(event.shiftKey);
+        event.preventDefault();
+        return;
+      } else if (
+        event.code === "KeyB" &&
+        !event.repeat &&
+        this.returnToReplay
+      ) {
+        this.returnToReplay().catch(console.error);
         event.preventDefault();
         return;
       } else if (

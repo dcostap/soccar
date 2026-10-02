@@ -6,6 +6,7 @@ import { renderBrain } from "./arena-brain.js";
 import { renderCompare } from "./arena-compare.js";
 import { renderMatches, renderMatch } from "./arena-matches.js";
 import { renderSetPieces } from "./arena-setpieces.js";
+import { renderReplays } from "./arena-replays.js";
 
 const base = import.meta.env?.BASE_URL ?? "/";
 const view = document.getElementById("view");
@@ -141,6 +142,7 @@ const VIEWS = {
   match: ["matches", renderMatch],
   compare: ["compare", renderCompare],
   setpieces: ["setpieces", renderSetPieces],
+  replays: ["replays", renderReplays],
 };
 let cleanup = null;
 let token = 0;
