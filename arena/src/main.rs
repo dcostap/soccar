@@ -60,6 +60,7 @@ Options:
   --url base                Watch link base (default http://127.0.0.1:5173)
   --limit count             backfill: matches to replay (default all)
   --suite name[,name...]    setpieces: only these suites
+  --scenario id[,id...]     setpieces: only these exact IDs; skip the full browser export
   --holdout seed            setpieces: play freshly generated families with this seed instead of the suites
   --defense                 --holdout: use measured defense families, without writing suites or results
   --emergency               Include short-window defense-v1 tests; --defense holdouts use their old generation
@@ -84,6 +85,7 @@ pub struct Options {
     pub url: String,
     pub limit: usize,
     pub suite: Option<String>,
+    pub scenario: Option<String>,
     pub count: Option<usize>,
     pub holdout: Option<u64>,
     pub defense: bool,
@@ -140,6 +142,7 @@ fn run() -> Result<(), String> {
         url: "http://127.0.0.1:5173".into(),
         limit: usize::MAX,
         suite: None,
+        scenario: None,
         count: None,
         holdout: None,
         defense: false,
@@ -193,6 +196,7 @@ fn run() -> Result<(), String> {
             "--url" => options.url = value.trim_end_matches('/').to_string(),
             "--limit" => options.limit = value.parse().map_err(|_| bad())?,
             "--suite" => options.suite = Some(value),
+            "--scenario" => options.scenario = Some(value),
             "--count" => options.count = Some(value.parse().map_err(|_| bad())?),
             "--holdout" => options.holdout = Some(value.parse().map_err(|_| bad())?),
             _ => return Err(format!("Unknown option: {arg}")),
@@ -244,7 +248,11 @@ fn run() -> Result<(), String> {
         "show" => arena.show(rest),
         "export" => arena.export(),
         "heatmap" => arena.heatmap(rest),
-        "setpieces" if options_only_print(rest) || arena.options.holdout.is_some() => {
+        "setpieces"
+            if options_only_print(rest)
+                || arena.options.holdout.is_some()
+                || arena.options.scenario.is_some() =>
+        {
             arena.setpieces(rest)
         }
         "setpieces" => {

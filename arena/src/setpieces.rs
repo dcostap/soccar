@@ -251,15 +251,30 @@ impl Arena {
         })
     }
 
+    fn scenario_ids(&self) -> Option<Vec<&str>> {
+        self.options.scenario.as_deref().map(|s| {
+            s.split(',')
+                .map(str::trim)
+                .filter(|s| !s.is_empty())
+                .collect()
+        })
+    }
+
     /// Scenarios selected by `--suite`, or all of them.
     fn selected_pieces(&self) -> Vec<usize> {
         let names = self.suite_names();
+        let ids = self.scenario_ids();
         (0..self.setpieces.pieces.len())
             .filter(|&i| {
-                let suite = self.setpieces.pieces[i].suite.as_str();
-                names.as_ref().map_or(
-                    self.options.emergency || !defense::emergency(suite),
-                    |names| names.contains(&suite),
+                let piece = &self.setpieces.pieces[i];
+                ids.as_ref().map_or_else(
+                    || {
+                        names.as_ref().map_or(
+                            self.options.emergency || !defense::emergency(&piece.suite),
+                            |names| names.contains(&piece.suite.as_str()),
+                        )
+                    },
+                    |ids| ids.contains(&piece.id.as_str()),
                 )
             })
             .collect()
@@ -356,6 +371,11 @@ impl Arena {
         for s in self.suite_names().unwrap_or_default() {
             if !self.setpieces.suites.iter().any(|x| x.name == s) {
                 return Err(format!("Unknown suite: {s}"));
+            }
+        }
+        for id in self.scenario_ids().unwrap_or_default() {
+            if !self.setpieces.pieces.iter().any(|piece| piece.id == id) {
+                return Err(format!("Unknown scenario: {id}"));
             }
         }
         let chosen: Vec<usize> = if words.is_empty() {
@@ -1053,6 +1073,7 @@ mod contribution_tests {
                 url: "http://localhost".into(),
                 limit: usize::MAX,
                 suite: None,
+                scenario: None,
                 count: None,
                 holdout: None,
                 defense: false,
@@ -1076,6 +1097,13 @@ mod contribution_tests {
         arena.setpiece_import(&words).unwrap();
         assert_eq!(arena.setpieces.pieces.len(), 1);
         assert_eq!(arena.setpieces.pieces[0].id, "user-defend/save");
+        let other =
+            SetPiece::parse("user-defend", "other", &arena.setpieces.pieces[0].text).unwrap();
+        arena.setpieces.pieces.push(other);
+        arena.options.scenario = Some("user-defend/save".into());
+        assert_eq!(arena.selected_pieces(), vec![0]);
+        arena.options.scenario = None;
+        arena.setpieces.pieces.pop();
         assert_eq!(
             arena.setpieces.pieces[0]
                 .scenario
