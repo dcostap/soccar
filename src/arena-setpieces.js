@@ -255,6 +255,36 @@ export async function renderSetPieces(root, ctx, route) {
   );
   const count = element("p", { class: "summary-line" });
   const list = element("table", { class: "sp-list" });
+  const listViewport = scroll(list);
+  listViewport.classList.add("sp-list-scroll");
+  let pan;
+  listViewport.addEventListener("pointerdown", (event) => {
+    if (
+      event.button !== 1 ||
+      event.target.closest("a") ||
+      listViewport.scrollWidth <= listViewport.clientWidth
+    )
+      return;
+    event.preventDefault();
+    pan = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      scrollLeft: listViewport.scrollLeft,
+    };
+    listViewport.setPointerCapture(event.pointerId);
+    listViewport.classList.add("panning");
+  });
+  listViewport.addEventListener("pointermove", (event) => {
+    if (pan?.pointerId !== event.pointerId) return;
+    listViewport.scrollLeft = pan.scrollLeft - (event.clientX - pan.x);
+  });
+  const stopPanning = (event) => {
+    if (pan?.pointerId !== event.pointerId) return;
+    pan = null;
+    listViewport.classList.remove("panning");
+  };
+  for (const type of ["pointerup", "pointercancel", "lostpointercapture"])
+    listViewport.addEventListener(type, stopPanning);
   const more = element(
     "button",
     {
@@ -468,9 +498,9 @@ export async function renderSetPieces(root, ctx, route) {
     }),
     panel(
       "Scenarios",
-      element("div", {}, controls, count, scroll(list), more),
+      element("div", {}, controls, count, listViewport, more),
       {
-        note: "Click a scenario for its start and text, a result to watch it in the game.",
+        note: "Click a scenario for its start and text, or a result to watch it in the game. Hold the middle mouse button and drag left or right to scroll.",
       },
     ),
   );

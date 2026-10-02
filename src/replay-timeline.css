@@ -212,6 +212,10 @@
 .watch-timeline select:hover {
   color: #fff;
 }
+.watch-timeline option {
+  color: #edf3fc;
+  background: #090f1c;
+}
 .watch-camera select {
   width: 30px;
 }

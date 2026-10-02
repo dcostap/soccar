@@ -457,6 +457,11 @@ code {
 .scroll {
   overflow-x: auto;
 }
+.sp-list-scroll.panning,
+.sp-list-scroll.panning * {
+  cursor: grabbing !important;
+  user-select: none;
+}
 table {
   border-collapse: collapse;
   width: 100%;

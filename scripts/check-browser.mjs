@@ -285,7 +285,13 @@ try {
     .getByRole("button", { name: "Play replay", exact: true })
     .waitFor();
   assert.match(await firstGoal.getAttribute("title"), /Goal.*Car.*Match clock/);
-  await page.getByRole("button", { name: "Show saves" }).click();
+  const showSaves = page.getByRole("button", { name: "Show saves" });
+  assert.equal(await showSaves.getAttribute("aria-pressed"), "true");
+  assert.ok((await page.locator(".watch-marker.save:visible").count()) > 0);
+  await showSaves.click();
+  assert.equal(await showSaves.getAttribute("aria-pressed"), "false");
+  assert.equal(await page.locator(".watch-marker.save:visible").count(), 0);
+  await showSaves.click();
   await page.getByRole("button", { name: "Show demos" }).click();
   assert.ok((await page.locator(".watch-marker.save:visible").count()) > 0);
   assert.ok((await page.locator(".watch-marker.demo:visible").count()) > 0);
@@ -309,7 +315,9 @@ try {
     .getByRole("button", { name: "Previous highlight", exact: true })
     .click();
   await idle();
-  checks.push("clickable highlights and optional save and demolition markers");
+  checks.push(
+    "clickable highlights, default save markers, and optional demolition markers",
+  );
 
   await seekInput(0);
   assert.equal((await state()).tick, 0);

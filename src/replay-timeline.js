@@ -133,6 +133,7 @@ export class ReplayTimeline {
       ["save", "saves"],
       ["demo", "demos"],
     ]) {
+      const active = type === "save";
       const toggle = button(
         type,
         `Show ${label}`,
@@ -143,7 +144,8 @@ export class ReplayTimeline {
         },
         filters,
       );
-      toggle.setAttribute("aria-pressed", "false");
+      toggle.setAttribute("aria-pressed", String(active));
+      this.root.classList.toggle(`show-${type}`, active);
       this.filters[type] = toggle;
     }
     this.status = element("span", "watch-status", "Preparing replay…");
