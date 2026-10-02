@@ -33,3 +33,4 @@ Matches record automatically. Select **Game history** to watch any game stored o
 Use **Save replay** to make a portable file.
 Pause and seek, then select **Create set piece**. Choose one car for the tested brain.
 See [player replay contributions](arena/CONTRIBUTING-SETPIECES.md) for the full steps.
+See [player replay history](arena/PLAYER-REPLAYS.md) for local storage and future goal/save mining.

@@ -21,6 +21,7 @@ You can watch, download, or delete each stored game.
 The recording limit is 25 minutes of simulation ticks. A file saved earlier ends at that point.
 Clearing site data removes the local history. Browser storage can also become full or fail.
 **Save replay** downloads a portable recording from the current tab.
+See [player replay history](PLAYER-REPLAYS.md) for storage, versioning, and future goal/save mining.
 
 ## What the set piece preserves
 
