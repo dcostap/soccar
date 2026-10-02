@@ -249,7 +249,10 @@ fn run() -> Result<(), String> {
         "show" => arena.show(rest),
         "export" => arena.export(),
         "heatmap" => arena.heatmap(rest),
-        "setpieces" if arena.options.scenario.is_some() => {
+        "setpieces"
+            if arena.options.scenario.is_some()
+                || rest.first().is_some_and(|word| word == "import") =>
+        {
             arena.setpieces(rest)?;
             let dir = arena.root.join("../public/arena");
             fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
