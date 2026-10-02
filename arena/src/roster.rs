@@ -1,6 +1,6 @@
 //! Brain files and fingerprints.
 use soccar_simulation::{
-    brains::{self, BrainSpec},
+    brains::BrainSpec,
     car::Controls,
     harness::{self, MatchSpec},
 };
@@ -87,9 +87,7 @@ pub fn fingerprint(spec: &BrainSpec) -> String {
     let mut h = Hash::new();
     h.bytes(spec.name.as_bytes());
     h.bytes(spec.text().as_bytes());
-    if let Some(module) = brains::module(&spec.module) {
-        h.bytes(module.source.as_bytes());
-    }
+    h.bytes(spec.source().as_bytes());
     for (size, ticks) in [(1, 2400), (3, 3600)] {
         let mut game = harness::start(&MatchSpec {
             seed: 1,

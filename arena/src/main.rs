@@ -59,7 +59,7 @@ Options:
   --all-versions            matches and ratings: include results of older brain versions
   --url base                Watch link base (default http://127.0.0.1:5173)
   --limit count             backfill: matches to replay (default all)
-  --suite name              setpieces: only this suite
+  --suite name[,name...]    setpieces: only these suites
   --holdout seed            setpieces: play freshly generated families with this seed instead of the suites
   --defense                 --holdout: use measured defense families, without writing suites or results
   --emergency               Include short-window defense-v1 tests; --defense holdouts use their old generation

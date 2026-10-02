@@ -134,6 +134,8 @@ A brain drives every bot car on one team. Brains live in `src/brains/`.
 Each module implements the `Brain` trait and reads its settings from `Params`; `MODULES` lists them.
 `BrainSpec` pairs a module with settings in `key = value` text. Unknown settings are errors.
 The built-in difficulties are the `classic` module with `preset = rookie`, `pro`, or `allstar`.
+The `modular` module runs alphabravo as a fixed core and lets selected skills take a car for a moment.
+See `src/brains/modular/kit.rs` and `arena/HACKATHON.md`.
 
 The game updates one shared `Predictor` per tick before brains run. Brains read the world through `Context`
 and write controls only for their own cars. They must be deterministic. Do not use clocks or the game random generator.

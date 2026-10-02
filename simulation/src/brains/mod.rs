@@ -13,6 +13,8 @@ pub mod classic;
 pub mod alpha;
 pub mod alphabravo;
 pub mod bravo;
+// Alphabravo with swappable skills. See arena/HACKATHON.md.
+pub mod modular;
 // Fixed rivals for set pieces. See crate::scenario.
 pub mod scripted;
 pub mod strike;
@@ -47,22 +49,30 @@ pub struct Module {
     pub name: &'static str,
     /// Source text, part of the arena fingerprint.
     pub source: &'static str,
+    /// Source text that depends on the settings, such as selected skills. Also part of the fingerprint.
+    pub extra: fn(&BrainSpec) -> String,
     pub create: Create,
+}
+fn no_extra(_: &BrainSpec) -> String {
+    String::new()
 }
 pub const MODULES: &[Module] = &[
     Module {
         name: "classic",
         source: include_str!("classic.rs"),
+        extra: no_extra,
         create: classic::create,
     },
     Module {
         name: "alpha",
         source: include_str!("alpha.rs"),
+        extra: no_extra,
         create: alpha::create,
     },
     Module {
         name: "bravo",
         source: include_str!("bravo.rs"),
+        extra: no_extra,
         create: bravo::create,
     },
     Module {
@@ -72,16 +82,25 @@ pub const MODULES: &[Module] = &[
             "\n",
             include_str!("alpha.rs")
         ),
+        extra: no_extra,
         create: alphabravo::create,
+    },
+    Module {
+        name: "modular",
+        source: modular::SOURCE,
+        extra: modular::skill_source,
+        create: modular::create,
     },
     Module {
         name: "scripted",
         source: include_str!("scripted.rs"),
+        extra: no_extra,
         create: scripted::create,
     },
     Module {
         name: "strike",
         source: include_str!("strike.rs"),
+        extra: no_extra,
         create: strike::create,
     },
 ];
@@ -215,6 +234,13 @@ impl BrainSpec {
             out += &format!("{k} = {v}\n");
         }
         out
+    }
+    /// Source text for the fingerprint: the module source and any settings-dependent source.
+    pub fn source(&self) -> String {
+        match module(&self.module) {
+            Some(m) => format!("{}{}", m.source, (m.extra)(self)),
+            None => String::new(),
+        }
     }
     pub fn create(&self, team: usize, cars: &[usize]) -> Result<Box<dyn Brain>, String> {
         let module =

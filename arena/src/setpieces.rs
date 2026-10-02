@@ -241,13 +241,25 @@ impl Arena {
         })
     }
 
+    /// Suites named by `--suite`, which takes one name or a comma-separated list.
+    fn suite_names(&self) -> Option<Vec<&str>> {
+        self.options.suite.as_deref().map(|s| {
+            s.split(',')
+                .map(str::trim)
+                .filter(|s| !s.is_empty())
+                .collect()
+        })
+    }
+
     /// Scenarios selected by `--suite`, or all of them.
     fn selected_pieces(&self) -> Vec<usize> {
+        let names = self.suite_names();
         (0..self.setpieces.pieces.len())
             .filter(|&i| {
-                self.options.suite.as_ref().map_or(
-                    self.options.emergency || !defense::emergency(&self.setpieces.pieces[i].suite),
-                    |s| &self.setpieces.pieces[i].suite == s,
+                let suite = self.setpieces.pieces[i].suite.as_str();
+                names.as_ref().map_or(
+                    self.options.emergency || !defense::emergency(suite),
+                    |names| names.contains(&suite),
                 )
             })
             .collect()
@@ -341,10 +353,10 @@ impl Arena {
         if self.setpieces.pieces.is_empty() {
             return Err("No scenarios in arena/scenarios".into());
         }
-        if let Some(s) = &self.options.suite
-            && !self.setpieces.suites.iter().any(|x| &x.name == s)
-        {
-            return Err(format!("Unknown suite: {s}"));
+        for s in self.suite_names().unwrap_or_default() {
+            if !self.setpieces.suites.iter().any(|x| x.name == s) {
+                return Err(format!("Unknown suite: {s}"));
+            }
         }
         let chosen: Vec<usize> = if words.is_empty() {
             (0..self.brains.len()).collect()

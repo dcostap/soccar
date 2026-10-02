@@ -1,0 +1,2 @@
+# Hackathon baseline: alphabravo as a fixed core with swappable skills. No skills selected, so it plays exactly as alphabravo.
+module = modular

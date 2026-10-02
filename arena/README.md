@@ -33,6 +33,10 @@ Unknown or malformed settings are errors.
 `alphabravo` combines their controllers with goal-side pressure and safe ground paths.
 See [its design and checks](alphabravo.md). Its fingerprint includes alpha's shared flight controller source.
 
+`modular` is alphabravo split into a fixed core and swappable skills. Without skills it plays exactly as alphabravo.
+`skills = a, b` selects skills from `simulation/src/brains/modular/skills/` in priority order.
+Its fingerprint covers the core and the selected skills only. See [the skill hackathon](HACKATHON.md).
+
 ### Try a settings change
 
 Add a file such as `arena/brains/allstar-close.brain`, then challenge the original:
@@ -154,6 +158,7 @@ which marks scenarios that play themselves.
 ```sh
 npm run arena -- setpieces                       # every brain, every suite
 npm run arena -- setpieces alpha --suite saves   # one brain, one suite
+npm run arena -- setpieces alpha --suite saves,gen-saves   # several suites
 npm run arena -- setpieces show saves            # per-scenario table
 npm run arena -- setpieces show saves/breakaway --brain alpha   # one scenario and a watch link
 ```
