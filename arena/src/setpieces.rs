@@ -903,18 +903,6 @@ impl Arena {
     /// Results are arrays `[success, credit, seconds, goal, touches]`, with goal -1 when nobody scored.
     pub fn export_setpieces(&self, dir: &Path) -> Result<(), String> {
         let defense_report = defense::load(&self.root)?;
-        let idle = idle_brain();
-        let jobs: Vec<ScenarioJob> = self
-            .setpieces
-            .pieces
-            .iter()
-            .map(|p| ScenarioJob {
-                scenario: p.scenario.clone(),
-                brain: idle.clone(),
-            })
-            .collect();
-        let mut baseline = vec![None; jobs.len()];
-        harness::run_scenarios(&jobs, self.options.threads, |i, o| baseline[i] = Some(o));
         let row = |success: bool, credit: f64, seconds: f64, goal: Option<usize>, touches: u32| {
             json!([
                 u8::from(success),
@@ -924,6 +912,54 @@ impl Arena {
                 touches
             ])
         };
+        let path = dir.join("setpieces.json");
+        let cached: HashMap<String, (String, Value)> = fs::read_to_string(&path)
+            .ok()
+            .and_then(|text| serde_json::from_str::<Value>(&text).ok())
+            .and_then(|data| data.get("scenarios")?.as_array().cloned())
+            .unwrap_or_default()
+            .into_iter()
+            .filter_map(|scenario| {
+                Some((
+                    scenario.get("id")?.as_str()?.to_string(),
+                    (
+                        scenario.get("text")?.as_str()?.to_string(),
+                        scenario.get("idle")?.clone(),
+                    ),
+                ))
+            })
+            .collect();
+        let idle = idle_brain();
+        let mut baseline = vec![None; self.setpieces.pieces.len()];
+        let mut jobs = Vec::new();
+        let mut indexes = Vec::new();
+        for (index, piece) in self.setpieces.pieces.iter().enumerate() {
+            if let Some((text, value)) = cached.get(&piece.id)
+                && text == &piece.text
+            {
+                baseline[index] = Some(value.clone());
+            } else {
+                jobs.push(ScenarioJob {
+                    scenario: piece.scenario.clone(),
+                    brain: idle.clone(),
+                });
+                indexes.push(index);
+            }
+        }
+        let mut outcomes = vec![None; jobs.len()];
+        harness::run_scenarios(&jobs, self.options.threads, |i, outcome| {
+            outcomes[i] = Some(outcome)
+        });
+        for (index, outcome) in indexes.into_iter().zip(outcomes) {
+            let outcome = outcome.expect("every job reports");
+            baseline[index] = Some(row(
+                outcome.success,
+                outcome.credit,
+                outcome.seconds,
+                outcome.goal,
+                outcome.touches,
+            ));
+        }
         let v = |v: Vec3| [round(v.x, 2), round(v.y, 2), round(v.z, 2)];
         let scenarios: Vec<Value> = self
             .setpieces
@@ -932,7 +968,7 @@ impl Arena {
             .zip(&baseline)
             .map(|(p, b)| {
                 let s = &p.scenario;
-                let b = b.expect("every job reports");
+                let b = b.as_ref().expect("every scenario has an idle result");
                 let measured = defense::measurement(defense_report.as_ref(), p);
                 json!({
                     "id": p.id,
@@ -957,7 +993,7 @@ impl Arena {
                         }
                         text
                     }),
-                    "idle": row(b.success, b.credit, b.seconds, b.goal, b.touches),
+                    "idle": b,
                 })
             })
             .collect();
@@ -994,7 +1030,6 @@ impl Arena {
             "brains": self.brains.iter().map(|b| json!({ "name": b.spec.name, "text": b.spec.text() })).collect::<Vec<_>>(),
             "results": results,
         });
-        let path = dir.join("setpieces.json");
         fs::write(&path, data.to_string()).map_err(|e| format!("{}: {e}", path.display()))?;
         Ok(())
     }

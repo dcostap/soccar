@@ -17,6 +17,7 @@ use setpieces::SetPieces;
 use soccar_simulation::harness::{self, MatchResult, MatchSpec, PlayerReport};
 use std::{
     collections::{BTreeMap, HashMap},
+    fs,
     path::{Path, PathBuf},
     time::Instant,
 };
@@ -60,7 +61,7 @@ Options:
   --url base                Watch link base (default http://127.0.0.1:5173)
   --limit count             backfill: matches to replay (default all)
   --suite name[,name...]    setpieces: only these suites
-  --scenario id[,id...]     setpieces: only these exact IDs; skip the full browser export
+  --scenario id[,id...]     setpieces: only these exact IDs; update only set-piece browser data
   --holdout seed            setpieces: play freshly generated families with this seed instead of the suites
   --defense                 --holdout: use measured defense families, without writing suites or results
   --emergency               Include short-window defense-v1 tests; --defense holdouts use their old generation
@@ -248,11 +249,13 @@ fn run() -> Result<(), String> {
         "show" => arena.show(rest),
         "export" => arena.export(),
         "heatmap" => arena.heatmap(rest),
-        "setpieces"
-            if options_only_print(rest)
-                || arena.options.holdout.is_some()
-                || arena.options.scenario.is_some() =>
-        {
+        "setpieces" if arena.options.scenario.is_some() => {
+            arena.setpieces(rest)?;
+            let dir = arena.root.join("../public/arena");
+            fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+            arena.export_setpieces(&dir)
+        }
+        "setpieces" if options_only_print(rest) || arena.options.holdout.is_some() => {
             arena.setpieces(rest)
         }
         "setpieces" => {
