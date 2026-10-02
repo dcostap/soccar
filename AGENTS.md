@@ -28,6 +28,7 @@ For player replay contributions, read `arena/CONTRIBUTING-SETPIECES.md`.
 Ask which car the brain should control, not which team.
 Treat a user timestamp or **C** marker as an approximate anchor, never the accepted start.
 You MUST inspect the source replay and independently select the exact start tick.
+Move the final start away from the supplied marker based on the observed action sequence.
 Derive the objective, timeout, name, and other-car behavior from the replay and user description when clear.
 Ask a follow-up question only when the selected car or intended challenge remains ambiguous.
 

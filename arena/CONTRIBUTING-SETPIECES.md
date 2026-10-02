@@ -69,7 +69,7 @@ Treat the supplied time as an approximate search anchor.
 Inspect events and states before and after it.
 Select a start before the first action that the tested car must decide.
 Do not import a candidate clip directly at its **C** timestamp.
-If analysis selects the same tick, record why that tick is the useful decision boundary.
+The final source tick must differ from the supplied marker.
 
 Confirm the selected car before discussing the team.
 Ask **Which car should the brain control?** only if the selection is missing or unclear.

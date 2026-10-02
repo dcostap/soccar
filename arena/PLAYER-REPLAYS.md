@@ -122,6 +122,7 @@ The JSON report includes:
 Use the timeline to find the event.
 Then inspect a short window to choose an exact source tick before the action.
 Never accept a **C** timestamp as authoritative.
+Move the final start away from that marker based on the observed action sequence.
 Do not approximate physics or infer events from browser geometry.
 
 ## Goal and save mining
