@@ -31,6 +31,8 @@ See [the arena](arena/README.md).
 
 Matches record automatically. Open **Replays** in the Arena to watch any game stored on this device.
 Download portable files from the same Arena view.
-Pause and seek, then press **C** to create a set piece. Choose one car for the tested brain.
+Use **Copy reference** to give an agent the game, approximate time, car, action, and intended test.
+The agent can inspect exact events and states, then create the set piece.
+For manual creation, pause and seek, then press **C**. Choose one car for the tested brain.
 See [player replay contributions](arena/CONTRIBUTING-SETPIECES.md) for the full steps.
-See [player replay history](arena/PLAYER-REPLAYS.md) for local storage and future goal/save mining.
+See [player replay history](arena/PLAYER-REPLAYS.md) for local storage and agent inspection.

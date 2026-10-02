@@ -164,7 +164,10 @@ It reports all simulation events and exact state samples around a requested time
 
 ```sh
 npm run replay:inspect -- replay.json --at 2:14 --window 5 --output report.json
+npm run replay:inspect -- arena/results/matches.jsonl --match 19424 --at 48.8 --window 5
 ```
+
+After review, `--extract` can capture the selected car at the independently chosen start tick.
 
 The WASM exports are `sim_record_begin`, `sim_record_export`, `sim_record_load`, and `sim_clip_export`.
 `sim_record_length` reports playback length. `sim_record_count` reports live recording length.

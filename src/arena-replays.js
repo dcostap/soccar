@@ -8,7 +8,15 @@ import {
   replayHistory,
   storedReplay,
 } from "./replay-files.js";
-import { clock, element, empty, panel, scroll, toast } from "./arena-ui.js";
+import {
+  clock,
+  copy,
+  element,
+  empty,
+  panel,
+  scroll,
+  toast,
+} from "./arena-ui.js";
 
 function download(text, filename) {
   const url = URL.createObjectURL(
@@ -95,6 +103,19 @@ export async function renderReplays(root, ctx) {
         },
         "Watch",
       );
+      const reference = element(
+        "button",
+        {
+          type: "button",
+          class: "button small ghost",
+          onclick: () =>
+            copy(
+              `Replay: ${game.id}\nRecorded: ${new Date(game.createdAt ?? game.updatedAt).toISOString()}\nWatch: ${new URL(gameUrl(ctx.base, "replay", game.id), location.href).href}`,
+              "Replay reference copied",
+            ),
+        },
+        "Copy reference",
+      );
       const save = element(
         "button",
         {
@@ -140,7 +161,14 @@ export async function renderReplays(root, ctx) {
         element("td", {}, `${game.teamSize ?? 1}v${game.teamSize ?? 1}`),
         element("td", {}, score),
         element("td", {}, clock((game.ticks ?? 0) / 120)),
-        element("td", { class: "replay-actions" }, watch, save, remove),
+        element(
+          "td",
+          { class: "replay-actions" },
+          watch,
+          reference,
+          save,
+          remove,
+        ),
       );
     });
     body.replaceChildren(

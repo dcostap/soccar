@@ -221,16 +221,18 @@ try {
   await dialog.waitFor();
   const car = page.getByLabel("Which car should the brain control?");
   assert.equal(await car.inputValue(), "3");
-  await page.getByLabel("Objective").selectOption("defend");
-  await page.getByLabel("Timeout in seconds").fill("2");
-  await page.getByLabel("Short test name").fill("browser-save");
   await page
-    .getByLabel("Description")
+    .getByLabel("Candidate objective (the agent verifies it)")
+    .selectOption("defend");
+  await page.getByLabel("Candidate timeout (the agent verifies it)").fill("2");
+  await page.getByLabel("Candidate name").fill("browser-save");
+  await page
+    .getByLabel("Describe what makes this moment useful")
     .fill("Keep the ball out of this car's goal.");
   await page.screenshot({ path: "artifacts/replays/setpiece-editor.png" });
   pending = page.waitForEvent("download");
   await page
-    .getByRole("button", { name: "Download set piece", exact: true })
+    .getByRole("button", { name: "Download candidate", exact: true })
     .click();
   const piecePath = path.resolve(
     "artifacts/replays/browser-save.soccar-setpiece.txt",
@@ -238,6 +240,9 @@ try {
   await (await pending).saveAs(piecePath);
   const text = await readFile(piecePath, "utf8");
   assert.match(text, /^\[browser-save\]/);
+  assert.match(text, /^# This is an approximate anchor\./m);
+  assert.match(text, /^# Candidate replay: game:/m);
+  assert.match(text, /^# Candidate anchor: playback tick 400 /m);
   const clip = JSON.parse(/^clip\s*=\s*(.*)$/m.exec(text)[1]);
   assert.equal(clip.car, 3);
   assert.equal(clip.source_team, 1);

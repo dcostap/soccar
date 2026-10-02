@@ -92,11 +92,42 @@ npm run test:simulation:full
 `test:recordings` compares native and WASM state exactly.
 `test:replay-browser` checks multiple stored games, reload, older-game playback, and database migration.
 
-## Future goal and save mining
+## Agent inspection
+
+The user can give an agent a replay reference, approximate time, car, action, and intended test.
+The user does not need to find the exact tick or create a set-piece file.
+The agent must treat the supplied time as an approximate search anchor.
+It must inspect the source replay and independently select the final start tick.
+It derives the objective, timeout, name, and other-car behavior when the evidence is clear.
+It asks only when the selected car or intended challenge remains ambiguous.
+
+Use the native inspector on a replay downloaded from the Arena:
+
+```sh
+npm run replay:inspect -- "path/to/game.soccar-replay.json"
+npm run replay:inspect -- "path/to/game.soccar-replay.json" --at 2:14 --window 5 --output report.json
+npm run replay:inspect -- arena/results/matches.jsonl --match 19424 --at 48.8 --window 5
+```
+
+The first command produces the complete event timeline.
+The focused command samples exact physical state every 0.25 seconds around the requested time.
+The match form reconstructs a logged Arena match from its seed and brain specifications.
+The JSON report includes:
+
+- The replay fingerprint, duration, score, and human car.
+- Ball hits, bounces, goals, saves, jumps, flips, bumps, demolitions, pads, and phase changes.
+- Per-car score, goal, assist, shot, and save changes.
+- Exact ball and car state, controls, boost, grounding, and statistics at each sample.
+
+Use the timeline to find the event.
+Then inspect a short window to choose an exact source tick before the action.
+Never accept a **C** timestamp as authoritative.
+Do not approximate physics or infer events from browser geometry.
+
+## Goal and save mining
 
 The stored format has enough data for deterministic mining.
-No bulk history exporter or miner exists yet.
-Add one without changing existing replay files.
+Use the inspector as the base for bulk candidate extraction.
 
 For each replay:
 

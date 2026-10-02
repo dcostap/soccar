@@ -23,6 +23,52 @@ try {
     ],
     { stdio: "inherit" },
   );
+  const reportPath = path.join(dir, "inspection.json");
+  const extractedPath = path.join(dir, "inspection-setpiece.txt");
+  execFileSync(
+    "cargo",
+    [
+      "run",
+      "--quiet",
+      "--release",
+      "--manifest-path",
+      "simulation/Cargo.toml",
+      "--bin",
+      "replay_inspect",
+      "--",
+      path.join(dir, "replay-0.json"),
+      "--at",
+      "00:10",
+      "--window",
+      "2",
+      "--output",
+      reportPath,
+      "--extract",
+      extractedPath,
+      "--car",
+      "0",
+      "--kind",
+      "attack",
+      "--timeout",
+      "2",
+      "--name",
+      "inspected-attack",
+      "--description",
+      "Test the selected car from an independently reviewed start.",
+    ],
+    { stdio: "inherit" },
+  );
+  const report = JSON.parse(await readFile(reportPath, "utf8"));
+  assert.equal(report.summary.humanCar, 0);
+  assert.equal(report.summary.ticks, 2400);
+  assert.equal(report.selection.tick, 1200);
+  assert(report.events.some((event) => event.type === "ball_hit"));
+  assert(report.moments.some((moment) => moment.tick === 1200));
+  const extracted = await readFile(extractedPath, "utf8");
+  assert.match(extracted, /^\[inspected-attack\]/);
+  assert.match(extracted, /simulation tick 1200/);
+  assert.match(extracted, /^clip = /m);
+
   const { wasm } = await loadTestSimulation();
   const put = (handle, text) => {
     const bytes = new TextEncoder().encode(text);

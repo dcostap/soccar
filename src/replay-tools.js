@@ -190,16 +190,17 @@ export function mountReplayTools(game, app) {
       tick = game.watchReplay.position;
     const source = opened,
       config = { ...game.config, watch: { ...owner } };
+    const candidate = { reference: source?.id ?? location.href, tick };
     owner.paused = true;
     game.acc = 0;
     const dialog = node("dialog", "", "setpiece-editor");
     const form = node("form");
     form.method = "dialog";
-    form.append(node("h2", "Create a set piece"));
+    form.append(node("h2", "Mark a candidate moment"));
     form.append(
       node(
         "p",
-        "The brain controls one car. All other cars stay in the simulation.",
+        "Choose the car and describe the useful action. An agent must inspect the replay and select the final start.",
       ),
     );
     const car = field(
@@ -215,7 +216,7 @@ export function mountReplayTools(game, app) {
     );
     const kind = field(
       form,
-      "Objective",
+      "Candidate objective (the agent verifies it)",
       select(
         [
           ["attack", "Attack: score a goal"],
@@ -231,10 +232,10 @@ export function mountReplayTools(game, app) {
     seconds.step = "0.1";
     seconds.value = "4";
     seconds.required = true;
-    field(form, "Timeout in seconds", seconds);
+    field(form, "Candidate timeout (the agent verifies it)", seconds);
     const others = field(
       form,
-      "All other cars, including teammates",
+      "Manual preview controls for other cars",
       select(
         [
           [0, "Recorded controls: repeat this challenge"],
@@ -257,16 +258,13 @@ export function mountReplayTools(game, app) {
     name.required = true;
     name.pattern = "[a-z0-9][a-z0-9_\\-]{0,63}";
     name.maxLength = 64;
-    field(form, "Short test name", name);
+    field(form, "Candidate name", name);
     const description = node("textarea");
     description.rows = 2;
+    description.required = true;
     description.placeholder =
       "What should this car do? What makes this moment useful?";
-    field(
-      form,
-      "Description (the contribution agent can ask for this later)",
-      description,
-    );
+    field(form, "Describe what makes this moment useful", description);
     const brain = field(
       form,
       "Brain for preview",
@@ -290,14 +288,15 @@ export function mountReplayTools(game, app) {
         Number(others.value),
       );
       game.lastSetPiece = text;
-      return scenarioFile(text, name.value, description.value);
+      return scenarioFile(text, name.value, description.value, candidate);
     }
-    const exportButton = button("Download set piece", () => {
+    const exportButton = button("Download candidate", () => {
       try {
         const result = capture();
         if (!result) return;
         download(result, `${name.value}.soccar-setpiece.txt`);
-        status.textContent = `Add this file to user-${kind.value}. Ask the contribution agent to check it.`;
+        status.textContent =
+          "Give this candidate to an agent. The agent must inspect the source replay and choose the final start.";
       } catch (error) {
         status.textContent = error.message;
       }
@@ -310,7 +309,7 @@ export function mountReplayTools(game, app) {
           status.textContent = "Copied the full state and controls.";
         }
       } catch (error) {
-        status.textContent = `${error.message}. Use Download set piece instead.`;
+        status.textContent = `${error.message}. Use Download candidate instead.`;
       }
     });
     const preview = button("Preview", () => {
@@ -318,7 +317,7 @@ export function mountReplayTools(game, app) {
         if (!capture()) return;
         const chosen = game.brainChoices.find((b) => b.name === brain.value);
         const withNote = readScenarioFile(
-          scenarioFile(text, name.value, description.value),
+          scenarioFile(text, name.value, description.value, candidate),
         ).text;
         game.startUserScenario(withNote, name.value, chosen);
         returnToMoment = async () => {

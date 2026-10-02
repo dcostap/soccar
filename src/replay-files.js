@@ -2,7 +2,7 @@
 export const MAX_REPLAY_BYTES = 96 * 1024 * 1024;
 export const SCENARIO_NAME = /^[a-z0-9][a-z0-9_-]{0,63}$/;
 
-export function scenarioFile(text, name, description = "") {
+export function scenarioFile(text, name, description = "", candidate = null) {
   if (!SCENARIO_NAME.test(name))
     throw new Error(
       "Use a short name with letters, numbers, dashes, or underscores",
@@ -15,7 +15,15 @@ export function scenarioFile(text, name, description = "") {
       `# Source: ${clip.source_team ? "orange" : "blue"} car at simulation tick ${clip.source_tick}.\n` +
       `# Other cars: ${clip.others ? "fixed reactive behavior" : "recorded controls"}.\n`
     : "";
-  return `[${name}]\n${details}${description.trim() ? `note = ${JSON.stringify(description.trim())}\n` : ""}${body}\n`;
+  const reference = candidate?.reference?.replace(/[\r\n]/g, " ");
+  const anchor = Number.isInteger(candidate?.tick)
+    ? `# Candidate anchor: playback tick ${candidate.tick} (${(candidate.tick / 120).toFixed(3)} seconds).\n`
+    : "";
+  const source = reference ? `# Candidate replay: ${reference}\n` : "";
+  const warning = candidate
+    ? "# This is an approximate anchor. Inspect the source replay and select the final start tick.\n"
+    : "";
+  return `[${name}]\n${warning}${source}${anchor}${details}${description.trim() ? `note = ${JSON.stringify(description.trim())}\n` : ""}${body}\n`;
 }
 
 export function readScenarioFile(text) {
