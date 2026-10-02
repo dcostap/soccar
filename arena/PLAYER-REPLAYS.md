@@ -34,7 +34,8 @@ Clearing site data removes them.
 The application requests persistent browser storage, but the browser can refuse or exhaust its quota.
 
 The game creates a record after match play starts.
-It replaces that game's record with a longer checkpoint after each simulation minute.
+It replaces that game's record after each 30 simulation seconds.
+It also saves after a score change, when paused, and when the page becomes hidden.
 It writes the final available recording when the match ends or another game mode starts.
 Starting another match creates another ID. It does not replace an earlier game.
 

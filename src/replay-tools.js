@@ -103,6 +103,7 @@ export function mountReplayTools(game, app) {
     checkpoint = {
       identity: game.recordingIdentity,
       ticks: game.recordingTicks,
+      score: game.score.join("-"),
     };
     try {
       await keepReplay(value);
@@ -130,7 +131,9 @@ export function mountReplayTools(game, app) {
       active() &&
       !autosaving &&
       (checkpoint?.identity !== game.recordingIdentity ||
-        game.recordingTicks - checkpoint.ticks >= 7200)
+        checkpoint.score !== game.score.join("-") ||
+        (game.paused && checkpoint.ticks !== game.recordingTicks) ||
+        game.recordingTicks - checkpoint.ticks >= 3600)
     ) {
       autosaving = true;
       remember(true)
@@ -140,6 +143,12 @@ export function mountReplayTools(game, app) {
         });
     }
   }, 1000);
+  const flush = () => {
+    if (active()) remember(true).catch(console.error);
+  };
+  const hide = () => document.visibilityState === "hidden" && flush();
+  addEventListener("pagehide", flush);
+  document.addEventListener("visibilitychange", hide);
   persistReplayStorage();
   const replayId = new URLSearchParams(location.search).get("replay");
   if (replayId)
@@ -355,6 +364,8 @@ export function mountReplayTools(game, app) {
   game.openScenarioEditor = editor;
   return () => {
     clearInterval(timer);
+    removeEventListener("pagehide", flush);
+    document.removeEventListener("visibilitychange", hide);
     game.openScenarioEditor = null;
     game.returnToReplay = null;
   };

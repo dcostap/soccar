@@ -14,7 +14,8 @@
 10. Select **Download set piece**. Give this file to the contribution agent.
 
 The game keeps every match in the Arena **Replays** view on this device.
-It creates a record after play starts and updates active matches once per minute.
+It creates a record after play starts and updates active matches every 30 simulation seconds.
+It also saves after a score change, when paused, and when the page becomes hidden.
 It saves the final recording when the match ends or you leave it.
 Starting another match does not replace an earlier recording.
 You can watch, download, or delete each stored game from the Arena.
