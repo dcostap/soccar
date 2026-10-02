@@ -13,6 +13,21 @@ export function rebaseGameAssets(code, base) {
 let assetBase = "/";
 
 export default defineConfig({
+  // The browser source has no package imports. Scanning the captured game bundle
+  // wastes gigabytes in development and can leave the server accepting requests
+  // without returning them.
+  optimizeDeps: { noDiscovery: true },
+  server: {
+    watch: {
+      ignored: [
+        "**/arena/results/**",
+        "**/arena/target/**",
+        "**/artifacts/**",
+        "**/dist/**",
+        "**/simulation/target/**",
+      ],
+    },
+  },
   build: {
     rollupOptions: {
       input: { main: "index.html", arena: "arena.html" },
