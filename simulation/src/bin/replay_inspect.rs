@@ -314,7 +314,7 @@ fn run(options: Options) -> Result<(), String> {
             .match_id
             .map_or_else(|| options.path.clone(), |id| format!("Arena match {id}"));
         scenario.note = format!(
-            "{} Source: {source}, tick {}.",
+            "{}. Source: {source}, tick {}.",
             options.description.as_ref().unwrap().trim_end_matches('.'),
             focus_tick.unwrap()
         );

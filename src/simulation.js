@@ -144,7 +144,7 @@ export async function createRustGame(
     destroy() {
       clearTimeout(this.tipTimer);
       this.stopWatchReplay();
-      globalThis.removeEventListener?.("keydown", this.watchKeyHandler);
+      globalThis.removeEventListener?.("keydown", this.watchKeyHandler, true);
       if (this.handle) wasm.sim_destroy(this.handle);
       this.handle = 0;
     }
@@ -445,14 +445,14 @@ export async function createRustGame(
       if (w.scenario !== undefined) {
         this.hud.setTip(
           `SET PIECE ${w.id} (${w.kind}) &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
-            `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C CREATE SET PIECE${this.returnToReplay ? " &nbsp; B BACK TO MOMENT" : ""} &nbsp; ESC MENU`,
+            `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; SPACE PAUSE &nbsp; ← → ±2S &nbsp; C MARK CANDIDATE${this.returnToReplay ? " &nbsp; B BACK TO MOMENT" : ""} &nbsp; ESC MENU`,
         );
         return;
       }
       this.hud.setTip(
         `WATCHING #${w.id} &nbsp; ${w.names[0]} vs ${w.names[1]} &nbsp; ` +
           `CAMERA ${car ? `${car.name} (${side})` : "-"} &nbsp; ×${w.speed}${w.paused ? " PAUSED" : ""}` +
-          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; P PAUSE &nbsp; ← → SEEK &nbsp; C CREATE SET PIECE &nbsp; ESC MENU`,
+          `<br>1-6 FOLLOW CAR &nbsp; , . SPEED &nbsp; SPACE PAUSE &nbsp; ← → ±2S &nbsp; C MARK CANDIDATE &nbsp; ESC MENU`,
       );
     }
     /** Spectator keys while watching. */
@@ -460,14 +460,40 @@ export async function createRustGame(
       const w = this.watch;
       if (
         !w ||
-        (this.paused && !["KeyP", "KeyC", "KeyB"].includes(event.code)) ||
-        event.defaultPrevented ||
         event.ctrlKey ||
         event.altKey ||
         event.metaKey ||
         event.target?.closest?.(
           "input, select, textarea, button, [contenteditable='true']",
         )
+      )
+        return;
+      if (event.code === "Space" && !event.repeat) {
+        if (this.paused) return;
+        w.paused = !w.paused;
+        event.preventDefault();
+        this.showWatchTip();
+        return;
+      }
+      if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.code)) {
+        if (this.paused) return;
+        const replay = this.watchReplay;
+        if (replay?.total == null) return;
+        const target =
+          event.code === "Home"
+            ? 0
+            : event.code === "End"
+              ? replay.total
+              : replay.position +
+                (event.code === "ArrowLeft" ? -2 : 2) / replay.dt;
+        this.seekWatch(target);
+        event.preventDefault();
+        this.showWatchTip();
+        return;
+      }
+      if (
+        (this.paused && !["KeyP", "KeyC", "KeyB"].includes(event.code)) ||
+        event.defaultPrevented
       )
         return;
       const digit = /^Digit([1-6])$/.exec(event.code);
@@ -490,19 +516,6 @@ export async function createRustGame(
         this.returnToReplay().catch(console.error);
         event.preventDefault();
         return;
-      } else if (
-        ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.code)
-      ) {
-        const replay = this.watchReplay;
-        if (replay?.total === null || !replay) return;
-        const target =
-          event.code === "Home"
-            ? 0
-            : event.code === "End"
-              ? replay.total
-              : replay.position +
-                (event.code === "ArrowLeft" ? -5 : 5) / replay.dt;
-        this.seekWatch(target);
       } else return;
       event.preventDefault();
       this.showWatchTip();
@@ -808,6 +821,6 @@ export async function createRustGame(
   }
   const game = new RustGame();
   game.watchKeyHandler = (event) => game.watchKey(event);
-  globalThis.addEventListener?.("keydown", game.watchKeyHandler);
+  globalThis.addEventListener?.("keydown", game.watchKeyHandler, true);
   return game;
 }

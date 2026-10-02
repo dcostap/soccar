@@ -337,8 +337,40 @@ try {
   );
   await page.getByRole("button", { name: "Pause replay", exact: true }).click();
   await page.evaluate(() => document.activeElement.blur());
+  const beforeKeySeek = Number(await range.inputValue());
+  const maxKeySeek = Number(await range.getAttribute("max"));
+  const forwardKeySeek = Math.min(maxKeySeek, beforeKeySeek + 240);
   await page.keyboard.press("ArrowRight");
-  await idle();
+  await page.waitForFunction(
+    (target) =>
+      Number(document.querySelector(".watch-range")?.value) === target,
+    forwardKeySeek,
+  );
+  const afterKeySeek = Number(await range.inputValue());
+  assert.equal(
+    afterKeySeek,
+    forwardKeySeek,
+    "ArrowRight seeks forward by two seconds without timeline focus",
+  );
+  await page.keyboard.press("ArrowLeft");
+  await page.waitForFunction(
+    (target) =>
+      Number(document.querySelector(".watch-range")?.value) === target,
+    beforeKeySeek,
+  );
+  assert.equal(
+    Number(await range.inputValue()),
+    beforeKeySeek,
+    "ArrowLeft seeks backward by two seconds without timeline focus",
+  );
+  await page.keyboard.press("Space");
+  await page
+    .getByRole("button", { name: "Pause replay", exact: true })
+    .waitFor();
+  await page.keyboard.press("Space");
+  await page
+    .getByRole("button", { name: "Play replay", exact: true })
+    .waitFor();
   const beforeDrag = await range.evaluate((e) => Number(e.value));
   const bounds = await range.boundingBox();
   await page.mouse.move(
