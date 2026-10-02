@@ -15,6 +15,7 @@ pub mod alphabravo;
 pub mod bravo;
 // Fixed rivals for set pieces. See crate::scenario.
 pub mod scripted;
+pub mod strike;
 
 /// What a brain can see each tick.
 pub struct Context<'a> {
@@ -77,6 +78,11 @@ pub const MODULES: &[Module] = &[
         name: "scripted",
         source: include_str!("scripted.rs"),
         create: scripted::create,
+    },
+    Module {
+        name: "strike",
+        source: include_str!("strike.rs"),
+        create: strike::create,
     },
 ];
 pub fn module(name: &str) -> Option<&'static Module> {

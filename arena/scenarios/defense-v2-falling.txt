@@ -1,0 +1,2378 @@
+# Falling shots that enter above the floor.
+# Fixed defense v2. Goal lead-in: 2.5–5 s; start distance: at least 2000. Do not replace these tests.
+
+[left-lead-in-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = -351 -694 293
+ball_vel = -76 -1606 987
+ball_spin = 0 0 0
+car = blue 100 -4937 96 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 2.95s. Defender mouth, facing, stopped, boost 0.
+
+[left-lead-in-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -2428 -127 152
+ball_vel = 652 -1664 1131
+ball_spin = 0 0 3
+car = blue -518 -5049 111 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.21s. Defender near-post, facing, forward, boost 0.
+
+[left-lead-in-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 196 -2157 109
+ball_vel = -203 -911 1225
+ball_spin = 0 0 -3
+car = blue 686 -4885 100 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.54s. Defender far-post, facing, reverse, boost 0.
+
+[left-lead-in-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1221 -2445 104
+ball_vel = -523 -821 1227
+ball_spin = 0 0 1
+car = blue 518 -5219 76 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.56s. Defender inside, facing, fast-forward, boost 12.
+
+[left-lead-in-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = -451 -2686 273
+ball_vel = -16 -727 1190
+ball_spin = 0 0 1
+car = blue -381 -3901 93 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.68s. Defender ahead, facing, stopped, boost 12.
+
+[left-lead-in-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1296 -1060 140
+ball_vel = 252 -1226 1195
+ball_spin = 0 0 -1
+car = blue -1885 -4584 81 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.57s. Defender beside, facing, forward, boost 12.
+
+[center-lead-in-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1448 -2449 114
+ball_vel = 440 -793 1278
+ball_spin = 0 0 2
+car = blue 266 -4751 127 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.69s. Defender mouth, facing, reverse, boost 33.
+
+[center-lead-in-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1679 -2359 339
+ball_vel = 599 -896 1037
+ball_spin = 0 0 0
+car = blue 592 -5033 130 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.36s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-lead-in-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2185 -1876 344
+ball_vel = -631 -953 1189
+ball_spin = 0 0 -3
+car = blue -589 -4791 46 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.71s. Defender far-post, facing, stopped, boost 33.
+
+[center-lead-in-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1280 -1334 100
+ball_vel = 505 -1301 1093
+ball_spin = 0 0 1
+car = blue -465 -5325 102 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.13s. Defender inside, facing, forward, boost 100.
+
+[center-lead-in-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2475 -3100 368
+ball_vel = -849 -665 1072
+ball_spin = 0 0 -2
+car = blue 614 -4319 33 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.35s. Defender ahead, facing, reverse, boost 100.
+
+[center-lead-in-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2058 -2217 341
+ball_vel = -622 -978 1013
+ball_spin = 0 0 3
+car = blue 1134 -4609 69 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.23s. Defender beside, facing, fast-forward, boost 100.
+
+[right-lead-in-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1557 -449 280
+ball_vel = 574 -1293 1291
+ball_spin = 0 0 2
+car = blue -214 -4937 107 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.91s. Defender mouth, facing, stopped, boost 0.
+
+[right-lead-in-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1153 -1437 313
+ball_vel = 582 -1304 979
+ball_spin = 0 0 -2
+car = blue 675 -4891 118 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.03s. Defender near-post, facing, forward, boost 0.
+
+[right-lead-in-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1146 -2979 366
+ball_vel = -151 -675 1077
+ball_spin = 0 0 -2
+car = blue -597 -4902 48 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.49s. Defender far-post, facing, reverse, boost 0.
+
+[right-lead-in-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2321 -1422 274
+ball_vel = -479 -1011 1321
+ball_spin = 0 0 2
+car = blue -224 -5217 56 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.98s. Defender inside, facing, fast-forward, boost 12.
+
+[right-lead-in-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2014 -1943 117
+ball_vel = -458 -898 1282
+ball_spin = 0 0 -3
+car = blue 691 -4027 58 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.87s. Defender ahead, facing, stopped, boost 12.
+
+[right-lead-in-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -71 -1377 348
+ball_vel = 203 -1029 1297
+ball_spin = 0 0 2
+car = blue 1841 -4645 120 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.96s. Defender beside, facing, forward, boost 12.
+
+[left-lead-in-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 686 -471 261
+ball_vel = -446 -1602 1070
+ball_spin = 0 0 -3
+car = blue 178 -4928 173 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.11s. Defender mouth, leftward, forward, boost 12.
+
+[left-lead-in-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -873 -980 175
+ball_vel = 75 -1283 1177
+ball_spin = 0 0 -1
+car = blue -637 -5031 183 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.48s. Defender near-post, leftward, reverse, boost 12.
+
+[left-lead-in-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -2004 -2645 231
+ball_vel = 464 -799 1155
+ball_spin = 0 0 1
+car = blue 651 -4762 231 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.39s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-lead-in-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -171 -1325 236
+ball_vel = -89 -1294 1069
+ball_spin = 0 0 2
+car = blue 540 -5229 190 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.16s. Defender inside, leftward, stopped, boost 33.
+
+[left-lead-in-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 950 -269 382
+ball_vel = -504 -1668 963
+ball_spin = 0 0 3
+car = blue -814 -4088 155 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.11s. Defender ahead, leftward, forward, boost 33.
+
+[left-lead-in-beside-002]
+kind = defend
+time = 6
+seed = 1
+ball = -2286 -399 238
+ball_vel = 435 -1259 1332
+ball_spin = 0 0 0
+car = blue -1654 -4555 189 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 4.07s. Defender beside, leftward, reverse, boost 33.
+
+[center-lead-in-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1035 51 375
+ball_vel = -355 -1628 1051
+ball_spin = 0 0 1
+car = blue 239 -4975 171 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.41s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-lead-in-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 900 -836 118
+ball_vel = -317 -1543 1053
+ball_spin = 0 0 -2
+car = blue 523 -4886 175 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 2.98s. Defender near-post, leftward, stopped, boost 100.
+
+[center-lead-in-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1190 -758 172
+ball_vel = 297 -1317 1178
+ball_spin = 0 0 -2
+car = blue 672 -5021 204 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.57s. Defender far-post, leftward, forward, boost 100.
+
+[center-lead-in-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -585 -1543 230
+ball_vel = 156 -1200 1064
+ball_spin = 0 0 0
+car = blue 13 -5322 189 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.22s. Defender inside, leftward, reverse, boost 0.
+
+[center-lead-in-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1089 -1838 351
+ball_vel = -322 -1073 1070
+ball_spin = 0 0 1
+car = blue 603 -4073 168 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.31s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-lead-in-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -601 -2295 98
+ball_vel = 204 -909 1161
+ball_spin = 0 0 -1
+car = blue -1400 -4471 160 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.38s. Defender beside, leftward, stopped, boost 0.
+
+[right-lead-in-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 2125 -2529 400
+ball_vel = -603 -908 957
+ball_spin = 0 0 -2
+car = blue 258 -4886 142 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.10s. Defender mouth, leftward, forward, boost 12.
+
+[right-lead-in-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -1754 -322 177
+ball_vel = 774 -1707 1056
+ball_spin = 0 0 0
+car = blue 614 -4831 208 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.00s. Defender near-post, leftward, reverse, boost 12.
+
+[right-lead-in-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -790 -258 254
+ball_vel = 395 -1611 1089
+ball_spin = 0 0 -3
+car = blue -505 -5023 183 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.23s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-lead-in-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1049 -466 201
+ball_vel = 488 -1399 1191
+ball_spin = 0 0 0
+car = blue -236 -5299 190 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.58s. Defender inside, leftward, stopped, boost 33.
+
+[right-lead-in-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 489 -1125 395
+ball_vel = 50 -1090 1275
+ball_spin = 0 0 1
+car = blue -780 -3912 156 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.98s. Defender ahead, leftward, forward, boost 33.
+
+[right-lead-in-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 2177 -2199 282
+ball_vel = -566 -936 1145
+ball_spin = 0 0 -2
+car = blue 1404 -4642 162 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.39s. Defender beside, leftward, reverse, boost 33.
+
+[left-lead-in-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -543 -2000 358
+ball_vel = 32 -902 1208
+ball_spin = 0 0 -2
+car = blue 268 -4954 285 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.77s. Defender mouth, away, reverse, boost 33.
+
+[left-lead-in-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1633 -3206 223
+ball_vel = 422 -679 1062
+ball_spin = 0 0 3
+car = blue -542 -4887 303 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.10s. Defender near-post, away, fast-forward, boost 33.
+
+[left-lead-in-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1203 -1076 145
+ball_vel = 193 -1190 1212
+ball_spin = 0 0 -2
+car = blue 594 -4978 295 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.67s. Defender far-post, away, stopped, boost 33.
+
+[left-lead-in-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 741 -2629 335
+ball_vel = -356 -713 1218
+ball_spin = 0 0 3
+car = blue 218 -5305 259 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.84s. Defender inside, away, forward, boost 100.
+
+[left-lead-in-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2038 -3036 282
+ball_vel = 502 -680 1066
+ball_spin = 0 0 2
+car = blue -303 -4159 327 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.38s. Defender ahead, away, reverse, boost 100.
+
+[left-lead-in-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -118 -3033 264
+ball_vel = -115 -662 1140
+ball_spin = 0 0 2
+car = blue -1876 -4700 223 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.48s. Defender beside, away, fast-forward, boost 100.
+
+[center-lead-in-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2025 -1214 237
+ball_vel = -633 -1170 1216
+ball_spin = 0 0 2
+car = blue -69 -4924 241 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.62s. Defender mouth, away, stopped, boost 0.
+
+[center-lead-in-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1323 -906 282
+ball_vel = 408 -1163 1308
+ball_spin = 0 0 -1
+car = blue 506 -4774 295 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.93s. Defender near-post, away, forward, boost 0.
+
+[center-lead-in-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -166 -88 182
+ball_vel = 49 -1541 1177
+ball_spin = 0 0 -2
+car = blue 699 -4857 280 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.51s. Defender far-post, away, reverse, boost 0.
+
+[center-lead-in-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2044 -379 167
+ball_vel = 624 -1313 1338
+ball_spin = 0 0 1
+car = blue 19 -5210 293 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.91s. Defender inside, away, fast-forward, boost 12.
+
+[center-lead-in-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 468 36 96
+ball_vel = -115 -1736 1114
+ball_spin = 0 0 2
+car = blue 833 -3981 275 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.17s. Defender ahead, away, stopped, boost 12.
+
+[center-lead-in-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2022 -621 130
+ball_vel = 579 -1412 1200
+ball_spin = 0 0 -1
+car = blue -1106 -4682 283 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.42s. Defender beside, away, forward, boost 12.
+
+[right-lead-in-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1793 -1021 186
+ball_vel = 731 -1345 1074
+ball_spin = 0 0 1
+car = blue 286 -4939 298 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.27s. Defender mouth, away, reverse, boost 33.
+
+[right-lead-in-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2212 -2550 101
+ball_vel = -578 -923 1082
+ball_spin = 0 0 3
+car = blue 667 -4923 237 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.02s. Defender near-post, away, fast-forward, boost 33.
+
+[right-lead-in-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = 391 -1783 366
+ball_vel = 25 -898 1319
+ball_spin = 0 0 -3
+car = blue -642 -4819 251 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.07s. Defender far-post, away, stopped, boost 33.
+
+[right-lead-in-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -697 -2874 264
+ball_vel = 429 -785 1010
+ball_spin = 0 0 -2
+car = blue -400 -5213 277 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.13s. Defender inside, away, forward, boost 100.
+
+[right-lead-in-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2306 -2761 254
+ball_vel = -537 -734 1190
+ball_spin = 0 0 2
+car = blue -391 -4328 210 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.67s. Defender ahead, away, reverse, boost 100.
+
+[right-lead-in-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 968 -367 220
+ball_vel = -134 -1388 1246
+ball_spin = 0 0 1
+car = blue 1145 -4761 272 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.69s. Defender beside, away, fast-forward, boost 100.
+
+[left-lead-in-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -789 -470 205
+ball_vel = 108 -1469 1136
+ball_spin = 0 0 -1
+car = blue 307 -4797 14 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.40s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-lead-in-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1244 -1350 324
+ball_vel = 253 -1319 993
+ball_spin = 0 0 2
+car = blue -699 -4839 9 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.08s. Defender near-post, rightward, stopped, boost 100.
+
+[left-lead-in-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -2471 -770 240
+ball_vel = 559 -1186 1339
+ball_spin = 0 0 -2
+car = blue 579 -4769 37 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.98s. Defender far-post, rightward, forward, boost 100.
+
+[left-lead-in-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2299 -1054 319
+ball_vel = -1026 -1397 1031
+ball_spin = 0 0 -1
+car = blue 313 -5282 -25 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.12s. Defender inside, rightward, reverse, boost 0.
+
+[left-lead-in-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -31 -1164 239
+ball_vel = -174 -1363 1018
+ball_spin = 0 0 2
+car = blue 314 -4288 6 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.12s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-lead-in-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1322 -2146 253
+ball_vel = -658 -997 1032
+ball_spin = 0 0 -3
+car = blue -1321 -4782 -45 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.23s. Defender beside, rightward, stopped, boost 0.
+
+[center-lead-in-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 740 -1714 148
+ball_vel = -236 -983 1268
+ball_spin = 0 0 1
+car = blue -122 -4986 -15 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.77s. Defender mouth, rightward, forward, boost 12.
+
+[center-lead-in-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -441 -28 299
+ball_vel = 96 -1692 1064
+ball_spin = 0 0 -1
+car = blue -507 -4805 -1 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.22s. Defender near-post, rightward, reverse, boost 12.
+
+[center-lead-in-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1030 -772 205
+ball_vel = -325 -1329 1200
+ball_spin = 0 0 -1
+car = blue 617 -4854 -6 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.52s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-lead-in-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2172 -2154 189
+ball_vel = -738 -943 1158
+ball_spin = 0 0 -2
+car = blue 391 -5273 -30 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.42s. Defender inside, rightward, stopped, boost 33.
+
+[center-lead-in-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -553 -415 328
+ball_vel = 255 -1555 1068
+ball_spin = 0 0 1
+car = blue -499 -4242 1 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.24s. Defender ahead, rightward, forward, boost 33.
+
+[center-lead-in-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 345 -1414 140
+ball_vel = -153 -1184 1117
+ball_spin = 0 0 -1
+car = blue 1412 -4782 18 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.38s. Defender beside, rightward, reverse, boost 33.
+
+[right-lead-in-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -2308 -1598 165
+ball_vel = 822 -989 1279
+ball_spin = 0 0 -1
+car = blue 329 -4844 39 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.88s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-lead-in-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1309 -389 195
+ball_vel = 542 -1319 1276
+ball_spin = 0 0 -0
+car = blue 596 -4998 22 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.88s. Defender near-post, rightward, stopped, boost 100.
+
+[right-lead-in-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1722 -3045 229
+ball_vel = 738 -694 1059
+ball_spin = 0 0 2
+car = blue -676 -4940 29 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.29s. Defender far-post, rightward, forward, boost 100.
+
+[right-lead-in-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -501 -1834 352
+ball_vel = 287 -1001 1111
+ball_spin = 0 0 2
+car = blue -548 -5200 -1 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.57s. Defender inside, rightward, reverse, boost 0.
+
+[right-lead-in-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1796 -339 163
+ball_vel = 677 -1404 1222
+ball_spin = 0 0 -1
+car = blue -352 -4150 21 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.67s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-lead-in-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -2391 -322 325
+ball_vel = 1075 -1686 1032
+ball_spin = 0 0 1
+car = blue 1744 -4641 44 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.04s. Defender beside, rightward, stopped, boost 0.
+
+[left-lead-in-mouth-005]
+kind = defend
+time = 5
+seed = 1
+ball = -2211 -2443 320
+ball_vel = 451 -788 1215
+ball_spin = 0 0 -1
+car = blue -206 -4931 129 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.73s. Defender mouth, facing, stopped, boost 0.
+
+[left-lead-in-near-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = -2349 -845 249
+ball_vel = 540 -1303 1148
+ball_spin = 0 0 -1
+car = blue -578 -5005 113 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.54s. Defender near-post, facing, forward, boost 0.
+
+[left-lead-in-far-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1911 -1299 375
+ball_vel = 418 -1290 971
+ball_spin = 0 0 2
+car = blue 571 -5022 124 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.19s. Defender far-post, facing, reverse, boost 0.
+
+[left-lead-in-inside-005]
+kind = defend
+time = 5
+seed = 1
+ball = 2025 58 152
+ball_vel = -727 -1471 1283
+ball_spin = 0 0 -1
+car = blue -642 -5305 64 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.80s. Defender inside, facing, fast-forward, boost 12.
+
+[left-lead-in-ahead-005]
+kind = defend
+time = 6
+seed = 1
+ball = 2378 -2509 295
+ball_vel = -805 -699 1332
+ball_spin = 0 0 2
+car = blue 525 -4375 45 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 4.12s. Defender ahead, facing, stopped, boost 12.
+
+[left-lead-in-beside-005]
+kind = defend
+time = 6
+seed = 1
+ball = 1744 -3193 281
+ball_vel = -591 -525 1314
+ball_spin = 0 0 1
+car = blue -1591 -4475 21 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 4.10s. Defender beside, facing, forward, boost 12.
+
+[center-lead-in-mouth-005]
+kind = defend
+time = 5
+seed = 1
+ball = 540 -879 195
+ball_vel = -229 -1259 1219
+ball_spin = 0 0 -1
+car = blue -199 -4845 79 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.64s. Defender mouth, facing, reverse, boost 33.
+
+[center-lead-in-near-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = 500 -136 271
+ball_vel = -189 -1728 1002
+ball_spin = 0 0 1
+car = blue -586 -5014 77 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.08s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-lead-in-far-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = 2346 -1262 226
+ball_vel = -738 -1265 1102
+ball_spin = 0 0 1
+car = blue -586 -4860 51 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.28s. Defender far-post, facing, stopped, boost 33.
+
+[center-lead-in-inside-005]
+kind = defend
+time = 5
+seed = 1
+ball = 2080 -876 240
+ball_vel = -700 -1321 1147
+ball_spin = 0 0 -2
+car = blue -600 -5329 59 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.47s. Defender inside, facing, forward, boost 100.
+
+[center-lead-in-ahead-005]
+kind = defend
+time = 5
+seed = 1
+ball = -741 -357 368
+ball_vel = 214 -1334 1270
+ball_spin = 0 0 -0
+car = blue 677 -3921 112 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.86s. Defender ahead, facing, reverse, boost 100.
+
+[center-lead-in-beside-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1142 -2677 157
+ball_vel = 344 -835 1092
+ball_spin = 0 0 2
+car = blue 1176 -4585 141 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.19s. Defender beside, facing, fast-forward, boost 100.
+
+[right-lead-in-mouth-005]
+kind = defend
+time = 5
+seed = 1
+ball = -80 -400 286
+ball_vel = 152 -1425 1164
+ball_spin = 0 0 1
+car = blue -3 -4759 91 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.57s. Defender mouth, facing, stopped, boost 0.
+
+[right-lead-in-near-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = 254 -2466 100
+ball_vel = 92 -901 1062
+ball_spin = 0 0 1
+car = blue 530 -4923 96 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.21s. Defender near-post, facing, forward, boost 0.
+
+[right-lead-in-far-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = 921 -3047 109
+ball_vel = -157 -727 1102
+ball_spin = 0 0 -3
+car = blue -507 -4924 53 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.13s. Defender far-post, facing, reverse, boost 0.
+
+[right-lead-in-inside-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1405 -2854 286
+ball_vel = 672 -761 1089
+ball_spin = 0 0 1
+car = blue -588 -5204 109 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.26s. Defender inside, facing, fast-forward, boost 12.
+
+[right-lead-in-ahead-005]
+kind = defend
+time = 5
+seed = 1
+ball = -2238 -2528 350
+ball_vel = 790 -743 1218
+ball_spin = 0 0 -0
+car = blue 175 -4375 143 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.83s. Defender ahead, facing, stopped, boost 12.
+
+[right-lead-in-beside-005]
+kind = defend
+time = 5
+seed = 1
+ball = -963 -1562 292
+ball_vel = 473 -1040 1205
+ball_spin = 0 0 0
+car = blue 1727 -4674 131 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.72s. Defender beside, facing, forward, boost 12.
+
+[left-lead-in-mouth-006]
+kind = defend
+time = 5
+seed = 1
+ball = -568 -208 305
+ball_vel = -35 -1600 1025
+ball_spin = 0 0 -2
+car = blue -67 -4918 186 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.29s. Defender mouth, leftward, forward, boost 12.
+
+[left-lead-in-near-post-006]
+kind = defend
+time = 4
+seed = 1
+ball = 2122 -1422 198
+ball_vel = -981 -1340 1051
+ball_spin = 0 0 1
+car = blue -611 -5041 143 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 2.97s. Defender near-post, leftward, reverse, boost 12.
+
+[left-lead-in-far-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = 2391 -2744 126
+ball_vel = -934 -761 1188
+ball_spin = 0 0 1
+car = blue 557 -4759 138 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.42s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-lead-in-inside-006]
+kind = defend
+time = 5
+seed = 1
+ball = 1214 -1111 302
+ball_vel = -597 -1268 1125
+ball_spin = 0 0 -2
+car = blue 112 -5244 165 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.41s. Defender inside, leftward, stopped, boost 33.
+
+[left-lead-in-ahead-006]
+kind = defend
+time = 5
+seed = 1
+ball = -1757 -3106 330
+ball_vel = 387 -629 1119
+ball_spin = 0 0 2
+car = blue -480 -4053 233 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.54s. Defender ahead, leftward, forward, boost 33.
+
+[left-lead-in-beside-006]
+kind = defend
+time = 5
+seed = 1
+ball = -1789 -855 342
+ball_vel = 420 -1429 1067
+ball_spin = 0 0 -2
+car = blue -1481 -4654 185 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.21s. Defender beside, leftward, reverse, boost 33.
+
+[center-lead-in-mouth-006]
+kind = defend
+time = 5
+seed = 1
+ball = 930 -87 346
+ball_vel = -325 -1766 972
+ball_spin = 0 0 2
+car = blue -209 -4939 167 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.04s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-lead-in-near-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = 1056 -1455 197
+ball_vel = -425 -1222 1070
+ball_spin = 0 0 0
+car = blue -655 -4787 153 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.23s. Defender near-post, leftward, stopped, boost 100.
+
+[center-lead-in-far-post-006]
+kind = defend
+time = 6
+seed = 1
+ball = 1516 -951 301
+ball_vel = -355 -1107 1355
+ball_spin = 0 0 1
+car = blue -651 -4803 151 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 4.10s. Defender far-post, leftward, forward, boost 100.
+
+[center-lead-in-inside-006]
+kind = defend
+time = 6
+seed = 1
+ball = -1773 -1545 347
+ball_vel = 509 -948 1313
+ball_spin = 0 0 -2
+car = blue -166 -5330 203 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 4.12s. Defender inside, leftward, reverse, boost 0.
+
+[center-lead-in-ahead-006]
+kind = defend
+time = 5
+seed = 1
+ball = -717 -469 391
+ball_vel = 193 -1293 1270
+ball_spin = 0 0 -2
+car = blue -523 -4182 183 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.89s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-lead-in-beside-006]
+kind = defend
+time = 5
+seed = 1
+ball = 499 -1167 259
+ball_vel = -137 -1082 1304
+ball_spin = 0 0 0
+car = blue -1478 -4333 148 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.98s. Defender beside, leftward, stopped, boost 0.
+
+[right-lead-in-mouth-006]
+kind = defend
+time = 6
+seed = 1
+ball = 789 -1985 149
+ball_vel = -33 -846 1348
+ball_spin = 0 0 -1
+car = blue 114 -4781 166 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.06s. Defender mouth, leftward, forward, boost 12.
+
+[right-lead-in-near-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = 2429 -1729 95
+ball_vel = -609 -1187 1061
+ball_spin = 0 0 -1
+car = blue 538 -4867 149 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.08s. Defender near-post, leftward, reverse, boost 12.
+
+[right-lead-in-far-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = -1656 -105 264
+ball_vel = 668 -1467 1191
+ball_spin = 0 0 -3
+car = blue -668 -4906 192 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.68s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-lead-in-inside-006]
+kind = defend
+time = 5
+seed = 1
+ball = 2283 -2511 240
+ball_vel = -645 -941 1009
+ball_spin = 0 0 -0
+car = blue -4 -5295 141 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.01s. Defender inside, leftward, stopped, boost 33.
+
+[right-lead-in-ahead-006]
+kind = defend
+time = 5
+seed = 1
+ball = 2151 -1762 229
+ball_vel = -515 -1171 1041
+ball_spin = 0 0 -1
+car = blue -237 -4319 137 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.09s. Defender ahead, leftward, forward, boost 33.
+
+[right-lead-in-beside-006]
+kind = defend
+time = 5
+seed = 1
+ball = -1415 -1197 298
+ball_vel = 556 -1110 1254
+ball_spin = 0 0 -2
+car = blue 1657 -4594 222 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.83s. Defender beside, leftward, reverse, boost 33.
+
+[left-lead-in-mouth-007]
+kind = defend
+time = 5
+seed = 1
+ball = -400 -2319 316
+ball_vel = -13 -814 1227
+ball_spin = 0 0 -0
+car = blue -242 -4887 274 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.77s. Defender mouth, away, reverse, boost 33.
+
+[left-lead-in-near-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = 902 -45 219
+ball_vel = -534 -1771 1013
+ball_spin = 0 0 -0
+car = blue -539 -4939 254 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.06s. Defender near-post, away, fast-forward, boost 33.
+
+[left-lead-in-far-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -290 -1111 115
+ball_vel = -39 -1242 1224
+ball_spin = 0 0 1
+car = blue 530 -4844 282 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.48s. Defender far-post, away, stopped, boost 33.
+
+[left-lead-in-inside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 478 -860 282
+ball_vel = -379 -1381 1081
+ball_spin = 0 0 0
+car = blue -267 -5216 260 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.32s. Defender inside, away, forward, boost 100.
+
+[left-lead-in-ahead-007]
+kind = defend
+time = 5
+seed = 1
+ball = 2202 -1945 304
+ball_vel = -803 -936 1170
+ball_spin = 0 0 3
+car = blue -465 -3900 216 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.70s. Defender ahead, away, reverse, boost 100.
+
+[left-lead-in-beside-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1078 -1235 225
+ball_vel = 177 -1058 1299
+ball_spin = 0 0 1
+car = blue -1136 -4336 269 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 4.00s. Defender beside, away, fast-forward, boost 100.
+
+[center-lead-in-mouth-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1863 -2500 258
+ball_vel = 573 -798 1158
+ball_spin = 0 0 2
+car = blue 314 -4837 313 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.59s. Defender mouth, away, stopped, boost 0.
+
+[center-lead-in-near-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -586 -2338 120
+ball_vel = 116 -899 1139
+ball_spin = 0 0 -1
+car = blue -549 -5010 271 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.37s. Defender near-post, away, forward, boost 0.
+
+[center-lead-in-far-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -535 -1903 161
+ball_vel = 205 -992 1202
+ball_spin = 0 0 1
+car = blue -584 -4774 269 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.52s. Defender far-post, away, reverse, boost 0.
+
+[center-lead-in-inside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 1609 -2865 145
+ball_vel = -518 -639 1288
+ball_spin = 0 0 1
+car = blue 49 -5328 238 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.90s. Defender inside, away, fast-forward, boost 12.
+
+[center-lead-in-ahead-007]
+kind = defend
+time = 6
+seed = 1
+ball = 1477 -277 353
+ball_vel = -358 -1305 1273
+ball_spin = 0 0 2
+car = blue 798 -4375 261 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 4.03s. Defender ahead, away, stopped, boost 12.
+
+[center-lead-in-beside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 1599 -2057 190
+ball_vel = -418 -892 1224
+ball_spin = 0 0 1
+car = blue 1687 -4494 272 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.75s. Defender beside, away, forward, boost 12.
+
+[right-lead-in-mouth-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1637 -402 235
+ball_vel = 678 -1406 1199
+ball_spin = 0 0 -1
+car = blue 322 -4875 294 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.62s. Defender mouth, away, reverse, boost 33.
+
+[right-lead-in-near-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -2264 -614 202
+ball_vel = 909 -1463 1150
+ball_spin = 0 0 0
+car = blue 590 -4906 304 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.31s. Defender near-post, away, fast-forward, boost 33.
+
+[right-lead-in-far-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1557 45 391
+ball_vel = 582 -1485 1171
+ball_spin = 0 0 1
+car = blue -539 -4866 282 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.75s. Defender far-post, away, stopped, boost 33.
+
+[right-lead-in-inside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 909 -107 229
+ball_vel = -135 -1517 1140
+ball_spin = 0 0 -1
+car = blue 163 -5263 262 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.56s. Defender inside, away, forward, boost 100.
+
+[right-lead-in-ahead-007]
+kind = defend
+time = 5
+seed = 1
+ball = -2387 -1972 237
+ball_vel = 942 -974 1156
+ball_spin = 0 0 3
+car = blue 649 -3978 327 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.52s. Defender ahead, away, reverse, boost 100.
+
+[right-lead-in-beside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 1810 -2777 271
+ball_vel = -412 -691 1225
+ball_spin = 0 0 3
+car = blue 1175 -4654 251 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.73s. Defender beside, away, fast-forward, boost 100.
+
+[left-lead-in-mouth-008]
+kind = defend
+time = 5
+seed = 1
+ball = -1996 -1841 317
+ball_vel = 413 -913 1294
+ball_spin = 0 0 -1
+car = blue -7 -4948 33 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.92s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-lead-in-near-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1291 -2634 343
+ball_vel = -528 -763 1146
+ball_spin = 0 0 -2
+car = blue -525 -4893 -39 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.57s. Defender near-post, rightward, stopped, boost 100.
+
+[left-lead-in-far-post-008]
+kind = defend
+time = 4
+seed = 1
+ball = 1208 -13 178
+ball_vel = -662 -1833 1044
+ball_spin = 0 0 -3
+car = blue 533 -4819 -8 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 2.98s. Defender far-post, rightward, forward, boost 100.
+
+[left-lead-in-inside-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1020 -2431 286
+ball_vel = -426 -762 1282
+ball_spin = 0 0 -2
+car = blue 553 -5311 -9 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.88s. Defender inside, rightward, reverse, boost 0.
+
+[left-lead-in-ahead-008]
+kind = defend
+time = 5
+seed = 1
+ball = -2051 -2185 191
+ball_vel = 527 -1055 989
+ball_spin = 0 0 -2
+car = blue -485 -3970 41 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.01s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-lead-in-beside-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1210 -930 364
+ball_vel = -543 -1233 1152
+ball_spin = 0 0 -1
+car = blue -1378 -4548 -36 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.67s. Defender beside, rightward, stopped, boost 0.
+
+[center-lead-in-mouth-008]
+kind = defend
+time = 5
+seed = 1
+ball = -591 -686 373
+ball_vel = 121 -1481 1003
+ball_spin = 0 0 2
+car = blue -176 -4904 6 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.22s. Defender mouth, rightward, forward, boost 12.
+
+[center-lead-in-near-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = -1978 -3211 341
+ball_vel = 531 -544 1231
+ball_spin = 0 0 -1
+car = blue -690 -4909 37 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.91s. Defender near-post, rightward, reverse, boost 12.
+
+[center-lead-in-far-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = 2272 -3131 317
+ball_vel = -772 -700 964
+ball_spin = 0 0 2
+car = blue -529 -4846 -59 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.12s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-lead-in-inside-008]
+kind = defend
+time = 5
+seed = 1
+ball = -1307 -1016 340
+ball_vel = 374 -1309 1101
+ball_spin = 0 0 -2
+car = blue -335 -5229 13 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.38s. Defender inside, rightward, stopped, boost 33.
+
+[center-lead-in-ahead-008]
+kind = defend
+time = 5
+seed = 1
+ball = 153 -1926 110
+ball_vel = -14 -1092 1105
+ball_spin = 0 0 2
+car = blue -756 -4085 -23 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.16s. Defender ahead, rightward, forward, boost 33.
+
+[center-lead-in-beside-008]
+kind = defend
+time = 5
+seed = 1
+ball = -550 -2633 206
+ball_vel = 155 -847 1068
+ball_spin = 0 0 2
+car = blue 1621 -4573 48 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.20s. Defender beside, rightward, reverse, boost 33.
+
+[right-lead-in-mouth-008]
+kind = defend
+time = 5
+seed = 1
+ball = -980 -2082 388
+ball_vel = 389 -832 1253
+ball_spin = 0 0 -0
+car = blue 177 -4976 22 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.00s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-lead-in-near-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = -2322 -1866 344
+ball_vel = 896 -984 1119
+ball_spin = 0 0 -1
+car = blue 617 -5005 43 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.59s. Defender near-post, rightward, stopped, boost 100.
+
+[right-lead-in-far-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = -379 -1374 105
+ball_vel = 246 -1082 1293
+ball_spin = 0 0 1
+car = blue -651 -4836 -4 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.76s. Defender far-post, rightward, forward, boost 100.
+
+[right-lead-in-inside-008]
+kind = defend
+time = 6
+seed = 1
+ball = 338 -2237 228
+ball_vel = 91 -782 1357
+ball_spin = 0 0 -2
+car = blue -600 -5309 -17 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.05s. Defender inside, rightward, reverse, boost 0.
+
+[right-lead-in-ahead-008]
+kind = defend
+time = 5
+seed = 1
+ball = 891 -543 272
+ball_vel = -82 -1376 1167
+ball_spin = 0 0 2
+car = blue 554 -4345 -5 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.58s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-lead-in-beside-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1409 -2397 365
+ball_vel = -311 -902 1062
+ball_spin = 0 0 -0
+car = blue 1376 -4547 -1 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.28s. Defender beside, rightward, stopped, boost 0.
+
+[left-lead-in-mouth-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1792 -3263 176
+ball_vel = -700 -586 1170
+ball_spin = 0 0 -2
+car = blue 232 -4945 47 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.52s. Defender mouth, facing, stopped, boost 0.
+
+[left-lead-in-near-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1267 -611 191
+ball_vel = -627 -1572 1016
+ball_spin = 0 0 -1
+car = blue -620 -4950 66 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.07s. Defender near-post, facing, forward, boost 0.
+
+[left-lead-in-far-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1453 -2125 342
+ball_vel = -670 -941 1090
+ball_spin = 0 0 1
+car = blue 642 -4952 74 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.46s. Defender far-post, facing, reverse, boost 0.
+
+[left-lead-in-inside-009]
+kind = defend
+time = 5
+seed = 1
+ball = -1693 -219 238
+ball_vel = 359 -1738 994
+ball_spin = 0 0 -0
+car = blue -149 -5240 107 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.01s. Defender inside, facing, fast-forward, boost 12.
+
+[left-lead-in-ahead-009]
+kind = defend
+time = 5
+seed = 1
+ball = 2195 -2061 357
+ball_vel = -792 -844 1269
+ball_spin = 0 0 1
+car = blue 85 -4321 47 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.97s. Defender ahead, facing, stopped, boost 12.
+
+[left-lead-in-beside-009]
+kind = defend
+time = 5
+seed = 1
+ball = -522 -1613 165
+ball_vel = 37 -1011 1238
+ball_spin = 0 0 -1
+car = blue -1843 -4316 64 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.77s. Defender beside, facing, forward, boost 12.
+
+[center-lead-in-mouth-009]
+kind = defend
+time = 5
+seed = 1
+ball = 348 -2956 374
+ball_vel = -142 -726 1063
+ball_spin = 0 0 -3
+car = blue -35 -4763 78 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.27s. Defender mouth, facing, reverse, boost 33.
+
+[center-lead-in-near-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = -429 -1883 125
+ball_vel = 80 -913 1314
+ball_spin = 0 0 0
+car = blue -680 -4862 85 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.87s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-lead-in-far-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = 292 -595 306
+ball_vel = -108 -1239 1268
+ball_spin = 0 0 2
+car = blue 515 -4788 93 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.96s. Defender far-post, facing, stopped, boost 33.
+
+[center-lead-in-inside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 299 -2652 374
+ball_vel = -75 -693 1245
+ball_spin = 0 0 -2
+car = blue -372 -5250 76 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.92s. Defender inside, facing, forward, boost 100.
+
+[center-lead-in-ahead-009]
+kind = defend
+time = 5
+seed = 1
+ball = 2471 -2022 329
+ball_vel = -822 -1092 1020
+ball_spin = 0 0 1
+car = blue -322 -4367 40 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.07s. Defender ahead, facing, reverse, boost 100.
+
+[center-lead-in-beside-009]
+kind = defend
+time = 4
+seed = 1
+ball = -1783 -44 134
+ball_vel = 560 -1803 1071
+ball_spin = 0 0 2
+car = blue 1803 -4552 129 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.00s. Defender beside, facing, fast-forward, boost 100.
+
+[right-lead-in-mouth-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1593 -2558 115
+ball_vel = -327 -789 1188
+ball_spin = 0 0 1
+car = blue 230 -4893 60 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.56s. Defender mouth, facing, stopped, boost 0.
+
+[right-lead-in-near-post-009]
+kind = defend
+time = 4
+seed = 1
+ball = 4 -224 152
+ball_vel = 201 -1770 1024
+ball_spin = 0 0 2
+car = blue 527 -4767 97 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 2.95s. Defender near-post, facing, forward, boost 0.
+
+[right-lead-in-far-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = -1574 -352 179
+ball_vel = 606 -1446 1164
+ball_spin = 0 0 -0
+car = blue -634 -4870 102 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.55s. Defender far-post, facing, reverse, boost 0.
+
+[right-lead-in-inside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1429 -1300 309
+ball_vel = -338 -1272 1052
+ball_spin = 0 0 0
+car = blue 535 -5232 77 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.23s. Defender inside, facing, fast-forward, boost 12.
+
+[right-lead-in-ahead-009]
+kind = defend
+time = 5
+seed = 1
+ball = -2297 -701 375
+ball_vel = 809 -1212 1290
+ball_spin = 0 0 -0
+car = blue 512 -4309 128 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.96s. Defender ahead, facing, stopped, boost 12.
+
+[right-lead-in-beside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 2243 -3344 152
+ball_vel = -597 -605 1090
+ball_spin = 0 0 -1
+car = blue 1304 -4414 49 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.25s. Defender beside, facing, forward, boost 12.
+
+[left-lead-in-mouth-010]
+kind = defend
+time = 5
+seed = 1
+ball = 1317 -213 386
+ball_vel = -530 -1412 1196
+ball_spin = 0 0 -3
+car = blue -270 -4958 162 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.75s. Defender mouth, leftward, forward, boost 12.
+
+[left-lead-in-near-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = 1523 -1412 157
+ball_vel = -562 -1081 1245
+ball_spin = 0 0 -0
+car = blue -526 -5016 150 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.73s. Defender near-post, leftward, reverse, boost 12.
+
+[left-lead-in-far-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = 812 -1626 298
+ball_vel = -395 -959 1283
+ball_spin = 0 0 0
+car = blue 540 -4852 175 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.98s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-lead-in-inside-010]
+kind = defend
+time = 5
+seed = 1
+ball = 242 -1313 358
+ball_vel = -251 -1050 1270
+ball_spin = 0 0 -2
+car = blue 576 -5249 185 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.94s. Defender inside, leftward, stopped, boost 33.
+
+[left-lead-in-ahead-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1060 -968 102
+ball_vel = 191 -1346 1135
+ball_spin = 0 0 2
+car = blue 174 -4205 201 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.32s. Defender ahead, leftward, forward, boost 33.
+
+[left-lead-in-beside-010]
+kind = defend
+time = 6
+seed = 1
+ball = 1999 -1827 212
+ball_vel = -712 -896 1352
+ball_spin = 0 0 2
+car = blue -1752 -4546 126 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 4.02s. Defender beside, leftward, reverse, boost 33.
+
+[center-lead-in-mouth-010]
+kind = defend
+time = 5
+seed = 1
+ball = -763 -1093 269
+ball_vel = 281 -1143 1234
+ball_spin = 0 0 1
+car = blue -305 -4947 187 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.82s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-lead-in-near-post-010]
+kind = defend
+time = 6
+seed = 1
+ball = 1067 -2595 158
+ball_vel = -323 -686 1350
+ball_spin = 0 0 1
+car = blue -697 -4944 143 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 4.06s. Defender near-post, leftward, stopped, boost 100.
+
+[center-lead-in-far-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = 531 -1150 187
+ball_vel = -190 -1093 1293
+ball_spin = 0 0 2
+car = blue 502 -4789 180 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.95s. Defender far-post, leftward, forward, boost 100.
+
+[center-lead-in-inside-010]
+kind = defend
+time = 5
+seed = 1
+ball = -595 -330 348
+ball_vel = 167 -1370 1248
+ball_spin = 0 0 0
+car = blue 556 -5215 193 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.77s. Defender inside, leftward, reverse, boost 0.
+
+[center-lead-in-ahead-010]
+kind = defend
+time = 5
+seed = 1
+ball = 2450 -182 131
+ball_vel = -735 -1370 1309
+ball_spin = 0 0 -2
+car = blue 247 -4120 151 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.90s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-lead-in-beside-010]
+kind = defend
+time = 6
+seed = 1
+ball = 1110 -1662 105
+ball_vel = -253 -938 1358
+ball_spin = 0 0 1
+car = blue -1394 -4600 140 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 4.03s. Defender beside, leftward, stopped, boost 0.
+
+[right-lead-in-mouth-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1698 -1923 295
+ball_vel = 803 -1113 972
+ball_spin = 0 0 -2
+car = blue -87 -4935 208 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.10s. Defender mouth, leftward, forward, boost 12.
+
+[right-lead-in-near-post-010]
+kind = defend
+time = 6
+seed = 1
+ball = -1463 -1078 360
+ball_vel = 504 -1090 1282
+ball_spin = 0 0 2
+car = blue 672 -4861 209 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.03s. Defender near-post, leftward, reverse, boost 12.
+
+[right-lead-in-far-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = -865 -801 141
+ball_vel = 445 -1292 1199
+ball_spin = 0 0 2
+car = blue -535 -4898 185 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.61s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-lead-in-inside-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1555 -1976 390
+ball_vel = 585 -944 1171
+ball_spin = 0 0 -1
+car = blue 193 -5304 208 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.62s. Defender inside, leftward, stopped, boost 33.
+
+[right-lead-in-ahead-010]
+kind = defend
+time = 5
+seed = 1
+ball = -111 -1918 105
+ball_vel = 202 -951 1261
+ball_spin = 0 0 -2
+car = blue 128 -3924 187 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.67s. Defender ahead, leftward, forward, boost 33.
+
+[right-lead-in-beside-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1068 -2823 287
+ball_vel = 553 -759 1070
+ball_spin = 0 0 0
+car = blue 1584 -4771 234 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.32s. Defender beside, leftward, reverse, boost 33.
+
+[left-lead-in-mouth-011]
+kind = defend
+time = 5
+seed = 1
+ball = -2035 -2711 317
+ball_vel = 520 -829 1039
+ball_spin = 0 0 -2
+car = blue -290 -4806 310 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.17s. Defender mouth, away, reverse, boost 33.
+
+[left-lead-in-near-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = 2240 -457 271
+ball_vel = -996 -1612 1042
+ball_spin = 0 0 1
+car = blue -569 -4973 238 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.09s. Defender near-post, away, fast-forward, boost 33.
+
+[left-lead-in-far-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = -1605 -1541 309
+ball_vel = 406 -1249 1039
+ball_spin = 0 0 -1
+car = blue 545 -4966 302 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.08s. Defender far-post, away, stopped, boost 33.
+
+[left-lead-in-inside-011]
+kind = defend
+time = 5
+seed = 1
+ball = 2109 -2527 356
+ball_vel = -943 -885 1002
+ball_spin = 0 0 -1
+car = blue -472 -5242 226 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.19s. Defender inside, away, forward, boost 100.
+
+[left-lead-in-ahead-011]
+kind = defend
+time = 5
+seed = 1
+ball = -2028 -1440 208
+ball_vel = 495 -1138 1147
+ball_spin = 0 0 3
+car = blue -94 -4352 304 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.50s. Defender ahead, away, reverse, boost 100.
+
+[left-lead-in-beside-011]
+kind = defend
+time = 5
+seed = 1
+ball = -519 -1052 179
+ball_vel = -17 -1391 1080
+ball_spin = 0 0 1
+car = blue -1578 -4618 253 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.14s. Defender beside, away, fast-forward, boost 100.
+
+[center-lead-in-mouth-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1667 -430 322
+ball_vel = -511 -1591 1056
+ball_spin = 0 0 -2
+car = blue 173 -4969 252 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.16s. Defender mouth, away, stopped, boost 0.
+
+[center-lead-in-near-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1466 -513 212
+ball_vel = -532 -1485 1106
+ball_spin = 0 0 2
+car = blue -635 -4950 245 800 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.33s. Defender near-post, away, forward, boost 0.
+
+[center-lead-in-far-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = 388 -205 132
+ball_vel = -83 -1551 1177
+ball_spin = 0 0 2
+car = blue -538 -4865 259 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.40s. Defender far-post, away, reverse, boost 0.
+
+[center-lead-in-inside-011]
+kind = defend
+time = 5
+seed = 1
+ball = -2139 -88 100
+ball_vel = 550 -1408 1342
+ball_spin = 0 0 -1
+car = blue -299 -5340 289 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.86s. Defender inside, away, fast-forward, boost 12.
+
+[center-lead-in-ahead-011]
+kind = defend
+time = 4
+seed = 1
+ball = -1149 -31 285
+ball_vel = 350 -1812 967
+ball_spin = 0 0 -0
+car = blue -174 -4129 283 0 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.00s. Defender ahead, away, stopped, boost 12.
+
+[center-lead-in-beside-011]
+kind = defend
+time = 5
+seed = 1
+ball = -194 -1147 330
+ball_vel = 77 -1320 1072
+ball_spin = 0 0 1
+car = blue -1563 -4735 249 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.24s. Defender beside, away, forward, boost 12.
+
+[right-lead-in-mouth-011]
+kind = defend
+time = 5
+seed = 1
+ball = -830 -2024 369
+ball_vel = 522 -1067 1039
+ball_spin = 0 0 -1
+car = blue 163 -4816 290 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.14s. Defender mouth, away, reverse, boost 33.
+
+[right-lead-in-near-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = -223 -1324 130
+ball_vel = 265 -1175 1194
+ball_spin = 0 0 -1
+car = blue 680 -4944 284 1400 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.49s. Defender near-post, away, fast-forward, boost 33.
+
+[right-lead-in-far-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = -2414 -3200 343
+ball_vel = 1002 -682 984
+ball_spin = 0 0 1
+car = blue -603 -4824 318 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.10s. Defender far-post, away, stopped, boost 33.
+
+[right-lead-in-inside-011]
+kind = defend
+time = 6
+seed = 1
+ball = 272 -1473 111
+ball_vel = 63 -983 1361
+ball_spin = 0 0 -3
+car = blue -613 -5227 257 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.05s. Defender inside, away, forward, boost 100.
+
+[right-lead-in-ahead-011]
+kind = defend
+time = 5
+seed = 1
+ball = 2169 -2052 113
+ball_vel = -542 -1091 1098
+ball_spin = 0 0 -3
+car = blue 556 -4101 232 -700 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.04s. Defender ahead, away, reverse, boost 100.
+
+[right-lead-in-beside-011]
+kind = defend
+time = 6
+seed = 1
+ball = 990 -1879 216
+ball_vel = -81 -875 1355
+ball_spin = 0 0 0
+car = blue 1134 -4602 273 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.06s. Defender beside, away, fast-forward, boost 100.
+
+[left-lead-in-mouth-012]
+kind = defend
+time = 5
+seed = 1
+ball = 1212 -1748 237
+ball_vel = -555 -1054 1138
+ball_spin = 0 0 1
+car = blue 21 -4882 -21 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.47s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-lead-in-near-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = -1641 -2455 353
+ball_vel = 329 -785 1168
+ball_spin = 0 0 -3
+car = blue -640 -4751 24 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.73s. Defender near-post, rightward, stopped, boost 100.
+
+[left-lead-in-far-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = -143 -1230 189
+ball_vel = -173 -1229 1120
+ball_spin = 0 0 -0
+car = blue 563 -4792 11 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.42s. Defender far-post, rightward, forward, boost 100.
+
+[left-lead-in-inside-012]
+kind = defend
+time = 5
+seed = 1
+ball = -382 6 272
+ball_vel = -31 -1482 1217
+ball_spin = 0 0 0
+car = blue 211 -5233 6 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.73s. Defender inside, rightward, reverse, boost 0.
+
+[left-lead-in-ahead-012]
+kind = defend
+time = 5
+seed = 1
+ball = 2262 -1757 215
+ball_vel = -944 -1174 1001
+ball_spin = 0 0 1
+car = blue 623 -4192 -34 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.09s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-lead-in-beside-012]
+kind = defend
+time = 5
+seed = 1
+ball = -1226 -2460 293
+ball_vel = 186 -782 1182
+ball_spin = 0 0 2
+car = blue -1662 -4539 -12 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, left entry in 3.73s. Defender beside, rightward, stopped, boost 0.
+
+[center-lead-in-mouth-012]
+kind = defend
+time = 6
+seed = 1
+ball = -854 -2506 319
+ball_vel = 241 -717 1287
+ball_spin = 0 0 1
+car = blue -45 -4910 19 800 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 4.02s. Defender mouth, rightward, forward, boost 12.
+
+[center-lead-in-near-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = -862 -2003 376
+ball_vel = 246 -972 1129
+ball_spin = 0 0 2
+car = blue -587 -4926 5 -700 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.48s. Defender near-post, rightward, reverse, boost 12.
+
+[center-lead-in-far-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = 1239 -978 155
+ball_vel = -421 -1301 1199
+ball_spin = 0 0 -1
+car = blue 548 -4844 -10 1400 12
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.43s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-lead-in-inside-012]
+kind = defend
+time = 5
+seed = 1
+ball = -2419 -731 286
+ball_vel = 710 -1219 1296
+ball_spin = 0 0 1
+car = blue 21 -5250 28 0 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.90s. Defender inside, rightward, stopped, boost 33.
+
+[center-lead-in-ahead-012]
+kind = defend
+time = 5
+seed = 1
+ball = 2119 -2025 179
+ball_vel = -677 -907 1241
+ball_spin = 0 0 1
+car = blue -49 -3907 -49 800 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.73s. Defender ahead, rightward, forward, boost 33.
+
+[center-lead-in-beside-012]
+kind = defend
+time = 5
+seed = 1
+ball = 702 -1129 358
+ball_vel = -180 -1337 981
+ball_spin = 0 0 -2
+car = blue 1123 -4733 7 -700 33
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, center entry in 3.21s. Defender beside, rightward, reverse, boost 33.
+
+[right-lead-in-mouth-012]
+kind = defend
+time = 5
+seed = 1
+ball = 826 -3040 217
+ball_vel = -116 -629 1182
+ball_spin = 0 0 0
+car = blue -44 -4828 -26 1400 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.66s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-lead-in-near-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = 2346 -2899 225
+ball_vel = -532 -656 1244
+ball_spin = 0 0 1
+car = blue 630 -4934 -40 0 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.73s. Defender near-post, rightward, stopped, boost 100.
+
+[right-lead-in-far-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = 1656 -1516 360
+ball_vel = -371 -1071 1206
+ball_spin = 0 0 2
+car = blue -512 -4760 -34 800 100
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.65s. Defender far-post, rightward, forward, boost 100.
+
+[right-lead-in-inside-012]
+kind = defend
+time = 5
+seed = 1
+ball = 231 -1448 167
+ball_vel = 65 -1258 1051
+ball_spin = 0 0 3
+car = blue -27 -5217 -4 -700 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.14s. Defender inside, rightward, reverse, boost 0.
+
+[right-lead-in-ahead-012]
+kind = defend
+time = 5
+seed = 1
+ball = -1402 -1977 188
+ball_vel = 646 -1060 1057
+ball_spin = 0 0 -1
+car = blue 762 -4196 44 1400 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 3.21s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-lead-in-beside-012]
+kind = defend
+time = 6
+seed = 1
+ball = 351 -2908 313
+ball_vel = 38 -604 1291
+ball_spin = 0 0 3
+car = blue 1143 -4540 26 0 0
+rival = scripted mode=idle
+note = Falling shots that enter above the floor threat, right entry in 4.06s. Defender beside, rightward, stopped, boost 0.

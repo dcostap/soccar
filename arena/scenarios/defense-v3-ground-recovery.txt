@@ -1,0 +1,2378 @@
+# Rolling threats with defenders far from goal and away from the ball path.
+# Fixed defense v3. Goal lead-in: 2.5–5 s; ball start distance: at least 2000. Do not replace these tests.
+
+[left-lead-in-midfield-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1009 -2920 93.15
+ball_vel = -518 -814 0
+ball_spin = 0 0 2
+car = blue -701 287 -62 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.74s. Defender midfield, facing, stopped, boost 0.
+
+[left-lead-in-attack-half-001]
+kind = defend
+time = 6
+seed = 1
+ball = -54 -1561 93.15
+ball_vel = -276 -1634 0
+ball_spin = 0 0 1
+car = blue -1532 241 -51 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.04s. Defender attack-half, facing, forward, boost 0.
+
+[left-lead-in-wide-left-001]
+kind = defend
+time = 6
+seed = 1
+ball = -642 -290 93.15
+ball_vel = 5 -2006 0
+ball_spin = 0 0 2
+car = blue -3085 -988 16 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.33s. Defender wide-left, facing, reverse, boost 0.
+
+[left-lead-in-wide-right-001]
+kind = defend
+time = 6
+seed = 1
+ball = 351 -800 93.15
+ball_vel = -317 -1796 0
+ball_spin = 0 0 -3
+car = blue 2549 -289 -167 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.61s. Defender wide-right, facing, fast-forward, boost 12.
+
+[left-lead-in-wrong-side-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1165 -172 93.15
+ball_vel = 301 -2078 0
+ball_spin = 0 0 1
+car = blue 2141 -1766 154 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.05s. Defender wrong-side, facing, stopped, boost 12.
+
+[left-lead-in-chase-001]
+kind = defend
+time = 6
+seed = 1
+ball = 326 -1299 93.15
+ball_vel = -337 -1645 0
+ball_spin = 0 0 -1
+car = blue -952 58 -47 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.47s. Defender chase, facing, forward, boost 12.
+
+[center-lead-in-midfield-001]
+kind = defend
+time = 6
+seed = 1
+ball = -758 -1145 93.15
+ball_vel = 323 -1658 0
+ball_spin = 0 0 -3
+car = blue 754 -270 -150 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.71s. Defender midfield, facing, reverse, boost 33.
+
+[center-lead-in-attack-half-001]
+kind = defend
+time = 6
+seed = 1
+ball = 149 -680 93.15
+ball_vel = -68 -1830 0
+ball_spin = 0 0 2
+car = blue -638 332 -52 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.67s. Defender attack-half, facing, fast-forward, boost 33.
+
+[center-lead-in-wide-left-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1071 -532 93.15
+ball_vel = -446 -1888 0
+ball_spin = 0 0 -0
+car = blue -2781 -1142 9 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.53s. Defender wide-left, facing, stopped, boost 33.
+
+[center-lead-in-wide-right-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1777 -2562 93.15
+ball_vel = -728 -1100 0
+ball_spin = 0 0 -3
+car = blue 2635 -1262 -123 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.53s. Defender wide-right, facing, forward, boost 100.
+
+[center-lead-in-wrong-side-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1184 -2706 93.15
+ball_vel = 502 -1040 0
+ball_spin = 0 0 1
+car = blue 2125 -807 -150 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.33s. Defender wrong-side, facing, reverse, boost 100.
+
+[center-lead-in-chase-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1616 -2823 93.15
+ball_vel = 670 -1031 0
+ball_spin = 0 0 -3
+car = blue -104 -1582 -141 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.22s. Defender chase, facing, fast-forward, boost 100.
+
+[right-lead-in-midfield-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1771 -1047 93.15
+ball_vel = 975 -1723 0
+ball_spin = 0 0 3
+car = blue -1194 -217 -125 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.25s. Defender midfield, facing, stopped, boost 0.
+
+[right-lead-in-attack-half-001]
+kind = defend
+time = 6
+seed = 1
+ball = 90 -942 93.15
+ball_vel = 245 -1803 0
+ball_spin = 0 0 -2
+car = blue 776 823 -111 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.31s. Defender attack-half, facing, forward, boost 0.
+
+[right-lead-in-wide-left-001]
+kind = defend
+time = 6
+seed = 1
+ball = 76 -404 93.15
+ball_vel = 142 -1912 0
+ball_spin = 0 0 3
+car = blue -2916 -918 10 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.70s. Defender wide-left, facing, reverse, boost 0.
+
+[right-lead-in-wide-right-001]
+kind = defend
+time = 6
+seed = 1
+ball = -122 -2878 93.15
+ball_vel = 177 -746 0
+ball_spin = 0 0 1
+car = blue 3334 -1225 -154 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.49s. Defender wide-right, facing, fast-forward, boost 12.
+
+[right-lead-in-wrong-side-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1120 -650 93.15
+ball_vel = -192 -1913 0
+ball_spin = 0 0 1
+car = blue -2565 -1346 11 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.22s. Defender wrong-side, facing, stopped, boost 12.
+
+[right-lead-in-chase-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1040 -1835 93.15
+ball_vel = -188 -1453 0
+ball_spin = 0 0 -2
+car = blue 2510 -393 -136 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.38s. Defender chase, facing, forward, boost 12.
+
+[left-lead-in-midfield-002]
+kind = defend
+time = 6
+seed = 1
+ball = -259 -510 93.15
+ball_vel = -147 -1909 0
+ball_spin = 0 0 3
+car = blue 472 667 -32 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.52s. Defender midfield, leftward, forward, boost 12.
+
+[left-lead-in-attack-half-002]
+kind = defend
+time = 6
+seed = 1
+ball = -694 -1423 93.15
+ball_vel = 102 -1631 0
+ball_spin = 0 0 -3
+car = blue 1664 462 -51 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.33s. Defender attack-half, leftward, reverse, boost 12.
+
+[left-lead-in-wide-left-002]
+kind = defend
+time = 6
+seed = 1
+ball = 7 -3115 93.15
+ball_vel = -170 -701 0
+ball_spin = 0 0 -1
+car = blue -2779 -109 43 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.29s. Defender wide-left, leftward, fast-forward, boost 12.
+
+[left-lead-in-wide-right-002]
+kind = defend
+time = 6
+seed = 1
+ball = -450 -1554 93.15
+ball_vel = -48 -1545 0
+ball_spin = 0 0 -2
+car = blue 3213 -561 -75 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.50s. Defender wide-right, leftward, stopped, boost 33.
+
+[left-lead-in-wrong-side-002]
+kind = defend
+time = 6
+seed = 1
+ball = -175 -1383 93.15
+ball_vel = -158 -1616 0
+ball_spin = 0 0 -1
+car = blue 1986 -1325 -88 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.47s. Defender wrong-side, leftward, forward, boost 33.
+
+[left-lead-in-chase-002]
+kind = defend
+time = 6
+seed = 1
+ball = -461 -3060 93.15
+ball_vel = -24 -709 0
+ball_spin = 0 0 -1
+car = blue -2151 -1966 57 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.36s. Defender chase, leftward, reverse, boost 33.
+
+[center-lead-in-midfield-002]
+kind = defend
+time = 5
+seed = 1
+ball = 686 -1256 93.15
+ball_vel = -387 -1749 0
+ball_spin = 0 0 0
+car = blue 45 -250 33 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.98s. Defender midfield, leftward, fast-forward, boost 100.
+
+[center-lead-in-attack-half-002]
+kind = defend
+time = 6
+seed = 1
+ball = -79 -858 93.15
+ball_vel = -29 -1773 0
+ball_spin = 0 0 3
+car = blue -57 797 -1 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.65s. Defender attack-half, leftward, stopped, boost 100.
+
+[center-lead-in-wide-left-002]
+kind = defend
+time = 5
+seed = 1
+ball = 328 -634 93.15
+ball_vel = -201 -1974 0
+ball_spin = 0 0 3
+car = blue -3201 -1377 102 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.88s. Defender wide-left, leftward, forward, boost 100.
+
+[center-lead-in-wide-right-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1847 -2738 93.15
+ball_vel = -744 -978 0
+ball_spin = 0 0 -0
+car = blue 2788 -122 -20 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.72s. Defender wide-right, leftward, reverse, boost 0.
+
+[center-lead-in-wrong-side-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1231 -2372 93.15
+ball_vel = -552 -1228 0
+ball_spin = 0 0 1
+car = blue 3138 -1199 -58 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.30s. Defender wrong-side, leftward, fast-forward, boost 0.
+
+[center-lead-in-chase-002]
+kind = defend
+time = 6
+seed = 1
+ball = -2326 -2900 93.15
+ball_vel = 942 -973 0
+ball_spin = 0 0 1
+car = blue -329 -963 -46 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.47s. Defender chase, leftward, stopped, boost 0.
+
+[right-lead-in-midfield-002]
+kind = defend
+time = 6
+seed = 1
+ball = 863 -1049 93.15
+ball_vel = -114 -1762 0
+ball_spin = 0 0 1
+car = blue 725 754 4 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.35s. Defender midfield, leftward, forward, boost 12.
+
+[right-lead-in-attack-half-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1436 -2207 93.15
+ball_vel = -401 -1341 0
+ball_spin = 0 0 -0
+car = blue 1643 214 -5 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.13s. Defender attack-half, leftward, reverse, boost 12.
+
+[right-lead-in-wide-left-002]
+kind = defend
+time = 6
+seed = 1
+ball = -2056 -3376 93.15
+ball_vel = 1254 -808 0
+ball_spin = 0 0 -3
+car = blue -2414 -1337 10 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.23s. Defender wide-left, leftward, fast-forward, boost 12.
+
+[right-lead-in-wide-right-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1408 -3107 93.15
+ball_vel = -316 -689 0
+ball_spin = 0 0 0
+car = blue 2525 -1229 -31 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.38s. Defender wide-right, leftward, stopped, boost 33.
+
+[right-lead-in-wrong-side-002]
+kind = defend
+time = 6
+seed = 1
+ball = 111 -835 93.15
+ball_vel = 121 -1821 0
+ball_spin = 0 0 -2
+car = blue -2978 -1638 105 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.42s. Defender wrong-side, leftward, forward, boost 33.
+
+[right-lead-in-chase-002]
+kind = defend
+time = 6
+seed = 1
+ball = -2364 -3277 93.15
+ball_vel = 1287 -806 0
+ball_spin = 0 0 2
+car = blue -865 -1949 -48 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.60s. Defender chase, leftward, reverse, boost 33.
+
+[left-lead-in-midfield-003]
+kind = defend
+time = 6
+seed = 1
+ball = -139 -886 93.15
+ball_vel = -144 -1816 0
+ball_spin = 0 0 1
+car = blue 1684 -20 25 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.35s. Defender midfield, away, reverse, boost 33.
+
+[left-lead-in-attack-half-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1128 -2210 93.15
+ball_vel = -786 -1284 0
+ball_spin = 0 0 -1
+car = blue -850 590 125 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.42s. Defender attack-half, away, fast-forward, boost 33.
+
+[left-lead-in-wide-left-003]
+kind = defend
+time = 6
+seed = 1
+ball = 607 -1315 93.15
+ball_vel = -536 -1678 0
+ball_spin = 0 0 -2
+car = blue -2882 -474 166 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.22s. Defender wide-left, away, stopped, boost 33.
+
+[left-lead-in-wide-right-003]
+kind = defend
+time = 6
+seed = 1
+ball = 138 -2770 93.15
+ball_vel = -240 -1026 0
+ball_spin = 0 0 0
+car = blue 2594 -1064 35 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.08s. Defender wide-right, away, forward, boost 100.
+
+[left-lead-in-wrong-side-003]
+kind = defend
+time = 6
+seed = 1
+ball = 477 -3066 93.15
+ball_vel = -361 -765 0
+ball_spin = 0 0 2
+car = blue 2499 -1082 44 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.36s. Defender wrong-side, away, reverse, boost 100.
+
+[left-lead-in-chase-003]
+kind = defend
+time = 6
+seed = 1
+ball = -804 -3013 93.15
+ball_vel = 140 -746 0
+ball_spin = 0 0 0
+car = blue -2506 -1614 141 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.22s. Defender chase, away, fast-forward, boost 100.
+
+[center-lead-in-midfield-003]
+kind = defend
+time = 6
+seed = 1
+ball = -1546 -965 93.15
+ball_vel = 754 -1805 0
+ball_spin = 0 0 0
+car = blue 312 -128 24 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.05s. Defender midfield, away, stopped, boost 0.
+
+[center-lead-in-attack-half-003]
+kind = defend
+time = 6
+seed = 1
+ball = -1625 -467 93.15
+ball_vel = 672 -1865 0
+ball_spin = 0 0 -0
+car = blue -478 688 45 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.71s. Defender attack-half, away, forward, boost 0.
+
+[center-lead-in-wide-left-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1175 -2804 93.15
+ball_vel = -447 -1044 0
+ball_spin = 0 0 3
+car = blue -2919 -950 156 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.08s. Defender wide-left, away, reverse, boost 0.
+
+[center-lead-in-wide-right-003]
+kind = defend
+time = 6
+seed = 1
+ball = -67 -2808 93.15
+ball_vel = 9 -740 0
+ball_spin = 0 0 -1
+car = blue 2452 -1371 30 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.68s. Defender wide-right, away, fast-forward, boost 12.
+
+[center-lead-in-wrong-side-003]
+kind = defend
+time = 5
+seed = 1
+ball = -831 -1891 93.15
+ball_vel = 476 -1594 0
+ball_spin = 0 0 1
+car = blue -2531 -1849 179 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.57s. Defender wrong-side, away, stopped, boost 12.
+
+[center-lead-in-chase-003]
+kind = defend
+time = 6
+seed = 1
+ball = 2330 -1454 93.15
+ball_vel = -921 -1548 0
+ball_spin = 0 0 -1
+car = blue 523 175 138 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.53s. Defender chase, away, forward, boost 12.
+
+[right-lead-in-midfield-003]
+kind = defend
+time = 6
+seed = 1
+ball = 372 -1698 93.15
+ball_vel = 137 -1533 0
+ball_spin = 0 0 3
+car = blue 1481 640 65 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.28s. Defender midfield, away, reverse, boost 33.
+
+[right-lead-in-attack-half-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1191 -1216 93.15
+ball_vel = -341 -1667 0
+ball_spin = 0 0 -1
+car = blue 1645 293 73 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.52s. Defender attack-half, away, fast-forward, boost 33.
+
+[right-lead-in-wide-left-003]
+kind = defend
+time = 6
+seed = 1
+ball = -576 -2820 93.15
+ball_vel = 466 -1027 0
+ball_spin = 0 0 2
+car = blue -2716 -1001 140 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.12s. Defender wide-left, away, stopped, boost 33.
+
+[right-lead-in-wide-right-003]
+kind = defend
+time = 6
+seed = 1
+ball = -411 -1477 93.15
+ball_vel = 442 -1603 0
+ball_spin = 0 0 1
+car = blue 2402 -1223 5 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.33s. Defender wide-right, away, forward, boost 100.
+
+[right-lead-in-wrong-side-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1551 -1301 93.15
+ball_vel = -430 -1690 0
+ball_spin = 0 0 1
+car = blue -2224 -1404 182 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.22s. Defender wrong-side, away, reverse, boost 100.
+
+[right-lead-in-chase-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1320 -2937 93.15
+ball_vel = -306 -936 0
+ball_spin = 0 0 1
+car = blue 3401 -1071 42 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.03s. Defender chase, away, fast-forward, boost 100.
+
+[left-lead-in-midfield-004]
+kind = defend
+time = 6
+seed = 1
+ball = -1113 -1024 93.15
+ball_vel = 205 -1780 0
+ball_spin = 0 0 0
+car = blue 1238 -374 -255 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.29s. Defender midfield, rightward, fast-forward, boost 100.
+
+[left-lead-in-attack-half-004]
+kind = defend
+time = 6
+seed = 1
+ball = -666 -23 93.15
+ball_vel = 98 -2093 0
+ball_spin = 0 0 -2
+car = blue 1542 221 -264 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.27s. Defender attack-half, rightward, stopped, boost 100.
+
+[left-lead-in-wide-left-004]
+kind = defend
+time = 6
+seed = 1
+ball = -34 -2641 93.15
+ball_vel = -218 -919 0
+ball_spin = 0 0 -2
+car = blue -3181 -1012 -117 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.64s. Defender wide-left, rightward, forward, boost 100.
+
+[left-lead-in-wide-right-004]
+kind = defend
+time = 6
+seed = 1
+ball = -377 -2618 93.15
+ball_vel = -89 -961 0
+ball_spin = 0 0 -0
+car = blue 2803 -962 -242 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.48s. Defender wide-right, rightward, reverse, boost 0.
+
+[left-lead-in-wrong-side-004]
+kind = defend
+time = 6
+seed = 1
+ball = -58 -2587 93.15
+ball_vel = -278 -1149 0
+ball_spin = 0 0 3
+car = blue 2518 -606 -232 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.09s. Defender wrong-side, rightward, fast-forward, boost 0.
+
+[left-lead-in-chase-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2334 -2311 93.15
+ball_vel = -1272 -1302 0
+ball_spin = 0 0 -2
+car = blue 502 -1042 -125 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 3.83s. Defender chase, rightward, stopped, boost 0.
+
+[center-lead-in-midfield-004]
+kind = defend
+time = 6
+seed = 1
+ball = -1649 -2118 93.15
+ball_vel = 730 -1348 0
+ball_spin = 0 0 -2
+car = blue -657 -234 -208 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.29s. Defender midfield, rightward, forward, boost 12.
+
+[center-lead-in-attack-half-004]
+kind = defend
+time = 6
+seed = 1
+ball = 324 -331 93.15
+ball_vel = -68 -1951 0
+ball_spin = 0 0 -0
+car = blue 1770 372 -244 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.60s. Defender attack-half, rightward, reverse, boost 12.
+
+[center-lead-in-wide-left-004]
+kind = defend
+time = 6
+seed = 1
+ball = 264 -2288 93.15
+ball_vel = -118 -1164 0
+ball_spin = 0 0 -0
+car = blue -2450 -1309 -110 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.58s. Defender wide-left, rightward, fast-forward, boost 12.
+
+[center-lead-in-wide-right-004]
+kind = defend
+time = 6
+seed = 1
+ball = -2357 -494 93.15
+ball_vel = 899 -1860 0
+ball_spin = 0 0 -2
+car = blue 2448 -1367 80 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.54s. Defender wide-right, rightward, stopped, boost 33.
+
+[center-lead-in-wrong-side-004]
+kind = defend
+time = 5
+seed = 1
+ball = -871 -423 93.15
+ball_vel = 342 -2076 0
+ball_spin = 0 0 3
+car = blue 1684 -1338 70 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.59s. Defender wrong-side, rightward, forward, boost 33.
+
+[center-lead-in-chase-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1570 -1760 93.15
+ball_vel = -782 -1599 0
+ball_spin = 0 0 0
+car = blue -355 -763 -117 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.66s. Defender chase, rightward, reverse, boost 33.
+
+[right-lead-in-midfield-004]
+kind = defend
+time = 6
+seed = 1
+ball = -614 -1212 93.15
+ball_vel = 447 -1631 0
+ball_spin = 0 0 -1
+car = blue 593 -324 -234 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.71s. Defender midfield, rightward, fast-forward, boost 100.
+
+[right-lead-in-attack-half-004]
+kind = defend
+time = 6
+seed = 1
+ball = -1001 -358 93.15
+ball_vel = 626 -1980 0
+ball_spin = 0 0 -1
+car = blue 1155 578 -247 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.19s. Defender attack-half, rightward, stopped, boost 100.
+
+[right-lead-in-wide-left-004]
+kind = defend
+time = 6
+seed = 1
+ball = 177 -69 93.15
+ball_vel = 103 -2021 0
+ball_spin = 0 0 1
+car = blue -3049 -437 -84 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.65s. Defender wide-left, rightward, forward, boost 100.
+
+[right-lead-in-wide-right-004]
+kind = defend
+time = 6
+seed = 1
+ball = -129 -1302 93.15
+ball_vel = 342 -1614 0
+ball_spin = 0 0 -2
+car = blue 3227 -1244 -269 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.63s. Defender wide-right, rightward, reverse, boost 0.
+
+[right-lead-in-wrong-side-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2001 -425 93.15
+ball_vel = -646 -2009 0
+ball_spin = 0 0 0
+car = blue -2523 -1051 -82 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.86s. Defender wrong-side, rightward, fast-forward, boost 0.
+
+[right-lead-in-chase-004]
+kind = defend
+time = 5
+seed = 1
+ball = 791 -3019 93.15
+ball_vel = -71 -991 0
+ball_spin = 0 0 0
+car = blue 2984 -1996 -245 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.62s. Defender chase, rightward, stopped, boost 0.
+
+[left-lead-in-midfield-005]
+kind = defend
+time = 6
+seed = 1
+ball = -291 -386 93.15
+ball_vel = -56 -1933 0
+ball_spin = 0 0 3
+car = blue -1262 635 -46 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.61s. Defender midfield, facing, stopped, boost 0.
+
+[left-lead-in-attack-half-005]
+kind = defend
+time = 6
+seed = 1
+ball = 1766 -2167 93.15
+ball_vel = -976 -1244 0
+ball_spin = 0 0 3
+car = blue 1304 597 -81 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.73s. Defender attack-half, facing, forward, boost 0.
+
+[left-lead-in-wide-left-005]
+kind = defend
+time = 6
+seed = 1
+ball = -795 -1739 93.15
+ball_vel = 62 -1478 0
+ball_spin = 0 0 -1
+car = blue -2673 -695 -29 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.45s. Defender wide-left, facing, reverse, boost 0.
+
+[left-lead-in-wide-right-005]
+kind = defend
+time = 6
+seed = 1
+ball = 1296 -266 93.15
+ball_vel = -722 -1931 0
+ball_spin = 0 0 -3
+car = blue 2682 -607 166 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.64s. Defender wide-right, facing, fast-forward, boost 12.
+
+[left-lead-in-wrong-side-005]
+kind = defend
+time = 6
+seed = 1
+ball = 61 -1532 93.15
+ball_vel = -218 -1640 0
+ball_spin = 0 0 0
+car = blue 2402 -1030 -168 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.07s. Defender wrong-side, facing, stopped, boost 12.
+
+[left-lead-in-chase-005]
+kind = defend
+time = 6
+seed = 1
+ball = -1075 -280 93.15
+ball_vel = 240 -1955 0
+ball_spin = 0 0 1
+car = blue -2412 951 -43 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.65s. Defender chase, facing, forward, boost 12.
+
+[center-lead-in-midfield-005]
+kind = defend
+time = 6
+seed = 1
+ball = -318 -1697 93.15
+ball_vel = 101 -1588 0
+ball_spin = 0 0 -0
+car = blue -1515 139 -57 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.03s. Defender midfield, facing, reverse, boost 33.
+
+[center-lead-in-attack-half-005]
+kind = defend
+time = 6
+seed = 1
+ball = 1547 -489 93.15
+ball_vel = -606 -1891 0
+ball_spin = 0 0 2
+car = blue 1397 549 -82 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.53s. Defender attack-half, facing, fast-forward, boost 33.
+
+[center-lead-in-wide-left-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1133 -507 93.15
+ball_vel = 405 -2029 0
+ball_spin = 0 0 2
+car = blue -2878 -1301 24 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.71s. Defender wide-left, facing, stopped, boost 33.
+
+[center-lead-in-wide-right-005]
+kind = defend
+time = 5
+seed = 1
+ball = -524 -3100 93.15
+ball_vel = 306 -828 0
+ball_spin = 0 0 -1
+car = blue 3171 -1339 -155 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.98s. Defender wide-right, facing, forward, boost 100.
+
+[center-lead-in-wrong-side-005]
+kind = defend
+time = 5
+seed = 1
+ball = 327 -2146 93.15
+ball_vel = -149 -1517 0
+ball_spin = 0 0 0
+car = blue -2523 -1806 -7 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.50s. Defender wrong-side, facing, reverse, boost 100.
+
+[center-lead-in-chase-005]
+kind = defend
+time = 6
+seed = 1
+ball = 999 -1572 93.15
+ball_vel = -399 -1528 0
+ball_spin = 0 0 1
+car = blue 2223 253 -124 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.53s. Defender chase, facing, fast-forward, boost 100.
+
+[right-lead-in-midfield-005]
+kind = defend
+time = 6
+seed = 1
+ball = 524 -1388 93.15
+ball_vel = 69 -1674 0
+ball_spin = 0 0 -0
+car = blue -172 102 -65 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.18s. Defender midfield, facing, stopped, boost 0.
+
+[right-lead-in-attack-half-005]
+kind = defend
+time = 6
+seed = 1
+ball = -1705 -37 93.15
+ball_vel = 830 -1990 0
+ball_spin = 0 0 2
+car = blue 1615 966 -163 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.62s. Defender attack-half, facing, forward, boost 0.
+
+[right-lead-in-wide-left-005]
+kind = defend
+time = 6
+seed = 1
+ball = -1704 -2927 93.15
+ball_vel = 938 -912 0
+ball_spin = 0 0 1
+car = blue -2510 -775 -69 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.77s. Defender wide-left, facing, reverse, boost 0.
+
+[right-lead-in-wide-right-005]
+kind = defend
+time = 6
+seed = 1
+ball = -889 -2778 93.15
+ball_vel = 484 -881 0
+ball_spin = 0 0 -2
+car = blue 3383 -985 -157 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.76s. Defender wide-right, facing, fast-forward, boost 12.
+
+[right-lead-in-wrong-side-005]
+kind = defend
+time = 5
+seed = 1
+ball = 1476 -2073 93.15
+ball_vel = -485 -1495 0
+ball_spin = 0 0 -2
+car = blue -2434 -1878 -3 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.70s. Defender wrong-side, facing, stopped, boost 12.
+
+[right-lead-in-chase-005]
+kind = defend
+time = 5
+seed = 1
+ball = -596 -2035 93.15
+ball_vel = 582 -1465 0
+ball_spin = 0 0 -2
+car = blue 884 -69 -127 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.90s. Defender chase, facing, forward, boost 12.
+
+[left-lead-in-midfield-006]
+kind = defend
+time = 6
+seed = 1
+ball = -1766 -1927 93.15
+ball_vel = 488 -1419 0
+ball_spin = 0 0 -3
+car = blue 1399 242 -56 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.35s. Defender midfield, leftward, forward, boost 12.
+
+[left-lead-in-attack-half-006]
+kind = defend
+time = 6
+seed = 1
+ball = -1497 -1445 93.15
+ball_vel = 401 -1544 0
+ball_spin = 0 0 1
+car = blue 870 780 -47 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.70s. Defender attack-half, leftward, reverse, boost 12.
+
+[left-lead-in-wide-left-006]
+kind = defend
+time = 6
+seed = 1
+ball = 328 -2948 93.15
+ball_vel = -307 -685 0
+ball_spin = 0 0 -0
+car = blue -2541 579 39 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.77s. Defender wide-left, leftward, fast-forward, boost 12.
+
+[left-lead-in-wide-right-006]
+kind = defend
+time = 6
+seed = 1
+ball = -933 -1151 93.15
+ball_vel = 153 -1732 0
+ball_spin = 0 0 -1
+car = blue 2603 -421 -78 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.32s. Defender wide-right, leftward, stopped, boost 33.
+
+[left-lead-in-wrong-side-006]
+kind = defend
+time = 5
+seed = 1
+ball = -148 -1902 93.15
+ball_vel = -218 -1526 0
+ball_spin = 0 0 2
+car = blue 2851 -1620 -85 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 3.92s. Defender wrong-side, leftward, forward, boost 33.
+
+[left-lead-in-chase-006]
+kind = defend
+time = 6
+seed = 1
+ball = -823 -1463 93.15
+ball_vel = 66 -1611 0
+ball_spin = 0 0 -3
+car = blue -2951 -50 56 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.35s. Defender chase, leftward, reverse, boost 33.
+
+[center-lead-in-midfield-006]
+kind = defend
+time = 6
+seed = 1
+ball = 1761 -459 93.15
+ball_vel = -787 -1868 0
+ball_spin = 0 0 -3
+car = blue 1590 544 10 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.64s. Defender midfield, leftward, fast-forward, boost 100.
+
+[center-lead-in-attack-half-006]
+kind = defend
+time = 6
+seed = 1
+ball = 1074 -1082 93.15
+ball_vel = -449 -1777 0
+ball_spin = 0 0 1
+car = blue 593 208 20 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.14s. Defender attack-half, leftward, stopped, boost 100.
+
+[center-lead-in-wide-left-006]
+kind = defend
+time = 5
+seed = 1
+ball = -2164 -623 93.15
+ball_vel = 992 -1906 0
+ball_spin = 0 0 -2
+car = blue -3163 -821 101 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.87s. Defender wide-left, leftward, forward, boost 100.
+
+[center-lead-in-wide-right-006]
+kind = defend
+time = 6
+seed = 1
+ball = 1908 -2115 93.15
+ball_vel = -758 -1255 0
+ball_spin = 0 0 3
+car = blue 2557 -394 -21 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.78s. Defender wide-right, leftward, reverse, boost 0.
+
+[center-lead-in-wrong-side-006]
+kind = defend
+time = 5
+seed = 1
+ball = -525 -2469 93.15
+ball_vel = 301 -1250 0
+ball_spin = 0 0 2
+car = blue -2108 -1394 56 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.97s. Defender wrong-side, leftward, fast-forward, boost 0.
+
+[center-lead-in-chase-006]
+kind = defend
+time = 5
+seed = 1
+ball = 1062 -2424 93.15
+ball_vel = -511 -1318 0
+ball_spin = 0 0 -3
+car = blue -461 -515 39 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.80s. Defender chase, leftward, stopped, boost 0.
+
+[right-lead-in-midfield-006]
+kind = defend
+time = 6
+seed = 1
+ball = -1534 -2227 93.15
+ball_vel = 965 -1256 0
+ball_spin = 0 0 -2
+car = blue 1719 -268 -59 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.52s. Defender midfield, leftward, forward, boost 12.
+
+[right-lead-in-attack-half-006]
+kind = defend
+time = 6
+seed = 1
+ball = -703 -2138 93.15
+ball_vel = 523 -1236 0
+ball_spin = 0 0 -3
+car = blue 22 279 -17 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.75s. Defender attack-half, leftward, reverse, boost 12.
+
+[right-lead-in-wide-left-006]
+kind = defend
+time = 6
+seed = 1
+ball = -511 -2241 93.15
+ball_vel = 439 -1335 0
+ball_spin = 0 0 -1
+car = blue -2935 -1282 68 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.10s. Defender wide-left, leftward, fast-forward, boost 12.
+
+[right-lead-in-wide-right-006]
+kind = defend
+time = 6
+seed = 1
+ball = 1614 -275 93.15
+ball_vel = -459 -1966 0
+ball_spin = 0 0 -1
+car = blue 3059 313 -68 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.53s. Defender wide-right, leftward, stopped, boost 33.
+
+[right-lead-in-wrong-side-006]
+kind = defend
+time = 6
+seed = 1
+ball = -841 -2852 93.15
+ball_vel = 702 -1064 0
+ball_spin = 0 0 1
+car = blue -1723 -1760 39 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.02s. Defender wrong-side, leftward, forward, boost 33.
+
+[right-lead-in-chase-006]
+kind = defend
+time = 6
+seed = 1
+ball = -1586 -2875 93.15
+ball_vel = 1070 -1057 0
+ball_spin = 0 0 -3
+car = blue -480 -1114 -32 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.06s. Defender chase, leftward, reverse, boost 33.
+
+[left-lead-in-midfield-007]
+kind = defend
+time = 6
+seed = 1
+ball = 1496 -2313 93.15
+ball_vel = -891 -1207 0
+ball_spin = 0 0 1
+car = blue 323 218 115 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.60s. Defender midfield, away, reverse, boost 33.
+
+[left-lead-in-attack-half-007]
+kind = defend
+time = 6
+seed = 1
+ball = 397 -787 93.15
+ball_vel = -385 -1781 0
+ball_spin = 0 0 -0
+car = blue -1070 1197 126 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.70s. Defender attack-half, away, fast-forward, boost 33.
+
+[left-lead-in-wide-left-007]
+kind = defend
+time = 6
+seed = 1
+ball = -560 -2079 93.15
+ball_vel = 45 -1300 0
+ball_spin = 0 0 2
+car = blue -2793 -420 143 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.52s. Defender wide-left, away, stopped, boost 33.
+
+[left-lead-in-wide-right-007]
+kind = defend
+time = 6
+seed = 1
+ball = -1131 -121 93.15
+ball_vel = 278 -2092 0
+ball_spin = 0 0 -1
+car = blue 2759 -919 348 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.06s. Defender wide-right, away, forward, boost 100.
+
+[left-lead-in-wrong-side-007]
+kind = defend
+time = 6
+seed = 1
+ball = -117 -2006 93.15
+ball_vel = -138 -1396 0
+ball_spin = 0 0 -0
+car = blue 2620 -837 23 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.28s. Defender wrong-side, away, reverse, boost 100.
+
+[left-lead-in-chase-007]
+kind = defend
+time = 6
+seed = 1
+ball = 267 -1838 93.15
+ball_vel = -297 -1377 0
+ball_spin = 0 0 -1
+car = blue -1093 -422 134 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.70s. Defender chase, away, fast-forward, boost 100.
+
+[center-lead-in-midfield-007]
+kind = defend
+time = 6
+seed = 1
+ball = -2229 -1199 93.15
+ball_vel = 1029 -1672 0
+ball_spin = 0 0 0
+car = blue 1423 -437 12 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.22s. Defender midfield, away, stopped, boost 0.
+
+[center-lead-in-attack-half-007]
+kind = defend
+time = 5
+seed = 1
+ball = 2458 -477 93.15
+ball_vel = -1069 -1937 0
+ball_spin = 0 0 2
+car = blue -856 302 167 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.88s. Defender attack-half, away, forward, boost 0.
+
+[center-lead-in-wide-left-007]
+kind = defend
+time = 6
+seed = 1
+ball = 268 -2801 93.15
+ball_vel = -210 -1011 0
+ball_spin = 0 0 2
+car = blue -3119 -812 150 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.06s. Defender wide-left, away, reverse, boost 0.
+
+[center-lead-in-wide-right-007]
+kind = defend
+time = 6
+seed = 1
+ball = -520 -1403 93.15
+ball_vel = 206 -1590 0
+ball_spin = 0 0 0
+car = blue 2867 -605 13 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.57s. Defender wide-right, away, fast-forward, boost 12.
+
+[center-lead-in-wrong-side-007]
+kind = defend
+time = 6
+seed = 1
+ball = -1978 -2831 93.15
+ball_vel = 793 -950 0
+ball_spin = 0 0 1
+car = blue 1879 -1184 23 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.67s. Defender wrong-side, away, stopped, boost 12.
+
+[center-lead-in-chase-007]
+kind = defend
+time = 6
+seed = 1
+ball = 2183 -3111 93.15
+ball_vel = -1028 -883 0
+ball_spin = 0 0 3
+car = blue 39 -2032 153 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.48s. Defender chase, away, forward, boost 12.
+
+[right-lead-in-midfield-007]
+kind = defend
+time = 6
+seed = 1
+ball = 1484 -3045 93.15
+ball_vel = -379 -788 0
+ball_spin = 0 0 -2
+car = blue -775 65 126 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.35s. Defender midfield, away, reverse, boost 33.
+
+[right-lead-in-attack-half-007]
+kind = defend
+time = 6
+seed = 1
+ball = 699 -245 93.15
+ball_vel = -22 -1956 0
+ball_spin = 0 0 -2
+car = blue -72 1086 120 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.73s. Defender attack-half, away, fast-forward, boost 33.
+
+[right-lead-in-wide-left-007]
+kind = defend
+time = 6
+seed = 1
+ball = -584 -2040 93.15
+ball_vel = 549 -1425 0
+ball_spin = 0 0 0
+car = blue -3022 -1039 158 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.09s. Defender wide-left, away, stopped, boost 33.
+
+[right-lead-in-wide-right-007]
+kind = defend
+time = 6
+seed = 1
+ball = -1435 -1775 93.15
+ball_vel = 879 -1405 0
+ball_spin = 0 0 -2
+car = blue 2596 -944 12 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.70s. Defender wide-right, away, forward, boost 100.
+
+[right-lead-in-wrong-side-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1633 -2401 93.15
+ball_vel = 1102 -1321 0
+ball_spin = 0 0 -3
+car = blue -2125 -1366 115 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.64s. Defender wrong-side, away, reverse, boost 100.
+
+[right-lead-in-chase-007]
+kind = defend
+time = 6
+seed = 1
+ball = -1936 -1712 93.15
+ball_vel = 1074 -1474 0
+ball_spin = 0 0 -2
+car = blue -452 -786 32 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.33s. Defender chase, away, fast-forward, boost 100.
+
+[left-lead-in-midfield-008]
+kind = defend
+time = 6
+seed = 1
+ball = -316 -765 93.15
+ball_vel = -80 -1797 0
+ball_spin = 0 0 2
+car = blue -1342 -304 -114 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.69s. Defender midfield, rightward, fast-forward, boost 100.
+
+[left-lead-in-attack-half-008]
+kind = defend
+time = 6
+seed = 1
+ball = -781 -686 93.15
+ball_vel = 42 -1860 0
+ball_spin = 0 0 -2
+car = blue -952 337 -171 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.48s. Defender attack-half, rightward, stopped, boost 100.
+
+[left-lead-in-wide-left-008]
+kind = defend
+time = 6
+seed = 1
+ball = -935 -1154 93.15
+ball_vel = 218 -1703 0
+ball_spin = 0 0 -3
+car = blue -2863 54 -122 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.46s. Defender wide-left, rightward, forward, boost 100.
+
+[left-lead-in-wide-right-008]
+kind = defend
+time = 6
+seed = 1
+ball = -347 -1439 93.15
+ball_vel = -122 -1570 0
+ball_spin = 0 0 2
+car = blue 3235 -1356 -269 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.60s. Defender wide-right, rightward, reverse, boost 0.
+
+[left-lead-in-wrong-side-008]
+kind = defend
+time = 6
+seed = 1
+ball = 1817 -2343 93.15
+ball_vel = -1009 -1252 0
+ball_spin = 0 0 3
+car = blue 2537 -820 -205 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.25s. Defender wrong-side, rightward, fast-forward, boost 0.
+
+[left-lead-in-chase-008]
+kind = defend
+time = 6
+seed = 1
+ball = -216 -1549 93.15
+ball_vel = -124 -1554 0
+ball_spin = 0 0 0
+car = blue -1888 363 -139 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.47s. Defender chase, rightward, stopped, boost 0.
+
+[center-lead-in-midfield-008]
+kind = defend
+time = 6
+seed = 1
+ball = -2169 -1721 93.15
+ball_vel = 997 -1488 0
+ball_spin = 0 0 2
+car = blue -141 160 -227 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.27s. Defender midfield, rightward, forward, boost 12.
+
+[center-lead-in-attack-half-008]
+kind = defend
+time = 6
+seed = 1
+ball = -269 -1246 93.15
+ball_vel = 151 -1685 0
+ball_spin = 0 0 3
+car = blue -1205 669 -154 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.39s. Defender attack-half, rightward, reverse, boost 12.
+
+[center-lead-in-wide-left-008]
+kind = defend
+time = 6
+seed = 1
+ball = -460 -1179 93.15
+ball_vel = 224 -1699 0
+ball_spin = 0 0 -1
+car = blue -2694 223 -122 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.43s. Defender wide-left, rightward, fast-forward, boost 12.
+
+[center-lead-in-wide-right-008]
+kind = defend
+time = 6
+seed = 1
+ball = -122 -2877 93.15
+ball_vel = 122 -896 0
+ball_spin = 0 0 3
+car = blue 2581 -999 -235 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.22s. Defender wide-right, rightward, stopped, boost 33.
+
+[center-lead-in-wrong-side-008]
+kind = defend
+time = 6
+seed = 1
+ball = -1014 32 93.15
+ball_vel = 363 -2081 0
+ball_spin = 0 0 -1
+car = blue 1966 -1528 62 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.38s. Defender wrong-side, rightward, forward, boost 33.
+
+[center-lead-in-chase-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1097 -2598 93.15
+ball_vel = -653 -1270 0
+ball_spin = 0 0 1
+car = blue -949 -1166 -125 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.65s. Defender chase, rightward, reverse, boost 33.
+
+[right-lead-in-midfield-008]
+kind = defend
+time = 5
+seed = 1
+ball = 163 52 93.15
+ball_vel = 192 -2200 0
+ball_spin = 0 0 1
+car = blue -1392 -159 -82 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.70s. Defender midfield, rightward, fast-forward, boost 100.
+
+[right-lead-in-attack-half-008]
+kind = defend
+time = 6
+seed = 1
+ball = -652 -792 93.15
+ball_vel = 498 -1799 0
+ball_spin = 0 0 -2
+car = blue 880 1067 -220 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.56s. Defender attack-half, rightward, stopped, boost 100.
+
+[right-lead-in-wide-left-008]
+kind = defend
+time = 6
+seed = 1
+ball = -844 -61 93.15
+ball_vel = 538 -2015 0
+ball_spin = 0 0 1
+car = blue -3295 -479 -80 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.58s. Defender wide-left, rightward, forward, boost 100.
+
+[right-lead-in-wide-right-008]
+kind = defend
+time = 6
+seed = 1
+ball = 1242 -2781 93.15
+ball_vel = -237 -969 0
+ball_spin = 0 0 0
+car = blue 2640 -628 -213 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.21s. Defender wide-right, rightward, reverse, boost 0.
+
+[right-lead-in-wrong-side-008]
+kind = defend
+time = 6
+seed = 1
+ball = 467 -795 93.15
+ball_vel = 15 -1807 0
+ball_spin = 0 0 -1
+car = blue -1729 -1698 -68 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.58s. Defender wrong-side, rightward, fast-forward, boost 0.
+
+[right-lead-in-chase-008]
+kind = defend
+time = 5
+seed = 1
+ball = -1535 -2766 93.15
+ball_vel = 1006 -1142 0
+ball_spin = 0 0 2
+car = blue 505 -1834 -245 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.85s. Defender chase, rightward, stopped, boost 0.
+
+[left-lead-in-midfield-009]
+kind = defend
+time = 6
+seed = 1
+ball = -2158 -2908 93.15
+ball_vel = 589 -882 0
+ball_spin = 0 0 2
+car = blue -448 -357 -124 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.59s. Defender midfield, facing, stopped, boost 0.
+
+[left-lead-in-attack-half-009]
+kind = defend
+time = 6
+seed = 1
+ball = -1140 -1757 93.15
+ball_vel = 254 -1442 0
+ball_spin = 0 0 1
+car = blue 1720 487 -142 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.58s. Defender attack-half, facing, forward, boost 0.
+
+[left-lead-in-wide-left-009]
+kind = defend
+time = 6
+seed = 1
+ball = 2356 -190 93.15
+ball_vel = -1184 -1926 0
+ball_spin = 0 0 2
+car = blue -2667 -436 3 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.41s. Defender wide-left, facing, reverse, boost 0.
+
+[left-lead-in-wide-right-009]
+kind = defend
+time = 6
+seed = 1
+ball = 172 -427 93.15
+ball_vel = -348 -1918 0
+ball_spin = 0 0 0
+car = blue 3300 -892 172 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.58s. Defender wide-right, facing, fast-forward, boost 12.
+
+[left-lead-in-wrong-side-009]
+kind = defend
+time = 6
+seed = 1
+ball = -1868 -655 93.15
+ball_vel = 519 -1856 0
+ball_spin = 0 0 -1
+car = blue 1627 -1517 166 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.47s. Defender wrong-side, facing, stopped, boost 12.
+
+[left-lead-in-chase-009]
+kind = defend
+time = 6
+seed = 1
+ball = 1016 -2047 93.15
+ball_vel = -721 -1403 0
+ball_spin = 0 0 3
+car = blue -676 -518 -42 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.16s. Defender chase, facing, forward, boost 12.
+
+[center-lead-in-midfield-009]
+kind = defend
+time = 5
+seed = 1
+ball = -2225 -1527 93.15
+ball_vel = 1025 -1624 0
+ball_spin = 0 0 -0
+car = blue -356 -249 -146 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.82s. Defender midfield, facing, reverse, boost 33.
+
+[center-lead-in-attack-half-009]
+kind = defend
+time = 6
+seed = 1
+ball = 422 -1545 93.15
+ball_vel = -216 -1514 0
+ball_spin = 0 0 1
+car = blue -1774 805 -47 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.66s. Defender attack-half, facing, fast-forward, boost 33.
+
+[center-lead-in-wide-left-009]
+kind = defend
+time = 5
+seed = 1
+ball = -777 -1857 93.15
+ball_vel = 347 -1559 0
+ball_spin = 0 0 -2
+car = blue -2482 -891 -30 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.83s. Defender wide-left, facing, stopped, boost 33.
+
+[center-lead-in-wide-right-009]
+kind = defend
+time = 6
+seed = 1
+ball = -891 -2391 93.15
+ball_vel = 334 -1074 0
+ball_spin = 0 0 2
+car = blue 3295 -686 -158 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.76s. Defender wide-right, facing, forward, boost 100.
+
+[center-lead-in-wrong-side-009]
+kind = defend
+time = 5
+seed = 1
+ball = -563 -552 93.15
+ball_vel = 246 -2034 0
+ball_spin = 0 0 1
+car = blue 1946 -819 174 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.64s. Defender wrong-side, facing, reverse, boost 100.
+
+[center-lead-in-chase-009]
+kind = defend
+time = 5
+seed = 1
+ball = 2329 -3261 93.15
+ball_vel = -1201 -933 0
+ball_spin = 0 0 -1
+car = blue 587 -1755 -41 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.71s. Defender chase, facing, fast-forward, boost 100.
+
+[right-lead-in-midfield-009]
+kind = defend
+time = 6
+seed = 1
+ball = -325 -2914 93.15
+ball_vel = 313 -762 0
+ball_spin = 0 0 -2
+car = blue -1616 245 -68 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.64s. Defender midfield, facing, stopped, boost 0.
+
+[right-lead-in-attack-half-009]
+kind = defend
+time = 6
+seed = 1
+ball = 855 -2363 93.15
+ball_vel = -131 -1179 0
+ball_spin = 0 0 1
+car = blue 1475 328 -103 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.39s. Defender attack-half, facing, forward, boost 0.
+
+[right-lead-in-wide-left-009]
+kind = defend
+time = 6
+seed = 1
+ball = 1281 -1382 93.15
+ball_vel = -264 -1598 0
+ball_spin = 0 0 1
+car = blue -2991 -1219 -2 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.57s. Defender wide-left, facing, reverse, boost 0.
+
+[right-lead-in-wide-right-009]
+kind = defend
+time = 6
+seed = 1
+ball = 2022 -690 93.15
+ball_vel = -571 -1869 0
+ball_spin = 0 0 -1
+car = blue 2822 245 -131 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.30s. Defender wide-right, facing, fast-forward, boost 12.
+
+[right-lead-in-wrong-side-009]
+kind = defend
+time = 6
+seed = 1
+ball = 1755 -1206 93.15
+ball_vel = -483 -1717 0
+ball_spin = 0 0 -3
+car = blue -2595 -1668 6 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.23s. Defender wrong-side, facing, stopped, boost 12.
+
+[right-lead-in-chase-009]
+kind = defend
+time = 6
+seed = 1
+ball = 904 -1538 93.15
+ball_vel = -120 -1621 0
+ball_spin = 0 0 2
+car = blue 2337 33 -132 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.16s. Defender chase, facing, forward, boost 12.
+
+[left-lead-in-midfield-010]
+kind = defend
+time = 6
+seed = 1
+ball = -619 -1703 93.15
+ball_vel = 16 -1534 0
+ball_spin = 0 0 2
+car = blue 651 23 -36 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.27s. Defender midfield, leftward, forward, boost 12.
+
+[left-lead-in-attack-half-010]
+kind = defend
+time = 6
+seed = 1
+ball = 2033 75 93.15
+ball_vel = -980 -2050 0
+ball_spin = 0 0 -2
+car = blue -899 894 74 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.27s. Defender attack-half, leftward, reverse, boost 12.
+
+[left-lead-in-wide-left-010]
+kind = defend
+time = 6
+seed = 1
+ball = -2245 -2253 93.15
+ball_vel = 746 -1212 0
+ball_spin = 0 0 -2
+car = blue -2751 433 11 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.69s. Defender wide-left, leftward, fast-forward, boost 12.
+
+[left-lead-in-wide-right-010]
+kind = defend
+time = 6
+seed = 1
+ball = 1595 40 93.15
+ball_vel = -845 -1991 0
+ball_spin = 0 0 0
+car = blue 2489 -995 221 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.75s. Defender wide-right, leftward, stopped, boost 33.
+
+[left-lead-in-wrong-side-010]
+kind = defend
+time = 6
+seed = 1
+ball = 890 -2612 93.15
+ball_vel = -636 -1182 0
+ball_spin = 0 0 -2
+car = blue 2326 -696 -37 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.01s. Defender wrong-side, leftward, forward, boost 33.
+
+[left-lead-in-chase-010]
+kind = defend
+time = 6
+seed = 1
+ball = -1608 -1285 93.15
+ball_vel = 478 -1623 0
+ball_spin = 0 0 2
+car = blue -3135 589 39 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.60s. Defender chase, leftward, reverse, boost 33.
+
+[center-lead-in-midfield-010]
+kind = defend
+time = 6
+seed = 1
+ball = -2207 -1601 93.15
+ball_vel = 871 -1480 0
+ball_spin = 0 0 -2
+car = blue -792 64 -40 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.65s. Defender midfield, leftward, fast-forward, boost 100.
+
+[center-lead-in-attack-half-010]
+kind = defend
+time = 6
+seed = 1
+ball = -208 -273 93.15
+ball_vel = 76 -2005 0
+ball_spin = 0 0 1
+car = blue -1347 394 60 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.37s. Defender attack-half, leftward, stopped, boost 100.
+
+[center-lead-in-wide-left-010]
+kind = defend
+time = 6
+seed = 1
+ball = -1585 -2885 93.15
+ball_vel = 674 -878 0
+ball_spin = 0 0 1
+car = blue -2527 -1022 27 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.77s. Defender wide-left, leftward, forward, boost 100.
+
+[center-lead-in-wide-right-010]
+kind = defend
+time = 6
+seed = 1
+ball = -1979 16 93.15
+ball_vel = 802 -2003 0
+ball_spin = 0 0 1
+car = blue 3178 -318 266 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.65s. Defender wide-right, leftward, reverse, boost 0.
+
+[center-lead-in-wrong-side-010]
+kind = defend
+time = 6
+seed = 1
+ball = -387 -1796 93.15
+ball_vel = 190 -1490 0
+ball_spin = 0 0 1
+car = blue -2820 -661 65 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.28s. Defender wrong-side, leftward, fast-forward, boost 0.
+
+[center-lead-in-chase-010]
+kind = defend
+time = 6
+seed = 1
+ball = 2362 -1796 93.15
+ball_vel = -960 -1465 0
+ball_spin = 0 0 -2
+car = blue 438 85 46 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.27s. Defender chase, leftward, stopped, boost 0.
+
+[right-lead-in-midfield-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1380 -460 93.15
+ball_vel = 822 -2011 0
+ball_spin = 0 0 1
+car = blue 656 -12 -78 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.67s. Defender midfield, leftward, forward, boost 12.
+
+[right-lead-in-attack-half-010]
+kind = defend
+time = 6
+seed = 1
+ball = 1587 -2594 93.15
+ball_vel = -472 -1051 0
+ball_spin = 0 0 -1
+car = blue -78 760 26 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.51s. Defender attack-half, leftward, reverse, boost 12.
+
+[right-lead-in-wide-left-010]
+kind = defend
+time = 6
+seed = 1
+ball = -942 -2748 93.15
+ball_vel = 616 -1083 0
+ball_spin = 0 0 1
+car = blue -3099 -1050 52 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.13s. Defender wide-left, leftward, fast-forward, boost 12.
+
+[right-lead-in-wide-right-010]
+kind = defend
+time = 6
+seed = 1
+ball = -404 -370 93.15
+ball_vel = 443 -1971 0
+ball_spin = 0 0 -3
+car = blue 3396 -654 266 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.33s. Defender wide-right, leftward, stopped, boost 33.
+
+[right-lead-in-wrong-side-010]
+kind = defend
+time = 6
+seed = 1
+ball = 1112 -496 93.15
+ball_vel = -187 -1949 0
+ball_spin = 0 0 -2
+car = blue -2617 -1035 98 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.29s. Defender wrong-side, leftward, forward, boost 33.
+
+[right-lead-in-chase-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1575 -1847 93.15
+ball_vel = 1006 -1496 0
+ball_spin = 0 0 -2
+car = blue 428 -914 -65 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.93s. Defender chase, leftward, reverse, boost 33.
+
+[left-lead-in-midfield-011]
+kind = defend
+time = 6
+seed = 1
+ball = 2335 -184 93.15
+ball_vel = -1118 -1901 0
+ball_spin = 0 0 0
+car = blue -458 500 166 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.69s. Defender midfield, away, reverse, boost 33.
+
+[left-lead-in-attack-half-011]
+kind = defend
+time = 6
+seed = 1
+ball = 390 -1493 93.15
+ball_vel = -443 -1587 0
+ball_spin = 0 0 1
+car = blue -1654 417 137 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.38s. Defender attack-half, away, fast-forward, boost 33.
+
+[left-lead-in-wide-left-011]
+kind = defend
+time = 6
+seed = 1
+ball = 1493 -820 93.15
+ball_vel = -779 -1770 0
+ball_spin = 0 0 -1
+car = blue -2789 426 164 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.55s. Defender wide-left, away, stopped, boost 33.
+
+[left-lead-in-wide-right-011]
+kind = defend
+time = 5
+seed = 1
+ball = -1588 -2373 93.15
+ball_vel = 492 -1300 0
+ball_spin = 0 0 2
+car = blue 2820 -1318 13 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 3.98s. Defender wide-right, away, forward, boost 100.
+
+[left-lead-in-wrong-side-011]
+kind = defend
+time = 5
+seed = 1
+ball = -700 -1202 93.15
+ball_vel = 97 -1781 0
+ball_spin = 0 0 2
+car = blue 2806 -1104 2 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 3.96s. Defender wrong-side, away, reverse, boost 100.
+
+[left-lead-in-chase-011]
+kind = defend
+time = 6
+seed = 1
+ball = -65 -2747 93.15
+ball_vel = -160 -901 0
+ball_spin = 0 0 -1
+car = blue -2193 -1587 151 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.40s. Defender chase, away, fast-forward, boost 100.
+
+[center-lead-in-midfield-011]
+kind = defend
+time = 6
+seed = 1
+ball = -1621 -1380 93.15
+ball_vel = 777 -1611 0
+ball_spin = 0 0 -2
+car = blue -336 579 57 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.38s. Defender midfield, away, stopped, boost 0.
+
+[center-lead-in-attack-half-011]
+kind = defend
+time = 6
+seed = 1
+ball = 2077 -880 93.15
+ball_vel = -801 -1733 0
+ball_spin = 0 0 1
+car = blue 1552 1096 105 800 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.65s. Defender attack-half, away, forward, boost 0.
+
+[center-lead-in-wide-left-011]
+kind = defend
+time = 6
+seed = 1
+ball = 556 -198 93.15
+ball_vel = -144 -2020 0
+ball_spin = 0 0 1
+car = blue -2528 -961 194 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.41s. Defender wide-left, away, reverse, boost 0.
+
+[center-lead-in-wide-right-011]
+kind = defend
+time = 6
+seed = 1
+ball = 2064 -2670 93.15
+ball_vel = -1009 -1113 0
+ball_spin = 0 0 -1
+car = blue 3132 -866 59 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.26s. Defender wide-right, away, fast-forward, boost 12.
+
+[center-lead-in-wrong-side-011]
+kind = defend
+time = 6
+seed = 1
+ball = 817 -989 93.15
+ball_vel = -344 -1796 0
+ball_spin = 0 0 0
+car = blue -3136 -1899 193 0 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.24s. Defender wrong-side, away, stopped, boost 12.
+
+[center-lead-in-chase-011]
+kind = defend
+time = 6
+seed = 1
+ball = -411 -142 93.15
+ball_vel = 102 -1998 0
+ball_spin = 0 0 1
+car = blue 806 1123 46 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.66s. Defender chase, away, forward, boost 12.
+
+[right-lead-in-midfield-011]
+kind = defend
+time = 6
+seed = 1
+ball = 854 -2905 93.15
+ball_vel = -96 -700 0
+ball_spin = 0 0 -2
+car = blue -429 -53 114 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.76s. Defender midfield, away, reverse, boost 33.
+
+[right-lead-in-attack-half-011]
+kind = defend
+time = 6
+seed = 1
+ball = 1891 -953 93.15
+ball_vel = -543 -1832 0
+ball_spin = 0 0 -2
+car = blue -211 271 150 1400 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.03s. Defender attack-half, away, fast-forward, boost 33.
+
+[right-lead-in-wide-left-011]
+kind = defend
+time = 6
+seed = 1
+ball = 1981 -2222 93.15
+ball_vel = -595 -1216 0
+ball_spin = 0 0 -2
+car = blue -3197 -326 160 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.69s. Defender wide-left, away, stopped, boost 33.
+
+[right-lead-in-wide-right-011]
+kind = defend
+time = 6
+seed = 1
+ball = -377 -1696 93.15
+ball_vel = 444 -1484 0
+ball_spin = 0 0 1
+car = blue 3317 278 28 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.50s. Defender wide-right, away, forward, boost 100.
+
+[right-lead-in-wrong-side-011]
+kind = defend
+time = 6
+seed = 1
+ball = 1546 -3115 93.15
+ball_vel = -353 -789 0
+ball_spin = 0 0 2
+car = blue -2117 -1453 156 -700 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.16s. Defender wrong-side, away, reverse, boost 100.
+
+[right-lead-in-chase-011]
+kind = defend
+time = 5
+seed = 1
+ball = 482 -2972 93.15
+ball_vel = 90 -1034 0
+ball_spin = 0 0 1
+car = blue 2666 -1100 41 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 3.62s. Defender chase, away, fast-forward, boost 100.
+
+[left-lead-in-midfield-012]
+kind = defend
+time = 6
+seed = 1
+ball = 1762 -2209 93.15
+ball_vel = -1002 -1279 0
+ball_spin = 0 0 -1
+car = blue -390 200 -138 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.42s. Defender midfield, rightward, fast-forward, boost 100.
+
+[left-lead-in-attack-half-012]
+kind = defend
+time = 6
+seed = 1
+ball = -853 -2629 93.15
+ball_vel = 179 -1007 0
+ball_spin = 0 0 1
+car = blue -1004 822 -177 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.39s. Defender attack-half, rightward, stopped, boost 100.
+
+[left-lead-in-wide-left-012]
+kind = defend
+time = 6
+seed = 1
+ball = -1211 -1256 93.15
+ball_vel = 280 -1669 0
+ball_spin = 0 0 1
+car = blue -3000 31 -126 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.44s. Defender wide-left, rightward, forward, boost 100.
+
+[left-lead-in-wide-right-012]
+kind = defend
+time = 6
+seed = 1
+ball = 1275 -2192 93.15
+ball_vel = -716 -1246 0
+ball_spin = 0 0 -2
+car = blue 3379 -846 -237 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.64s. Defender wide-right, rightward, reverse, boost 0.
+
+[left-lead-in-wrong-side-012]
+kind = defend
+time = 6
+seed = 1
+ball = 184 -573 93.15
+ball_vel = -287 -1858 0
+ball_spin = 0 0 -2
+car = blue 3070 -1816 67 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.68s. Defender wrong-side, rightward, fast-forward, boost 0.
+
+[left-lead-in-chase-012]
+kind = defend
+time = 6
+seed = 1
+ball = -987 -2002 93.15
+ball_vel = 211 -1405 0
+ball_spin = 0 0 -2
+car = blue -3119 -372 -127 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, left entry in 4.26s. Defender chase, rightward, stopped, boost 0.
+
+[center-lead-in-midfield-012]
+kind = defend
+time = 6
+seed = 1
+ball = -2264 -2436 93.15
+ball_vel = 978 -1135 0
+ball_spin = 0 0 3
+car = blue -1194 71 -203 800 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.72s. Defender midfield, rightward, forward, boost 12.
+
+[center-lead-in-attack-half-012]
+kind = defend
+time = 6
+seed = 1
+ball = 893 -1528 93.15
+ball_vel = -413 -1516 0
+ball_spin = 0 0 -1
+car = blue 1202 1082 -187 -700 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.67s. Defender attack-half, rightward, reverse, boost 12.
+
+[center-lead-in-wide-left-012]
+kind = defend
+time = 6
+seed = 1
+ball = 1463 -54 93.15
+ball_vel = -502 -1999 0
+ball_spin = 0 0 2
+car = blue -2600 -753 -80 1400 12
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.72s. Defender wide-left, rightward, fast-forward, boost 12.
+
+[center-lead-in-wide-right-012]
+kind = defend
+time = 6
+seed = 1
+ball = 2296 -2487 93.15
+ball_vel = -985 -1166 0
+ball_spin = 0 0 -0
+car = blue 2848 -532 -196 0 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.41s. Defender wide-right, rightward, stopped, boost 33.
+
+[center-lead-in-wrong-side-012]
+kind = defend
+time = 5
+seed = 1
+ball = -528 -2613 93.15
+ball_vel = 342 -1195 0
+ball_spin = 0 0 -1
+car = blue -2031 -774 -141 800 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 3.89s. Defender wrong-side, rightward, forward, boost 33.
+
+[center-lead-in-chase-012]
+kind = defend
+time = 6
+seed = 1
+ball = 2416 -844 93.15
+ball_vel = -909 -1762 0
+ball_spin = 0 0 0
+car = blue 518 787 -131 -700 33
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, center entry in 4.47s. Defender chase, rightward, reverse, boost 33.
+
+[right-lead-in-midfield-012]
+kind = defend
+time = 6
+seed = 1
+ball = 827 -1802 93.15
+ball_vel = -181 -1385 0
+ball_spin = 0 0 1
+car = blue 188 -48 -160 1400 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.72s. Defender midfield, rightward, fast-forward, boost 100.
+
+[right-lead-in-attack-half-012]
+kind = defend
+time = 6
+seed = 1
+ball = 1138 -1545 93.15
+ball_vel = -253 -1494 0
+ball_spin = 0 0 -2
+car = blue 390 306 -158 0 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.75s. Defender attack-half, rightward, stopped, boost 100.
+
+[right-lead-in-wide-left-012]
+kind = defend
+time = 6
+seed = 1
+ball = 1085 -1048 93.15
+ball_vel = -237 -1752 0
+ball_spin = 0 0 0
+car = blue -2640 -276 -102 800 100
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.39s. Defender wide-left, rightward, forward, boost 100.
+
+[right-lead-in-wide-right-012]
+kind = defend
+time = 6
+seed = 1
+ball = -1861 -1677 93.15
+ball_vel = 992 -1504 0
+ball_spin = 0 0 -3
+car = blue 2744 -651 -257 -700 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.28s. Defender wide-right, rightward, reverse, boost 0.
+
+[right-lead-in-wrong-side-012]
+kind = defend
+time = 6
+seed = 1
+ball = -573 -1765 93.15
+ball_vel = 454 -1474 0
+ball_spin = 0 0 1
+car = blue -2983 -1034 -107 1400 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.41s. Defender wrong-side, rightward, fast-forward, boost 0.
+
+[right-lead-in-chase-012]
+kind = defend
+time = 6
+seed = 1
+ball = 562 -895 93.15
+ball_vel = -18 -1800 0
+ball_spin = 0 0 -0
+car = blue 2555 233 -240 0 0
+rival = scripted mode=idle
+note = Rolling threats with defenders far from goal and away from the ball path threat, right entry in 4.43s. Defender chase, rightward, stopped, boost 0.

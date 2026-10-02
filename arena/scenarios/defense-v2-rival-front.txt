@@ -1,0 +1,2594 @@
+# Straight rival strikes on a still ball; measured contact speed.
+# Fixed defense v2. Goal lead-in: 2.5–5 s; start distance: at least 2000. Do not replace these tests.
+
+[left-impact-fast-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1158 1204 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -141 -4952 78 0 0
+car = orange 1251 1581 -105 2089 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.72s. Defender mouth, facing, stopped, boost 0.
+
+[left-impact-fast-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -1551 1779 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -502 -4806 99 800 0
+car = orange -1594 2067 -83 2120 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.85s. Defender near-post, facing, forward, boost 0.
+
+[left-impact-fast-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -2068 1759 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 646 -4927 112 -700 0
+car = orange -2184 2294 -78 1731 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.94s. Defender far-post, facing, reverse, boost 0.
+
+[left-impact-fast-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 260 855 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -285 -5202 85 1400 12
+car = orange 326 1350 -98 1738 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.18s. Defender inside, facing, fast-forward, boost 12.
+
+[left-impact-fast-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = -832 1305 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 282 -4225 101 0 12
+car = orange -846 1598 -88 2112 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.58s. Defender ahead, facing, stopped, boost 12.
+
+[left-impact-fast-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -2498 1732 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1800 -4530 96 800 12
+car = orange -2607 2131 -74 1909 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.42s. Defender beside, facing, forward, boost 12.
+
+[left-impact-medium-mouth-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1539 915 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -51 -4788 105 -700 33
+car = orange -1589 1248 -80 1437 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.20s. Defender mouth, facing, reverse, boost 33.
+
+[left-impact-medium-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1581 -1081 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -623 -4985 61 1400 33
+car = orange 1766 -749 -119 1367 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.09s. Defender near-post, facing, fast-forward, boost 33.
+
+[left-impact-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -451 -1685 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 571 -4790 108 0 33
+car = orange -423 -1219 -93 1092 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.75s. Defender far-post, facing, stopped, boost 33.
+
+[left-impact-medium-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 757 205 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 37 -5210 82 800 100
+car = orange 854 590 -104 1374 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.80s. Defender inside, facing, forward, boost 100.
+
+[left-impact-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 709 -2116 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 409 -4048 81 -700 100
+car = orange 842 -1804 -113 989 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.90s. Defender ahead, facing, reverse, boost 100.
+
+[left-impact-medium-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 994 -1449 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1346 -4485 52 1400 100
+car = orange 1157 -1065 -112 1416 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.58s. Defender beside, facing, fast-forward, boost 100.
+
+[left-impact-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -62 -2824 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -112 -4791 89 0 0
+car = orange 44 -2392 -103 165 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.73s. Defender mouth, facing, stopped, boost 0.
+
+[left-impact-slow-near-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = -171 -1744 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -582 -4792 82 800 0
+car = orange -129 -1217 -96 349 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.92s. Defender near-post, facing, forward, boost 0.
+
+[left-impact-slow-far-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1485 -1733 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 552 -5016 122 -700 0
+car = orange -1621 -1209 -76 518 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.59s. Defender far-post, facing, reverse, boost 0.
+
+[left-impact-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -431 -2836 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 565 -5316 112 1400 12
+car = orange -447 -2403 -89 51 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.76s. Defender inside, facing, fast-forward, boost 12.
+
+[left-impact-slow-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 135 -2951 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -63 -3959 79 0 12
+car = orange 309 -2439 -109 451 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.74s. Defender ahead, facing, stopped, boost 12.
+
+[left-impact-slow-beside-001]
+kind = defend
+time = 6
+seed = 1
+ball = 623 -2663 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1226 -4774 49 800 12
+car = orange 836 -2246 -117 198 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.27s. Defender beside, facing, forward, boost 12.
+
+[center-impact-fast-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2053 2034 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -106 -4906 73 -700 33
+car = orange 2179 2488 -106 2140 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.09s. Defender mouth, facing, reverse, boost 33.
+
+[center-impact-fast-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1994 1033 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -554 -4773 66 1400 33
+car = orange 2125 1414 -109 1894 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.08s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-impact-fast-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 657 477 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 520 -4785 89 0 33
+car = orange 714 995 -97 1711 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.03s. Defender far-post, facing, stopped, boost 33.
+
+[center-impact-fast-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1802 1436 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -534 -5212 71 800 100
+car = orange 1931 1882 -107 1771 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.55s. Defender inside, facing, forward, boost 100.
+
+[center-impact-fast-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1925 -185 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -76 -4126 63 -700 100
+car = orange 2077 198 -110 1902 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.52s. Defender ahead, facing, reverse, boost 100.
+
+[center-impact-fast-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 709 1416 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1226 -4592 72 1400 100
+car = orange 752 1726 -96 2147 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.64s. Defender beside, facing, fast-forward, boost 100.
+
+[center-impact-medium-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1458 -113 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -241 -4975 71 0 0
+car = orange 1571 302 -105 1379 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.55s. Defender mouth, facing, stopped, boost 0.
+
+[center-impact-medium-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1508 -2054 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -566 -4771 109 800 0
+car = orange -1662 -1752 -65 873 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.86s. Defender near-post, facing, forward, boost 0.
+
+[center-impact-medium-far-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1308 1104 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 568 -4934 107 -700 0
+car = orange -1407 1553 -79 1449 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.60s. Defender far-post, facing, reverse, boost 0.
+
+[center-impact-medium-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2069 -1148 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -403 -5272 59 1400 12
+car = orange 2262 -760 -116 1217 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.38s. Defender inside, facing, fast-forward, boost 12.
+
+[center-impact-medium-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = -366 -83 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -5 -4109 95 0 12
+car = orange -396 378 -87 1337 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.53s. Defender ahead, facing, stopped, boost 12.
+
+[center-impact-medium-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -2046 -1391 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1675 -4717 138 800 12
+car = orange -2293 -979 -59 1032 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.91s. Defender beside, facing, forward, boost 12.
+
+[center-impact-slow-mouth-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1368 -2567 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 255 -4827 64 -700 33
+car = orange 1580 -2216 -122 206 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.98s. Defender mouth, facing, reverse, boost 33.
+
+[center-impact-slow-near-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = 592 -2100 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 637 -5015 91 1400 33
+car = orange 645 -1727 -99 448 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.76s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-impact-slow-far-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1122 -2945 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -592 -4906 105 0 33
+car = orange -1287 -2642 -63 165 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.52s. Defender far-post, facing, stopped, boost 33.
+
+[center-impact-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1372 -2763 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -114 -5321 116 800 100
+car = orange -1549 -2471 -57 575 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.94s. Defender inside, facing, forward, boost 100.
+
+[center-impact-slow-ahead-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1442 -2824 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -569 -3988 30 -700 100
+car = orange 1699 -2426 -124 184 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.21s. Defender ahead, facing, reverse, boost 100.
+
+[center-impact-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 476 -2565 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1618 -4660 45 1400 100
+car = orange 554 -2234 -102 584 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.72s. Defender beside, facing, fast-forward, boost 100.
+
+[right-impact-fast-mouth-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1649 2379 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 155 -4949 78 0 0
+car = orange 1708 2769 -98 1714 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.26s. Defender mouth, facing, stopped, boost 0.
+
+[right-impact-fast-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -2088 831 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 511 -4823 115 800 0
+car = orange -2214 1112 -66 2249 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.54s. Defender near-post, facing, forward, boost 0.
+
+[right-impact-fast-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -709 938 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -694 -5008 90 -700 0
+car = orange -809 1411 -77 1760 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.26s. Defender far-post, facing, reverse, boost 0.
+
+[right-impact-fast-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 881 1338 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 584 -5276 87 1400 12
+car = orange 904 1662 -92 2190 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.60s. Defender inside, facing, fast-forward, boost 12.
+
+[right-impact-fast-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = -1528 -93 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 571 -4277 117 0 12
+car = orange -1677 252 -67 1757 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.75s. Defender ahead, facing, stopped, boost 12.
+
+[right-impact-fast-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1361 1288 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1552 -4571 116 800 12
+car = orange -1466 1633 -72 1916 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.10s. Defender beside, facing, forward, boost 12.
+
+[right-impact-medium-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1585 -168 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 79 -4889 72 -700 33
+car = orange 1655 154 -101 1385 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.38s. Defender mouth, facing, reverse, boost 33.
+
+[right-impact-medium-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1717 -2215 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 642 -4780 67 1400 33
+car = orange 1901 -1805 -113 837 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.24s. Defender near-post, facing, fast-forward, boost 33.
+
+[right-impact-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 54 -1493 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -593 -4919 79 0 33
+car = orange 16 -1192 -83 1152 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.80s. Defender far-post, facing, stopped, boost 33.
+
+[right-impact-medium-inside-001]
+kind = defend
+time = 6
+seed = 1
+ball = -2160 654 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -191 -5339 108 800 100
+car = orange -2288 924 -65 1370 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.92s. Defender inside, facing, forward, boost 100.
+
+[right-impact-medium-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 31 -102 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 452 -4062 96 -700 100
+car = orange -15 412 -84 1426 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.44s. Defender ahead, facing, reverse, boost 100.
+
+[right-impact-medium-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -827 -1709 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1643 -4504 131 1400 100
+car = orange -975 -1375 -66 931 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.76s. Defender beside, facing, fast-forward, boost 100.
+
+[right-impact-slow-mouth-001]
+kind = defend
+time = 6
+seed = 1
+ball = 1335 -2427 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 18 -4908 62 0 0
+car = orange 1456 -1948 -105 80 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.27s. Defender mouth, facing, stopped, boost 0.
+
+[right-impact-slow-near-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1512 -2964 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 607 -4868 138 800 0
+car = orange -1837 -2616 -48 436 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.30s. Defender near-post, facing, forward, boost 0.
+
+[right-impact-slow-far-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = -224 -2048 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -563 -4793 83 -700 0
+car = orange -338 -1592 -77 524 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.32s. Defender far-post, facing, reverse, boost 0.
+
+[right-impact-slow-inside-001]
+kind = defend
+time = 6
+seed = 1
+ball = -782 -1774 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -492 -5319 95 1400 12
+car = orange -969 -1286 -69 581 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.60s. Defender inside, facing, fast-forward, boost 12.
+
+[right-impact-slow-ahead-001]
+kind = defend
+time = 6
+seed = 1
+ball = -1746 -2903 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -283 -4125 140 0 12
+car = orange -2093 -2554 -45 153 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.93s. Defender ahead, facing, stopped, boost 12.
+
+[right-impact-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1284 -2992 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1588 -4493 101 800 12
+car = orange 1384 -2671 -107 516 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.22s. Defender beside, facing, forward, boost 12.
+
+[left-impact-fast-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1207 522 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -111 -4855 166 800 12
+car = orange 1339 930 -107 1751 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.09s. Defender mouth, leftward, forward, boost 12.
+
+[left-impact-fast-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2271 -6 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -654 -4902 149 -700 12
+car = orange 2524 473 -118 2063 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.51s. Defender near-post, leftward, reverse, boost 12.
+
+[left-impact-fast-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1614 915 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 695 -5019 171 1400 12
+car = orange 1755 1294 -109 1865 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.12s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-impact-fast-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1123 1593 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 112 -5278 190 0 33
+car = orange -1175 2098 -84 1703 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.74s. Defender inside, leftward, stopped, boost 33.
+
+[left-impact-fast-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 2139 551 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -720 -3989 148 800 33
+car = orange 2282 871 -115 1664 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.38s. Defender ahead, leftward, forward, boost 33.
+
+[left-impact-fast-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2151 -734 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1817 -4720 135 -700 33
+car = orange 2381 -384 -123 1750 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.67s. Defender beside, leftward, reverse, boost 33.
+
+[left-impact-medium-mouth-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1898 -10 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -51 -4903 158 1400 100
+car = orange 2068 369 -115 1215 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.80s. Defender mouth, leftward, fast-forward, boost 100.
+
+[left-impact-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 1307 -1753 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -554 -4947 150 0 100
+car = orange 1563 -1295 -120 1280 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.71s. Defender near-post, leftward, stopped, boost 100.
+
+[left-impact-medium-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -87 -1610 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 507 -4839 190 800 100
+car = orange -26 -1196 -97 1033 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.05s. Defender far-post, leftward, forward, boost 100.
+
+[left-impact-medium-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1120 -1815 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 498 -5339 170 -700 0
+car = orange 1335 -1357 -115 874 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.57s. Defender inside, leftward, reverse, boost 0.
+
+[left-impact-medium-ahead-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1695 518 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -646 -4265 154 1400 0
+car = orange 1826 857 -111 1311 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.82s. Defender ahead, leftward, fast-forward, boost 0.
+
+[left-impact-medium-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -2473 -1204 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1103 -4617 202 0 0
+car = orange -2706 -720 -63 1173 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.38s. Defender beside, leftward, stopped, boost 0.
+
+[left-impact-slow-mouth-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1558 -2504 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -346 -4877 141 800 12
+car = orange 1763 -2234 -127 597 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.91s. Defender mouth, leftward, forward, boost 12.
+
+[left-impact-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -2087 -2814 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -534 -4998 215 -700 12
+car = orange -2374 -2375 -57 271 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.90s. Defender near-post, leftward, reverse, boost 12.
+
+[left-impact-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1320 -2558 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 541 -4937 218 1400 12
+car = orange -1410 -2236 -74 626 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.59s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-impact-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 223 -2292 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 365 -5211 183 0 33
+car = orange 326 -1843 -103 557 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.70s. Defender inside, leftward, stopped, boost 33.
+
+[left-impact-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 763 -2868 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 360 -4216 163 800 33
+car = orange 1020 -2404 -119 300 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.47s. Defender ahead, leftward, forward, boost 33.
+
+[left-impact-slow-beside-002]
+kind = defend
+time = 6
+seed = 1
+ball = -1794 -1906 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1463 -4322 188 -700 33
+car = orange -1966 -1474 -70 648 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.57s. Defender beside, leftward, reverse, boost 33.
+
+[center-impact-fast-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = -394 2479 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 299 -4901 185 1400 100
+car = orange -421 2876 -85 2078 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.27s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-impact-fast-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -262 1302 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 561 -4776 188 0 100
+car = orange -297 1828 -87 1834 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.28s. Defender near-post, leftward, stopped, boost 100.
+
+[center-impact-fast-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1173 1992 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -687 -4806 184 800 100
+car = orange -1247 2416 -79 1870 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.54s. Defender far-post, leftward, forward, boost 100.
+
+[center-impact-fast-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -281 1609 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 570 -5260 187 -700 0
+car = orange -313 2049 -86 1661 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.86s. Defender inside, leftward, reverse, boost 0.
+
+[center-impact-fast-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2184 795 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -227 -4145 154 1400 0
+car = orange 2288 1107 -109 1925 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.82s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-impact-fast-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 366 2133 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1362 -4446 165 0 0
+car = orange 379 2418 -94 1764 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.78s. Defender beside, leftward, stopped, boost 0.
+
+[center-impact-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = 316 -1716 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1 -4912 174 800 12
+car = orange 348 -1406 -94 1148 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.62s. Defender mouth, leftward, forward, boost 12.
+
+[center-impact-medium-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1309 -637 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 517 -4750 169 -700 12
+car = orange 1408 -289 -105 1179 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.78s. Defender near-post, leftward, reverse, boost 12.
+
+[center-impact-medium-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 981 -916 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -664 -5010 158 1400 12
+car = orange 1085 -409 -101 1072 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.65s. Defender far-post, leftward, fast-forward, boost 12.
+
+[center-impact-medium-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2147 -1534 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -449 -5264 145 0 33
+car = orange 2364 -1142 -118 1300 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.89s. Defender inside, leftward, stopped, boost 33.
+
+[center-impact-medium-ahead-002]
+kind = defend
+time = 6
+seed = 1
+ball = 674 799 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -32 -4116 172 800 33
+car = orange 698 1114 -95 1305 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.74s. Defender ahead, leftward, forward, boost 33.
+
+[center-impact-medium-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 2129 -1896 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1610 -4621 169 -700 33
+car = orange 2360 -1544 -122 1102 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.23s. Defender beside, leftward, reverse, boost 33.
+
+[center-impact-slow-mouth-002]
+kind = defend
+time = 6
+seed = 1
+ball = 686 -1697 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 123 -4794 170 1400 100
+car = orange 788 -1268 -102 594 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.90s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-impact-slow-near-post-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1753 -2408 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 513 -4985 154 0 100
+car = orange 1984 -2027 -121 423 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.71s. Defender near-post, leftward, stopped, boost 100.
+
+[center-impact-slow-far-post-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1616 -2731 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -541 -4782 134 800 100
+car = orange 1870 -2362 -124 67 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.85s. Defender far-post, leftward, forward, boost 100.
+
+[center-impact-slow-inside-002]
+kind = defend
+time = 6
+seed = 1
+ball = 485 -2112 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -30 -5239 171 -700 0
+car = orange 529 -1697 -95 494 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.38s. Defender inside, leftward, reverse, boost 0.
+
+[center-impact-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1139 -2733 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -612 -4390 198 1400 0
+car = orange -1328 -2247 -69 139 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.73s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-impact-slow-beside-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1437 -2489 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1563 -4627 125 0 0
+car = orange 1636 -2125 -118 288 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.92s. Defender beside, leftward, stopped, boost 0.
+
+[right-impact-fast-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2114 711 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 100 -4974 160 800 12
+car = orange 2217 1136 -104 2035 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.57s. Defender mouth, leftward, forward, boost 12.
+
+[right-impact-fast-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1940 1247 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 626 -4859 203 -700 12
+car = orange -2066 1547 -68 1760 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.62s. Defender near-post, leftward, reverse, boost 12.
+
+[right-impact-fast-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -2270 1476 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -625 -5044 194 1400 12
+car = orange -2439 1876 -66 1971 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.26s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-impact-fast-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2209 2225 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 70 -5326 164 0 33
+car = orange 2280 2546 -102 2233 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.94s. Defender inside, leftward, stopped, boost 33.
+
+[right-impact-fast-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 775 1504 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 339 -3925 175 800 33
+car = orange 788 1838 -91 2191 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.58s. Defender ahead, leftward, forward, boost 33.
+
+[right-impact-fast-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -1756 1688 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1757 -4303 210 -700 33
+car = orange -1887 2081 -70 2163 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.94s. Defender beside, leftward, reverse, boost 33.
+
+[right-impact-medium-mouth-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1052 989 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -194 -4883 168 1400 100
+car = orange 1089 1508 -94 1329 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.74s. Defender mouth, leftward, fast-forward, boost 100.
+
+[right-impact-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 88 -2002 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 654 -4860 191 0 100
+car = orange 33 -1637 -80 948 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.89s. Defender near-post, leftward, stopped, boost 100.
+
+[right-impact-medium-far-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -229 -667 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -535 -4764 176 800 100
+car = orange -324 -213 -79 1427 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.98s. Defender far-post, leftward, forward, boost 100.
+
+[right-impact-medium-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1867 -928 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 219 -5229 206 -700 0
+car = orange -2087 -540 -59 1164 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.93s. Defender inside, leftward, reverse, boost 0.
+
+[right-impact-medium-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1568 -309 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -633 -4339 193 1400 0
+car = orange -1772 167 -66 1443 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.47s. Defender ahead, leftward, fast-forward, boost 0.
+
+[right-impact-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2389 -2198 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1213 -4621 154 0 0
+car = orange 2635 -1779 -121 1148 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.58s. Defender beside, leftward, stopped, boost 0.
+
+[right-impact-slow-mouth-002]
+kind = defend
+time = 6
+seed = 1
+ball = -898 -2883 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -20 -4944 203 800 12
+car = orange -1102 -2577 -55 367 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.30s. Defender mouth, leftward, forward, boost 12.
+
+[right-impact-slow-near-post-002]
+kind = defend
+time = 6
+seed = 1
+ball = 2397 -1776 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 556 -5015 150 -700 12
+car = orange 2651 -1322 -120 642 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.81s. Defender near-post, leftward, reverse, boost 12.
+
+[right-impact-slow-far-post-002]
+kind = defend
+time = 6
+seed = 1
+ball = 2198 -3025 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -529 -4964 125 1400 12
+car = orange 2494 -2682 -131 344 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.11s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-impact-slow-inside-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1944 -2651 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -506 -5308 137 0 33
+car = orange 2134 -2272 -117 65 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.64s. Defender inside, leftward, stopped, boost 33.
+
+[right-impact-slow-ahead-002]
+kind = defend
+time = 6
+seed = 1
+ball = 186 -2306 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -627 -4091 156 800 33
+car = orange 141 -2011 -82 416 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.88s. Defender ahead, leftward, forward, boost 33.
+
+[right-impact-slow-beside-002]
+kind = defend
+time = 6
+seed = 1
+ball = -300 -2454 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1547 -4593 221 -700 33
+car = orange -461 -1967 -73 153 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.30s. Defender beside, leftward, reverse, boost 33.
+
+[left-impact-fast-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -555 1523 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 127 -4849 276 -700 33
+car = orange -558 1983 -91 1987 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.04s. Defender mouth, away, reverse, boost 33.
+
+[left-impact-fast-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 46 1317 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -643 -4793 264 1400 33
+car = orange 83 1703 -96 1752 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.33s. Defender near-post, away, fast-forward, boost 33.
+
+[left-impact-fast-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1992 927 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 700 -4960 258 0 33
+car = orange 2155 1334 -112 2069 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.77s. Defender far-post, away, stopped, boost 33.
+
+[left-impact-fast-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1885 645 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -486 -5292 283 800 100
+car = orange -1965 993 -76 1653 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.24s. Defender inside, away, forward, boost 100.
+
+[left-impact-fast-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = -161 1104 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -211 -4220 269 -700 100
+car = orange -135 1624 -93 2154 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.59s. Defender ahead, away, reverse, boost 100.
+
+[left-impact-fast-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1719 -57 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1223 -4746 238 1400 100
+car = orange 1849 245 -113 1886 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.50s. Defender beside, away, fast-forward, boost 100.
+
+[left-impact-medium-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1417 -379 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 140 -4957 254 0 0
+car = orange 1629 102 -113 1295 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.92s. Defender mouth, away, stopped, boost 0.
+
+[left-impact-medium-near-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -737 338 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -546 -4919 272 800 0
+car = orange -755 767 -86 1209 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.74s. Defender near-post, away, forward, boost 0.
+
+[left-impact-medium-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2302 -1730 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 536 -4958 241 -700 0
+car = orange 2493 -1496 -130 1152 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.58s. Defender far-post, away, reverse, boost 0.
+
+[left-impact-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -1358 -2299 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 515 -5246 302 1400 12
+car = orange -1498 -1776 -74 928 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.58s. Defender inside, away, fast-forward, boost 12.
+
+[left-impact-medium-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = -407 -743 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -45 -3925 276 0 12
+car = orange -384 -246 -91 1324 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.10s. Defender ahead, away, stopped, boost 12.
+
+[left-impact-medium-beside-003]
+kind = defend
+time = 6
+seed = 1
+ball = 2093 -912 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1301 -4690 228 800 12
+car = orange 2363 -476 -123 1136 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.16s. Defender beside, away, forward, boost 12.
+
+[left-impact-slow-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = -883 -3042 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -30 -4919 294 -700 33
+car = orange -923 -2701 -81 623 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.58s. Defender mouth, away, reverse, boost 33.
+
+[left-impact-slow-near-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -459 -2262 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -604 -4981 267 1400 33
+car = orange -443 -1777 -91 107 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.51s. Defender near-post, away, fast-forward, boost 33.
+
+[left-impact-slow-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -1314 -2041 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 586 -4954 303 0 33
+car = orange -1448 -1514 -75 328 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.44s. Defender far-post, away, stopped, boost 33.
+
+[left-impact-slow-inside-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1085 -2742 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -520 -5251 237 800 100
+car = orange 1340 -2344 -123 208 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.33s. Defender inside, away, forward, boost 100.
+
+[left-impact-slow-ahead-003]
+kind = defend
+time = 6
+seed = 1
+ball = -1163 -2164 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 470 -3977 312 -700 100
+car = orange -1234 -1776 -80 506 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.39s. Defender ahead, away, reverse, boost 100.
+
+[left-impact-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -601 -2486 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1517 -4490 245 1400 100
+car = orange -621 -1992 -87 532 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.17s. Defender beside, away, fast-forward, boost 100.
+
+[center-impact-fast-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -145 1792 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 313 -4925 274 0 0
+car = orange -147 2072 -91 1748 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.62s. Defender mouth, away, stopped, boost 0.
+
+[center-impact-fast-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1043 1892 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 532 -4947 283 800 0
+car = orange -1112 2317 -81 1920 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.41s. Defender near-post, away, forward, boost 0.
+
+[center-impact-fast-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1834 1813 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -663 -4805 249 -700 0
+car = orange 1919 2123 -103 1714 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.03s. Defender far-post, away, reverse, boost 0.
+
+[center-impact-fast-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -993 355 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -369 -5202 276 1400 12
+car = orange -1063 691 -79 1829 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.69s. Defender inside, away, fast-forward, boost 12.
+
+[center-impact-fast-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1228 2334 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 280 -3920 261 0 12
+car = orange 1289 2792 -98 2100 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.23s. Defender ahead, away, stopped, boost 12.
+
+[center-impact-fast-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 443 1959 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1235 -4429 255 800 12
+car = orange 465 2255 -93 2157 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.83s. Defender beside, away, forward, boost 12.
+
+[center-impact-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = -2119 -1421 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 173 -4780 304 -700 33
+car = orange -2381 -989 -58 1394 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.87s. Defender mouth, away, reverse, boost 33.
+
+[center-impact-medium-near-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1149 -24 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -696 -4773 249 1400 33
+car = orange 1267 424 -105 1221 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.23s. Defender near-post, away, fast-forward, boost 33.
+
+[center-impact-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -519 -800 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 514 -5034 284 0 33
+car = orange -563 -489 -83 1325 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.94s. Defender far-post, away, stopped, boost 33.
+
+[center-impact-medium-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2498 -1028 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 323 -5259 304 800 100
+car = orange -2732 -633 -59 1270 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.47s. Defender inside, away, forward, boost 100.
+
+[center-impact-medium-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1532 -1244 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -511 -4231 236 -700 100
+car = orange 1720 -809 -112 1155 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.42s. Defender ahead, away, reverse, boost 100.
+
+[center-impact-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 902 -1692 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1272 -4598 277 1400 100
+car = orange 1042 -1181 -105 1115 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.79s. Defender beside, away, fast-forward, boost 100.
+
+[center-impact-slow-mouth-003]
+kind = defend
+time = 6
+seed = 1
+ball = -2076 -2893 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 260 -4831 320 0 0
+car = orange -2348 -2568 -49 154 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.80s. Defender mouth, away, stopped, boost 0.
+
+[center-impact-slow-near-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -906 -2804 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -687 -4845 276 800 0
+car = orange -1040 -2415 -71 55 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.12s. Defender near-post, away, forward, boost 0.
+
+[center-impact-slow-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -372 -2201 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -635 -4799 264 -700 0
+car = orange -453 -1722 -82 629 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.56s. Defender far-post, away, reverse, boost 0.
+
+[center-impact-slow-inside-003]
+kind = defend
+time = 6
+seed = 1
+ball = -1650 -2434 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 12 -5330 300 1400 12
+car = orange -1922 -2020 -57 348 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.75s. Defender inside, away, fast-forward, boost 12.
+
+[center-impact-slow-ahead-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1376 -3079 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 262 -3989 219 0 12
+car = orange 1603 -2763 -126 315 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.01s. Defender ahead, away, stopped, boost 12.
+
+[center-impact-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 358 -3032 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1114 -4600 296 800 12
+car = orange 455 -2629 -105 285 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.27s. Defender beside, away, forward, boost 12.
+
+[right-impact-fast-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = 2107 711 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -267 -4803 247 -700 33
+car = orange 2230 1173 -104 2100 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.57s. Defender mouth, away, reverse, boost 33.
+
+[right-impact-fast-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 452 670 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 544 -4972 271 1400 33
+car = orange 451 977 -89 1799 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.80s. Defender near-post, away, fast-forward, boost 33.
+
+[right-impact-fast-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1845 1082 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -526 -4996 282 0 33
+car = orange -1965 1415 -69 1753 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.42s. Defender far-post, away, stopped, boost 33.
+
+[right-impact-fast-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -716 1054 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 343 -5318 279 800 100
+car = orange -786 1358 -77 1907 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.89s. Defender inside, away, forward, boost 100.
+
+[right-impact-fast-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1030 707 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 751 -4095 267 -700 100
+car = orange 1067 1069 -95 1791 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.89s. Defender ahead, away, reverse, boost 100.
+
+[right-impact-fast-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 392 2043 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1665 -4491 281 1400 100
+car = orange 386 2347 -88 2005 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.13s. Defender beside, away, fast-forward, boost 100.
+
+[right-impact-medium-mouth-003]
+kind = defend
+time = 6
+seed = 1
+ball = -295 393 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 215 -4919 275 0 0
+car = orange -390 924 -80 1302 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.23s. Defender mouth, away, stopped, boost 0.
+
+[right-impact-medium-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -919 -1630 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 540 -4905 294 800 0
+car = orange -1105 -1212 -66 1111 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.04s. Defender near-post, away, forward, boost 0.
+
+[right-impact-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 41 -1408 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -535 -5010 261 -700 0
+car = orange -33 -963 -81 1127 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.96s. Defender far-post, away, reverse, boost 0.
+
+[right-impact-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1515 -1946 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -528 -5268 238 1400 12
+car = orange 1631 -1553 -107 998 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.86s. Defender inside, away, fast-forward, boost 12.
+
+[right-impact-medium-ahead-003]
+kind = defend
+time = 6
+seed = 1
+ball = 2143 142 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -621 -4062 237 0 12
+car = orange 2244 498 -107 1268 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.28s. Defender ahead, away, stopped, boost 12.
+
+[right-impact-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1638 -1399 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1222 -4764 263 800 12
+car = orange 1764 -1015 -108 1176 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.98s. Defender beside, away, forward, boost 12.
+
+[right-impact-slow-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -661 -2318 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -25 -4917 284 -700 33
+car = orange -884 -1855 -65 600 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.78s. Defender mouth, away, reverse, boost 33.
+
+[right-impact-slow-near-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1619 -2036 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 539 -4774 248 1400 33
+car = orange 1761 -1589 -108 294 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.97s. Defender near-post, away, fast-forward, boost 33.
+
+[right-impact-slow-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1005 -2355 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -661 -4893 237 0 33
+car = orange 1066 -1844 -97 94 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.17s. Defender far-post, away, stopped, boost 33.
+
+[right-impact-slow-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 543 -2812 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -616 -5267 245 800 100
+car = orange 527 -2418 -87 600 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.78s. Defender inside, away, forward, boost 100.
+
+[right-impact-slow-ahead-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1245 -1752 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 533 -4234 254 -700 100
+car = orange 1319 -1381 -100 631 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.86s. Defender ahead, away, reverse, boost 100.
+
+[right-impact-slow-beside-003]
+kind = defend
+time = 6
+seed = 1
+ball = 1709 -2129 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1593 -4634 267 1400 100
+car = orange 1865 -1696 -111 599 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.08s. Defender beside, away, fast-forward, boost 100.
+
+[left-impact-fast-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1276 1920 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -2 -4981 -10 1400 100
+car = orange 1388 2332 -105 1998 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.33s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-impact-fast-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -739 2497 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -691 -4987 0 0 100
+car = orange -750 2893 -89 1789 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.98s. Defender near-post, rightward, stopped, boost 100.
+
+[left-impact-fast-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1682 2012 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 661 -5020 18 800 100
+car = orange -1740 2390 -81 1902 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.47s. Defender far-post, rightward, forward, boost 100.
+
+[left-impact-fast-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -2491 975 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 63 -5300 22 -700 0
+car = orange -2622 1408 -72 1768 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.27s. Defender inside, rightward, reverse, boost 0.
+
+[left-impact-fast-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -538 2411 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 701 -3980 11 1400 0
+car = orange -538 2822 -90 1882 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.72s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-impact-fast-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1249 1669 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1205 -4351 -22 0 0
+car = orange 1334 2001 -105 1817 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.52s. Defender beside, rightward, stopped, boost 0.
+
+[left-impact-medium-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1560 -647 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -96 -4994 19 800 12
+car = orange -1686 -123 -76 1227 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.44s. Defender mouth, rightward, forward, boost 12.
+
+[left-impact-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1643 -1768 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -603 -5005 18 -700 12
+car = orange -1781 -1353 -73 1144 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.77s. Defender near-post, rightward, reverse, boost 12.
+
+[left-impact-medium-far-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = -246 348 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 518 -4791 8 1400 12
+car = orange -219 894 -93 1140 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.96s. Defender far-post, rightward, fast-forward, boost 12.
+
+[left-impact-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -2154 -1983 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -569 -5246 26 0 33
+car = orange -2307 -1693 -64 1218 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 2.59s. Defender inside, rightward, stopped, boost 33.
+
+[left-impact-medium-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = 371 -853 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 598 -4227 4 800 33
+car = orange 441 -498 -102 1290 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.04s. Defender ahead, rightward, forward, boost 33.
+
+[left-impact-medium-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 375 -291 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1875 -4307 -29 -700 33
+car = orange 439 94 -101 1269 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.64s. Defender beside, rightward, reverse, boost 33.
+
+[left-impact-slow-mouth-004]
+kind = defend
+time = 6
+seed = 1
+ball = -2023 -2767 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 97 -4767 47 1400 100
+car = orange -2218 -2426 -60 411 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.15s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-impact-slow-near-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = -940 -2034 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -608 -4992 6 0 100
+car = orange -969 -1607 -85 532 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.31s. Defender near-post, rightward, stopped, boost 100.
+
+[left-impact-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -530 -2655 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 589 -4925 26 800 100
+car = orange -521 -2136 -91 156 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.50s. Defender far-post, rightward, forward, boost 100.
+
+[left-impact-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 506 -3050 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 290 -5270 -6 -700 0
+car = orange 713 -2670 -118 458 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.19s. Defender inside, rightward, reverse, boost 0.
+
+[left-impact-slow-ahead-004]
+kind = defend
+time = 6
+seed = 1
+ball = 1059 -2818 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -205 -4207 -42 1400 0
+car = orange 1353 -2406 -125 171 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 4.33s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-impact-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -909 -2859 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1651 -4318 -27 0 0
+car = orange -1002 -2417 -77 159 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, left entry in 3.56s. Defender beside, rightward, stopped, boost 0.
+
+[center-impact-fast-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = 382 810 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -145 -4968 -5 800 12
+car = orange 417 1345 -93 1919 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.80s. Defender mouth, rightward, forward, boost 12.
+
+[center-impact-fast-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -2458 241 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -537 -4964 20 -700 12
+car = orange -2634 634 -66 1910 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.74s. Defender near-post, rightward, reverse, boost 12.
+
+[center-impact-fast-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -250 968 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -503 -4853 -2 1400 12
+car = orange -267 1253 -87 1704 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.15s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-impact-fast-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -2030 871 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -35 -5310 18 0 33
+car = orange -2198 1353 -72 2180 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.63s. Defender inside, rightward, stopped, boost 33.
+
+[center-impact-fast-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = -123 1227 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 209 -4147 4 800 33
+car = orange -145 1704 -87 2045 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.73s. Defender ahead, rightward, forward, boost 33.
+
+[center-impact-fast-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 610 612 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1235 -4509 -20 -700 33
+car = orange 676 1147 -96 1705 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.15s. Defender beside, rightward, reverse, boost 33.
+
+[center-impact-medium-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2000 -817 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 254 -4951 -23 1400 100
+car = orange 2122 -561 -117 1337 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.27s. Defender mouth, rightward, fast-forward, boost 100.
+
+[center-impact-medium-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1705 -999 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -600 -4915 16 0 100
+car = orange -1868 -615 -69 1116 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.96s. Defender near-post, rightward, stopped, boost 100.
+
+[center-impact-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1761 -2244 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 630 -4843 -24 800 100
+car = orange 2005 -1857 -122 986 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.98s. Defender far-post, rightward, forward, boost 100.
+
+[center-impact-medium-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1337 -1575 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 291 -5273 24 -700 0
+car = orange -1474 -1171 -71 887 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.82s. Defender inside, rightward, reverse, boost 0.
+
+[center-impact-medium-ahead-004]
+kind = defend
+time = 6
+seed = 1
+ball = -168 702 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 63 -4070 3 1400 0
+car = orange -191 1232 -88 1377 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.19s. Defender ahead, rightward, fast-forward, boost 0.
+
+[center-impact-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -656 -1840 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1669 -4593 -20 0 0
+car = orange -749 -1345 -80 1041 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.78s. Defender beside, rightward, stopped, boost 0.
+
+[center-impact-slow-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = 294 -2849 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -146 -4978 -12 800 12
+car = orange 312 -2391 -92 431 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 2.94s. Defender mouth, rightward, forward, boost 12.
+
+[center-impact-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -597 -2363 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -688 -5000 -2 -700 12
+car = orange -710 -1827 -78 264 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.86s. Defender near-post, rightward, reverse, boost 12.
+
+[center-impact-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -872 -2920 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 658 -4868 38 1400 12
+car = orange -977 -2624 -71 470 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.69s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-impact-slow-inside-004]
+kind = defend
+time = 6
+seed = 1
+ball = 491 -2487 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 365 -5277 -3 0 33
+car = orange 562 -2174 -105 560 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.03s. Defender inside, rightward, stopped, boost 33.
+
+[center-impact-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1254 -3041 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -595 -3900 -65 800 33
+car = orange 1422 -2702 -117 344 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 3.65s. Defender ahead, rightward, forward, boost 33.
+
+[center-impact-slow-beside-004]
+kind = defend
+time = 6
+seed = 1
+ball = -1781 -2007 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -1439 -4426 8 -700 33
+car = orange -2012 -1612 -60 593 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, center entry in 4.95s. Defender beside, rightward, reverse, boost 33.
+
+[right-impact-fast-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -326 1817 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -147 -4944 2 1400 100
+car = orange -383 2248 -83 2068 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.05s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-impact-fast-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1518 1923 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 517 -4843 -8 0 100
+car = orange 1590 2425 -98 1994 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.30s. Defender near-post, rightward, stopped, boost 100.
+
+[right-impact-fast-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1114 484 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -618 -5033 5 800 100
+car = orange -1259 960 -74 1994 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.62s. Defender far-post, rightward, forward, boost 100.
+
+[right-impact-fast-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1658 1560 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 354 -5329 -11 -700 0
+car = orange 1748 2069 -99 2076 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.95s. Defender inside, rightward, reverse, boost 0.
+
+[right-impact-fast-ahead-004]
+kind = defend
+time = 6
+seed = 1
+ball = -325 2478 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -812 -4071 -4 1400 0
+car = orange -373 3025 -85 1736 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.34s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-impact-fast-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 2472 1126 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1631 -4472 -9 0 0
+car = orange 2577 1480 -106 2096 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.73s. Defender beside, rightward, stopped, boost 0.
+
+[right-impact-medium-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1406 -1021 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -177 -4871 18 800 12
+car = orange -1574 -659 -64 1229 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.37s. Defender mouth, rightward, forward, boost 12.
+
+[right-impact-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 2126 -1508 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 565 -5019 -24 -700 12
+car = orange 2343 -1024 -115 1359 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 2.66s. Defender near-post, rightward, reverse, boost 12.
+
+[right-impact-medium-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 247 -1405 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -620 -4999 -14 1400 12
+car = orange 220 -958 -88 1045 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.19s. Defender far-post, rightward, fast-forward, boost 12.
+
+[right-impact-medium-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -755 -579 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -350 -5320 5 0 33
+car = orange -865 -177 -75 1416 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.08s. Defender inside, rightward, stopped, boost 33.
+
+[right-impact-medium-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -508 -1630 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 142 -3976 15 800 33
+car = orange -588 -1335 -74 905 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.93s. Defender ahead, rightward, forward, boost 33.
+
+[right-impact-medium-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 434 -412 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1399 -4548 13 -700 33
+car = orange 432 -37 -90 1405 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.08s. Defender beside, rightward, reverse, boost 33.
+
+[right-impact-slow-mouth-004]
+kind = defend
+time = 6
+seed = 1
+ball = -1662 -2951 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -108 -4751 41 1400 100
+car = orange -1988 -2611 -45 330 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.44s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-impact-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 378 -2192 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 682 -4901 6 0 100
+car = orange 378 -1785 -89 561 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.99s. Defender near-post, rightward, stopped, boost 100.
+
+[right-impact-slow-far-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = -667 -2094 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -695 -4997 -1 800 100
+car = orange -770 -1800 -69 622 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.76s. Defender far-post, rightward, forward, boost 100.
+
+[right-impact-slow-inside-004]
+kind = defend
+time = 6
+seed = 1
+ball = 1111 -2292 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -611 -5304 -30 -700 0
+car = orange 1167 -1930 -100 398 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 4.58s. Defender inside, rightward, reverse, boost 0.
+
+[right-impact-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -553 -2559 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue -616 -4248 -2 1400 0
+car = orange -689 -2254 -67 616 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.93s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-impact-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1079 -3029 93.15
+ball_vel = 0 0 0
+ball_spin = 0 0 0
+car = blue 1443 -4441 61 0 0
+car = orange -1400 -2605 -52 279 0
+rival = strike
+note = Straight rival strikes on a still ball; measured contact speed threat, right entry in 3.54s. Defender beside, rightward, stopped, boost 0.

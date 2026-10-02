@@ -114,25 +114,16 @@ try {
   await menu("FREE PLAY").click();
   await page.waitForFunction(() => {
     const t = window.__simulationTest;
-    return (
-      new Float64Array(
-        t.exports.memory.buffer,
-        t.exports.sim_state(t.handle),
-        24,
-      )[23] === 1
-    );
+    const pointer = t.exports.sim_state(t.handle);
+    return new Float64Array(t.exports.memory.buffer, pointer, 24)[23] === 1;
   });
   const before = await state();
   await page.keyboard.down("w");
   await page.waitForFunction((tick) => {
     const t = window.__simulationTest;
+    const pointer = t.exports.sim_state(t.handle);
     return (
-      new Float64Array(
-        t.exports.memory.buffer,
-        t.exports.sim_state(t.handle),
-        1,
-      )[0] >=
-      tick + 120
+      new Float64Array(t.exports.memory.buffer, pointer, 1)[0] >= tick + 120
     );
   }, before.tick);
   await page.keyboard.up("w");
@@ -175,13 +166,9 @@ try {
   const padBefore = await state();
   await page.waitForFunction((tick) => {
     const t = window.__simulationTest;
+    const pointer = t.exports.sim_state(t.handle);
     return (
-      new Float64Array(
-        t.exports.memory.buffer,
-        t.exports.sim_state(t.handle),
-        1,
-      )[0] >=
-      tick + 120
+      new Float64Array(t.exports.memory.buffer, pointer, 1)[0] >= tick + 120
     );
   }, padBefore.tick);
   assert.ok(
@@ -204,13 +191,8 @@ try {
   await menu("START MATCH").click();
   await page.waitForFunction(() => {
     const t = window.__simulationTest;
-    return (
-      new Float64Array(
-        t.exports.memory.buffer,
-        t.exports.sim_state(t.handle),
-        1,
-      )[0] > 361
-    );
+    const pointer = t.exports.sim_state(t.handle);
+    return new Float64Array(t.exports.memory.buffer, pointer, 1)[0] > 361;
   });
   assert.equal((await state()).cars, 6);
   assert.ok((await state()).tick > 361);

@@ -1,0 +1,2378 @@
+# Shots with one strong floor bounce before goal entry.
+# Fixed defense v1. Do not replace or tune these tests.
+
+[left-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 1136 -2341 301
+ball_vel = -1335 -2174 -43
+ball_spin = 0 0 1
+car = blue -281 -4975 62 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.43s. Defender mouth, facing, stopped, boost 0.
+
+[left-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -2210 -3699 428
+ball_vel = 1775 -1469 -132
+ball_spin = 0 0 2
+car = blue -628 -4769 146 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.09s. Defender near-post, facing, forward, boost 0.
+
+[left-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1571 -3756 599
+ball_vel = 1149 -1670 -841
+ball_spin = 0 0 1
+car = blue 617 -4778 155 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.04s. Defender far-post, facing, reverse, boost 0.
+
+[left-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -17 -2154 1368
+ball_vel = -284 -2139 -616
+ball_spin = 0 0 -3
+car = blue -227 -5272 86 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.55s. Defender inside, facing, fast-forward, boost 12.
+
+[left-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = 695 -4074 492
+ball_vel = -1026 -802 177
+ball_spin = 0 0 -2
+car = blue 337 -3976 -15 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.48s. Defender ahead, facing, stopped, boost 12.
+
+[left-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 727 -3425 945
+ball_vel = -1438 -1829 -682
+ball_spin = 0 0 1
+car = blue -1815 -4726 27 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.04s. Defender beside, facing, forward, boost 12.
+
+[left-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = -195 -2810 810
+ball_vel = -142 -1392 -723
+ball_spin = 0 0 -2
+car = blue 287 -4973 103 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.20s. Defender mouth, facing, reverse, boost 33.
+
+[left-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -1023 -3140 712
+ball_vel = 272 -1120 -1134
+ball_spin = 0 0 1
+car = blue -669 -4826 102 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.50s. Defender near-post, facing, fast-forward, boost 33.
+
+[left-arrival-medium-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2187 -1988 1302
+ball_vel = -1780 -1976 -627
+ball_spin = 0 0 2
+car = blue 663 -4920 63 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.87s. Defender far-post, facing, stopped, boost 33.
+
+[left-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1365 -2030 760
+ball_vel = -1070 -1822 -512
+ball_spin = 0 0 -0
+car = blue -424 -5200 61 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.18s. Defender inside, facing, forward, boost 100.
+
+[left-arrival-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 789 -704 1466
+ball_vel = -572 -2092 22
+ball_spin = 0 0 1
+car = blue -547 -4398 70 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.28s. Defender ahead, facing, reverse, boost 100.
+
+[left-arrival-medium-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 922 -2459 800
+ball_vel = -810 -1376 97
+ball_spin = 0 0 -1
+car = blue -1215 -4757 47 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.24s. Defender beside, facing, fast-forward, boost 100.
+
+[left-arrival-slow-mouth-001]
+kind = defend
+time = 6
+seed = 1
+ball = -485 -2029 1100
+ball_vel = -24 -1100 -1713
+ball_spin = 0 0 -2
+car = blue -164 -4921 96 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 4.08s. Defender mouth, facing, stopped, boost 0.
+
+[left-arrival-slow-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 540 -1616 1008
+ball_vel = -443 -1430 -1291
+ball_spin = 0 0 -2
+car = blue -601 -4954 71 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.45s. Defender near-post, facing, forward, boost 0.
+
+[left-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -389 -1020 802
+ball_vel = -30 -1597 -1613
+ball_spin = 0 0 -1
+car = blue 592 -4788 105 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.72s. Defender far-post, facing, reverse, boost 0.
+
+[left-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1261 -1464 852
+ball_vel = 304 -1369 -1744
+ball_spin = 0 0 3
+car = blue 395 -5276 113 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.90s. Defender inside, facing, fast-forward, boost 12.
+
+[left-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = -448 -134 1230
+ball_vel = 6 -1916 -289
+ball_spin = 0 0 1
+car = blue -282 -3964 92 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.29s. Defender ahead, facing, stopped, boost 12.
+
+[left-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2077 -1697 1169
+ball_vel = -995 -1315 129
+ball_spin = 0 0 -1
+car = blue -1416 -4587 40 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.10s. Defender beside, facing, forward, boost 12.
+
+[center-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 452 -2532 1487
+ball_vel = -185 -1884 -876
+ball_spin = 0 0 -2
+car = blue -13 -4879 79 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.58s. Defender mouth, facing, reverse, boost 33.
+
+[center-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2456 -3227 608
+ball_vel = -2412 -1942 -494
+ball_spin = 0 0 1
+car = blue 673 -4813 42 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.12s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -929 -3073 512
+ball_vel = 821 -1487 86
+ball_spin = 0 0 -1
+car = blue -567 -4902 101 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.54s. Defender far-post, facing, stopped, boost 33.
+
+[center-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1407 -3374 342
+ball_vel = 1489 -1794 -0
+ball_spin = 0 0 -0
+car = blue 4 -5332 126 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.07s. Defender inside, facing, forward, boost 100.
+
+[center-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = 528 -3407 1417
+ball_vel = -458 -1552 -858
+ball_spin = 0 0 -1
+car = blue -803 -4330 35 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.23s. Defender ahead, facing, reverse, boost 100.
+
+[center-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 158 -3515 725
+ball_vel = -4 -1223 -302
+ball_spin = 0 0 1
+car = blue 1626 -4616 143 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.59s. Defender beside, facing, fast-forward, boost 100.
+
+[center-arrival-medium-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 277 -3618 684
+ball_vel = -272 -1013 -371
+ball_spin = 0 0 -1
+car = blue 231 -4929 88 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.91s. Defender mouth, facing, stopped, boost 0.
+
+[center-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 160 -3211 1148
+ball_vel = -29 -1117 -326
+ball_spin = 0 0 1
+car = blue 673 -4808 108 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.03s. Defender near-post, facing, forward, boost 0.
+
+[center-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1578 -3271 1004
+ball_vel = -841 -939 106
+ball_spin = 0 0 -1
+car = blue 532 -4836 56 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.26s. Defender far-post, facing, reverse, boost 0.
+
+[center-arrival-medium-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2036 -1925 521
+ball_vel = -1205 -2091 -598
+ball_spin = 0 0 -2
+car = blue -602 -5323 52 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.93s. Defender inside, facing, fast-forward, boost 12.
+
+[center-arrival-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 870 -1784 1248
+ball_vel = -384 -1679 27
+ball_spin = 0 0 -2
+car = blue -591 -4129 58 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.18s. Defender ahead, facing, stopped, boost 12.
+
+[center-arrival-medium-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 501 -2944 1379
+ball_vel = -231 -1135 -42
+ball_spin = 0 0 -0
+car = blue -1765 -4501 35 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.12s. Defender beside, facing, forward, boost 12.
+
+[center-arrival-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1285 -2763 1274
+ball_vel = 425 -863 132
+ball_spin = 0 0 2
+car = blue -302 -4976 114 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.31s. Defender mouth, facing, reverse, boost 33.
+
+[center-arrival-slow-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1529 -1845 1343
+ball_vel = 450 -1127 -210
+ball_spin = 0 0 2
+car = blue -614 -5048 106 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.73s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 818 -777 904
+ball_vel = -310 -1781 -1426
+ball_spin = 0 0 -1
+car = blue -525 -4912 72 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.46s. Defender far-post, facing, stopped, boost 33.
+
+[center-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -941 -332 1080
+ball_vel = 287 -1748 -1528
+ball_spin = 0 0 -3
+car = blue -494 -5243 95 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.90s. Defender inside, facing, forward, boost 100.
+
+[center-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1270 -528 1053
+ball_vel = -622 -1980 -698
+ball_spin = 0 0 -2
+car = blue 100 -4328 73 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.08s. Defender ahead, facing, reverse, boost 100.
+
+[center-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1838 -1776 791
+ball_vel = -669 -1264 164
+ball_spin = 0 0 2
+car = blue 1177 -4381 76 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.29s. Defender beside, facing, fast-forward, boost 100.
+
+[right-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2408 -2730 516
+ball_vel = -1687 -2000 -6
+ball_spin = 0 0 -0
+car = blue -91 -4793 40 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.29s. Defender mouth, facing, stopped, boost 0.
+
+[right-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -327 -4197 574
+ball_vel = 804 -995 -405
+ball_spin = 0 0 1
+car = blue 534 -4852 143 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.16s. Defender near-post, facing, forward, boost 0.
+
+[right-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2338 -2886 1038
+ball_vel = -1608 -1918 -745
+ball_spin = 0 0 0
+car = blue -656 -4934 34 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.37s. Defender far-post, facing, reverse, boost 0.
+
+[right-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1482 -3165 531
+ball_vel = 2377 -2192 -566
+ball_spin = 0 0 -0
+car = blue 247 -5282 129 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.02s. Defender inside, facing, fast-forward, boost 12.
+
+[right-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1602 -3748 499
+ball_vel = 2176 -1411 -792
+ball_spin = 0 0 -1
+car = blue -506 -3925 171 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.26s. Defender ahead, facing, stopped, boost 12.
+
+[right-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1501 -3194 654
+ball_vel = 2569 -2380 -1320
+ball_spin = 0 0 -2
+car = blue 1339 -4757 151 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.02s. Defender beside, facing, forward, boost 12.
+
+[right-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1656 -2658 1326
+ball_vel = -571 -1181 165
+ball_spin = 0 0 -2
+car = blue -46 -4978 54 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.25s. Defender mouth, facing, reverse, boost 33.
+
+[right-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -222 -1230 1114
+ball_vel = 481 -2106 -338
+ball_spin = 0 0 2
+car = blue 631 -4841 103 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.20s. Defender near-post, facing, fast-forward, boost 33.
+
+[right-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -217 -2018 1007
+ball_vel = 417 -1437 61
+ball_spin = 0 0 -1
+car = blue -554 -4926 83 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.52s. Defender far-post, facing, stopped, boost 33.
+
+[right-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = -116 -938 785
+ball_vel = 386 -2245 -180
+ball_spin = 0 0 -1
+car = blue 239 -5312 95 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.22s. Defender inside, facing, forward, boost 100.
+
+[right-arrival-medium-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = -2351 -1324 1233
+ball_vel = 1718 -2217 -410
+ball_spin = 0 0 -0
+car = blue -66 -4196 129 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.97s. Defender ahead, facing, reverse, boost 100.
+
+[right-arrival-medium-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -263 -3605 466
+ball_vel = 543 -1095 -929
+ball_spin = 0 0 1
+car = blue 1600 -4438 156 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.97s. Defender beside, facing, fast-forward, boost 100.
+
+[right-arrival-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1015 -593 1294
+ball_vel = 538 -1665 98
+ball_spin = 0 0 -2
+car = blue -10 -4858 103 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.23s. Defender mouth, facing, stopped, boost 0.
+
+[right-arrival-slow-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1205 -1595 870
+ball_vel = -261 -1357 126
+ball_spin = 0 0 -1
+car = blue 657 -4877 81 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.20s. Defender near-post, facing, forward, boost 0.
+
+[right-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2383 -2099 1399
+ball_vel = -728 -1168 -236
+ball_spin = 0 0 -2
+car = blue -607 -4981 44 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.23s. Defender far-post, facing, reverse, boost 0.
+
+[right-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -638 -1864 1270
+ball_vel = 362 -1081 99
+ball_spin = 0 0 2
+car = blue 257 -5308 105 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.74s. Defender inside, facing, fast-forward, boost 12.
+
+[right-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1638 -2822 1423
+ball_vel = -359 -824 -1296
+ball_spin = 0 0 1
+car = blue 828 -4059 57 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.96s. Defender ahead, facing, stopped, boost 12.
+
+[right-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1089 -1629 1190
+ball_vel = 680 -1429 -366
+ball_spin = 0 0 -1
+car = blue 1517 -4533 132 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.12s. Defender beside, facing, forward, boost 12.
+
+[left-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = -1188 -3825 1498
+ball_vel = 742 -1337 -1136
+ball_spin = 0 0 -3
+car = blue -309 -4792 222 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.09s. Defender mouth, leftward, forward, boost 12.
+
+[left-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -1436 -3176 1473
+ball_vel = 625 -1537 -645
+ball_spin = 0 0 -1
+car = blue -537 -5015 206 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.38s. Defender near-post, leftward, reverse, boost 12.
+
+[left-arrival-fast-far-post-002]
+kind = defend
+time = 2
+seed = 1
+ball = 1731 -3563 326
+ball_vel = -2501 -1801 -295
+ball_spin = 0 0 1
+car = blue 581 -4827 138 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 0.99s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1981 -2891 420
+ball_vel = -2333 -2164 -892
+ball_spin = 0 0 1
+car = blue 143 -5219 142 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.29s. Defender inside, leftward, stopped, boost 33.
+
+[left-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1606 -3422 734
+ball_vel = -2051 -1615 -593
+ball_spin = 0 0 -2
+car = blue -668 -3971 104 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.25s. Defender ahead, leftward, forward, boost 33.
+
+[left-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -1024 -3445 358
+ball_vel = 427 -1299 200
+ball_spin = 0 0 -3
+car = blue -1900 -4593 143 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.44s. Defender beside, leftward, reverse, boost 33.
+
+[left-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = 946 -3375 598
+ball_vel = -855 -1069 -690
+ball_spin = 0 0 -1
+car = blue -212 -4864 142 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.26s. Defender mouth, leftward, fast-forward, boost 100.
+
+[left-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 102 -3055 835
+ball_vel = -297 -1172 -402
+ball_spin = 0 0 2
+car = blue -544 -5020 162 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.26s. Defender near-post, leftward, stopped, boost 100.
+
+[left-arrival-medium-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 595 -3056 918
+ball_vel = -584 -1206 -46
+ball_spin = 0 0 1
+car = blue 538 -5010 178 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.97s. Defender far-post, leftward, forward, boost 100.
+
+[left-arrival-medium-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2450 -2521 731
+ball_vel = -1752 -1484 -410
+ball_spin = 0 0 1
+car = blue -224 -5332 136 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.20s. Defender inside, leftward, reverse, boost 0.
+
+[left-arrival-medium-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = 138 -1550 1150
+ball_vel = -412 -2097 -201
+ball_spin = 0 0 -1
+car = blue 424 -4099 186 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.91s. Defender ahead, leftward, fast-forward, boost 0.
+
+[left-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -140 -2499 607
+ball_vel = -166 -1501 31
+ball_spin = 0 0 -3
+car = blue -1561 -4456 144 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.08s. Defender beside, leftward, stopped, boost 0.
+
+[left-arrival-slow-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = -2307 -2416 1485
+ball_vel = 604 -906 -129
+ball_spin = 0 0 -3
+car = blue 104 -4851 225 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.80s. Defender mouth, leftward, forward, boost 12.
+
+[left-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -656 -143 1255
+ball_vel = 51 -2082 -879
+ball_spin = 0 0 -0
+car = blue -539 -4969 181 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.17s. Defender near-post, leftward, reverse, boost 12.
+
+[left-arrival-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1610 -241 1289
+ball_vel = 444 -1853 -1317
+ball_spin = 0 0 1
+car = blue 550 -5027 204 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.65s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 2213 -224 1243
+ball_vel = -1075 -2002 -562
+ball_spin = 0 0 2
+car = blue 140 -5305 158 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.16s. Defender inside, leftward, stopped, boost 33.
+
+[left-arrival-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1092 -387 563
+ball_vel = -755 -2237 -1474
+ball_spin = 0 0 -2
+car = blue -75 -4329 163 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.04s. Defender ahead, leftward, forward, boost 33.
+
+[left-arrival-slow-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -699 -611 1342
+ball_vel = 88 -1790 -781
+ball_spin = 0 0 1
+car = blue -1240 -4502 172 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.33s. Defender beside, leftward, reverse, boost 33.
+
+[center-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = 629 -2843 1281
+ball_vel = -332 -1615 -409
+ball_spin = 0 0 2
+car = blue -72 -4816 160 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.55s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -2405 -3004 1439
+ball_vel = 2355 -2086 -1181
+ball_spin = 0 0 -0
+car = blue -640 -4942 222 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.14s. Defender near-post, leftward, stopped, boost 100.
+
+[center-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -100 -3188 1019
+ball_vel = 237 -1739 -1041
+ball_spin = 0 0 -0
+car = blue -668 -5011 163 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.38s. Defender far-post, leftward, forward, boost 100.
+
+[center-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 2345 -3962 419
+ball_vel = -2308 -1160 -176
+ball_spin = 0 0 3
+car = blue -156 -5296 118 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.16s. Defender inside, leftward, reverse, boost 0.
+
+[center-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = 2409 -3867 1297
+ball_vel = -2539 -1379 -1295
+ball_spin = 0 0 2
+car = blue -692 -4254 97 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.07s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1021 -3801 302
+ball_vel = -1148 -1232 96
+ball_spin = 0 0 -1
+car = blue -1685 -4691 108 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.22s. Defender beside, leftward, stopped, boost 0.
+
+[center-arrival-medium-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = -666 -2454 926
+ball_vel = 345 -1482 87
+ball_spin = 0 0 1
+car = blue 240 -4790 201 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.99s. Defender mouth, leftward, forward, boost 12.
+
+[center-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -1503 -929 634
+ball_vel = 705 -2189 -619
+ball_spin = 0 0 3
+car = blue -512 -5031 194 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.52s. Defender near-post, leftward, reverse, boost 12.
+
+[center-arrival-medium-far-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -445 -1536 556
+ball_vel = 252 -2003 -32
+ball_spin = 0 0 2
+car = blue -634 -5006 177 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.11s. Defender far-post, leftward, fast-forward, boost 12.
+
+[center-arrival-medium-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -500 -2656 381
+ball_vel = 404 -1755 -690
+ball_spin = 0 0 -1
+car = blue -638 -5223 177 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.96s. Defender inside, leftward, stopped, boost 33.
+
+[center-arrival-medium-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 1375 -2015 1318
+ball_vel = -622 -1517 -149
+ball_spin = 0 0 -1
+car = blue 33 -3965 145 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.36s. Defender ahead, leftward, forward, boost 33.
+
+[center-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2094 -3092 1230
+ball_vel = -962 -927 39
+ball_spin = 0 0 -1
+car = blue -1644 -4629 112 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.55s. Defender beside, leftward, reverse, boost 33.
+
+[center-arrival-slow-mouth-002]
+kind = defend
+time = 6
+seed = 1
+ball = -1207 -467 1270
+ball_vel = 356 -1441 154
+ball_spin = 0 0 3
+car = blue -3 -4794 196 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 4.01s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1008 -1778 1047
+ball_vel = -425 -1324 -97
+ball_spin = 0 0 -2
+car = blue -658 -5007 153 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.17s. Defender near-post, leftward, stopped, boost 100.
+
+[center-arrival-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -2470 -601 836
+ball_vel = 902 -1765 -1605
+ball_spin = 0 0 -2
+car = blue 604 -4830 216 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.69s. Defender far-post, leftward, forward, boost 100.
+
+[center-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1214 -665 1382
+ball_vel = 500 -1584 -147
+ball_spin = 0 0 -2
+car = blue 547 -5305 201 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.50s. Defender inside, leftward, reverse, boost 0.
+
+[center-arrival-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 485 -3338 1194
+ball_vel = -230 -722 45
+ball_spin = 0 0 1
+car = blue 633 -4170 190 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.03s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-arrival-slow-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 636 -221 1353
+ball_vel = -255 -1803 -86
+ball_spin = 0 0 1
+car = blue -1777 -4499 151 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.32s. Defender beside, leftward, stopped, boost 0.
+
+[right-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = 2268 -3691 788
+ball_vel = -1501 -1301 -250
+ball_spin = 0 0 1
+car = blue 138 -4908 120 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.22s. Defender mouth, leftward, forward, boost 12.
+
+[right-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 511 -2267 1472
+ball_vel = -56 -2085 -666
+ball_spin = 0 0 -2
+car = blue 652 -4915 183 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.51s. Defender near-post, leftward, reverse, boost 12.
+
+[right-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1987 -3671 1412
+ball_vel = -1066 -1125 -786
+ball_spin = 0 0 2
+car = blue -507 -4974 118 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.51s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 81 -3013 828
+ball_vel = 299 -2030 -334
+ball_spin = 0 0 2
+car = blue 565 -5313 192 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.12s. Defender inside, leftward, stopped, boost 33.
+
+[right-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = -534 -3492 892
+ball_vel = 1197 -1713 -1037
+ball_spin = 0 0 -0
+car = blue -159 -4152 210 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.18s. Defender ahead, leftward, forward, boost 33.
+
+[right-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -1367 -3028 1434
+ball_vel = 1527 -1692 -691
+ball_spin = 0 0 2
+car = blue 1690 -4655 242 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.35s. Defender beside, leftward, reverse, boost 33.
+
+[right-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = -1771 -2017 639
+ball_vel = 1255 -1779 -205
+ball_spin = 0 0 -0
+car = blue 289 -4757 217 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.11s. Defender mouth, leftward, fast-forward, boost 100.
+
+[right-arrival-medium-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -2129 -1957 688
+ball_vel = 1756 -2050 -475
+ball_spin = 0 0 0
+car = blue 583 -4963 222 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.86s. Defender near-post, leftward, stopped, boost 100.
+
+[right-arrival-medium-far-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 1039 -3111 544
+ball_vel = -214 -1204 -1248
+ball_spin = 0 0 -0
+car = blue -668 -4956 137 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.40s. Defender far-post, leftward, forward, boost 100.
+
+[right-arrival-medium-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -2398 -3088 746
+ball_vel = 1618 -1178 -33
+ball_spin = 0 0 -1
+car = blue -603 -5309 219 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.04s. Defender inside, leftward, reverse, boost 0.
+
+[right-arrival-medium-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 1913 -1566 1213
+ball_vel = -761 -1991 -203
+ball_spin = 0 0 2
+car = blue -54 -3919 140 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.01s. Defender ahead, leftward, fast-forward, boost 0.
+
+[right-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -247 -3588 711
+ball_vel = 542 -893 -104
+ball_spin = 0 0 2
+car = blue 1167 -4695 232 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.13s. Defender beside, leftward, stopped, boost 0.
+
+[right-arrival-slow-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 2301 -54 1471
+ball_vel = -644 -1786 -1187
+ball_spin = 0 0 2
+car = blue 315 -4941 158 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.90s. Defender mouth, leftward, forward, boost 12.
+
+[right-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 564 -536 1451
+ball_vel = -17 -1658 -1172
+ball_spin = 0 0 2
+car = blue 666 -4781 181 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.79s. Defender near-post, leftward, reverse, boost 12.
+
+[right-arrival-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -724 -20 1234
+ball_vel = 484 -1967 -920
+ball_spin = 0 0 3
+car = blue -514 -4994 182 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.51s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -525 -2475 1353
+ball_vel = 359 -982 -47
+ball_spin = 0 0 -1
+car = blue 360 -5201 198 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.32s. Defender inside, leftward, stopped, boost 33.
+
+[right-arrival-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 2107 -2666 1152
+ball_vel = -555 -922 58
+ball_spin = 0 0 -1
+car = blue 96 -4162 127 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.28s. Defender ahead, leftward, forward, boost 33.
+
+[right-arrival-slow-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1468 -309 824
+ball_vel = -324 -1925 -1469
+ball_spin = 0 0 0
+car = blue 1251 -4503 177 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.57s. Defender beside, leftward, reverse, boost 33.
+
+[left-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = 1269 -2868 1165
+ball_vel = -1365 -1661 -523
+ball_spin = 0 0 2
+car = blue 203 -4759 241 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.55s. Defender mouth, away, reverse, boost 33.
+
+[left-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 2290 -3099 672
+ball_vel = -2991 -2085 -703
+ball_spin = 0 0 -0
+car = blue -517 -4901 213 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.12s. Defender near-post, away, fast-forward, boost 33.
+
+[left-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 12 -3054 955
+ball_vel = -420 -1427 -87
+ball_spin = 0 0 -2
+car = blue 684 -4802 291 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.57s. Defender far-post, away, stopped, boost 33.
+
+[left-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 493 -3916 598
+ball_vel = -1185 -1349 -572
+ball_spin = 0 0 1
+car = blue -287 -5225 239 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.12s. Defender inside, away, forward, boost 100.
+
+[left-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1440 -2889 1416
+ball_vel = 634 -1699 -641
+ball_spin = 0 0 3
+car = blue -348 -4209 310 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.45s. Defender ahead, away, reverse, boost 100.
+
+[left-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -42 -3886 409
+ball_vel = -423 -1320 -103
+ball_spin = 0 0 -1
+car = blue -1805 -4313 194 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.09s. Defender beside, away, fast-forward, boost 100.
+
+[left-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = -2124 -3263 1025
+ball_vel = 867 -1042 -152
+ball_spin = 0 0 3
+car = blue -340 -4955 317 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.11s. Defender mouth, away, stopped, boost 0.
+
+[left-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1116 -1251 1389
+ball_vel = -847 -1850 -346
+ball_spin = 0 0 -3
+car = blue -616 -5044 245 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.49s. Defender near-post, away, forward, boost 0.
+
+[left-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 465 -1739 855
+ball_vel = -472 -1575 191
+ball_spin = 0 0 -1
+car = blue 518 -5044 271 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.46s. Defender far-post, away, reverse, boost 0.
+
+[left-arrival-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -573 -1024 422
+ball_vel = -45 -2448 -1092
+ball_spin = 0 0 -0
+car = blue -243 -5276 274 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.37s. Defender inside, away, fast-forward, boost 12.
+
+[left-arrival-medium-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = -300 -1180 733
+ball_vel = -191 -2118 -332
+ball_spin = 0 0 -1
+car = blue 466 -4047 285 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.33s. Defender ahead, away, stopped, boost 12.
+
+[left-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1719 -1575 1046
+ball_vel = -1266 -1889 -159
+ball_spin = 0 0 2
+car = blue -1323 -4317 222 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.18s. Defender beside, away, forward, boost 12.
+
+[left-arrival-slow-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2101 -3273 1386
+ball_vel = 579 -684 -995
+ball_spin = 0 0 -2
+car = blue 258 -4972 324 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.79s. Defender mouth, away, reverse, boost 33.
+
+[left-arrival-slow-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1656 -2114 1096
+ball_vel = 497 -1218 -102
+ball_spin = 0 0 0
+car = blue -692 -5009 288 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.08s. Defender near-post, away, fast-forward, boost 33.
+
+[left-arrival-slow-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1889 -3085 1073
+ball_vel = 468 -721 131
+ball_spin = 0 0 -2
+car = blue 507 -5004 321 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.56s. Defender far-post, away, stopped, boost 33.
+
+[left-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2296 -2997 1416
+ball_vel = -1037 -754 143
+ball_spin = 0 0 1
+car = blue -425 -5240 220 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.42s. Defender inside, away, forward, boost 100.
+
+[left-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1116 -788 1486
+ball_vel = -579 -1589 -473
+ball_spin = 0 0 -2
+car = blue -705 -4216 242 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.50s. Defender ahead, away, reverse, boost 100.
+
+[left-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1087 -2192 1317
+ball_vel = -609 -1033 -208
+ball_spin = 0 0 -2
+car = blue -1152 -4548 226 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.64s. Defender beside, away, fast-forward, boost 100.
+
+[center-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = -2315 -2546 595
+ball_vel = 1827 -1891 -38
+ball_spin = 0 0 -2
+car = blue -288 -4940 310 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.50s. Defender mouth, away, stopped, boost 0.
+
+[center-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = -2447 -3196 1338
+ball_vel = 2016 -1473 -505
+ball_spin = 0 0 2
+car = blue 596 -4826 332 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.43s. Defender near-post, away, forward, boost 0.
+
+[center-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 1938 -2797 407
+ball_vel = -1680 -2173 -939
+ball_spin = 0 0 3
+car = blue -620 -5008 221 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.40s. Defender far-post, away, reverse, boost 0.
+
+[center-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -802 -3733 691
+ball_vel = 769 -1156 -378
+ball_spin = 0 0 0
+car = blue 5 -5209 299 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.48s. Defender inside, away, fast-forward, boost 12.
+
+[center-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = 289 -4160 1098
+ball_vel = -234 -818 -514
+ball_spin = 0 0 1
+car = blue 716 -3978 23 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.38s. Defender ahead, away, stopped, boost 12.
+
+[center-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 2444 -3088 1228
+ball_vel = -1623 -1485 -494
+ball_spin = 0 0 2
+car = blue 1406 -4375 231 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.54s. Defender beside, away, forward, boost 12.
+
+[center-arrival-medium-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = 354 -1288 525
+ball_vel = -247 -2259 -71
+ball_spin = 0 0 3
+car = blue 21 -4917 265 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.97s. Defender mouth, away, reverse, boost 33.
+
+[center-arrival-medium-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 794 -1734 726
+ball_vel = -604 -2001 66
+ball_spin = 0 0 1
+car = blue -621 -5010 247 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.89s. Defender near-post, away, fast-forward, boost 33.
+
+[center-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -527 -1079 433
+ball_vel = 226 -2247 -60
+ball_spin = 0 0 -3
+car = blue 598 -4778 287 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.10s. Defender far-post, away, stopped, boost 33.
+
+[center-arrival-medium-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -2367 -3091 912
+ball_vel = 1483 -1245 -196
+ball_spin = 0 0 3
+car = blue 615 -5243 324 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.93s. Defender inside, away, forward, boost 100.
+
+[center-arrival-medium-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1303 -3851 811
+ball_vel = 1046 -873 -843
+ball_spin = 0 0 -0
+car = blue -285 -4091 347 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.98s. Defender ahead, away, reverse, boost 100.
+
+[center-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -2479 -1902 776
+ball_vel = 1139 -1489 189
+ball_spin = 0 0 -1
+car = blue 1338 -4540 325 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.52s. Defender beside, away, fast-forward, boost 100.
+
+[center-arrival-slow-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -720 -591 1198
+ball_vel = 367 -1982 -956
+ball_spin = 0 0 0
+car = blue -230 -4984 276 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.05s. Defender mouth, away, stopped, boost 0.
+
+[center-arrival-slow-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1941 -3026 972
+ball_vel = -861 -941 -1036
+ball_spin = 0 0 3
+car = blue 549 -4946 234 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.12s. Defender near-post, away, forward, boost 0.
+
+[center-arrival-slow-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1226 -1377 1420
+ball_vel = -457 -1319 -1391
+ball_spin = 0 0 2
+car = blue 568 -4803 259 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.98s. Defender far-post, away, reverse, boost 0.
+
+[center-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1208 -615 640
+ball_vel = 626 -2086 -1229
+ball_spin = 0 0 1
+car = blue 230 -5209 287 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.07s. Defender inside, away, fast-forward, boost 12.
+
+[center-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1218 -661 1207
+ball_vel = -483 -1748 -977
+ball_spin = 0 0 1
+car = blue -452 -4111 244 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.48s. Defender ahead, away, stopped, boost 12.
+
+[center-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -565 -1596 960
+ball_vel = 225 -1372 -74
+ball_spin = 0 0 -2
+car = blue 1126 -4320 302 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.25s. Defender beside, away, forward, boost 12.
+
+[right-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = 871 -2430 739
+ball_vel = -354 -2242 -669
+ball_spin = 0 0 -0
+car = blue -98 -4774 248 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.49s. Defender mouth, away, reverse, boost 33.
+
+[right-arrival-fast-near-post-003]
+kind = defend
+time = 2
+seed = 1
+ball = -1006 -3649 873
+ball_vel = 1963 -1895 -1245
+ball_spin = 0 0 -2
+car = blue 628 -4788 325 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 0.95s. Defender near-post, away, fast-forward, boost 33.
+
+[right-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = -781 -3287 694
+ball_vel = 1144 -1456 -347
+ball_spin = 0 0 0
+car = blue -674 -4987 274 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.52s. Defender far-post, away, stopped, boost 33.
+
+[right-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -915 -3998 644
+ball_vel = 1129 -854 34
+ball_spin = 0 0 2
+car = blue -510 -5312 287 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.50s. Defender inside, away, forward, boost 100.
+
+[right-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1382 -3427 1457
+ball_vel = 1614 -1422 -745
+ball_spin = 0 0 2
+car = blue -690 -3979 321 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.32s. Defender ahead, away, reverse, boost 100.
+
+[right-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 366 -4095 906
+ball_vel = 269 -1020 -568
+ball_spin = 0 0 0
+car = blue 1333 -4627 331 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.19s. Defender beside, away, fast-forward, boost 100.
+
+[right-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = 964 -514 823
+ball_vel = -198 -2446 -608
+ball_spin = 0 0 -2
+car = blue 257 -4919 261 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.42s. Defender mouth, away, stopped, boost 0.
+
+[right-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1024 -2441 739
+ball_vel = -229 -1517 -316
+ball_spin = 0 0 3
+car = blue 652 -4838 261 800 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.24s. Defender near-post, away, forward, boost 0.
+
+[right-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 935 -2897 1416
+ball_vel = -203 -1211 -117
+ball_spin = 0 0 -1
+car = blue -618 -5008 234 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.02s. Defender far-post, away, reverse, boost 0.
+
+[right-arrival-medium-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1525 -2373 1439
+ball_vel = 1270 -1662 -609
+ball_spin = 0 0 -2
+car = blue 355 -5333 302 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.93s. Defender inside, away, fast-forward, boost 12.
+
+[right-arrival-medium-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = -1514 -3158 1383
+ball_vel = 1057 -956 -278
+ball_spin = 0 0 -2
+car = blue 63 -3926 334 0 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.47s. Defender ahead, away, stopped, boost 12.
+
+[right-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -2267 -1668 1110
+ball_vel = 1371 -1639 -185
+ball_spin = 0 0 1
+car = blue 1819 -4346 327 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.53s. Defender beside, away, forward, boost 12.
+
+[right-arrival-slow-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1695 -2515 1346
+ball_vel = -450 -974 -923
+ball_spin = 0 0 -1
+car = blue 34 -4844 235 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.68s. Defender mouth, away, reverse, boost 33.
+
+[right-arrival-slow-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 405 11 1289
+ball_vel = 71 -1988 -872
+ball_spin = 0 0 -2
+car = blue 694 -4816 273 1400 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.46s. Defender near-post, away, fast-forward, boost 33.
+
+[right-arrival-slow-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1407 -2563 1080
+ball_vel = -310 -965 -12
+ball_spin = 0 0 0
+car = blue -582 -4821 229 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.33s. Defender far-post, away, stopped, boost 33.
+
+[right-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2076 36 765
+ball_vel = -693 -2391 -1161
+ball_spin = 0 0 -1
+car = blue -506 -5338 244 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.01s. Defender inside, away, forward, boost 100.
+
+[right-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1980 -1768 1000
+ball_vel = -595 -1433 -1084
+ball_spin = 0 0 2
+car = blue -446 -3986 222 -700 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.25s. Defender ahead, away, reverse, boost 100.
+
+[right-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 710 -1050 1244
+ball_vel = -66 -1508 75
+ball_spin = 0 0 -3
+car = blue 1775 -4363 288 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.24s. Defender beside, away, fast-forward, boost 100.
+
+[left-arrival-fast-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = 1420 -4417 381
+ball_vel = -2193 -847 -186
+ball_spin = 0 0 -2
+car = blue -59 -4916 -71 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.01s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = 790 -3812 925
+ball_vel = -1614 -1586 -1202
+ball_spin = 0 0 1
+car = blue -570 -4820 -53 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.02s. Defender near-post, rightward, stopped, boost 100.
+
+[left-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -2377 -2662 708
+ball_vel = 1523 -2099 -981
+ball_spin = 0 0 -2
+car = blue 681 -5018 52 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.52s. Defender far-post, rightward, forward, boost 100.
+
+[left-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 1277 -3382 915
+ball_vel = -1488 -1509 -765
+ball_spin = 0 0 -1
+car = blue 298 -5322 -27 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.42s. Defender inside, rightward, reverse, boost 0.
+
+[left-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1058 -2071 893
+ball_vel = 505 -2311 -566
+ball_spin = 0 0 -2
+car = blue -633 -4242 11 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.57s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -2341 -3083 1100
+ball_vel = 1955 -2080 -783
+ball_spin = 0 0 -3
+car = blue -1646 -4736 23 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 1.08s. Defender beside, rightward, stopped, boost 0.
+
+[left-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = -163 -812 998
+ball_vel = -199 -2085 158
+ball_spin = 0 0 -2
+car = blue 192 -4801 5 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.28s. Defender mouth, rightward, forward, boost 12.
+
+[left-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1576 -2130 572
+ball_vel = 629 -1675 -885
+ball_spin = 0 0 -2
+car = blue -547 -4812 21 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.49s. Defender near-post, rightward, reverse, boost 12.
+
+[left-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 676 -2062 929
+ball_vel = -611 -1483 -50
+ball_spin = 0 0 -0
+car = blue 600 -4950 -2 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.47s. Defender far-post, rightward, fast-forward, boost 12.
+
+[left-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 2044 -1902 1019
+ball_vel = -1218 -1597 -330
+ball_spin = 0 0 -2
+car = blue -539 -5220 -38 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.50s. Defender inside, rightward, stopped, boost 33.
+
+[left-arrival-medium-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1050 -2133 879
+ball_vel = 222 -1686 -609
+ball_spin = 0 0 1
+car = blue 356 -3958 38 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.29s. Defender ahead, rightward, forward, boost 33.
+
+[left-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1315 -2272 945
+ball_vel = 517 -1737 -782
+ball_spin = 0 0 3
+car = blue -1698 -4718 -9 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 2.12s. Defender beside, rightward, reverse, boost 33.
+
+[left-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2283 -1353 325
+ball_vel = -1257 -1729 -1622
+ball_spin = 0 0 3
+car = blue 21 -4871 -33 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.23s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-arrival-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1845 -627 1258
+ball_vel = 524 -1795 -253
+ball_spin = 0 0 -0
+car = blue -621 -4824 16 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.12s. Defender near-post, rightward, stopped, boost 100.
+
+[left-arrival-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 852 -2086 1315
+ball_vel = -491 -1094 -1381
+ball_spin = 0 0 2
+car = blue 648 -4894 -4 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.93s. Defender far-post, rightward, forward, boost 100.
+
+[left-arrival-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1528 -2360 1417
+ball_vel = -854 -1109 -630
+ball_spin = 0 0 -2
+car = blue 350 -5220 -22 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.26s. Defender inside, rightward, reverse, boost 0.
+
+[left-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1182 -338 1433
+ball_vel = -591 -1598 -235
+ball_spin = 0 0 -2
+car = blue 214 -4119 -14 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.82s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1008 -1685 1338
+ball_vel = -510 -1129 36
+ball_spin = 0 0 -1
+car = blue -1277 -4774 -36 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, left entry in 3.80s. Defender beside, rightward, stopped, boost 0.
+
+[center-arrival-fast-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1171 -2879 906
+ball_vel = 897 -2060 -1050
+ball_spin = 0 0 3
+car = blue -88 -4879 28 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.36s. Defender mouth, rightward, forward, boost 12.
+
+[center-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = 55 -3371 536
+ball_vel = 50 -1815 -1059
+ball_spin = 0 0 3
+car = blue 657 -4994 20 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.30s. Defender near-post, rightward, reverse, boost 12.
+
+[center-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -683 -4126 803
+ball_vel = 700 -832 -561
+ball_spin = 0 0 0
+car = blue -648 -4856 3 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.53s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 1371 -2799 1450
+ball_vel = -1282 -1858 -757
+ball_spin = 0 0 1
+car = blue -310 -5234 -35 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.38s. Defender inside, rightward, stopped, boost 33.
+
+[center-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = 202 -3478 775
+ball_vel = -448 -1712 -1055
+ball_spin = 0 0 -3
+car = blue 380 -4151 15 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.23s. Defender ahead, rightward, forward, boost 33.
+
+[center-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -2068 -4454 648
+ball_vel = 2424 -876 -1126
+ball_spin = 0 0 -2
+car = blue -1139 -4421 -268 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.06s. Defender beside, rightward, reverse, boost 33.
+
+[center-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1807 -1489 967
+ball_vel = -907 -1719 53
+ball_spin = 0 0 -3
+car = blue -4 -4980 -27 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.45s. Defender mouth, rightward, fast-forward, boost 100.
+
+[center-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1264 -3423 1313
+ball_vel = -495 -796 42
+ball_spin = 0 0 0
+car = blue 606 -4899 -24 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.46s. Defender near-post, rightward, stopped, boost 100.
+
+[center-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1904 -2292 811
+ball_vel = 1079 -1449 134
+ball_spin = 0 0 2
+car = blue -693 -4811 26 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.23s. Defender far-post, rightward, forward, boost 100.
+
+[center-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1143 -3434 1223
+ball_vel = 500 -811 -45
+ball_spin = 0 0 -1
+car = blue -631 -5288 15 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 2.46s. Defender inside, rightward, reverse, boost 0.
+
+[center-arrival-medium-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = 1974 -1281 1358
+ball_vel = -1277 -2261 -528
+ball_spin = 0 0 0
+car = blue -365 -3984 -41 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.97s. Defender ahead, rightward, fast-forward, boost 0.
+
+[center-arrival-medium-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1084 -1771 639
+ball_vel = 651 -1989 -108
+ball_spin = 0 0 -2
+car = blue 1803 -4480 47 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 1.98s. Defender beside, rightward, stopped, boost 0.
+
+[center-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -993 -6 1313
+ball_vel = 333 -1990 -919
+ball_spin = 0 0 3
+car = blue 176 -4884 13 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.45s. Defender mouth, rightward, forward, boost 12.
+
+[center-arrival-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1676 -2355 1201
+ball_vel = -621 -1102 -523
+ball_spin = 0 0 -2
+car = blue 540 -4856 -24 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.32s. Defender near-post, rightward, reverse, boost 12.
+
+[center-arrival-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -2144 -321 1347
+ball_vel = 853 -1948 -919
+ball_spin = 0 0 1
+car = blue 628 -4762 32 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.27s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-arrival-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1806 -864 1362
+ball_vel = -734 -1767 -646
+ball_spin = 0 0 -0
+car = blue -66 -5248 -23 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.11s. Defender inside, rightward, stopped, boost 33.
+
+[center-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1434 70 1399
+ball_vel = -457 -1823 31
+ball_spin = 0 0 -3
+car = blue 681 -4203 -10 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.42s. Defender ahead, rightward, forward, boost 33.
+
+[center-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1969 -1586 1184
+ball_vel = 718 -1388 -910
+ball_spin = 0 0 3
+car = blue 1541 -4468 51 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, center entry in 3.48s. Defender beside, rightward, reverse, boost 33.
+
+[right-arrival-fast-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = -113 -2596 839
+ball_vel = 657 -2101 -424
+ball_spin = 0 0 -0
+car = blue 12 -4790 3 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.38s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = 754 -4138 1358
+ball_vel = -329 -910 -696
+ball_spin = 0 0 0
+car = blue 576 -4938 -13 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.22s. Defender near-post, rightward, stopped, boost 100.
+
+[right-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1361 -3812 896
+ball_vel = 1476 -1057 -456
+ball_spin = 0 0 3
+car = blue -568 -4890 36 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.49s. Defender far-post, rightward, forward, boost 100.
+
+[right-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 1948 -3108 376
+ball_vel = -1481 -2038 -654
+ball_spin = 0 0 -3
+car = blue 416 -5268 -35 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.23s. Defender inside, rightward, reverse, boost 0.
+
+[right-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = 175 -3349 853
+ball_vel = 319 -1833 -695
+ball_spin = 0 0 -2
+car = blue 159 -4042 -1 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.13s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1858 -3229 1285
+ball_vel = 1705 -1432 -402
+ball_spin = 0 0 -2
+car = blue 1312 -4417 69 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.43s. Defender beside, rightward, stopped, boost 0.
+
+[right-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = 336 -1020 774
+ball_vel = 62 -2227 -1040
+ball_spin = 0 0 2
+car = blue 76 -4810 -4 800 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.51s. Defender mouth, rightward, forward, boost 12.
+
+[right-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1117 -3589 589
+ball_vel = -429 -993 -359
+ball_spin = 0 0 0
+car = blue 561 -5031 -21 -700 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.04s. Defender near-post, rightward, reverse, boost 12.
+
+[right-arrival-medium-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = 1111 -2670 408
+ball_vel = -406 -1812 -648
+ball_spin = 0 0 -2
+car = blue -521 -4801 -37 1400 12
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 1.85s. Defender far-post, rightward, fast-forward, boost 12.
+
+[right-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1201 -942 841
+ball_vel = -417 -2151 66
+ball_spin = 0 0 2
+car = blue -639 -5211 -23 0 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.21s. Defender inside, rightward, stopped, boost 33.
+
+[right-arrival-medium-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1494 -1935 914
+ball_vel = 1142 -1824 -520
+ball_spin = 0 0 -3
+car = blue -597 -4284 21 800 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.20s. Defender ahead, rightward, forward, boost 33.
+
+[right-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -740 -2791 1226
+ball_vel = 584 -1039 179
+ball_spin = 0 0 1
+car = blue 1804 -4679 53 -700 33
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 2.52s. Defender beside, rightward, reverse, boost 33.
+
+[right-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2396 -261 1391
+ball_vel = -662 -1712 -423
+ball_spin = 0 0 -3
+car = blue -197 -4802 -30 1400 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.67s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-arrival-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 541 -2517 1404
+ball_vel = -38 -822 145
+ball_spin = 0 0 -2
+car = blue 645 -4838 3 0 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.95s. Defender near-post, rightward, stopped, boost 100.
+
+[right-arrival-slow-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1741 -2245 367
+ball_vel = 1152 -1419 -1686
+ball_spin = 0 0 -2
+car = blue -528 -4846 25 800 100
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.00s. Defender far-post, rightward, forward, boost 100.
+
+[right-arrival-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -397 -1566 665
+ball_vel = 317 -1417 -1677
+ball_spin = 0 0 -1
+car = blue -556 -5205 -3 -700 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.67s. Defender inside, rightward, reverse, boost 0.
+
+[right-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -334 -1271 1192
+ball_vel = 259 -1213 124
+ball_spin = 0 0 -2
+car = blue -32 -4044 6 1400 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.99s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -783 -471 1343
+ball_vel = 475 -1594 -341
+ball_spin = 0 0 2
+car = blue 1447 -4460 29 0 0
+rival = scripted mode=idle
+note = Shots with one strong floor bounce before goal entry threat, right entry in 3.78s. Defender beside, rightward, stopped, boost 0.

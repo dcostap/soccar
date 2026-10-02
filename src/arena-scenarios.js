@@ -37,6 +37,21 @@ export function scenarioDiagram(s, width = 72) {
   g.strokeRect(width / 2 - mouth / 2, -goal, mouth, goal);
   g.strokeStyle = COLORS[0];
   g.strokeRect(width / 2 - mouth / 2, height, mouth, goal);
+  if (s.measurement?.path?.length) {
+    g.strokeStyle = "#8fffb580";
+    g.setLineDash([3, 3]);
+    g.beginPath();
+    for (const [i, [, x, y]] of s.measurement.path.entries()) {
+      if (i) g.lineTo(px(x), py(y));
+      else g.moveTo(px(x), py(y));
+    }
+    g.stroke();
+    g.setLineDash([]);
+    for (const bounce of s.measurement.bounces) {
+      g.fillStyle = "#8fffb5";
+      g.fillRect(px(bounce.position[0]) - 2, py(bounce.position[1]) - 2, 4, 4);
+    }
+  }
   const arrow = (x, y, vx, vy, color) => {
     // Arrows show one second of travel.
     if (Math.hypot(vx, vy) < 1) return;

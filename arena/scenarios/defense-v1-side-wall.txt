@@ -1,0 +1,2378 @@
+# Shots that rebound from a side wall.
+# Fixed defense v1. Do not replace or tune these tests.
+
+[left-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3786 -3364 681
+ball_vel = -4159 -1603 355
+ball_spin = 0 0 -0
+car = blue 99 -4819 159 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.63s. Defender mouth, facing, stopped, boost 0.
+
+[left-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3596 -3643 711
+ball_vel = -4900 -1606 -7
+ball_spin = 0 0 -1
+car = blue -613 -4925 157 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.34s. Defender near-post, facing, forward, boost 0.
+
+[left-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3559 -3427 575
+ball_vel = -4635 -1641 191
+ball_spin = 0 0 0
+car = blue 549 -4777 162 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.53s. Defender far-post, facing, reverse, boost 0.
+
+[left-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3518 -3477 459
+ball_vel = -4802 -1650 196
+ball_spin = 0 0 -1
+car = blue 362 -5260 155 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.45s. Defender inside, facing, fast-forward, boost 12.
+
+[left-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3475 -3352 1194
+ball_vel = -4333 -1620 -25
+ball_spin = 0 0 -1
+car = blue 176 -3923 171 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.57s. Defender ahead, facing, stopped, boost 12.
+
+[left-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3569 -3373 723
+ball_vel = -4032 -1534 333
+ball_spin = 0 0 -2
+car = blue -1217 -4340 158 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.61s. Defender beside, facing, forward, boost 12.
+
+[left-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3522 -2132 971
+ball_vel = -2743 -1722 380
+ball_spin = 0 0 -2
+car = blue -230 -4830 141 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.52s. Defender mouth, facing, reverse, boost 33.
+
+[left-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3609 -3155 736
+ball_vel = -3336 -1427 129
+ball_spin = 0 0 1
+car = blue -653 -4851 150 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.24s. Defender near-post, facing, fast-forward, boost 33.
+
+[left-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3632 -3058 797
+ball_vel = -3236 -1492 236
+ball_spin = 0 0 -1
+car = blue 677 -4855 157 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.06s. Defender far-post, facing, stopped, boost 33.
+
+[left-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3622 -3361 1283
+ball_vel = -3238 -1225 134
+ball_spin = 0 0 1
+car = blue 517 -5277 155 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.23s. Defender inside, facing, forward, boost 100.
+
+[left-arrival-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3497 -3022 726
+ball_vel = -2977 -1350 831
+ball_spin = 0 0 2
+car = blue -597 -4277 157 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.41s. Defender ahead, facing, reverse, boost 100.
+
+[left-arrival-medium-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3478 -2452 1239
+ball_vel = -2719 -1582 87
+ball_spin = 0 0 -1
+car = blue -1751 -4757 127 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.55s. Defender beside, facing, fast-forward, boost 100.
+
+[left-arrival-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -3639 -1962 632
+ball_vel = -1982 -1378 604
+ball_spin = 0 0 -2
+car = blue -26 -4968 140 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.64s. Defender mouth, facing, stopped, boost 0.
+
+[left-arrival-slow-near-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = -3697 -1836 1195
+ball_vel = -1999 -1388 111
+ball_spin = 0 0 -1
+car = blue -673 -4906 135 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.02s. Defender near-post, facing, forward, boost 0.
+
+[left-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -3537 -3241 1204
+ball_vel = -2044 -829 611
+ball_spin = 0 0 1
+car = blue 569 -4883 158 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.90s. Defender far-post, facing, reverse, boost 0.
+
+[left-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -3558 -1691 1153
+ball_vel = -1916 -1360 642
+ball_spin = 0 0 -3
+car = blue 141 -5288 136 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.75s. Defender inside, facing, fast-forward, boost 12.
+
+[left-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = -3548 -2363 1150
+ball_vel = -2029 -1237 -115
+ball_spin = 0 0 -1
+car = blue -368 -4140 151 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.81s. Defender ahead, facing, stopped, boost 12.
+
+[left-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -3473 -2391 737
+ball_vel = -1973 -1101 729
+ball_spin = 0 0 -2
+car = blue -1515 -4781 129 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.82s. Defender beside, facing, forward, boost 12.
+
+[center-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3529 -3634 947
+ball_vel = 4865 -1421 141
+ball_spin = 0 0 -1
+car = blue -290 -4962 19 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.60s. Defender mouth, facing, reverse, boost 33.
+
+[center-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3817 -3454 1010
+ball_vel = -5080 -1607 149
+ball_spin = 0 0 0
+car = blue 503 -5025 160 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.56s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3507 -3426 778
+ball_vel = 5089 -1590 -133
+ball_spin = 0 0 1
+car = blue 569 -4856 26 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.58s. Defender far-post, facing, stopped, boost 33.
+
+[center-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3753 -3507 734
+ball_vel = 5149 -1567 -82
+ball_spin = 0 0 2
+car = blue -188 -5231 24 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.50s. Defender inside, facing, forward, boost 100.
+
+[center-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3691 -3687 695
+ball_vel = -4916 -1390 333
+ball_spin = 0 0 -2
+car = blue 299 -3932 176 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.48s. Defender ahead, facing, reverse, boost 100.
+
+[center-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -3698 -3365 1044
+ball_vel = -5189 -1664 -148
+ball_spin = 0 0 -2
+car = blue -1166 -4565 155 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.51s. Defender beside, facing, fast-forward, boost 100.
+
+[center-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3513 -2415 1474
+ball_vel = -3099 -1629 286
+ball_spin = 0 0 -1
+car = blue 316 -4848 148 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.38s. Defender mouth, facing, stopped, boost 0.
+
+[center-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3669 -2434 909
+ball_vel = 3123 -1592 500
+ball_spin = 0 0 1
+car = blue -529 -4828 30 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.51s. Defender near-post, facing, forward, boost 0.
+
+[center-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3630 -2981 1084
+ball_vel = 3803 -1556 124
+ball_spin = 0 0 -2
+car = blue -668 -4833 23 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.21s. Defender far-post, facing, reverse, boost 0.
+
+[center-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3695 -3502 1295
+ball_vel = 3674 -1162 -92
+ball_spin = 0 0 -0
+car = blue -402 -5288 24 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.18s. Defender inside, facing, fast-forward, boost 12.
+
+[center-arrival-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3772 -2369 1458
+ball_vel = 3234 -1712 67
+ball_spin = 0 0 -1
+car = blue 29 -4298 27 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.54s. Defender ahead, facing, stopped, boost 12.
+
+[center-arrival-medium-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = -3723 -2979 595
+ball_vel = -3246 -1388 356
+ball_spin = 0 0 1
+car = blue -1625 -4424 145 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.54s. Defender beside, facing, forward, boost 12.
+
+[center-arrival-slow-mouth-001]
+kind = defend
+time = 6
+seed = 1
+ball = -3470 -1889 1447
+ball_vel = -1918 -1196 971
+ball_spin = 0 0 -1
+car = blue 172 -4951 140 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 4.05s. Defender mouth, facing, reverse, boost 33.
+
+[center-arrival-slow-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3773 -1474 681
+ball_vel = 2363 -1668 -6
+ball_spin = 0 0 3
+car = blue 631 -4769 46 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.87s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3716 -2714 978
+ball_vel = 2289 -1032 341
+ball_spin = 0 0 2
+car = blue 648 -4816 34 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.76s. Defender far-post, facing, stopped, boost 33.
+
+[center-arrival-slow-inside-001]
+kind = defend
+time = 6
+seed = 1
+ball = -3627 -2441 825
+ball_vel = -2170 -1158 672
+ball_spin = 0 0 1
+car = blue 287 -5308 144 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 4.01s. Defender inside, facing, forward, boost 100.
+
+[center-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = -3625 -914 723
+ball_vel = -2123 -1709 634
+ball_spin = 0 0 -2
+car = blue 214 -3977 141 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.97s. Defender ahead, facing, reverse, boost 100.
+
+[center-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3735 -2883 1286
+ball_vel = 2324 -982 415
+ball_spin = 0 0 2
+car = blue 1247 -4653 35 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.51s. Defender beside, facing, fast-forward, boost 100.
+
+[right-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3465 -3313 976
+ball_vel = 4387 -1697 126
+ball_spin = 0 0 2
+car = blue 5 -4926 25 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.50s. Defender mouth, facing, stopped, boost 0.
+
+[right-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3782 -3669 899
+ball_vel = 4604 -1467 -27
+ball_spin = 0 0 3
+car = blue 602 -5040 23 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.39s. Defender near-post, facing, forward, boost 0.
+
+[right-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3740 -3704 652
+ball_vel = 4146 -1338 141
+ball_spin = 0 0 0
+car = blue -665 -4801 14 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.62s. Defender far-post, facing, reverse, boost 0.
+
+[right-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3800 -3714 480
+ball_vel = 4979 -1510 -113
+ball_spin = 0 0 1
+car = blue -275 -5267 21 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.43s. Defender inside, facing, fast-forward, boost 12.
+
+[right-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3782 -3552 672
+ball_vel = 4126 -1444 192
+ball_spin = 0 0 -0
+car = blue 371 -3965 7 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.64s. Defender ahead, facing, stopped, boost 12.
+
+[right-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 3662 -3295 515
+ball_vel = 4204 -1684 227
+ball_spin = 0 0 2
+car = blue 1448 -4669 32 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.56s. Defender beside, facing, forward, boost 12.
+
+[right-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3467 -3129 1005
+ball_vel = 3086 -1298 147
+ball_spin = 0 0 2
+car = blue 51 -4916 28 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.23s. Defender mouth, facing, reverse, boost 33.
+
+[right-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3682 -3137 557
+ball_vel = 2885 -1251 780
+ball_spin = 0 0 0
+car = blue 658 -5048 32 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.37s. Defender near-post, facing, fast-forward, boost 33.
+
+[right-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3577 -3202 977
+ball_vel = 3118 -1268 106
+ball_spin = 0 0 0
+car = blue -656 -4904 22 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.41s. Defender far-post, facing, stopped, boost 33.
+
+[right-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3552 -3407 1194
+ball_vel = 3026 -1096 -112
+ball_spin = 0 0 1
+car = blue 229 -5307 30 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.46s. Defender inside, facing, forward, boost 100.
+
+[right-arrival-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3682 -2836 820
+ball_vel = 2807 -1390 89
+ball_spin = 0 0 2
+car = blue -332 -4061 17 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.59s. Defender ahead, facing, reverse, boost 100.
+
+[right-arrival-medium-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 3767 -2927 1482
+ball_vel = 2582 -1271 21
+ball_spin = 0 0 2
+car = blue 1851 -4558 40 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.57s. Defender beside, facing, fast-forward, boost 100.
+
+[right-arrival-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3508 -3143 1102
+ball_vel = 2120 -868 406
+ball_spin = 0 0 1
+car = blue 81 -4985 28 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.66s. Defender mouth, facing, stopped, boost 0.
+
+[right-arrival-slow-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3644 -3241 1101
+ball_vel = 2050 -842 607
+ball_spin = 0 0 -1
+car = blue 659 -4874 29 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.89s. Defender near-post, facing, forward, boost 0.
+
+[right-arrival-slow-far-post-001]
+kind = defend
+time = 6
+seed = 1
+ball = 3778 -1985 791
+ball_vel = 1981 -1439 363
+ball_spin = 0 0 -3
+car = blue -648 -4861 33 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.23s. Defender far-post, facing, reverse, boost 0.
+
+[right-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3479 -2602 1029
+ball_vel = 1933 -993 514
+ball_spin = 0 0 2
+car = blue 28 -5204 37 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.96s. Defender inside, facing, fast-forward, boost 12.
+
+[right-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3728 -3116 1303
+ball_vel = 1841 -833 286
+ball_spin = 0 0 1
+car = blue 82 -4237 17 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.99s. Defender ahead, facing, stopped, boost 12.
+
+[right-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 3540 -2342 747
+ball_vel = 2203 -1264 779
+ball_spin = 0 0 1
+car = blue 1798 -4373 49 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.38s. Defender beside, facing, forward, boost 12.
+
+[left-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3758 -3395 536
+ball_vel = -4352 -1622 299
+ball_spin = 0 0 -2
+car = blue -190 -4854 248 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.52s. Defender mouth, leftward, forward, boost 12.
+
+[left-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3452 -3240 922
+ball_vel = -4503 -1724 234
+ball_spin = 0 0 -1
+car = blue -615 -4784 241 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.57s. Defender near-post, leftward, reverse, boost 12.
+
+[left-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3679 -3627 603
+ball_vel = -4069 -1354 343
+ball_spin = 0 0 -1
+car = blue 653 -4907 254 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.61s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3656 -3340 603
+ball_vel = -4377 -1657 521
+ball_spin = 0 0 -1
+car = blue -212 -5244 241 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.56s. Defender inside, leftward, stopped, boost 33.
+
+[left-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3623 -3272 1111
+ball_vel = -4188 -1681 102
+ball_spin = 0 0 -1
+car = blue 14 -4016 258 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.59s. Defender ahead, leftward, forward, boost 33.
+
+[left-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3617 -3619 668
+ball_vel = -4570 -1431 130
+ball_spin = 0 0 -0
+car = blue -1739 -4656 241 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.57s. Defender beside, leftward, reverse, boost 33.
+
+[left-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3652 -3367 1240
+ball_vel = -2827 -1083 231
+ball_spin = 0 0 -0
+car = blue -37 -4848 248 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.52s. Defender mouth, leftward, fast-forward, boost 100.
+
+[left-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3583 -3346 1399
+ball_vel = -3036 -1118 115
+ball_spin = 0 0 0
+car = blue -604 -4897 242 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.44s. Defender near-post, leftward, stopped, boost 100.
+
+[left-arrival-medium-far-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3651 -2773 1161
+ball_vel = -2973 -1554 148
+ball_spin = 0 0 1
+car = blue 581 -4802 244 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.38s. Defender far-post, leftward, forward, boost 100.
+
+[left-arrival-medium-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3590 -2554 1516
+ball_vel = -2916 -1586 266
+ball_spin = 0 0 -1
+car = blue -273 -5238 231 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.33s. Defender inside, leftward, reverse, boost 0.
+
+[left-arrival-medium-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3824 -3411 1489
+ball_vel = -2780 -1026 117
+ball_spin = 0 0 -3
+car = blue -57 -4391 255 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.30s. Defender ahead, leftward, fast-forward, boost 0.
+
+[left-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3504 -2377 1543
+ball_vel = -2762 -1591 76
+ball_spin = 0 0 -1
+car = blue -1409 -4524 224 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.54s. Defender beside, leftward, stopped, boost 0.
+
+[left-arrival-slow-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3721 -2177 1453
+ball_vel = -1692 -1141 944
+ball_spin = 0 0 -1
+car = blue -232 -4757 234 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.88s. Defender mouth, leftward, forward, boost 12.
+
+[left-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3462 -1647 611
+ball_vel = -2185 -1582 893
+ball_spin = 0 0 -3
+car = blue -550 -4945 221 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.12s. Defender near-post, leftward, reverse, boost 12.
+
+[left-arrival-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3594 -3056 1393
+ball_vel = -2098 -904 740
+ball_spin = 0 0 -2
+car = blue 549 -4820 247 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.23s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3566 -1449 960
+ball_vel = -2076 -1604 344
+ball_spin = 0 0 -2
+car = blue 629 -5328 227 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.67s. Defender inside, leftward, stopped, boost 33.
+
+[left-arrival-slow-ahead-002]
+kind = defend
+time = 6
+seed = 1
+ball = -3538 -1440 958
+ball_vel = -2032 -1590 436
+ball_spin = 0 0 2
+car = blue -659 -4025 228 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.08s. Defender ahead, leftward, forward, boost 33.
+
+[left-arrival-slow-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3801 -2450 1556
+ball_vel = -1826 -1062 677
+ball_spin = 0 0 -3
+car = blue -1612 -4422 228 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.60s. Defender beside, leftward, reverse, boost 33.
+
+[center-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3799 -3688 728
+ball_vel = 5517 -1566 401
+ball_spin = 0 0 -2
+car = blue 257 -4776 107 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.45s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3713 -3268 525
+ball_vel = -4793 -1728 645
+ball_spin = 0 0 -0
+car = blue -550 -4828 244 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.59s. Defender near-post, leftward, stopped, boost 100.
+
+[center-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3524 -3320 779
+ball_vel = -4971 -1640 50
+ball_spin = 0 0 -3
+car = blue -615 -5046 239 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.52s. Defender far-post, leftward, forward, boost 100.
+
+[center-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3571 -3370 597
+ball_vel = 4484 -1526 272
+ball_spin = 0 0 2
+car = blue -93 -5324 118 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.62s. Defender inside, leftward, reverse, boost 0.
+
+[center-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = -3727 -3376 562
+ball_vel = -4816 -1651 517
+ball_spin = 0 0 -2
+car = blue -829 -4344 252 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.51s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3609 -3321 607
+ball_vel = 4811 -1661 562
+ball_spin = 0 0 1
+car = blue 1871 -4708 129 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.57s. Defender beside, leftward, stopped, boost 0.
+
+[center-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3797 -3217 590
+ball_vel = -3193 -1207 761
+ball_spin = 0 0 1
+car = blue -87 -4991 244 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.48s. Defender mouth, leftward, forward, boost 12.
+
+[center-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3482 -3330 1445
+ball_vel = -3549 -1175 126
+ball_spin = 0 0 -3
+car = blue 613 -4936 249 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.08s. Defender near-post, leftward, reverse, boost 12.
+
+[center-arrival-medium-far-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3773 -2565 811
+ball_vel = -3079 -1504 249
+ball_spin = 0 0 -3
+car = blue -654 -4772 235 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.56s. Defender far-post, leftward, fast-forward, boost 12.
+
+[center-arrival-medium-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3616 -2820 1199
+ball_vel = 3972 -1647 284
+ball_spin = 0 0 2
+car = blue -104 -5318 124 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.97s. Defender inside, leftward, stopped, boost 33.
+
+[center-arrival-medium-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 3754 -3426 748
+ball_vel = 3464 -1195 66
+ball_spin = 0 0 -2
+car = blue 827 -4050 102 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.52s. Defender ahead, leftward, forward, boost 33.
+
+[center-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -3504 -3600 1395
+ball_vel = -3568 -1024 110
+ball_spin = 0 0 -0
+car = blue -1653 -4711 239 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.24s. Defender beside, leftward, reverse, boost 33.
+
+[center-arrival-slow-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3635 -2829 1178
+ball_vel = -2332 -1036 319
+ball_spin = 0 0 -1
+car = blue -22 -4861 241 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.59s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3550 -1765 687
+ball_vel = -2182 -1413 407
+ball_spin = 0 0 -2
+car = blue -577 -4794 224 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.95s. Defender near-post, leftward, stopped, boost 100.
+
+[center-arrival-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3652 -1215 573
+ball_vel = -2036 -1574 917
+ball_spin = 0 0 -1
+car = blue 687 -5036 229 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.98s. Defender far-post, leftward, forward, boost 100.
+
+[center-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 3452 -2594 770
+ball_vel = 2495 -1150 336
+ball_spin = 0 0 2
+car = blue -607 -5324 124 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.52s. Defender inside, leftward, reverse, boost 0.
+
+[center-arrival-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = -3583 -1076 686
+ball_vel = -2157 -1617 919
+ball_spin = 0 0 -1
+car = blue -134 -3934 230 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.95s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-arrival-slow-beside-002]
+kind = defend
+time = 6
+seed = 1
+ball = -3450 -2581 1255
+ball_vel = -2139 -1000 -66
+ball_spin = 0 0 -2
+car = blue -1386 -4758 223 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 4.24s. Defender beside, leftward, stopped, boost 0.
+
+[right-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3603 -3626 587
+ball_vel = 5405 -1729 370
+ball_spin = 0 0 1
+car = blue 190 -4817 109 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.26s. Defender mouth, leftward, forward, boost 12.
+
+[right-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3477 -3497 670
+ball_vel = 4641 -1616 455
+ball_spin = 0 0 -0
+car = blue 593 -4843 115 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.48s. Defender near-post, leftward, reverse, boost 12.
+
+[right-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3577 -3603 709
+ball_vel = 4828 -1581 351
+ball_spin = 0 0 2
+car = blue -681 -4942 107 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.37s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3499 -3581 473
+ball_vel = 5246 -1709 -84
+ball_spin = 0 0 -2
+car = blue -588 -5294 113 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.43s. Defender inside, leftward, stopped, boost 33.
+
+[right-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3707 -3361 459
+ball_vel = 4204 -1659 311
+ball_spin = 0 0 -1
+car = blue -153 -4071 100 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.63s. Defender ahead, leftward, forward, boost 33.
+
+[right-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3823 -3708 720
+ball_vel = 5012 -1584 235
+ball_spin = 0 0 1
+car = blue 1154 -4510 107 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.32s. Defender beside, leftward, reverse, boost 33.
+
+[right-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = 3460 -2347 1259
+ball_vel = 2642 -1554 586
+ball_spin = 0 0 2
+car = blue 174 -4826 127 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.49s. Defender mouth, leftward, fast-forward, boost 100.
+
+[right-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 3704 -2596 808
+ball_vel = 2626 -1464 915
+ball_spin = 0 0 -0
+car = blue 635 -4876 127 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.56s. Defender near-post, leftward, stopped, boost 100.
+
+[right-arrival-medium-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 3768 -3037 1153
+ball_vel = 3236 -1493 350
+ball_spin = 0 0 2
+car = blue -596 -4797 112 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.98s. Defender far-post, leftward, forward, boost 100.
+
+[right-arrival-medium-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 3637 -2798 1116
+ball_vel = 2767 -1418 613
+ball_spin = 0 0 -1
+car = blue -570 -5303 121 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.48s. Defender inside, leftward, reverse, boost 0.
+
+[right-arrival-medium-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 3810 -2924 500
+ball_vel = 2713 -1295 947
+ball_spin = 0 0 2
+car = blue 150 -4244 110 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.41s. Defender ahead, leftward, fast-forward, boost 0.
+
+[right-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 3674 -2532 758
+ball_vel = 2757 -1611 688
+ball_spin = 0 0 2
+car = blue 1805 -4656 139 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.27s. Defender beside, leftward, stopped, boost 0.
+
+[right-arrival-slow-mouth-002]
+kind = defend
+time = 6
+seed = 1
+ball = 3698 -2293 1170
+ball_vel = 1772 -1133 522
+ball_spin = 0 0 -0
+car = blue 11 -4985 126 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.22s. Defender mouth, leftward, forward, boost 12.
+
+[right-arrival-slow-near-post-002]
+kind = defend
+time = 6
+seed = 1
+ball = 3533 -1156 603
+ball_vel = 1951 -1651 365
+ball_spin = 0 0 2
+car = blue 625 -4782 141 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.13s. Defender near-post, leftward, reverse, boost 12.
+
+[right-arrival-slow-far-post-002]
+kind = defend
+time = 6
+seed = 1
+ball = 3604 -1061 1310
+ball_vel = 1673 -1510 947
+ball_spin = 0 0 1
+car = blue -636 -4944 132 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.10s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 3652 -1556 1243
+ball_vel = 1981 -1520 830
+ball_spin = 0 0 -1
+car = blue 569 -5293 140 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.74s. Defender inside, leftward, stopped, boost 33.
+
+[right-arrival-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 3691 -1895 1246
+ball_vel = 1986 -1421 712
+ball_spin = 0 0 3
+car = blue -605 -4319 119 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.23s. Defender ahead, leftward, forward, boost 33.
+
+[right-arrival-slow-beside-002]
+kind = defend
+time = 6
+seed = 1
+ball = 3456 -889 1174
+ball_vel = 1958 -1688 37
+ball_spin = 0 0 2
+car = blue 1408 -4515 151 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.19s. Defender beside, leftward, reverse, boost 33.
+
+[left-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3636 -3251 578
+ball_vel = -3906 -1613 390
+ball_spin = 0 0 -2
+car = blue -349 -4853 334 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.64s. Defender mouth, away, reverse, boost 33.
+
+[left-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3688 -3597 667
+ball_vel = -5060 -1656 364
+ball_spin = 0 0 -2
+car = blue -569 -4935 337 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.32s. Defender near-post, away, fast-forward, boost 33.
+
+[left-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3492 -3609 893
+ball_vel = -5125 -1635 -100
+ball_spin = 0 0 -1
+car = blue 640 -4776 344 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.34s. Defender far-post, away, stopped, boost 33.
+
+[left-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3784 -3692 514
+ball_vel = -5423 -1724 -148
+ball_spin = 0 0 -1
+car = blue 313 -5266 339 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.25s. Defender inside, away, forward, boost 100.
+
+[left-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3656 -3634 1055
+ball_vel = -4601 -1483 -97
+ball_spin = 0 0 0
+car = blue -194 -4239 350 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.50s. Defender ahead, away, reverse, boost 100.
+
+[left-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3747 -3571 524
+ball_vel = -4584 -1577 289
+ball_spin = 0 0 0
+car = blue -1405 -4529 338 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.48s. Defender beside, away, fast-forward, boost 100.
+
+[left-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3533 -3075 901
+ball_vel = -2746 -1164 465
+ball_spin = 0 0 -2
+car = blue -245 -4899 331 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.54s. Defender mouth, away, stopped, boost 0.
+
+[left-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3811 -3082 1539
+ball_vel = -2705 -1188 69
+ball_spin = 0 0 -1
+car = blue -565 -4914 331 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.62s. Defender near-post, away, forward, boost 0.
+
+[left-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3674 -3473 691
+ball_vel = -3109 -1134 710
+ball_spin = 0 0 1
+car = blue 517 -4896 341 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.25s. Defender far-post, away, reverse, boost 0.
+
+[left-arrival-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3840 -3502 845
+ball_vel = -2611 -917 864
+ball_spin = 0 0 -1
+car = blue 274 -5242 337 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.59s. Defender inside, away, fast-forward, boost 12.
+
+[left-arrival-medium-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3740 -2536 952
+ball_vel = -2774 -1562 63
+ball_spin = 0 0 -2
+car = blue 284 -4323 336 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.59s. Defender ahead, away, stopped, boost 12.
+
+[left-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3715 -2578 713
+ball_vel = -3017 -1627 -85
+ball_spin = 0 0 -1
+car = blue -1105 -4792 320 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.58s. Defender beside, away, forward, boost 12.
+
+[left-arrival-slow-mouth-003]
+kind = defend
+time = 6
+seed = 1
+ball = -3593 -1336 1203
+ball_vel = -1892 -1593 209
+ball_spin = 0 0 1
+car = blue 247 -4969 317 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.16s. Defender mouth, away, reverse, boost 33.
+
+[left-arrival-slow-near-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -3556 -1358 530
+ball_vel = -1975 -1650 794
+ball_spin = 0 0 3
+car = blue -696 -4781 310 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.03s. Defender near-post, away, fast-forward, boost 33.
+
+[left-arrival-slow-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -3662 -569 1490
+ball_vel = -1664 -1657 983
+ball_spin = 0 0 -2
+car = blue 600 -4758 315 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.06s. Defender far-post, away, stopped, boost 33.
+
+[left-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -3728 -1447 465
+ball_vel = -1994 -1649 709
+ball_spin = 0 0 0
+car = blue -356 -5260 311 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.76s. Defender inside, away, forward, boost 100.
+
+[left-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = -3824 -3102 1361
+ball_vel = -2007 -899 -91
+ball_spin = 0 0 -1
+car = blue 620 -4067 348 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.86s. Defender ahead, away, reverse, boost 100.
+
+[left-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -3588 -1893 1386
+ball_vel = -1962 -1398 333
+ball_spin = 0 0 -1
+car = blue -1689 -4415 307 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.67s. Defender beside, away, fast-forward, boost 100.
+
+[center-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3764 -3347 514
+ball_vel = -4598 -1537 336
+ball_spin = 0 0 -3
+car = blue -243 -4895 336 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.62s. Defender mouth, away, stopped, boost 0.
+
+[center-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3805 -3696 873
+ball_vel = 5173 -1379 -134
+ball_spin = 0 0 3
+car = blue -576 -4754 194 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.46s. Defender near-post, away, forward, boost 0.
+
+[center-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3484 -3621 582
+ball_vel = 4878 -1384 162
+ball_spin = 0 0 0
+car = blue -587 -4987 199 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.64s. Defender far-post, away, reverse, boost 0.
+
+[center-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3583 -3673 773
+ball_vel = -5565 -1488 24
+ball_spin = 0 0 -2
+car = blue -600 -5240 332 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.46s. Defender inside, away, fast-forward, boost 12.
+
+[center-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3826 -3406 690
+ball_vel = -4773 -1605 459
+ball_spin = 0 0 -1
+car = blue 849 -4292 349 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.57s. Defender ahead, away, stopped, boost 12.
+
+[center-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3463 -3489 688
+ball_vel = -5744 -1694 -14
+ball_spin = 0 0 1
+car = blue -1836 -4340 332 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.47s. Defender beside, away, forward, boost 12.
+
+[center-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3793 -2964 572
+ball_vel = 3514 -1400 810
+ball_spin = 0 0 1
+car = blue -14 -4935 207 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.25s. Defender mouth, away, reverse, boost 33.
+
+[center-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3532 -2908 633
+ball_vel = -3431 -1482 311
+ball_spin = 0 0 3
+car = blue -662 -4957 324 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.55s. Defender near-post, away, fast-forward, boost 33.
+
+[center-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -3727 -3604 560
+ball_vel = -3435 -1058 851
+ball_spin = 0 0 -0
+car = blue 503 -4790 344 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.17s. Defender far-post, away, stopped, boost 33.
+
+[center-arrival-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3734 -3432 939
+ball_vel = 3564 -1133 -141
+ball_spin = 0 0 2
+car = blue -308 -5276 205 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.35s. Defender inside, away, forward, boost 100.
+
+[center-arrival-medium-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -3700 -3370 1269
+ball_vel = -3836 -1287 59
+ball_spin = 0 0 -3
+car = blue 320 -4386 346 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.88s. Defender ahead, away, reverse, boost 100.
+
+[center-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3605 -3092 1279
+ball_vel = 3578 -1386 -74
+ball_spin = 0 0 -2
+car = blue 1145 -4602 212 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.46s. Defender beside, away, fast-forward, boost 100.
+
+[center-arrival-slow-mouth-003]
+kind = defend
+time = 6
+seed = 1
+ball = -3559 -2169 1438
+ball_vel = -2065 -1131 966
+ball_spin = 0 0 -0
+car = blue 5 -4832 323 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 4.08s. Defender mouth, away, stopped, boost 0.
+
+[center-arrival-slow-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 3644 -1971 1464
+ball_vel = 2498 -1435 -85
+ball_spin = 0 0 3
+car = blue -507 -4930 215 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.45s. Defender near-post, away, forward, boost 0.
+
+[center-arrival-slow-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -3631 -3033 1052
+ball_vel = -2192 -903 632
+ball_spin = 0 0 2
+car = blue 662 -4777 338 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 4.28s. Defender far-post, away, reverse, boost 0.
+
+[center-arrival-slow-inside-003]
+kind = defend
+time = 6
+seed = 1
+ball = 3695 -3274 1384
+ball_vel = 2084 -738 216
+ball_spin = 0 0 1
+car = blue -519 -5266 205 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 4.21s. Defender inside, away, fast-forward, boost 12.
+
+[center-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = -3817 -2475 1110
+ball_vel = -2302 -1156 671
+ball_spin = 0 0 -1
+car = blue 816 -4021 342 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.62s. Defender ahead, away, stopped, boost 12.
+
+[center-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -3489 -3175 1316
+ball_vel = -2339 -818 712
+ball_spin = 0 0 0
+car = blue -1285 -4548 328 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.83s. Defender beside, away, forward, boost 12.
+
+[right-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3611 -3448 873
+ball_vel = 4654 -1681 15
+ball_spin = 0 0 -2
+car = blue -254 -4845 200 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.53s. Defender mouth, away, reverse, boost 33.
+
+[right-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3523 -3550 544
+ball_vel = 4383 -1438 136
+ball_spin = 0 0 1
+car = blue 609 -4984 206 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.62s. Defender near-post, away, fast-forward, boost 33.
+
+[right-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3458 -3167 695
+ball_vel = 4076 -1685 242
+ball_spin = 0 0 2
+car = blue -587 -4988 204 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.62s. Defender far-post, away, stopped, boost 33.
+
+[right-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3734 -3509 638
+ball_vel = 4661 -1658 249
+ball_spin = 0 0 -1
+car = blue -618 -5228 202 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.48s. Defender inside, away, forward, boost 100.
+
+[right-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3518 -3510 821
+ball_vel = 4642 -1625 146
+ball_spin = 0 0 -1
+car = blue 767 -3996 190 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.49s. Defender ahead, away, reverse, boost 100.
+
+[right-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 3708 -3467 855
+ball_vel = 4272 -1512 78
+ball_spin = 0 0 3
+car = blue 1337 -4752 208 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.52s. Defender beside, away, fast-forward, boost 100.
+
+[right-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3559 -3470 870
+ball_vel = 3242 -1127 -149
+ball_spin = 0 0 1
+car = blue -85 -4847 201 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.40s. Defender mouth, away, stopped, boost 0.
+
+[right-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3634 -2937 469
+ball_vel = 2613 -1264 773
+ball_spin = 0 0 2
+car = blue 697 -4957 215 800 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.48s. Defender near-post, away, forward, boost 0.
+
+[right-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3737 -2818 775
+ball_vel = 3006 -1590 -83
+ball_spin = 0 0 -1
+car = blue -614 -4927 206 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.49s. Defender far-post, away, reverse, boost 0.
+
+[right-arrival-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3650 -3276 486
+ball_vel = 2984 -1182 135
+ball_spin = 0 0 1
+car = blue -77 -5282 208 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.52s. Defender inside, away, fast-forward, boost 12.
+
+[right-arrival-medium-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3810 -3456 1579
+ball_vel = 3353 -1217 38
+ball_spin = 0 0 -0
+car = blue -280 -4096 189 0 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.07s. Defender ahead, away, stopped, boost 12.
+
+[right-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 3463 -2915 799
+ball_vel = 3292 -1516 514
+ball_spin = 0 0 -0
+car = blue 1820 -4422 223 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.12s. Defender beside, away, forward, boost 12.
+
+[right-arrival-slow-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = 3502 -1897 756
+ball_vel = 2055 -1429 911
+ball_spin = 0 0 1
+car = blue -67 -4778 219 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.38s. Defender mouth, away, reverse, boost 33.
+
+[right-arrival-slow-near-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = 3694 -3109 1457
+ball_vel = 1995 -918 203
+ball_spin = 0 0 -2
+car = blue 695 -4994 212 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.11s. Defender near-post, away, fast-forward, boost 33.
+
+[right-arrival-slow-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = 3829 -2622 1377
+ball_vel = 1880 -1078 248
+ball_spin = 0 0 -1
+car = blue -524 -4821 207 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.17s. Defender far-post, away, stopped, boost 33.
+
+[right-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 3655 -1291 1261
+ball_vel = 1988 -1725 271
+ball_spin = 0 0 -1
+car = blue -111 -5336 227 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.77s. Defender inside, away, forward, boost 100.
+
+[right-arrival-slow-ahead-003]
+kind = defend
+time = 6
+seed = 1
+ball = 3784 -785 483
+ball_vel = 1790 -1665 967
+ball_spin = 0 0 2
+car = blue 792 -4053 228 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.17s. Defender ahead, away, reverse, boost 100.
+
+[right-arrival-slow-beside-003]
+kind = defend
+time = 6
+seed = 1
+ball = 3670 -1471 879
+ball_vel = 1916 -1573 319
+ball_spin = 0 0 -1
+car = blue 1660 -4704 238 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.17s. Defender beside, away, fast-forward, boost 100.
+
+[left-arrival-fast-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3692 -3660 504
+ball_vel = -4642 -1477 -66
+ball_spin = 0 0 -0
+car = blue -174 -4949 70 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.55s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3632 -3246 524
+ball_vel = -4217 -1714 -96
+ball_spin = 0 0 -2
+car = blue -503 -4969 61 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.64s. Defender near-post, rightward, stopped, boost 100.
+
+[left-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3838 -3439 886
+ball_vel = -4487 -1683 84
+ball_spin = 0 0 -2
+car = blue 589 -4920 72 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.43s. Defender far-post, rightward, forward, boost 100.
+
+[left-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3828 -3584 864
+ball_vel = -4096 -1395 209
+ball_spin = 0 0 -1
+car = blue 498 -5204 69 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.62s. Defender inside, rightward, reverse, boost 0.
+
+[left-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3482 -3168 662
+ball_vel = -4318 -1728 510
+ball_spin = 0 0 -2
+car = blue -304 -4362 69 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.59s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3536 -3408 495
+ball_vel = -4186 -1488 529
+ball_spin = 0 0 -2
+car = blue -1387 -4331 67 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 1.62s. Defender beside, rightward, stopped, boost 0.
+
+[left-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3603 -3323 731
+ball_vel = -2925 -1177 386
+ball_spin = 0 0 1
+car = blue -244 -4860 65 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.49s. Defender mouth, rightward, forward, boost 12.
+
+[left-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3748 -2553 598
+ball_vel = -2886 -1584 99
+ball_spin = 0 0 -1
+car = blue -565 -4820 55 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.64s. Defender near-post, rightward, reverse, boost 12.
+
+[left-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3788 -2629 1023
+ball_vel = -2908 -1647 -144
+ball_spin = 0 0 -0
+car = blue 518 -4778 63 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.52s. Defender far-post, rightward, fast-forward, boost 12.
+
+[left-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3789 -3494 816
+ball_vel = -2748 -978 480
+ball_spin = 0 0 -1
+car = blue -415 -5252 62 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.55s. Defender inside, rightward, stopped, boost 33.
+
+[left-arrival-medium-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3656 -3008 1549
+ball_vel = -2555 -1198 398
+ball_spin = 0 0 -1
+car = blue 753 -4037 77 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.55s. Defender ahead, rightward, forward, boost 33.
+
+[left-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3698 -3187 974
+ball_vel = -3275 -1391 29
+ball_spin = 0 0 0
+car = blue -1829 -4408 57 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 2.21s. Defender beside, rightward, reverse, boost 33.
+
+[left-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -3709 -1856 1167
+ball_vel = -1937 -1355 685
+ball_spin = 0 0 -2
+car = blue -107 -4786 51 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.66s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-arrival-slow-near-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = -3774 -1723 678
+ball_vel = -1917 -1427 477
+ball_spin = 0 0 -0
+car = blue -620 -4917 45 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.27s. Defender near-post, rightward, stopped, boost 100.
+
+[left-arrival-slow-far-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = -3455 -2151 1271
+ball_vel = -1894 -1234 356
+ball_spin = 0 0 1
+car = blue 631 -4769 57 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.13s. Defender far-post, rightward, forward, boost 100.
+
+[left-arrival-slow-inside-004]
+kind = defend
+time = 6
+seed = 1
+ball = -3782 -2025 691
+ball_vel = -1821 -1278 924
+ball_spin = 0 0 1
+car = blue 382 -5231 52 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 4.14s. Defender inside, rightward, reverse, boost 0.
+
+[left-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -3582 -1372 1301
+ball_vel = -2022 -1633 597
+ball_spin = 0 0 -3
+car = blue -769 -3983 47 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.32s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -3761 -2521 1438
+ball_vel = -1862 -1092 578
+ball_spin = 0 0 -2
+car = blue -1550 -4329 51 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, left entry in 3.57s. Defender beside, rightward, stopped, boost 0.
+
+[center-arrival-fast-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3679 -3566 1019
+ball_vel = 5549 -1573 4
+ball_spin = 0 0 1
+car = blue 33 -4925 -70 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.44s. Defender mouth, rightward, forward, boost 12.
+
+[center-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3785 -3420 973
+ball_vel = -4935 -1612 12
+ball_spin = 0 0 -1
+car = blue 610 -4895 71 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.54s. Defender near-post, rightward, reverse, boost 12.
+
+[center-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3811 -3365 788
+ball_vel = -5044 -1733 142
+ball_spin = 0 0 1
+car = blue 592 -4780 72 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.55s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -3650 -3414 723
+ball_vel = -4829 -1491 206
+ball_spin = 0 0 -2
+car = blue -635 -5243 59 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.63s. Defender inside, rightward, stopped, boost 33.
+
+[center-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3731 -3396 845
+ball_vel = 4893 -1671 92
+ball_spin = 0 0 1
+car = blue -285 -4196 -79 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.51s. Defender ahead, rightward, forward, boost 33.
+
+[center-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3611 -3627 480
+ball_vel = 5034 -1449 369
+ball_spin = 0 0 -0
+car = blue 1113 -4771 -65 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 1.54s. Defender beside, rightward, reverse, boost 33.
+
+[center-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3620 -3157 714
+ball_vel = -3384 -1264 116
+ball_spin = 0 0 -2
+car = blue -191 -4757 65 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.39s. Defender mouth, rightward, fast-forward, boost 100.
+
+[center-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3818 -2983 622
+ball_vel = 3588 -1502 146
+ball_spin = 0 0 0
+car = blue 607 -4842 -60 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.29s. Defender near-post, rightward, stopped, boost 100.
+
+[center-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3482 -3317 941
+ball_vel = 3456 -1103 380
+ball_spin = 0 0 1
+car = blue 635 -5041 -59 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.43s. Defender far-post, rightward, forward, boost 100.
+
+[center-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3703 -2954 898
+ball_vel = -3216 -1270 550
+ball_spin = 0 0 -1
+car = blue -270 -5261 56 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.53s. Defender inside, rightward, reverse, boost 0.
+
+[center-arrival-medium-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = -3671 -3024 492
+ball_vel = -3685 -1527 224
+ball_spin = 0 0 -1
+car = blue 81 -4084 74 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.11s. Defender ahead, rightward, fast-forward, boost 0.
+
+[center-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3710 -2474 1567
+ball_vel = 3151 -1553 217
+ball_spin = 0 0 1
+car = blue 1515 -4354 -49 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 2.48s. Defender beside, rightward, stopped, boost 0.
+
+[center-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -3762 -3489 1079
+ball_vel = -2261 -722 804
+ball_spin = 0 0 -1
+car = blue 141 -4869 71 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.48s. Defender mouth, rightward, forward, boost 12.
+
+[center-arrival-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 3748 -2813 834
+ball_vel = 2373 -1018 439
+ball_spin = 0 0 3
+car = blue -625 -4866 -65 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.49s. Defender near-post, rightward, reverse, boost 12.
+
+[center-arrival-slow-far-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = -3797 -2304 1092
+ball_vel = -2094 -1112 585
+ball_spin = 0 0 -1
+car = blue -556 -4937 51 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 4.18s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-arrival-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -3514 -1636 1051
+ball_vel = -2280 -1484 787
+ball_spin = 0 0 1
+car = blue -629 -5298 38 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.82s. Defender inside, rightward, stopped, boost 33.
+
+[center-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -3693 -2442 1039
+ball_vel = -2411 -1189 460
+ball_spin = 0 0 -3
+car = blue 606 -4278 67 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.39s. Defender ahead, rightward, forward, boost 33.
+
+[center-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 3739 -1550 1489
+ball_vel = 2173 -1499 147
+ball_spin = 0 0 2
+car = blue 1789 -4621 -32 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, center entry in 3.88s. Defender beside, rightward, reverse, boost 33.
+
+[right-arrival-fast-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3619 -3644 861
+ball_vel = 4684 -1446 -38
+ball_spin = 0 0 0
+car = blue 240 -4807 -71 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.52s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3695 -3678 674
+ball_vel = 4421 -1387 102
+ball_spin = 0 0 2
+car = blue 565 -5049 -66 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.48s. Defender near-post, rightward, stopped, boost 100.
+
+[right-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3577 -3581 714
+ball_vel = 4092 -1384 375
+ball_spin = 0 0 1
+car = blue -644 -4844 -73 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.62s. Defender far-post, rightward, forward, boost 100.
+
+[right-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3493 -3627 556
+ball_vel = 4246 -1334 521
+ball_spin = 0 0 2
+car = blue -65 -5250 -65 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.58s. Defender inside, rightward, reverse, boost 0.
+
+[right-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3693 -3655 647
+ball_vel = 4935 -1547 219
+ball_spin = 0 0 1
+car = blue 703 -4299 -78 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.39s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 3729 -3658 651
+ball_vel = 5106 -1681 294
+ball_spin = 0 0 1
+car = blue 1802 -4341 -70 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 1.27s. Defender beside, rightward, stopped, boost 0.
+
+[right-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3629 -3040 1349
+ball_vel = 2654 -1187 209
+ball_spin = 0 0 2
+car = blue -254 -4870 -65 800 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.54s. Defender mouth, rightward, forward, boost 12.
+
+[right-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3688 -2572 841
+ball_vel = 3020 -1652 301
+ball_spin = 0 0 2
+car = blue 587 -5028 -52 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.27s. Defender near-post, rightward, reverse, boost 12.
+
+[right-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3565 -3581 688
+ball_vel = 2951 -964 706
+ball_spin = 0 0 0
+car = blue -601 -4820 -73 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.40s. Defender far-post, rightward, fast-forward, boost 12.
+
+[right-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3636 -2631 852
+ball_vel = 2994 -1679 285
+ball_spin = 0 0 -1
+car = blue 46 -5285 -54 0 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.33s. Defender inside, rightward, stopped, boost 33.
+
+[right-arrival-medium-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3472 -2771 893
+ball_vel = 3390 -1646 185
+ball_spin = 0 0 1
+car = blue -528 -4107 -72 800 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.11s. Defender ahead, rightward, forward, boost 33.
+
+[right-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 3750 -2771 1179
+ball_vel = 2960 -1530 380
+ball_spin = 0 0 2
+car = blue 1111 -4503 -57 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 2.17s. Defender beside, rightward, reverse, boost 33.
+
+[right-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 3703 -2289 1161
+ball_vel = 1911 -1221 209
+ball_spin = 0 0 1
+car = blue -81 -4929 -55 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.88s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-arrival-slow-near-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = 3730 -2993 1066
+ball_vel = 1972 -966 163
+ball_spin = 0 0 -1
+car = blue 512 -4791 -61 0 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 4.08s. Defender near-post, rightward, stopped, boost 100.
+
+[right-arrival-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 3533 -2126 1024
+ball_vel = 2031 -1322 787
+ball_spin = 0 0 -0
+car = blue -611 -4928 -56 800 100
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.52s. Defender far-post, rightward, forward, boost 100.
+
+[right-arrival-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 3766 -2186 1239
+ball_vel = 1930 -1245 -31
+ball_spin = 0 0 2
+car = blue -178 -5287 -52 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.94s. Defender inside, rightward, reverse, boost 0.
+
+[right-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = 3461 -2132 1352
+ball_vel = 1994 -1235 661
+ball_spin = 0 0 2
+car = blue 660 -4256 -53 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.55s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 3811 -2070 606
+ball_vel = 2017 -1395 538
+ball_spin = 0 0 1
+car = blue 1695 -4648 -39 0 0
+rival = scripted mode=idle
+note = Shots that rebound from a side wall threat, right entry in 3.67s. Defender beside, rightward, stopped, boost 0.

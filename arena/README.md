@@ -72,6 +72,8 @@ show <id>                 Every statistic of one match and a link to watch it
 setpieces [brain ...]     Play set pieces without a current result, then summarize per suite and kind
 setpieces show <suite|id> Per-scenario results beside an idle baseline; one scenario adds a watch link
 setpieces generate        Rewrite the generated suites, arena/scenarios/gen-*.txt
+setpieces generate-defense Add fixed defense-v2 suites with measured physics and longer lead-in
+setpieces generate-ground-recovery Add fixed defense-v3 ground threats with defenders farther from goal
 setpieces mine            Rewrite arena/scenarios/mined-goals.txt from goals in logged matches
 export                    Write public/arena/ for the page and the game menu (ladder and challenge do this)
 ```
@@ -160,6 +162,14 @@ npm run arena -- setpieces show saves/breakaway --brain alpha   # one scenario a
 shots, awkward starts, moving balls, a goalie, saves, chase-backs, breakaways, and scrambles in the box.
 `setpieces generate` writes `--count` scenarios per family (default 40) with seed 1, after dropping every candidate
 that an idle car passes. Change a family by adding a new one, since regenerating replaces the scenarios.
+
+The nine `defense-v2-*` suites add 1,944 fixed threats for a single defender.
+Each starts at least 2,000 units from the goal mouth and concedes in 2.5–5 seconds without a defender.
+They cover ground and air shots, floor, wall, corner, and ceiling bounces, and rival strikes.
+The original `defense-v1-*` suites remain as emergency tests. Use `--emergency` or select a v1 suite to include them.
+`defense-v3-ground-recovery` adds 216 rolling threats. Defenders start farther from goal and away from the ball path.
+Use `--defense --holdout <seed>` for new cases without changing files or result logs.
+See [measured defense tests](DEFENSE.md) for the coverage plan, reports, checks, and limits.
 
 `mined-goals` comes from real play. `setpieces mine` replays the newest `--count` current matches of the format
 (default 10) and captures the moment three seconds before each goal twice: as an attack with the scoring team as blue,

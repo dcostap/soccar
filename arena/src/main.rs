@@ -1,4 +1,5 @@
 //! Brain arena: plays bot brains against each other, keeps every result, and rates them.
+mod defense;
 mod export;
 mod generate;
 mod heat;
@@ -36,6 +37,8 @@ Commands:
   setpieces show <suite|id> Results of every brain per scenario, or one scenario with a watch link
   setpieces import <file>   Check a single-car recording and add it to user-attack or user-defend
   setpieces generate        Rewrite arena/scenarios/gen-*.txt (--count per family, default 40)
+  setpieces generate-defense Add fixed defense-v2 suites with 2.5–5 s lead-in (default 216 per family)
+  setpieces generate-ground-recovery Add fixed defense-v3 ground recovery tests (default 216)
   setpieces mine            Rewrite arena/scenarios/mined-goals.txt from the moments before goals
                             in the newest --count current matches of the format (default 10)
   export                    Write public/arena/arena.json for the leaderboard page
@@ -58,6 +61,8 @@ Options:
   --limit count             backfill: matches to replay (default all)
   --suite name              setpieces: only this suite
   --holdout seed            setpieces: play freshly generated families with this seed instead of the suites
+  --defense                 --holdout: use measured defense families, without writing suites or results
+  --emergency               Include short-window defense-v1 tests; --defense holdouts use their old generation
 
 Brains live in arena/brains/*.brain. Results are appended to arena/results/matches.jsonl,
 and heatmaps to arena/results/heatmaps.jsonl. Set pieces live in arena/scenarios/*.txt,
@@ -81,6 +86,8 @@ pub struct Options {
     pub suite: Option<String>,
     pub count: Option<usize>,
     pub holdout: Option<u64>,
+    pub defense: bool,
+    pub emergency: bool,
 }
 
 pub struct Arena {
@@ -135,6 +142,8 @@ fn run() -> Result<(), String> {
         suite: None,
         count: None,
         holdout: None,
+        defense: false,
+        emergency: false,
     };
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -153,6 +162,14 @@ fn run() -> Result<(), String> {
             }
             "--all-versions" => {
                 options.all_versions = true;
+                continue;
+            }
+            "--defense" => {
+                options.defense = true;
+                continue;
+            }
+            "--emergency" => {
+                options.emergency = true;
                 continue;
             }
             _ => {}
@@ -244,8 +261,13 @@ fn run() -> Result<(), String> {
 
 /// `setpieces show`, `generate`, and `mine` change no results, so they skip the export.
 fn options_only_print(rest: &[String]) -> bool {
-    rest.first()
-        .is_some_and(|w| w == "show" || w == "generate" || w == "mine")
+    rest.first().is_some_and(|w| {
+        w == "show"
+            || w == "generate"
+            || w == "generate-defense"
+            || w == "generate-ground-recovery"
+            || w == "mine"
+    })
 }
 
 impl Arena {

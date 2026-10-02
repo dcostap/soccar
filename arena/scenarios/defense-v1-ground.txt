@@ -1,0 +1,2378 @@
+# Rolling threats with no strong surface bounce.
+# Fixed defense v1. Do not replace or tune these tests.
+
+[left-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 1976 -2934 93.15
+ball_vel = -2256 -1998 0
+ball_spin = 0 0 -0
+car = blue 90 -4797 45 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.27s. Defender mouth, facing, stopped, boost 0.
+
+[left-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2364 -2924 93.15
+ball_vel = -2904 -2187 0
+ball_spin = 0 0 1
+car = blue -671 -4872 33 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.13s. Defender near-post, facing, forward, boost 0.
+
+[left-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 201 -2687 93.15
+ball_vel = -535 -2165 0
+ball_spin = 0 0 -2
+car = blue 590 -4831 100 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.34s. Defender far-post, facing, reverse, boost 0.
+
+[left-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 539 -2812 93.15
+ball_vel = -913 -1978 0
+ball_spin = 0 0 3
+car = blue 488 -5316 89 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.42s. Defender inside, facing, fast-forward, boost 12.
+
+[left-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = 736 -3121 93.15
+ball_vel = -1376 -1944 0
+ball_spin = 0 0 1
+car = blue -524 -4245 42 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.22s. Defender ahead, facing, stopped, boost 12.
+
+[left-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -2108 -2851 93.15
+ball_vel = 1488 -2234 0
+ball_spin = 0 0 -3
+car = blue -1468 -4491 111 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.18s. Defender beside, facing, forward, boost 12.
+
+[left-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = -1576 -3491 93.15
+ball_vel = 635 -1143 0
+ball_spin = 0 0 -1
+car = blue 11 -4897 138 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.29s. Defender mouth, facing, reverse, boost 33.
+
+[left-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 2106 -2543 93.15
+ball_vel = -1546 -1591 0
+ball_spin = 0 0 3
+car = blue -562 -4879 41 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.11s. Defender near-post, facing, fast-forward, boost 33.
+
+[left-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 822 -2647 93.15
+ball_vel = -890 -1544 0
+ball_spin = 0 0 1
+car = blue 678 -4906 86 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.26s. Defender far-post, facing, stopped, boost 33.
+
+[left-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = -2335 -2260 93.15
+ball_vel = 1157 -1788 0
+ball_spin = 0 0 -2
+car = blue -160 -5274 126 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.09s. Defender inside, facing, forward, boost 100.
+
+[left-arrival-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = -161 -3832 93.15
+ball_vel = -228 -1020 0
+ball_spin = 0 0 3
+car = blue 181 -4263 128 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.03s. Defender ahead, facing, reverse, boost 100.
+
+[left-arrival-medium-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1216 -1635 93.15
+ball_vel = 538 -2333 0
+ball_spin = 0 0 2
+car = blue -1830 -4335 77 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.85s. Defender beside, facing, fast-forward, boost 100.
+
+[left-arrival-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1796 -109 93.15
+ball_vel = 566 -2097 0
+ball_spin = 0 0 -1
+car = blue 258 -4934 113 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.92s. Defender mouth, facing, stopped, boost 0.
+
+[left-arrival-slow-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1737 -1344 93.15
+ball_vel = -1026 -1784 0
+ball_spin = 0 0 -2
+car = blue -508 -4935 58 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.24s. Defender near-post, facing, forward, boost 0.
+
+[left-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -627 -830 93.15
+ball_vel = 27 -2019 0
+ball_spin = 0 0 -0
+car = blue 653 -5043 107 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.29s. Defender far-post, facing, reverse, boost 0.
+
+[left-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1814 -1831 93.15
+ball_vel = -1121 -1552 0
+ball_spin = 0 0 1
+car = blue 550 -5214 70 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.51s. Defender inside, facing, fast-forward, boost 12.
+
+[left-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1842 -1912 93.15
+ball_vel = -1215 -1553 0
+ball_spin = 0 0 -1
+car = blue 690 -4353 65 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.23s. Defender ahead, facing, stopped, boost 12.
+
+[left-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -629 -2271 93.15
+ball_vel = 94 -1568 0
+ball_spin = 0 0 2
+car = blue -1873 -4552 61 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.04s. Defender beside, facing, forward, boost 12.
+
+[center-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = -378 -3734 93.15
+ball_vel = 306 -1632 0
+ball_spin = 0 0 0
+car = blue 166 -4894 115 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.05s. Defender mouth, facing, reverse, boost 33.
+
+[center-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1355 -2827 93.15
+ball_vel = 1171 -2042 0
+ball_spin = 0 0 3
+car = blue -503 -4871 113 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.34s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 1268 -3805 93.15
+ball_vel = -1378 -1319 0
+ball_spin = 0 0 0
+car = blue 643 -5048 63 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.24s. Defender far-post, facing, stopped, boost 33.
+
+[center-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2232 -3892 93.15
+ball_vel = -2249 -1232 0
+ball_spin = 0 0 3
+car = blue 237 -5217 34 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.20s. Defender inside, facing, forward, boost 100.
+
+[center-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = 1321 -3491 93.15
+ball_vel = -1233 -1560 0
+ball_spin = 0 0 1
+car = blue -296 -4165 23 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.28s. Defender ahead, facing, reverse, boost 100.
+
+[center-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 1220 -4212 93.15
+ball_vel = -1671 -1046 0
+ball_spin = 0 0 -2
+car = blue 1492 -4585 126 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.09s. Defender beside, facing, fast-forward, boost 100.
+
+[center-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = -800 -3122 93.15
+ball_vel = 456 -1343 0
+ball_spin = 0 0 3
+car = blue 264 -4884 121 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.33s. Defender mouth, facing, stopped, boost 0.
+
+[center-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -195 -1247 93.15
+ball_vel = 214 -2254 0
+ball_spin = 0 0 2
+car = blue 562 -4814 102 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.23s. Defender near-post, facing, forward, boost 0.
+
+[center-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 315 -3708 93.15
+ball_vel = -293 -1084 0
+ball_spin = 0 0 -2
+car = blue 512 -5020 99 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.10s. Defender far-post, facing, reverse, boost 0.
+
+[center-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 212 -1609 93.15
+ball_vel = -239 -2140 0
+ball_spin = 0 0 2
+car = blue 337 -5289 92 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.14s. Defender inside, facing, fast-forward, boost 12.
+
+[center-arrival-medium-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1693 -3199 93.15
+ball_vel = -1094 -1280 0
+ball_spin = 0 0 -2
+car = blue 594 -4114 40 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.13s. Defender ahead, facing, stopped, boost 12.
+
+[center-arrival-medium-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 83 -1825 93.15
+ball_vel = -189 -2163 0
+ball_spin = 0 0 -2
+car = blue -1876 -4389 53 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.94s. Defender beside, facing, forward, boost 12.
+
+[center-arrival-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 945 -1589 93.15
+ball_vel = -407 -1770 0
+ball_spin = 0 0 -1
+car = blue 89 -4893 75 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.23s. Defender mouth, facing, reverse, boost 33.
+
+[center-arrival-slow-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1471 -727 93.15
+ball_vel = 668 -2078 0
+ball_spin = 0 0 3
+car = blue -676 -5020 100 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.08s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1671 -1358 93.15
+ball_vel = -781 -1705 0
+ball_spin = 0 0 -0
+car = blue 518 -5018 73 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.86s. Defender far-post, facing, stopped, boost 33.
+
+[center-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2270 -369 93.15
+ball_vel = -966 -2183 0
+ball_spin = 0 0 -2
+car = blue 558 -5317 71 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.07s. Defender inside, facing, forward, boost 100.
+
+[center-arrival-slow-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = -134 -2505 93.15
+ball_vel = -10 -1435 0
+ball_spin = 0 0 -1
+car = blue 164 -4067 101 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.18s. Defender ahead, facing, reverse, boost 100.
+
+[center-arrival-slow-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 781 59 93.15
+ball_vel = -357 -2397 0
+ball_spin = 0 0 1
+car = blue -1170 -4657 68 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.00s. Defender beside, facing, fast-forward, boost 100.
+
+[right-arrival-fast-mouth-001]
+kind = defend
+time = 3
+seed = 1
+ball = 966 -3902 93.15
+ball_vel = -374 -1512 0
+ball_spin = 0 0 -3
+car = blue 129 -4767 46 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.01s. Defender mouth, facing, stopped, boost 0.
+
+[right-arrival-fast-near-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = 2161 -4290 93.15
+ball_vel = -1918 -914 0
+ball_spin = 0 0 2
+car = blue 533 -4869 20 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.15s. Defender near-post, facing, forward, boost 0.
+
+[right-arrival-fast-far-post-001]
+kind = defend
+time = 3
+seed = 1
+ball = -755 -3191 93.15
+ball_vel = 1568 -2165 0
+ball_spin = 0 0 1
+car = blue -577 -4989 96 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.02s. Defender far-post, facing, reverse, boost 0.
+
+[right-arrival-fast-inside-001]
+kind = defend
+time = 3
+seed = 1
+ball = -507 -3921 93.15
+ball_vel = 1298 -1375 0
+ball_spin = 0 0 0
+car = blue -211 -5306 102 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.07s. Defender inside, facing, fast-forward, boost 12.
+
+[right-arrival-fast-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = -1420 -3310 93.15
+ball_vel = 1619 -1415 0
+ball_spin = 0 0 2
+car = blue 267 -4090 155 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.61s. Defender ahead, facing, stopped, boost 12.
+
+[right-arrival-fast-beside-001]
+kind = defend
+time = 3
+seed = 1
+ball = 1801 -3682 93.15
+ball_vel = -1255 -1507 0
+ball_spin = 0 0 -1
+car = blue 1494 -4442 68 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.17s. Defender beside, facing, forward, boost 12.
+
+[right-arrival-medium-mouth-001]
+kind = defend
+time = 4
+seed = 1
+ball = 294 -1778 93.15
+ball_vel = 213 -2052 0
+ball_spin = 0 0 3
+car = blue -180 -4912 81 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.15s. Defender mouth, facing, reverse, boost 33.
+
+[right-arrival-medium-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -1471 -1423 93.15
+ball_vel = 1193 -2227 0
+ball_spin = 0 0 -3
+car = blue 651 -4808 122 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.08s. Defender near-post, facing, fast-forward, boost 33.
+
+[right-arrival-medium-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 622 -2224 93.15
+ball_vel = -67 -1795 0
+ball_spin = 0 0 -2
+car = blue -625 -4752 64 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.26s. Defender far-post, facing, stopped, boost 33.
+
+[right-arrival-medium-inside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1358 -1583 93.15
+ball_vel = -528 -2216 0
+ball_spin = 0 0 1
+car = blue -432 -5331 64 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.03s. Defender inside, facing, forward, boost 100.
+
+[right-arrival-medium-ahead-001]
+kind = defend
+time = 3
+seed = 1
+ball = 565 -3033 93.15
+ball_vel = -104 -1535 0
+ball_spin = 0 0 1
+car = blue 227 -3991 71 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.91s. Defender ahead, facing, reverse, boost 100.
+
+[right-arrival-medium-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1263 -3618 93.15
+ball_vel = -648 -1130 0
+ball_spin = 0 0 2
+car = blue 1753 -4496 119 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.07s. Defender beside, facing, fast-forward, boost 100.
+
+[right-arrival-slow-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1903 -2019 93.15
+ball_vel = 1243 -1532 0
+ball_spin = 0 0 -1
+car = blue -220 -4758 122 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.11s. Defender mouth, facing, stopped, boost 0.
+
+[right-arrival-slow-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = -652 -1868 93.15
+ball_vel = 626 -1698 0
+ball_spin = 0 0 -2
+car = blue 592 -4790 113 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.99s. Defender near-post, facing, forward, boost 0.
+
+[right-arrival-slow-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -2117 60 93.15
+ball_vel = 1089 -2123 0
+ball_spin = 0 0 1
+car = blue -650 -5022 106 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.73s. Defender far-post, facing, reverse, boost 0.
+
+[right-arrival-slow-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -58 -3303 93.15
+ball_vel = 207 -747 0
+ball_spin = 0 0 -1
+car = blue -469 -5232 78 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.64s. Defender inside, facing, fast-forward, boost 12.
+
+[right-arrival-slow-ahead-001]
+kind = defend
+time = 6
+seed = 1
+ball = -597 -3341 93.15
+ball_vel = 394 -646 0
+ball_spin = 0 0 2
+car = blue -329 -4185 108 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 4.22s. Defender ahead, facing, stopped, boost 12.
+
+[right-arrival-slow-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1308 -1227 93.15
+ball_vel = 867 -1857 0
+ball_spin = 0 0 -1
+car = blue 1846 -4654 133 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.18s. Defender beside, facing, forward, boost 12.
+
+[left-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = -1388 -4146 93.15
+ball_vel = 1104 -1171 0
+ball_spin = 0 0 2
+car = blue -105 -4757 245 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.06s. Defender mouth, leftward, forward, boost 12.
+
+[left-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 194 -3741 93.15
+ball_vel = -718 -1367 0
+ball_spin = 0 0 -2
+car = blue -599 -5046 149 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.31s. Defender near-post, leftward, reverse, boost 12.
+
+[left-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 2489 -3133 93.15
+ball_vel = -2920 -1991 0
+ball_spin = 0 0 3
+car = blue 584 -4844 132 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.13s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -2302 -4084 93.15
+ball_vel = 1953 -1182 0
+ball_spin = 0 0 -0
+car = blue 180 -5296 244 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.07s. Defender inside, leftward, stopped, boost 33.
+
+[left-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = -889 -4152 93.15
+ball_vel = 559 -1206 0
+ball_spin = 0 0 -3
+car = blue -539 -4142 -88 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.05s. Defender ahead, leftward, forward, boost 33.
+
+[left-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -771 -4238 93.15
+ball_vel = 134 -976 0
+ball_spin = 0 0 -2
+car = blue -1203 -4783 142 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.37s. Defender beside, leftward, reverse, boost 33.
+
+[left-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2274 -2446 93.15
+ball_vel = -1519 -1496 0
+ball_spin = 0 0 1
+car = blue -73 -4961 137 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.45s. Defender mouth, leftward, fast-forward, boost 100.
+
+[left-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -8 -2680 93.15
+ball_vel = -376 -1563 0
+ball_spin = 0 0 0
+car = blue -672 -5026 164 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.29s. Defender near-post, leftward, stopped, boost 100.
+
+[left-arrival-medium-far-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = 39 -1812 93.15
+ball_vel = -328 -2061 0
+ball_spin = 0 0 -1
+car = blue 574 -4885 190 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.10s. Defender far-post, leftward, forward, boost 100.
+
+[left-arrival-medium-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -1151 -1839 93.15
+ball_vel = 409 -2008 0
+ball_spin = 0 0 -0
+car = blue -160 -5272 196 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.17s. Defender inside, leftward, reverse, boost 0.
+
+[left-arrival-medium-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 782 -1223 93.15
+ball_vel = -825 -2389 0
+ball_spin = 0 0 2
+car = blue -730 -4120 152 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.03s. Defender ahead, leftward, fast-forward, boost 0.
+
+[left-arrival-medium-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 2336 -2699 93.15
+ball_vel = -1781 -1552 0
+ball_spin = 0 0 2
+car = blue -1661 -4702 117 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.98s. Defender beside, leftward, stopped, boost 0.
+
+[left-arrival-slow-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = -2188 -2830 93.15
+ball_vel = 826 -1205 0
+ball_spin = 0 0 1
+car = blue 15 -4927 226 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.42s. Defender mouth, leftward, forward, boost 12.
+
+[left-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 536 -791 93.15
+ball_vel = -545 -1947 0
+ball_spin = 0 0 -1
+car = blue -527 -4957 166 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.62s. Defender near-post, leftward, reverse, boost 12.
+
+[left-arrival-slow-far-post-002]
+kind = defend
+time = 6
+seed = 1
+ball = -160 -939 93.15
+ball_vel = -196 -1855 0
+ball_spin = 0 0 -0
+car = blue 534 -5004 190 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 4.03s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -150 -182 93.15
+ball_vel = -116 -2203 0
+ball_spin = 0 0 1
+car = blue 6 -5301 182 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.38s. Defender inside, leftward, stopped, boost 33.
+
+[left-arrival-slow-ahead-002]
+kind = defend
+time = 6
+seed = 1
+ball = 80 -1171 93.15
+ball_vel = -309 -1766 0
+ball_spin = 0 0 -2
+car = blue -438 -4279 171 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 4.08s. Defender ahead, leftward, forward, boost 33.
+
+[left-arrival-slow-beside-002]
+kind = defend
+time = 6
+seed = 1
+ball = -147 -1623 93.15
+ball_vel = -211 -1604 0
+ball_spin = 0 0 -2
+car = blue -1816 -4586 151 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 4.08s. Defender beside, leftward, reverse, boost 33.
+
+[center-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1340 -2590 93.15
+ball_vel = -1210 -2054 0
+ball_spin = 0 0 2
+car = blue -320 -4821 143 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.48s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 2046 -3985 93.15
+ball_vel = -2055 -1116 0
+ball_spin = 0 0 -0
+car = blue -527 -4978 111 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.25s. Defender near-post, leftward, stopped, boost 100.
+
+[center-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -1509 -4205 93.15
+ball_vel = 1510 -851 0
+ball_spin = 0 0 -2
+car = blue -526 -4803 239 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.44s. Defender far-post, leftward, forward, boost 100.
+
+[center-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 2070 -4350 93.15
+ball_vel = -2262 -851 0
+ball_spin = 0 0 1
+car = blue -213 -5320 113 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.13s. Defender inside, leftward, reverse, boost 0.
+
+[center-arrival-fast-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1699 -2958 93.15
+ball_vel = -1361 -1789 0
+ball_spin = 0 0 1
+car = blue 513 -4320 139 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.48s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1429 -2651 93.15
+ball_vel = -1125 -1914 0
+ball_spin = 0 0 2
+car = blue -1151 -4757 129 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.58s. Defender beside, leftward, stopped, boost 0.
+
+[center-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = 1446 -2691 93.15
+ball_vel = -909 -1460 0
+ball_spin = 0 0 -1
+car = blue -285 -4868 142 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.45s. Defender mouth, leftward, forward, boost 12.
+
+[center-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -43 -1793 93.15
+ball_vel = 109 -1987 0
+ball_spin = 0 0 -2
+car = blue 641 -5020 192 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.27s. Defender near-post, leftward, reverse, boost 12.
+
+[center-arrival-medium-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 873 -2401 93.15
+ball_vel = -724 -1838 0
+ball_spin = 0 0 2
+car = blue 684 -4911 176 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.93s. Defender far-post, leftward, fast-forward, boost 12.
+
+[center-arrival-medium-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -299 -2319 93.15
+ball_vel = 182 -1944 0
+ball_spin = 0 0 3
+car = blue 337 -5278 192 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.87s. Defender inside, leftward, stopped, boost 33.
+
+[center-arrival-medium-ahead-002]
+kind = defend
+time = 4
+seed = 1
+ball = 2174 -1129 93.15
+ball_vel = -1161 -2139 0
+ball_spin = 0 0 2
+car = blue 238 -4132 147 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.44s. Defender ahead, leftward, forward, boost 33.
+
+[center-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 918 -3456 93.15
+ball_vel = -469 -1096 0
+ball_spin = 0 0 2
+car = blue 1450 -4502 207 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.56s. Defender beside, leftward, reverse, boost 33.
+
+[center-arrival-slow-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 29 -2986 93.15
+ball_vel = 31 -969 0
+ball_spin = 0 0 2
+car = blue 33 -4957 180 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.77s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1157 -1738 93.15
+ball_vel = 632 -1710 0
+ball_spin = 0 0 -3
+car = blue 520 -4962 207 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.17s. Defender near-post, leftward, stopped, boost 100.
+
+[center-arrival-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1194 -2434 93.15
+ball_vel = -535 -1347 0
+ball_spin = 0 0 -0
+car = blue -658 -4795 142 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.65s. Defender far-post, leftward, forward, boost 100.
+
+[center-arrival-slow-inside-002]
+kind = defend
+time = 6
+seed = 1
+ball = 1906 -2475 93.15
+ball_vel = -822 -1246 0
+ball_spin = 0 0 -2
+car = blue -503 -5284 139 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 4.02s. Defender inside, leftward, reverse, boost 0.
+
+[center-arrival-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1080 -2133 93.15
+ball_vel = -446 -1416 0
+ball_spin = 0 0 2
+car = blue -142 -3906 145 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.95s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-arrival-slow-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1887 -3351 93.15
+ball_vel = 1019 -865 0
+ball_spin = 0 0 -3
+car = blue 1182 -4355 252 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.89s. Defender beside, leftward, stopped, boost 0.
+
+[right-arrival-fast-mouth-002]
+kind = defend
+time = 3
+seed = 1
+ball = -1213 -3180 93.15
+ball_vel = 1439 -1624 0
+ball_spin = 0 0 -1
+car = blue -122 -4763 215 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.47s. Defender mouth, leftward, forward, boost 12.
+
+[right-arrival-fast-near-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = 649 -3537 93.15
+ball_vel = -266 -1655 0
+ball_spin = 0 0 1
+car = blue 580 -4862 177 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.19s. Defender near-post, leftward, reverse, boost 12.
+
+[right-arrival-fast-far-post-002]
+kind = defend
+time = 3
+seed = 1
+ball = -110 -4102 93.15
+ball_vel = 618 -1038 0
+ball_spin = 0 0 0
+car = blue -585 -4886 149 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.40s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-arrival-fast-inside-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1096 -2819 93.15
+ball_vel = -394 -2017 0
+ball_spin = 0 0 1
+car = blue 529 -5333 167 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.39s. Defender inside, leftward, stopped, boost 33.
+
+[right-arrival-fast-ahead-002]
+kind = defend
+time = 2
+seed = 1
+ball = -2002 -3392 93.15
+ball_vel = 2863 -2017 0
+ball_spin = 0 0 -0
+car = blue 542 -3922 258 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 0.97s. Defender ahead, leftward, forward, boost 33.
+
+[right-arrival-fast-beside-002]
+kind = defend
+time = 3
+seed = 1
+ball = -898 -3347 93.15
+ball_vel = 1323 -1546 0
+ball_spin = 0 0 0
+car = blue 1385 -4760 238 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.43s. Defender beside, leftward, reverse, boost 33.
+
+[right-arrival-medium-mouth-002]
+kind = defend
+time = 4
+seed = 1
+ball = -1787 -3534 93.15
+ball_vel = 1500 -1069 0
+ball_spin = 0 0 2
+car = blue -252 -4773 231 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.05s. Defender mouth, leftward, fast-forward, boost 100.
+
+[right-arrival-medium-near-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -2101 -2307 93.15
+ball_vel = 1515 -1646 0
+ball_spin = 0 0 2
+car = blue 653 -4859 227 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.26s. Defender near-post, leftward, stopped, boost 100.
+
+[right-arrival-medium-far-post-002]
+kind = defend
+time = 4
+seed = 1
+ball = -2110 -3307 93.15
+ball_vel = 1574 -1108 0
+ball_spin = 0 0 -2
+car = blue -507 -4949 224 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.30s. Defender far-post, leftward, forward, boost 100.
+
+[right-arrival-medium-inside-002]
+kind = defend
+time = 4
+seed = 1
+ball = -1461 -1288 93.15
+ball_vel = 1135 -2231 0
+ball_spin = 0 0 -3
+car = blue 533 -5317 206 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.17s. Defender inside, leftward, reverse, boost 0.
+
+[right-arrival-medium-ahead-002]
+kind = defend
+time = 3
+seed = 1
+ball = 1023 -2494 93.15
+ball_vel = -430 -1799 0
+ball_spin = 0 0 2
+car = blue 733 -4076 170 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.94s. Defender ahead, leftward, fast-forward, boost 0.
+
+[right-arrival-medium-beside-002]
+kind = defend
+time = 4
+seed = 1
+ball = 1763 -2541 93.15
+ball_vel = -856 -1689 0
+ball_spin = 0 0 3
+car = blue 1360 -4427 168 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.05s. Defender beside, leftward, stopped, boost 0.
+
+[right-arrival-slow-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = -89 -2902 93.15
+ball_vel = 309 -1205 0
+ball_spin = 0 0 -1
+car = blue 97 -4883 185 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.28s. Defender mouth, leftward, forward, boost 12.
+
+[right-arrival-slow-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 335 -865 93.15
+ball_vel = 50 -2013 0
+ball_spin = 0 0 0
+car = blue 533 -4886 183 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.27s. Defender near-post, leftward, reverse, boost 12.
+
+[right-arrival-slow-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1184 -1107 93.15
+ball_vel = -321 -1895 0
+ball_spin = 0 0 -1
+car = blue -502 -4774 155 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.45s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-arrival-slow-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1158 -1627 93.15
+ball_vel = -334 -1668 0
+ball_spin = 0 0 1
+car = blue -595 -5268 154 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.73s. Defender inside, leftward, stopped, boost 33.
+
+[right-arrival-slow-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = -449 -3287 93.15
+ball_vel = 469 -826 0
+ball_spin = 0 0 2
+car = blue -49 -3961 211 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.78s. Defender ahead, leftward, forward, boost 33.
+
+[right-arrival-slow-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -181 -583 93.15
+ball_vel = 356 -2134 0
+ball_spin = 0 0 -0
+car = blue 1205 -4316 200 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.12s. Defender beside, leftward, reverse, boost 33.
+
+[left-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = 1523 -3471 93.15
+ball_vel = -1880 -1481 0
+ball_spin = 0 0 -2
+car = blue 61 -4854 223 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.34s. Defender mouth, away, reverse, boost 33.
+
+[left-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 373 -4422 93.15
+ball_vel = -1193 -834 0
+ball_spin = 0 0 1
+car = blue -500 -5035 215 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.13s. Defender near-post, away, fast-forward, boost 33.
+
+[left-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1938 -3245 93.15
+ball_vel = 1661 -2041 0
+ball_spin = 0 0 -3
+car = blue 539 -4910 326 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.07s. Defender far-post, away, stopped, boost 33.
+
+[left-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1102 -2917 93.15
+ball_vel = 559 -2011 0
+ball_spin = 0 0 -2
+car = blue -210 -5225 291 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.32s. Defender inside, away, forward, boost 100.
+
+[left-arrival-fast-ahead-003]
+kind = defend
+time = 2
+seed = 1
+ball = -1945 -3432 93.15
+ball_vel = 1778 -2009 0
+ball_spin = 0 0 -2
+car = blue -489 -3913 342 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 0.97s. Defender ahead, away, reverse, boost 100.
+
+[left-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 2220 -3124 93.15
+ball_vel = -2175 -1535 0
+ball_spin = 0 0 2
+car = blue -1434 -4669 203 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.57s. Defender beside, away, fast-forward, boost 100.
+
+[left-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = 670 -2093 93.15
+ball_vel = -866 -1936 0
+ball_spin = 0 0 -2
+car = blue -138 -4815 253 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.02s. Defender mouth, away, stopped, boost 0.
+
+[left-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -825 -1561 93.15
+ball_vel = 211 -2039 0
+ball_spin = 0 0 -1
+car = blue -504 -4762 276 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.38s. Defender near-post, away, forward, boost 0.
+
+[left-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 733 -2484 93.15
+ball_vel = -696 -1580 0
+ball_spin = 0 0 1
+car = blue 672 -4902 269 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.44s. Defender far-post, away, reverse, boost 0.
+
+[left-arrival-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 217 -1806 93.15
+ball_vel = -427 -1868 0
+ball_spin = 0 0 2
+car = blue -336 -5320 261 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.52s. Defender inside, away, fast-forward, boost 12.
+
+[left-arrival-medium-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1021 -1340 93.15
+ball_vel = -906 -2040 0
+ball_spin = 0 0 -1
+car = blue 731 -4025 264 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.50s. Defender ahead, away, stopped, boost 12.
+
+[left-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 444 -3296 93.15
+ball_vel = -720 -1299 0
+ball_spin = 0 0 0
+car = blue -1127 -4713 222 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.06s. Defender beside, away, forward, boost 12.
+
+[left-arrival-slow-mouth-003]
+kind = defend
+time = 6
+seed = 1
+ball = 2156 -692 93.15
+ball_vel = -1118 -1831 0
+ball_spin = 0 0 1
+car = blue -117 -4972 242 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 4.12s. Defender mouth, away, reverse, boost 33.
+
+[left-arrival-slow-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 404 -3368 93.15
+ball_vel = -432 -912 0
+ball_spin = 0 0 -2
+car = blue -515 -4872 239 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.31s. Defender near-post, away, fast-forward, boost 33.
+
+[left-arrival-slow-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -942 -962 93.15
+ball_vel = 131 -1952 0
+ball_spin = 0 0 0
+car = blue 681 -4913 292 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.42s. Defender far-post, away, stopped, boost 33.
+
+[left-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2078 -1872 93.15
+ball_vel = 803 -1626 0
+ball_spin = 0 0 -2
+car = blue 451 -5228 307 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.27s. Defender inside, away, forward, boost 100.
+
+[left-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = -332 -531 93.15
+ball_vel = -49 -2031 0
+ball_spin = 0 0 -1
+car = blue -12 -4391 275 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.73s. Defender ahead, away, reverse, boost 100.
+
+[left-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -471 -2133 93.15
+ball_vel = -79 -1519 0
+ball_spin = 0 0 1
+car = blue -1458 -4722 249 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.52s. Defender beside, away, fast-forward, boost 100.
+
+[center-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = 747 -3922 93.15
+ball_vel = -798 -1249 0
+ball_spin = 0 0 0
+car = blue -215 -4757 221 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.26s. Defender mouth, away, stopped, boost 0.
+
+[center-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 2085 -3854 93.15
+ball_vel = -1898 -1062 0
+ball_spin = 0 0 -0
+car = blue -543 -4808 200 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.51s. Defender near-post, away, forward, boost 0.
+
+[center-arrival-fast-far-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = 1999 -3550 93.15
+ball_vel = -2171 -1692 0
+ball_spin = 0 0 -1
+car = blue 577 -4886 223 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.08s. Defender far-post, away, reverse, boost 0.
+
+[center-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 657 -3599 93.15
+ball_vel = -849 -1541 0
+ball_spin = 0 0 1
+car = blue -569 -5310 234 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.23s. Defender inside, away, fast-forward, boost 12.
+
+[center-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = 2388 -4106 93.15
+ball_vel = -2730 -1133 0
+ball_spin = 0 0 -0
+car = blue 504 -4203 183 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.07s. Defender ahead, away, stopped, boost 12.
+
+[center-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -941 -4338 93.15
+ball_vel = 1212 -845 0
+ball_spin = 0 0 1
+car = blue 1333 -4597 353 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.26s. Defender beside, away, forward, boost 12.
+
+[center-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1805 -1443 93.15
+ball_vel = -1076 -2249 0
+ball_spin = 0 0 -2
+car = blue -197 -4852 240 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.05s. Defender mouth, away, reverse, boost 33.
+
+[center-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 2473 -2037 93.15
+ball_vel = -1464 -1853 0
+ball_spin = 0 0 -3
+car = blue 590 -4787 236 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.13s. Defender near-post, away, fast-forward, boost 33.
+
+[center-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -1537 -2876 93.15
+ball_vel = 845 -1388 0
+ball_spin = 0 0 -2
+car = blue 621 -4752 319 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.43s. Defender far-post, away, stopped, boost 33.
+
+[center-arrival-medium-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 2355 -1590 93.15
+ball_vel = -1428 -2225 0
+ball_spin = 0 0 2
+car = blue -573 -5319 232 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.95s. Defender inside, away, forward, boost 100.
+
+[center-arrival-medium-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1432 -3489 93.15
+ball_vel = 917 -1210 0
+ball_spin = 0 0 2
+car = blue -447 -4184 325 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.93s. Defender ahead, away, reverse, boost 100.
+
+[center-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -1161 -2820 93.15
+ball_vel = 661 -1413 0
+ball_spin = 0 0 1
+car = blue -1710 -4379 251 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.53s. Defender beside, away, fast-forward, boost 100.
+
+[center-arrival-slow-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1581 -33 93.15
+ball_vel = -727 -2121 0
+ball_spin = 0 0 -1
+car = blue -312 -4949 249 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.81s. Defender mouth, away, stopped, boost 0.
+
+[center-arrival-slow-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2390 -768 93.15
+ball_vel = -1113 -1883 0
+ball_spin = 0 0 1
+car = blue -526 -5025 236 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.63s. Defender near-post, away, forward, boost 0.
+
+[center-arrival-slow-far-post-003]
+kind = defend
+time = 6
+seed = 1
+ball = -116 -3262 93.15
+ball_vel = -25 -693 0
+ball_spin = 0 0 1
+car = blue 536 -4984 291 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 4.03s. Defender far-post, away, reverse, boost 0.
+
+[center-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -1608 -3333 93.15
+ball_vel = 823 -902 0
+ball_spin = 0 0 0
+car = blue 342 -5280 315 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.66s. Defender inside, away, fast-forward, boost 12.
+
+[center-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2459 -965 93.15
+ball_vel = -1132 -1953 0
+ball_spin = 0 0 -3
+car = blue 384 -3957 235 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.06s. Defender ahead, away, stopped, boost 12.
+
+[center-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1444 -2285 93.15
+ball_vel = -725 -1379 0
+ball_spin = 0 0 -1
+car = blue 1738 -4420 278 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.77s. Defender beside, away, forward, boost 12.
+
+[right-arrival-fast-mouth-003]
+kind = defend
+time = 3
+seed = 1
+ball = 800 -3092 93.15
+ball_vel = -209 -2178 0
+ball_spin = 0 0 -1
+car = blue -7 -4887 246 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.10s. Defender mouth, away, reverse, boost 33.
+
+[right-arrival-fast-near-post-003]
+kind = defend
+time = 3
+seed = 1
+ball = -1962 -2868 93.15
+ball_vel = 2300 -2172 0
+ball_spin = 0 0 -1
+car = blue 681 -4829 323 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.18s. Defender near-post, away, fast-forward, boost 33.
+
+[right-arrival-fast-far-post-003]
+kind = defend
+time = 2
+seed = 1
+ball = 1149 -3588 93.15
+ball_vel = -629 -1884 0
+ball_spin = 0 0 1
+car = blue -551 -4862 217 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 0.97s. Defender far-post, away, stopped, boost 33.
+
+[right-arrival-fast-inside-003]
+kind = defend
+time = 3
+seed = 1
+ball = 1755 -3526 93.15
+ball_vel = -1248 -1822 0
+ball_spin = 0 0 -1
+car = blue -375 -5309 220 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.03s. Defender inside, away, forward, boost 100.
+
+[right-arrival-fast-ahead-003]
+kind = defend
+time = 3
+seed = 1
+ball = -377 -2402 93.15
+ball_vel = 887 -2275 0
+ball_spin = 0 0 -3
+car = blue -340 -4137 271 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.42s. Defender ahead, away, reverse, boost 100.
+
+[right-arrival-fast-beside-003]
+kind = defend
+time = 3
+seed = 1
+ball = -427 -3005 93.15
+ball_vel = 993 -2054 0
+ball_spin = 0 0 1
+car = blue 1252 -4466 319 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.22s. Defender beside, away, fast-forward, boost 100.
+
+[right-arrival-medium-mouth-003]
+kind = defend
+time = 4
+seed = 1
+ball = 729 -1095 93.15
+ball_vel = -74 -2235 0
+ball_spin = 0 0 2
+car = blue -69 -4777 258 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.39s. Defender mouth, away, stopped, boost 0.
+
+[right-arrival-medium-near-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -2148 -2251 93.15
+ball_vel = 1504 -1657 0
+ball_spin = 0 0 1
+car = blue 686 -4845 318 800 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.29s. Defender near-post, away, forward, boost 0.
+
+[right-arrival-medium-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -785 -2784 93.15
+ball_vel = 916 -1498 0
+ball_spin = 0 0 -2
+car = blue -581 -4959 275 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.19s. Defender far-post, away, reverse, boost 0.
+
+[right-arrival-medium-inside-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1282 -2536 93.15
+ball_vel = -522 -1629 0
+ball_spin = 0 0 -0
+car = blue -130 -5212 242 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.27s. Defender inside, away, fast-forward, boost 12.
+
+[right-arrival-medium-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = 1108 -2011 93.15
+ball_vel = -336 -1783 0
+ball_spin = 0 0 1
+car = blue 119 -4090 245 0 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.52s. Defender ahead, away, stopped, boost 12.
+
+[right-arrival-medium-beside-003]
+kind = defend
+time = 4
+seed = 1
+ball = -629 -1251 93.15
+ball_vel = 729 -2329 0
+ball_spin = 0 0 -1
+car = blue 1721 -4789 304 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.09s. Defender beside, away, forward, boost 12.
+
+[right-arrival-slow-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2209 -3148 93.15
+ball_vel = 1394 -1031 0
+ball_spin = 0 0 2
+car = blue -310 -4978 316 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.23s. Defender mouth, away, reverse, boost 33.
+
+[right-arrival-slow-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 999 -2603 93.15
+ball_vel = -199 -1267 0
+ball_spin = 0 0 2
+car = blue 545 -4812 258 1400 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.63s. Defender near-post, away, fast-forward, boost 33.
+
+[right-arrival-slow-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 851 -1895 93.15
+ball_vel = -150 -1535 0
+ball_spin = 0 0 -0
+car = blue -622 -5004 245 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.89s. Defender far-post, away, stopped, boost 33.
+
+[right-arrival-slow-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 2043 -2238 93.15
+ball_vel = -774 -1503 0
+ball_spin = 0 0 2
+car = blue -244 -5303 233 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.21s. Defender inside, away, forward, boost 100.
+
+[right-arrival-slow-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2287 -543 93.15
+ball_vel = 1174 -1932 0
+ball_spin = 0 0 -0
+car = blue -442 -4329 296 -700 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.70s. Defender ahead, away, reverse, boost 100.
+
+[right-arrival-slow-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -445 -3277 93.15
+ball_vel = 446 -768 0
+ball_spin = 0 0 -2
+car = blue 1558 -4425 330 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.98s. Defender beside, away, fast-forward, boost 100.
+
+[left-arrival-fast-mouth-004]
+kind = defend
+time = 2
+seed = 1
+ball = 1644 -3572 93.15
+ball_vel = -2503 -1801 0
+ball_spin = 0 0 0
+car = blue -161 -4883 -54 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 0.99s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -2118 -3204 93.15
+ball_vel = 1567 -2077 0
+ball_spin = 0 0 -2
+car = blue -581 -4927 42 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.07s. Defender near-post, rightward, stopped, boost 100.
+
+[left-arrival-fast-far-post-004]
+kind = defend
+time = 2
+seed = 1
+ball = 1284 -3764 93.15
+ball_vel = -2261 -1647 0
+ball_spin = 0 0 3
+car = blue 578 -5026 -29 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 0.96s. Defender far-post, rightward, forward, boost 100.
+
+[left-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 431 -4023 93.15
+ball_vel = -871 -990 0
+ball_spin = 0 0 -3
+car = blue -280 -5327 -29 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.59s. Defender inside, rightward, reverse, boost 0.
+
+[left-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = 2159 -2866 93.15
+ball_vel = -2169 -1780 0
+ball_spin = 0 0 -1
+car = blue -18 -4162 -59 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.50s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1468 -2371 93.15
+ball_vel = 862 -2200 0
+ball_spin = 0 0 2
+car = blue -1825 -4432 -10 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.50s. Defender beside, rightward, stopped, boost 0.
+
+[left-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = 803 -3811 93.15
+ball_vel = -1037 -968 0
+ball_spin = 0 0 0
+car = blue 150 -4817 -33 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.05s. Defender mouth, rightward, forward, boost 12.
+
+[left-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1869 -3345 93.15
+ball_vel = -1579 -1181 0
+ball_spin = 0 0 1
+car = blue -535 -4903 -57 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.02s. Defender near-post, rightward, reverse, boost 12.
+
+[left-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1128 -3189 93.15
+ball_vel = -1052 -1167 0
+ball_spin = 0 0 -1
+car = blue 653 -4833 -16 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.63s. Defender far-post, rightward, fast-forward, boost 12.
+
+[left-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 836 -3413 93.15
+ball_vel = -832 -1134 0
+ball_spin = 0 0 1
+car = blue -115 -5268 -27 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.42s. Defender inside, rightward, stopped, boost 33.
+
+[left-arrival-medium-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = 156 -3469 93.15
+ball_vel = -474 -1275 0
+ball_spin = 0 0 2
+car = blue 664 -4239 33 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 1.92s. Defender ahead, rightward, forward, boost 33.
+
+[left-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -2238 -3495 93.15
+ball_vel = 1176 -1047 0
+ball_spin = 0 0 2
+car = blue -1140 -4640 44 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 2.38s. Defender beside, rightward, reverse, boost 33.
+
+[left-arrival-slow-mouth-004]
+kind = defend
+time = 6
+seed = 1
+ball = -1682 -1099 93.15
+ball_vel = 481 -1774 0
+ball_spin = 0 0 3
+car = blue 210 -4934 26 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 4.12s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-arrival-slow-near-post-004]
+kind = defend
+time = 6
+seed = 1
+ball = 44 -280 93.15
+ball_vel = -193 -2048 0
+ball_spin = 0 0 -2
+car = blue -584 -5029 -8 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 4.07s. Defender near-post, rightward, stopped, boost 100.
+
+[left-arrival-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1236 -1578 93.15
+ball_vel = 287 -1716 0
+ball_spin = 0 0 2
+car = blue 594 -4839 29 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.58s. Defender far-post, rightward, forward, boost 100.
+
+[left-arrival-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 701 -2380 93.15
+ball_vel = -538 -1341 0
+ball_spin = 0 0 2
+car = blue 447 -5253 -5 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.79s. Defender inside, rightward, reverse, boost 0.
+
+[left-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -2403 -307 93.15
+ball_vel = 801 -2064 0
+ball_spin = 0 0 -1
+car = blue -301 -4145 29 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.64s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -644 -32 93.15
+ball_vel = 46 -2157 0
+ball_spin = 0 0 -3
+car = blue -1274 -4384 -8 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, left entry in 3.82s. Defender beside, rightward, stopped, boost 0.
+
+[center-arrival-fast-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = -359 -2270 93.15
+ball_vel = 141 -2260 0
+ball_spin = 0 0 -2
+car = blue -15 -4935 7 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.52s. Defender mouth, rightward, forward, boost 12.
+
+[center-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = 667 -3976 93.15
+ball_vel = -894 -1285 0
+ball_spin = 0 0 2
+car = blue -605 -4775 -58 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.13s. Defender near-post, rightward, reverse, boost 12.
+
+[center-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1228 -3906 93.15
+ball_vel = 1141 -1232 0
+ball_spin = 0 0 3
+car = blue 503 -4930 59 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.26s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1132 -2886 93.15
+ball_vel = 930 -2065 0
+ball_spin = 0 0 3
+car = blue 306 -5214 32 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.29s. Defender inside, rightward, stopped, boost 33.
+
+[center-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = -1414 -3686 93.15
+ball_vel = 1495 -1386 0
+ball_spin = 0 0 -2
+car = blue 810 -3958 83 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.27s. Defender ahead, rightward, forward, boost 33.
+
+[center-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -999 -3871 93.15
+ball_vel = 1096 -1366 0
+ball_spin = 0 0 -2
+car = blue -1859 -4339 -61 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.14s. Defender beside, rightward, reverse, boost 33.
+
+[center-arrival-medium-mouth-004]
+kind = defend
+time = 3
+seed = 1
+ball = -644 -3681 93.15
+ball_vel = 572 -1141 0
+ball_spin = 0 0 3
+car = blue -299 -4974 15 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 1.93s. Defender mouth, rightward, fast-forward, boost 100.
+
+[center-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 2425 -2824 93.15
+ball_vel = -1406 -1469 0
+ball_spin = 0 0 -1
+car = blue 646 -5035 -39 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.08s. Defender near-post, rightward, stopped, boost 100.
+
+[center-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1312 -2139 93.15
+ball_vel = -718 -1770 0
+ball_spin = 0 0 -2
+car = blue -601 -4770 -36 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.34s. Defender far-post, rightward, forward, boost 100.
+
+[center-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1912 -3683 93.15
+ball_vel = 1424 -992 0
+ball_spin = 0 0 -1
+car = blue 123 -5227 53 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.04s. Defender inside, rightward, reverse, boost 0.
+
+[center-arrival-medium-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = 82 -2196 93.15
+ball_vel = -153 -1868 0
+ball_spin = 0 0 -0
+car = blue -428 -4338 -13 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.12s. Defender ahead, rightward, fast-forward, boost 0.
+
+[center-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 487 -3015 93.15
+ball_vel = -331 -1364 0
+ball_spin = 0 0 2
+car = blue 1503 -4675 31 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 2.48s. Defender beside, rightward, stopped, boost 0.
+
+[center-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -224 -2243 93.15
+ball_vel = 112 -1507 0
+ball_spin = 0 0 -2
+car = blue 319 -4752 12 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.37s. Defender mouth, rightward, forward, boost 12.
+
+[center-arrival-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 854 -2182 93.15
+ball_vel = -473 -1434 0
+ball_spin = 0 0 2
+car = blue -565 -4872 -28 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.77s. Defender near-post, rightward, reverse, boost 12.
+
+[center-arrival-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 815 40 93.15
+ball_vel = -280 -2373 0
+ball_spin = 0 0 0
+car = blue -534 -4929 -15 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.05s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-arrival-slow-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -943 -2350 93.15
+ball_vel = 355 -1317 0
+ball_spin = 0 0 -1
+car = blue 342 -5331 23 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.95s. Defender inside, rightward, stopped, boost 33.
+
+[center-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1673 -1575 93.15
+ball_vel = -871 -1676 0
+ball_spin = 0 0 -1
+car = blue -53 -4128 -34 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.52s. Defender ahead, rightward, forward, boost 33.
+
+[center-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1510 -1411 93.15
+ball_vel = 619 -1709 0
+ball_spin = 0 0 -0
+car = blue -1217 -4377 6 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, center entry in 3.82s. Defender beside, rightward, reverse, boost 33.
+
+[right-arrival-fast-mouth-004]
+kind = defend
+time = 2
+seed = 1
+ball = -1052 -4226 93.15
+ball_vel = 1881 -1130 0
+ball_spin = 0 0 -3
+car = blue 245 -4767 67 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 0.97s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-arrival-fast-near-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -948 -3030 93.15
+ball_vel = 1509 -2118 0
+ball_spin = 0 0 -2
+car = blue 517 -4936 38 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.15s. Defender near-post, rightward, stopped, boost 100.
+
+[right-arrival-fast-far-post-004]
+kind = defend
+time = 3
+seed = 1
+ball = -220 -3162 93.15
+ball_vel = 757 -1881 0
+ball_spin = 0 0 -2
+car = blue -662 -4889 -14 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.26s. Defender far-post, rightward, forward, boost 100.
+
+[right-arrival-fast-inside-004]
+kind = defend
+time = 3
+seed = 1
+ball = 1045 -3473 93.15
+ball_vel = -473 -1432 0
+ball_spin = 0 0 -2
+car = blue 225 -5295 -24 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.54s. Defender inside, rightward, reverse, boost 0.
+
+[right-arrival-fast-ahead-004]
+kind = defend
+time = 3
+seed = 1
+ball = -710 -2284 93.15
+ball_vel = 952 -2178 0
+ball_spin = 0 0 0
+car = blue 556 -3992 37 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.57s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-arrival-fast-beside-004]
+kind = defend
+time = 3
+seed = 1
+ball = -466 -3179 93.15
+ball_vel = 1041 -1938 0
+ball_spin = 0 0 -1
+car = blue 1425 -4754 50 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 1.19s. Defender beside, rightward, stopped, boost 0.
+
+[right-arrival-medium-mouth-004]
+kind = defend
+time = 4
+seed = 1
+ball = -1749 -2336 93.15
+ball_vel = 1376 -1591 0
+ball_spin = 0 0 0
+car = blue -164 -4762 33 800 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.38s. Defender mouth, rightward, forward, boost 12.
+
+[right-arrival-medium-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 2225 -2727 93.15
+ball_vel = -1057 -1398 0
+ball_spin = 0 0 -2
+car = blue 690 -5018 -34 -700 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.54s. Defender near-post, rightward, reverse, boost 12.
+
+[right-arrival-medium-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = -884 -2740 93.15
+ball_vel = 964 -1465 0
+ball_spin = 0 0 2
+car = blue -630 -4791 7 1400 12
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.33s. Defender far-post, rightward, fast-forward, boost 12.
+
+[right-arrival-medium-inside-004]
+kind = defend
+time = 4
+seed = 1
+ball = 2189 -3499 93.15
+ball_vel = -1036 -1065 0
+ball_spin = 0 0 0
+car = blue -607 -5286 -57 0 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.39s. Defender inside, rightward, stopped, boost 33.
+
+[right-arrival-medium-ahead-004]
+kind = defend
+time = 4
+seed = 1
+ball = 1733 -2449 93.15
+ball_vel = -724 -1560 0
+ball_spin = 0 0 0
+car = blue -312 -4020 -52 800 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.56s. Defender ahead, rightward, forward, boost 33.
+
+[right-arrival-medium-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -156 -3076 93.15
+ball_vel = 460 -1364 0
+ball_spin = 0 0 -2
+car = blue 1711 -4718 49 -700 33
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 2.33s. Defender beside, rightward, reverse, boost 33.
+
+[right-arrival-slow-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1509 -2378 93.15
+ball_vel = 944 -1295 0
+ball_spin = 0 0 0
+car = blue 51 -4953 31 1400 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.94s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-arrival-slow-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -2445 -157 93.15
+ball_vel = 1358 -2169 0
+ball_spin = 0 0 3
+car = blue 656 -4991 33 0 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.20s. Defender near-post, rightward, stopped, boost 100.
+
+[right-arrival-slow-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1148 -2720 93.15
+ball_vel = 850 -1197 0
+ball_spin = 0 0 3
+car = blue -652 -4985 12 800 100
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.70s. Defender far-post, rightward, forward, boost 100.
+
+[right-arrival-slow-inside-004]
+kind = defend
+time = 6
+seed = 1
+ball = 2025 -3006 93.15
+ball_vel = -709 -974 0
+ball_spin = 0 0 2
+car = blue -66 -5229 -43 -700 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 4.07s. Defender inside, rightward, reverse, boost 0.
+
+[right-arrival-slow-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -630 -2608 93.15
+ball_vel = 601 -1242 0
+ball_spin = 0 0 1
+car = blue -847 -4347 -7 1400 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.75s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-arrival-slow-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1983 -2368 93.15
+ball_vel = 1236 -1288 0
+ball_spin = 0 0 -2
+car = blue 1323 -4327 59 0 0
+rival = scripted mode=idle
+note = Rolling threats with no strong surface bounce threat, right entry in 3.82s. Defender beside, rightward, stopped, boost 0.

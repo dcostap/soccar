@@ -2,6 +2,12 @@
 // Data comes from public/arena/setpieces.json, written by `npm run arena -- setpieces`.
 import { describe, scenarioDiagram, setPieceUrl } from "./arena-scenarios.js";
 import {
+  COVERAGE,
+  coverageGroups,
+  coverageValue,
+  measurementText,
+} from "./arena-coverage.js";
+import {
   command,
   copy,
   element,
@@ -13,6 +19,7 @@ import {
   scroll,
   search,
   select,
+  toggle,
 } from "./arena-ui.js";
 
 const PAGE = 40;
@@ -59,7 +66,16 @@ export async function renderSetPieces(root, ctx, route) {
     q: q.get("q") ?? "",
     shown: PAGE,
     open: q.get("open"),
+    dimension: COVERAGE.some(([key]) => key === q.get("group"))
+      ? q.get("group")
+      : "",
+    value: q.get("value") ?? "",
+    emergency:
+      q.get("emergency") === "1" ||
+      (q.get("suite") ?? q.get("open") ?? "").startsWith("defense-v1-"),
   };
+  const visible = (s) => state.emergency || !s.emergency;
+  if (!state.dimension) state.value = "";
   const save = () =>
     ctx.replaceQuery({
       suite: state.suite,
@@ -69,6 +85,9 @@ export async function renderSetPieces(root, ctx, route) {
       sort: state.sort === "id" ? "" : state.sort,
       q: state.q,
       open: state.open,
+      group: state.dimension,
+      value: state.value,
+      emergency: state.emergency ? 1 : "",
       keep: 1,
     });
 
@@ -83,24 +102,44 @@ export async function renderSetPieces(root, ctx, route) {
       ? ""
       : `--tint:rgba(${p >= 0.5 ? "47,123,255" : "255,138,42"},${Math.min(0.38, Math.abs(p - 0.5) * 0.9)})`;
   function renderSummary() {
-    const groups = [
-      ...data.suites.map((s) => ({
-        name: s.name,
-        title: s.description,
-        indices: scenarios.flatMap((x, i) => (x.suite === s.name ? [i] : [])),
-        suite: s.name,
-      })),
-      ...["attack", "defend"].map((kind) => ({
-        name: kind,
-        indices: scenarios.flatMap((x, i) => (x.kind === kind ? [i] : [])),
-        kind,
-      })),
-      { name: "all", indices: scenarios.map((_, i) => i) },
-    ];
+    const groups = state.dimension
+      ? coverageGroups(
+          scenarios,
+          state.dimension,
+          (s) =>
+            visible(s) &&
+            (!state.suite || s.suite === state.suite) &&
+            (!state.kind || s.kind === state.kind),
+        )
+      : [
+          ...data.suites.filter(visible).map((s) => ({
+            name: s.name,
+            title: s.description,
+            indices: scenarios.flatMap((x, i) =>
+              x.suite === s.name ? [i] : [],
+            ),
+            suite: s.name,
+          })),
+          ...["attack", "defend"].map((kind) => ({
+            name: kind,
+            indices: scenarios.flatMap((x, i) =>
+              visible(x) && x.kind === kind ? [i] : [],
+            ),
+            kind,
+          })),
+          {
+            name: "all",
+            indices: scenarios.flatMap((s, i) => (visible(s) ? [i] : [])),
+          },
+        ];
     const head = element(
       "tr",
       {},
-      element("th", { class: "text" }, "Suite"),
+      element(
+        "th",
+        { class: "text" },
+        state.dimension ? "Measured group" : "Suite",
+      ),
       element("th", {}, "n"),
       brains.map((b) =>
         element(
@@ -122,17 +161,23 @@ export async function renderSetPieces(root, ctx, route) {
     );
     const rows = groups.map((group) => {
       const active =
+        (group.value !== undefined && state.value === group.value) ||
         (group.suite && state.suite === group.suite) ||
         (group.kind && state.kind === group.kind) ||
         (group.name === "all" && !state.suite && !state.kind);
       return element(
         "tr",
         {
-          class: `row${group.suite === undefined ? " total" : ""}${active ? " selected" : ""}`,
+          class: `row${!state.dimension && group.suite === undefined ? " total" : ""}${active ? " selected" : ""}`,
           title: group.title ?? "",
           onclick: () => {
-            state.suite = group.suite ?? "";
-            state.kind = group.kind ?? "";
+            if (state.dimension)
+              state.value = state.value === group.value ? "" : group.value;
+            else {
+              state.suite = group.suite ?? "";
+              state.kind = group.kind ?? "";
+              state.value = "";
+            }
             change();
           },
         },
@@ -142,7 +187,11 @@ export async function renderSetPieces(root, ctx, route) {
           const p = rate(group.indices, b);
           return element(
             "td",
-            { class: "tinted", style: tint(p) },
+            {
+              class: "tinted",
+              style: tint(p),
+              title: `${group.indices.filter((i) => result(b, i)).length} of ${group.indices.length} tested`,
+            },
             p === null ? "-" : percent(p),
           );
         }),
@@ -161,7 +210,8 @@ export async function renderSetPieces(root, ctx, route) {
       ),
       element("td", {}, ""),
       brains.map((b) => {
-        const rs = scenarios.map((_, i) => result(b, i)).filter(Boolean);
+        const indices = [...new Set(groups.flatMap((g) => g.indices))];
+        const rs = indices.map((i) => result(b, i)).filter(Boolean);
         return element(
           "td",
           {},
@@ -178,13 +228,35 @@ export async function renderSetPieces(root, ctx, route) {
   }
 
   // Controls.
+  const groupSelect = select(
+    COVERAGE,
+    state.dimension,
+    (v) => {
+      state.dimension = v;
+      state.value = "";
+      change();
+    },
+    { "aria-label": "Group results by" },
+  );
   const suiteSelect = select(
-    [["", "All suites"], ...data.suites.map((s) => [s.name, s.name])],
+    [
+      ["", state.emergency ? "All suites" : "Normal suites"],
+      ...data.suites.filter((s) => !s.emergency).map((s) => [s.name, s.name]),
+      {
+        group: "Emergency archive",
+        options: data.suites
+          .filter((s) => s.emergency)
+          .map((s) => [s.name, s.name]),
+      },
+    ],
     state.suite,
     (v) => {
       state.suite = v;
+      if (v.startsWith("defense-v1-")) state.emergency = true;
+      state.value = "";
       change();
     },
+    { "aria-label": "Suite" },
   );
   const kindSelect = select(
     [
@@ -195,6 +267,7 @@ export async function renderSetPieces(root, ctx, route) {
     state.kind,
     (v) => {
       state.kind = v;
+      state.value = "";
       change();
     },
   );
@@ -240,6 +313,11 @@ export async function renderSetPieces(root, ctx, route) {
     field("Brain", brainSelect),
     field("Show", filterSelect),
     field("Sort", sortSelect),
+    toggle("Include emergency tests", state.emergency, (checked) => {
+      state.emergency = checked;
+      if (!checked && state.suite.startsWith("defense-v1-")) state.suite = "";
+      change();
+    }),
     search(state.q, "Search scenarios  ( / )", (v) => {
       state.q = v;
       change();
@@ -303,8 +381,11 @@ export async function renderSetPieces(root, ctx, route) {
       .map((_, i) => i)
       .filter(
         (i) =>
+          visible(scenarios[i]) &&
           (!state.suite || scenarios[i].suite === state.suite) &&
           (!state.kind || scenarios[i].kind === state.kind) &&
+          (!state.value ||
+            coverageValue(scenarios[i], state.dimension) === state.value) &&
           (!needle ||
             `${scenarios[i].id} ${scenarios[i].note} ${scenarios[i].rival ?? ""}`
               .toLowerCase()
@@ -365,7 +446,11 @@ export async function renderSetPieces(root, ctx, route) {
     const indices = selected();
     count.replaceChildren(
       ...[
-        element("b", {}, `${indices.length} of ${scenarios.length} scenarios`),
+        element(
+          "b",
+          {},
+          `${indices.length} of ${scenarios.filter(visible).length} scenarios`,
+        ),
         state.filter && !state.brain
           ? element(
               "span",
@@ -444,6 +529,13 @@ export async function renderSetPieces(root, ctx, route) {
                   "div",
                   {},
                   element("pre", {}, s.text),
+                  s.measurement
+                    ? element(
+                        "pre",
+                        { class: "note" },
+                        measurementText(s.measurement),
+                      )
+                    : null,
                   element(
                     "p",
                     { class: "note" },
@@ -485,17 +577,30 @@ export async function renderSetPieces(root, ctx, route) {
   function change() {
     state.shown = PAGE;
     suiteSelect.value = state.suite;
+    suiteSelect.options[0].text = state.emergency
+      ? "All suites"
+      : "Normal suites";
     kindSelect.value = state.kind;
     brainSelect.value = state.brain;
+    controls.querySelector("input[type=checkbox]").checked = state.emergency;
     save();
     renderSummary();
     renderList();
   }
 
   root.append(
-    panel("Set pieces", scroll(summary), {
-      note: "Short placed scenarios that grade one skill at a time. The brain drives blue, which attacks up. An attack passes on a blue goal, a defense passes if blue does not concede. Idle is a car that does nothing: a scenario it passes plays itself. Click a suite row to list it, a brain header to focus on it.",
-    }),
+    panel(
+      "Set pieces",
+      element(
+        "div",
+        {},
+        field("Group results by", groupSelect),
+        scroll(summary),
+      ),
+      {
+        note: "The brain drives blue, which attacks up. An attack passes on a blue goal. A defense passes if blue does not concede. Normal measured threats start at least 2,000 units from the goal mouth and score without a defender in 2.5–5 seconds. Emergency tests are optional. Click a group row to filter. Percentages use completed results only. Dashed paths show play without the defender.",
+      },
+    ),
     panel(
       "Scenarios",
       element("div", {}, controls, count, listViewport, more),

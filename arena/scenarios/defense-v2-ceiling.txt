@@ -1,0 +1,2378 @@
+# Shots that rebound from the ceiling.
+# Fixed defense v2. Goal lead-in: 2.5–5 s; start distance: at least 2000. Do not replace these tests.
+
+[left-lead-in-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1504 -2548 1412
+ball_vel = -856 -1012 933
+ball_spin = 0 0 1
+car = blue -30 -4867 57 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.31s. Defender mouth, facing, stopped, boost 0.
+
+[left-lead-in-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1836 -3322 1510
+ball_vel = -1048 -831 929
+ball_spin = 0 0 2
+car = blue -509 -4917 34 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.11s. Defender near-post, facing, forward, boost 0.
+
+[left-lead-in-far-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1457 -1265 1415
+ball_vel = -825 -1506 918
+ball_spin = 0 0 1
+car = blue 697 -4990 78 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.00s. Defender far-post, facing, reverse, boost 0.
+
+[left-lead-in-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1582 -561 1436
+ball_vel = 497 -1946 1026
+ball_spin = 0 0 -0
+car = blue -33 -5244 108 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.08s. Defender inside, facing, fast-forward, boost 12.
+
+[left-lead-in-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = 463 -969 1404
+ball_vel = -384 -1650 954
+ball_spin = 0 0 -3
+car = blue -442 -3985 73 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.08s. Defender ahead, facing, stopped, boost 12.
+
+[left-lead-in-beside-001]
+kind = defend
+time = 4
+seed = 1
+ball = 713 -674 1456
+ball_vel = -586 -2060 1107
+ball_spin = 0 0 -1
+car = blue -1347 -4416 61 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 2.96s. Defender beside, facing, forward, boost 12.
+
+[center-lead-in-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 2140 -3120 1489
+ball_vel = -965 -896 942
+ball_spin = 0 0 -2
+car = blue 278 -4950 45 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.24s. Defender mouth, facing, reverse, boost 33.
+
+[center-lead-in-near-post-001]
+kind = defend
+time = 4
+seed = 1
+ball = 1551 -1104 1402
+ball_vel = -689 -1726 1026
+ball_spin = 0 0 0
+car = blue -506 -4755 61 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 2.99s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-lead-in-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -823 -428 1401
+ball_vel = 331 -1759 944
+ball_spin = 0 0 -1
+car = blue -675 -4876 92 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.28s. Defender far-post, facing, stopped, boost 33.
+
+[center-lead-in-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1762 -2752 1427
+ball_vel = -731 -996 947
+ball_spin = 0 0 -1
+car = blue -226 -5225 51 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.26s. Defender inside, facing, forward, boost 100.
+
+[center-lead-in-ahead-001]
+kind = defend
+time = 5
+seed = 1
+ball = -295 -2037 1455
+ball_vel = 143 -1244 920
+ball_spin = 0 0 3
+car = blue -745 -4097 78 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.39s. Defender ahead, facing, reverse, boost 100.
+
+[center-lead-in-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1740 -66 1418
+ball_vel = 790 -2167 1087
+ball_spin = 0 0 2
+car = blue 1567 -4438 127 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.09s. Defender beside, facing, fast-forward, boost 100.
+
+[right-lead-in-mouth-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1475 -866 1454
+ball_vel = -390 -1592 901
+ball_spin = 0 0 1
+car = blue 261 -4909 73 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.39s. Defender mouth, facing, stopped, boost 0.
+
+[right-lead-in-near-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -2499 -1296 1465
+ball_vel = 1164 -1474 919
+ball_spin = 0 0 2
+car = blue 563 -4995 130 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.32s. Defender near-post, facing, forward, boost 0.
+
+[right-lead-in-far-post-001]
+kind = defend
+time = 5
+seed = 1
+ball = -1541 -1472 1516
+ball_vel = 849 -1511 916
+ball_spin = 0 0 2
+car = blue -535 -4958 106 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.24s. Defender far-post, facing, reverse, boost 0.
+
+[right-lead-in-inside-001]
+kind = defend
+time = 5
+seed = 1
+ball = 1481 -949 1453
+ball_vel = -357 -1721 934
+ball_spin = 0 0 -1
+car = blue -174 -5228 69 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.01s. Defender inside, facing, fast-forward, boost 12.
+
+[right-lead-in-ahead-001]
+kind = defend
+time = 4
+seed = 1
+ball = -671 -90 1415
+ball_vel = 414 -1958 922
+ball_spin = 0 0 1
+car = blue -661 -4004 90 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.96s. Defender ahead, facing, stopped, boost 12.
+
+[right-lead-in-beside-001]
+kind = defend
+time = 5
+seed = 1
+ball = -2465 -2044 1571
+ball_vel = 1283 -1364 908
+ball_spin = 0 0 0
+car = blue 1530 -4725 146 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.04s. Defender beside, facing, forward, boost 12.
+
+[left-lead-in-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 717 -2919 1423
+ball_vel = -475 -921 931
+ball_spin = 0 0 -1
+car = blue 122 -4969 164 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.33s. Defender mouth, leftward, forward, boost 12.
+
+[left-lead-in-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1992 -1316 1402
+ball_vel = -1144 -1677 1089
+ball_spin = 0 0 1
+car = blue -515 -4932 145 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.05s. Defender near-post, leftward, reverse, boost 12.
+
+[left-lead-in-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -357 -1200 1458
+ball_vel = -44 -1605 937
+ball_spin = 0 0 2
+car = blue 684 -4776 196 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.16s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-lead-in-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1769 -3232 1467
+ball_vel = -957 -795 905
+ball_spin = 0 0 0
+car = blue 102 -5339 142 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.25s. Defender inside, leftward, stopped, boost 33.
+
+[left-lead-in-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1223 -2717 1417
+ball_vel = 273 -1090 988
+ball_spin = 0 0 -1
+car = blue -738 -4260 197 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.22s. Defender ahead, leftward, forward, boost 33.
+
+[left-lead-in-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1107 -329 1424
+ball_vel = -609 -1808 922
+ball_spin = 0 0 -1
+car = blue -1137 -4553 152 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.18s. Defender beside, leftward, reverse, boost 33.
+
+[center-lead-in-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1459 -911 1418
+ball_vel = 502 -1473 908
+ball_spin = 0 0 -2
+car = blue 310 -4996 203 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.61s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-lead-in-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1826 -2316 1464
+ball_vel = -776 -1111 902
+ball_spin = 0 0 2
+car = blue -622 -4793 135 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.36s. Defender near-post, leftward, stopped, boost 100.
+
+[center-lead-in-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1993 -380 1443
+ball_vel = -854 -1970 998
+ball_spin = 0 0 2
+car = blue 547 -4821 162 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.08s. Defender far-post, leftward, forward, boost 100.
+
+[center-lead-in-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -1072 -931 1430
+ball_vel = 467 -1739 998
+ball_spin = 0 0 1
+car = blue 185 -5206 196 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.18s. Defender inside, leftward, reverse, boost 0.
+
+[center-lead-in-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = -297 -351 1502
+ball_vel = 201 -2042 979
+ball_spin = 0 0 1
+car = blue 632 -4322 193 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.10s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-lead-in-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -58 -1587 1428
+ball_vel = 86 -1439 937
+ball_spin = 0 0 1
+car = blue -1226 -4305 157 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.12s. Defender beside, leftward, stopped, boost 0.
+
+[right-lead-in-mouth-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1470 -2725 1474
+ball_vel = -434 -1132 968
+ball_spin = 0 0 2
+car = blue -223 -4793 141 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.08s. Defender mouth, leftward, forward, boost 12.
+
+[right-lead-in-near-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1355 -493 1460
+ball_vel = -303 -1958 1015
+ball_spin = 0 0 2
+car = blue 678 -4866 171 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.17s. Defender near-post, leftward, reverse, boost 12.
+
+[right-lead-in-far-post-002]
+kind = defend
+time = 5
+seed = 1
+ball = -588 -2966 1429
+ball_vel = 471 -934 934
+ball_spin = 0 0 -1
+car = blue -504 -4801 183 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.20s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-lead-in-inside-002]
+kind = defend
+time = 5
+seed = 1
+ball = -302 -1982 1540
+ball_vel = 360 -1448 941
+ball_spin = 0 0 -0
+car = blue -251 -5267 181 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.09s. Defender inside, leftward, stopped, boost 33.
+
+[right-lead-in-ahead-002]
+kind = defend
+time = 5
+seed = 1
+ball = 855 -2185 1402
+ball_vel = -175 -1341 1034
+ball_spin = 0 0 -2
+car = blue 713 -4377 176 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.10s. Defender ahead, leftward, forward, boost 33.
+
+[right-lead-in-beside-002]
+kind = defend
+time = 5
+seed = 1
+ball = 1988 -1063 1420
+ball_vel = -549 -1650 983
+ball_spin = 0 0 -2
+car = blue 1465 -4330 171 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.20s. Defender beside, leftward, reverse, boost 33.
+
+[left-lead-in-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -680 -858 1445
+ball_vel = -3 -1677 945
+ball_spin = 0 0 1
+car = blue 122 -4974 281 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.33s. Defender mouth, away, reverse, boost 33.
+
+[left-lead-in-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2181 -3108 1471
+ball_vel = 766 -956 979
+ball_spin = 0 0 3
+car = blue -550 -4930 312 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.15s. Defender near-post, away, fast-forward, boost 33.
+
+[left-lead-in-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = -2478 -123 1455
+ball_vel = 798 -1993 917
+ball_spin = 0 0 -0
+car = blue 601 -4901 303 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 2.97s. Defender far-post, away, stopped, boost 33.
+
+[left-lead-in-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1359 -2891 1441
+ball_vel = -943 -1039 1019
+ball_spin = 0 0 -1
+car = blue 100 -5309 242 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.11s. Defender inside, away, forward, boost 100.
+
+[left-lead-in-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1620 -2524 1403
+ball_vel = -994 -1165 1031
+ball_spin = 0 0 3
+car = blue 619 -3966 235 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.05s. Defender ahead, away, reverse, boost 100.
+
+[left-lead-in-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 839 -1591 1418
+ball_vel = -524 -1480 990
+ball_spin = 0 0 0
+car = blue -1306 -4773 236 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.19s. Defender beside, away, fast-forward, boost 100.
+
+[center-lead-in-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -344 -1640 1417
+ball_vel = 253 -1640 1093
+ball_spin = 0 0 -2
+car = blue 348 -4990 282 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.02s. Defender mouth, away, stopped, boost 0.
+
+[center-lead-in-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2221 -2749 1570
+ball_vel = 945 -1098 905
+ball_spin = 0 0 -1
+car = blue -560 -4824 309 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.12s. Defender near-post, away, forward, boost 0.
+
+[center-lead-in-far-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = 629 -2854 1432
+ball_vel = -291 -976 924
+ball_spin = 0 0 -3
+car = blue 535 -4991 267 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.14s. Defender far-post, away, reverse, boost 0.
+
+[center-lead-in-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -844 -2493 1407
+ball_vel = 436 -1185 1002
+ball_spin = 0 0 0
+car = blue -510 -5261 277 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.09s. Defender inside, away, fast-forward, boost 12.
+
+[center-lead-in-ahead-003]
+kind = defend
+time = 4
+seed = 1
+ball = -2132 -92 1465
+ball_vel = 873 -2155 1012
+ball_spin = 0 0 2
+car = blue -280 -4183 294 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 2.98s. Defender ahead, away, stopped, boost 12.
+
+[center-lead-in-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2094 -790 1429
+ball_vel = 732 -1640 934
+ball_spin = 0 0 2
+car = blue 1127 -4476 311 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.32s. Defender beside, away, forward, boost 12.
+
+[right-lead-in-mouth-003]
+kind = defend
+time = 5
+seed = 1
+ball = -2210 -2321 1407
+ball_vel = 1181 -1221 1029
+ball_spin = 0 0 -2
+car = blue -151 -4904 309 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.08s. Defender mouth, away, reverse, boost 33.
+
+[right-lead-in-near-post-003]
+kind = defend
+time = 5
+seed = 1
+ball = -591 -2741 1403
+ball_vel = 542 -1138 1052
+ball_spin = 0 0 2
+car = blue 656 -4888 300 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.14s. Defender near-post, away, fast-forward, boost 33.
+
+[right-lead-in-far-post-003]
+kind = defend
+time = 4
+seed = 1
+ball = 425 -852 1464
+ball_vel = 48 -1840 975
+ball_spin = 0 0 -0
+car = blue -559 -4947 256 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.99s. Defender far-post, away, stopped, boost 33.
+
+[right-lead-in-inside-003]
+kind = defend
+time = 5
+seed = 1
+ball = 1562 -2457 1504
+ball_vel = -469 -1161 914
+ball_spin = 0 0 2
+car = blue 34 -5251 241 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.29s. Defender inside, away, forward, boost 100.
+
+[right-lead-in-ahead-003]
+kind = defend
+time = 5
+seed = 1
+ball = -486 -846 1431
+ball_vel = 384 -1757 990
+ball_spin = 0 0 -1
+car = blue 812 -4306 291 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.20s. Defender ahead, away, reverse, boost 100.
+
+[right-lead-in-beside-003]
+kind = defend
+time = 5
+seed = 1
+ball = -841 -3033 1408
+ball_vel = 612 -835 929
+ball_spin = 0 0 2
+car = blue 1144 -4694 320 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.47s. Defender beside, away, fast-forward, boost 100.
+
+[left-lead-in-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 369 -718 1466
+ball_vel = -298 -1694 922
+ball_spin = 0 0 1
+car = blue -308 -4791 -9 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.40s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-lead-in-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1933 -256 1519
+ball_vel = 559 -2060 944
+ball_spin = 0 0 3
+car = blue -591 -5022 16 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.03s. Defender near-post, rightward, stopped, boost 100.
+
+[left-lead-in-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1665 -2451 1490
+ball_vel = 566 -1205 956
+ball_spin = 0 0 2
+car = blue 617 -5003 42 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.21s. Defender far-post, rightward, forward, boost 100.
+
+[left-lead-in-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1535 -531 1531
+ball_vel = 453 -1940 910
+ball_spin = 0 0 -2
+car = blue -157 -5272 16 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.01s. Defender inside, rightward, reverse, boost 0.
+
+[left-lead-in-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -839 -1204 1419
+ball_vel = 176 -1806 1103
+ball_spin = 0 0 3
+car = blue 204 -4005 20 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.06s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-lead-in-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1196 -2382 1477
+ball_vel = 277 -1140 901
+ball_spin = 0 0 2
+car = blue -1860 -4349 -19 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.34s. Defender beside, rightward, stopped, boost 0.
+
+[center-lead-in-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 995 -2833 1446
+ball_vel = -545 -1114 1027
+ball_spin = 0 0 -2
+car = blue 152 -4990 -21 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.15s. Defender mouth, rightward, forward, boost 12.
+
+[center-lead-in-near-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 279 -796 1448
+ball_vel = -141 -1803 948
+ball_spin = 0 0 1
+car = blue -535 -5000 -11 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 2.98s. Defender near-post, rightward, reverse, boost 12.
+
+[center-lead-in-far-post-004]
+kind = defend
+time = 4
+seed = 1
+ball = 286 -1587 1429
+ball_vel = -213 -1662 1078
+ball_spin = 0 0 -1
+car = blue 534 -4989 4 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.00s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-lead-in-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1360 -2871 1460
+ball_vel = -564 -942 904
+ball_spin = 0 0 0
+car = blue 450 -5312 -20 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.31s. Defender inside, rightward, stopped, boost 33.
+
+[center-lead-in-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2140 -2044 1485
+ball_vel = -874 -1399 1000
+ball_spin = 0 0 -3
+car = blue -206 -4207 -47 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.08s. Defender ahead, rightward, forward, boost 33.
+
+[center-lead-in-beside-004]
+kind = defend
+time = 5
+seed = 1
+ball = -47 -2614 1436
+ball_vel = -46 -1212 1019
+ball_spin = 0 0 -2
+car = blue -1579 -4517 -39 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.08s. Defender beside, rightward, reverse, boost 33.
+
+[right-lead-in-mouth-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1691 -1881 1408
+ball_vel = -561 -1403 1021
+ball_spin = 0 0 -2
+car = blue -166 -4771 -33 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.17s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-lead-in-near-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = 1796 -2002 1590
+ball_vel = -534 -1464 905
+ball_spin = 0 0 1
+car = blue 537 -4985 -23 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.02s. Defender near-post, rightward, stopped, boost 100.
+
+[right-lead-in-far-post-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1379 -1575 1459
+ball_vel = 789 -1396 930
+ball_spin = 0 0 1
+car = blue -657 -5001 12 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.36s. Defender far-post, rightward, forward, boost 100.
+
+[right-lead-in-inside-004]
+kind = defend
+time = 5
+seed = 1
+ball = 2475 45 1532
+ball_vel = -819 -2145 943
+ball_spin = 0 0 -1
+car = blue 473 -5336 -20 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.12s. Defender inside, rightward, reverse, boost 0.
+
+[right-lead-in-ahead-004]
+kind = defend
+time = 5
+seed = 1
+ball = -1469 -1435 1424
+ball_vel = 879 -1526 982
+ball_spin = 0 0 1
+car = blue -617 -4130 18 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.12s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-lead-in-beside-004]
+kind = defend
+time = 4
+seed = 1
+ball = -2376 -837 1455
+ball_vel = 1382 -1941 1112
+ball_spin = 0 0 -1
+car = blue 1851 -4322 50 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.98s. Defender beside, rightward, stopped, boost 0.
+
+[left-lead-in-mouth-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1801 -2479 1429
+ball_vel = 502 -1161 989
+ball_spin = 0 0 -3
+car = blue 99 -4891 128 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.28s. Defender mouth, facing, stopped, boost 0.
+
+[left-lead-in-near-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1770 -1118 1487
+ball_vel = 489 -1604 921
+ball_spin = 0 0 1
+car = blue -620 -4764 108 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.31s. Defender near-post, facing, forward, boost 0.
+
+[left-lead-in-far-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = 2233 -1316 1499
+ball_vel = -1172 -1609 962
+ball_spin = 0 0 -1
+car = blue 662 -4899 66 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.12s. Defender far-post, facing, reverse, boost 0.
+
+[left-lead-in-inside-005]
+kind = defend
+time = 4
+seed = 1
+ball = -2108 -1011 1555
+ball_vel = 719 -1808 921
+ball_spin = 0 0 1
+car = blue -473 -5337 111 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 2.99s. Defender inside, facing, fast-forward, boost 12.
+
+[left-lead-in-ahead-005]
+kind = defend
+time = 5
+seed = 1
+ball = 2471 -3027 1454
+ball_vel = -1165 -849 906
+ball_spin = 0 0 2
+car = blue 31 -3927 20 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.19s. Defender ahead, facing, stopped, boost 12.
+
+[left-lead-in-beside-005]
+kind = defend
+time = 5
+seed = 1
+ball = 961 -1247 1414
+ball_vel = -538 -1367 901
+ball_spin = 0 0 -0
+car = blue -1829 -4456 49 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.50s. Defender beside, facing, forward, boost 12.
+
+[center-lead-in-mouth-005]
+kind = defend
+time = 5
+seed = 1
+ball = -2321 -2376 1434
+ball_vel = 989 -1191 991
+ball_spin = 0 0 2
+car = blue 170 -4953 134 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.14s. Defender mouth, facing, reverse, boost 33.
+
+[center-lead-in-near-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = -2017 -64 1472
+ball_vel = 936 -2188 1046
+ball_spin = 0 0 2
+car = blue 650 -4800 119 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.03s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-lead-in-far-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = -449 -2451 1409
+ball_vel = 275 -1300 1079
+ball_spin = 0 0 0
+car = blue -551 -4760 87 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.12s. Defender far-post, facing, stopped, boost 33.
+
+[center-lead-in-inside-005]
+kind = defend
+time = 5
+seed = 1
+ball = 2067 -1054 1405
+ball_vel = -840 -1530 929
+ball_spin = 0 0 1
+car = blue 54 -5325 65 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.21s. Defender inside, facing, forward, boost 100.
+
+[center-lead-in-ahead-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1252 -1717 1446
+ball_vel = 526 -1624 1094
+ball_spin = 0 0 2
+car = blue -843 -4219 99 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.03s. Defender ahead, facing, reverse, boost 100.
+
+[center-lead-in-beside-005]
+kind = defend
+time = 5
+seed = 1
+ball = -2282 -2925 1465
+ball_vel = 1155 -1059 1048
+ball_spin = 0 0 2
+car = blue -1529 -4686 113 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.05s. Defender beside, facing, fast-forward, boost 100.
+
+[right-lead-in-mouth-005]
+kind = defend
+time = 5
+seed = 1
+ball = -463 -490 1405
+ball_vel = 369 -1669 917
+ball_spin = 0 0 1
+car = blue 114 -4816 98 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.35s. Defender mouth, facing, stopped, boost 0.
+
+[right-lead-in-near-post-005]
+kind = defend
+time = 4
+seed = 1
+ball = -1353 -482 1404
+ball_vel = 769 -1977 1046
+ball_spin = 0 0 -2
+car = blue 503 -4984 112 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.00s. Defender near-post, facing, forward, boost 0.
+
+[right-lead-in-far-post-005]
+kind = defend
+time = 5
+seed = 1
+ball = 2199 -1564 1436
+ball_vel = -739 -1496 983
+ball_spin = 0 0 2
+car = blue -641 -4787 49 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.15s. Defender far-post, facing, reverse, boost 0.
+
+[right-lead-in-inside-005]
+kind = defend
+time = 5
+seed = 1
+ball = 1134 -155 1494
+ball_vel = -279 -2001 945
+ball_spin = 0 0 -2
+car = blue 421 -5310 82 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.25s. Defender inside, facing, fast-forward, boost 12.
+
+[right-lead-in-ahead-005]
+kind = defend
+time = 5
+seed = 1
+ball = -879 -350 1427
+ball_vel = 606 -2067 1070
+ball_spin = 0 0 -1
+car = blue -815 -4052 91 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.06s. Defender ahead, facing, stopped, boost 12.
+
+[right-lead-in-beside-005]
+kind = defend
+time = 5
+seed = 1
+ball = -1737 -2016 1507
+ball_vel = 1035 -1426 1005
+ball_spin = 0 0 -2
+car = blue 1814 -4552 144 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.06s. Defender beside, facing, forward, boost 12.
+
+[left-lead-in-mouth-006]
+kind = defend
+time = 5
+seed = 1
+ball = 747 -1876 1403
+ball_vel = -484 -1360 1008
+ball_spin = 0 0 0
+car = blue 296 -4795 171 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.32s. Defender mouth, leftward, forward, boost 12.
+
+[left-lead-in-near-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = 1962 -2972 1400
+ball_vel = -1013 -905 981
+ball_spin = 0 0 -1
+car = blue -674 -5038 128 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.25s. Defender near-post, leftward, reverse, boost 12.
+
+[left-lead-in-far-post-006]
+kind = defend
+time = 4
+seed = 1
+ball = -944 -1654 1421
+ball_vel = 244 -1692 1133
+ball_spin = 0 0 -3
+car = blue 565 -4919 205 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 2.99s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-lead-in-inside-006]
+kind = defend
+time = 4
+seed = 1
+ball = 1111 -1318 1461
+ball_vel = -684 -1559 915
+ball_spin = 0 0 -2
+car = blue 515 -5318 172 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.00s. Defender inside, leftward, stopped, boost 33.
+
+[left-lead-in-ahead-006]
+kind = defend
+time = 5
+seed = 1
+ball = 230 -2796 1450
+ball_vel = -340 -1113 998
+ball_spin = 0 0 -3
+car = blue 369 -4036 186 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.16s. Defender ahead, leftward, forward, boost 33.
+
+[left-lead-in-beside-006]
+kind = defend
+time = 5
+seed = 1
+ball = -17 -1539 1477
+ball_vel = -193 -1504 920
+ball_spin = 0 0 -3
+car = blue -1859 -4515 148 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.08s. Defender beside, leftward, reverse, boost 33.
+
+[center-lead-in-mouth-006]
+kind = defend
+time = 5
+seed = 1
+ball = 149 58 1408
+ball_vel = -36 -1749 900
+ball_spin = 0 0 1
+car = blue 263 -4818 181 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.58s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-lead-in-near-post-006]
+kind = defend
+time = 4
+seed = 1
+ball = -335 -1151 1407
+ball_vel = 171 -1564 918
+ball_spin = 0 0 2
+car = blue 693 -4780 196 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 2.98s. Defender near-post, leftward, stopped, boost 100.
+
+[center-lead-in-far-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = 1978 -2336 1446
+ball_vel = -902 -1208 959
+ball_spin = 0 0 -2
+car = blue 556 -5040 152 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.02s. Defender far-post, leftward, forward, boost 100.
+
+[center-lead-in-inside-006]
+kind = defend
+time = 5
+seed = 1
+ball = -1854 -2755 1493
+ball_vel = 798 -1019 908
+ball_spin = 0 0 -1
+car = blue 601 -5205 225 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.21s. Defender inside, leftward, reverse, boost 0.
+
+[center-lead-in-ahead-006]
+kind = defend
+time = 5
+seed = 1
+ball = -1659 -1836 1417
+ball_vel = 700 -1301 913
+ball_spin = 0 0 1
+car = blue -45 -4394 212 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.02s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-lead-in-beside-006]
+kind = defend
+time = 5
+seed = 1
+ball = -1136 -380 1438
+ball_vel = 498 -1799 901
+ball_spin = 0 0 1
+car = blue -1454 -4458 176 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.11s. Defender beside, leftward, stopped, boost 0.
+
+[right-lead-in-mouth-006]
+kind = defend
+time = 5
+seed = 1
+ball = 2052 -2431 1405
+ball_vel = -755 -1291 1096
+ball_spin = 0 0 0
+car = blue 347 -4797 144 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.08s. Defender mouth, leftward, forward, boost 12.
+
+[right-lead-in-near-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = 1102 -1081 1466
+ball_vel = -295 -1783 1001
+ball_spin = 0 0 0
+car = blue 554 -5047 172 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.02s. Defender near-post, leftward, reverse, boost 12.
+
+[right-lead-in-far-post-006]
+kind = defend
+time = 5
+seed = 1
+ball = 1060 -2097 1455
+ball_vel = -170 -1272 936
+ball_spin = 0 0 -2
+car = blue -506 -4890 151 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.28s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-lead-in-inside-006]
+kind = defend
+time = 5
+seed = 1
+ball = -2461 -185 1527
+ball_vel = 1154 -1968 916
+ball_spin = 0 0 -2
+car = blue 273 -5235 208 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.22s. Defender inside, leftward, stopped, boost 33.
+
+[right-lead-in-ahead-006]
+kind = defend
+time = 5
+seed = 1
+ball = -451 -1310 1494
+ball_vel = 450 -1699 991
+ball_spin = 0 0 1
+car = blue -366 -4054 182 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.07s. Defender ahead, leftward, forward, boost 33.
+
+[right-lead-in-beside-006]
+kind = defend
+time = 5
+seed = 1
+ball = -754 -275 1461
+ball_vel = 554 -2173 1086
+ball_spin = 0 0 1
+car = blue 1130 -4451 204 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.02s. Defender beside, leftward, reverse, boost 33.
+
+[left-lead-in-mouth-007]
+kind = defend
+time = 4
+seed = 1
+ball = 1499 -1798 1601
+ball_vel = -991 -1541 919
+ball_spin = 0 0 -2
+car = blue 284 -4958 249 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 2.98s. Defender mouth, away, reverse, boost 33.
+
+[left-lead-in-near-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = 2269 -1019 1442
+ball_vel = -1141 -1673 961
+ball_spin = 0 0 2
+car = blue -508 -4767 233 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.06s. Defender near-post, away, fast-forward, boost 33.
+
+[left-lead-in-far-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1963 -1882 1455
+ball_vel = 643 -1414 972
+ball_spin = 0 0 -1
+car = blue 628 -4837 311 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.08s. Defender far-post, away, stopped, boost 33.
+
+[left-lead-in-inside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 1811 -119 1409
+ball_vel = -827 -1775 920
+ball_spin = 0 0 -1
+car = blue -564 -5319 245 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.42s. Defender inside, away, forward, boost 100.
+
+[left-lead-in-ahead-007]
+kind = defend
+time = 5
+seed = 1
+ball = 128 -203 1500
+ball_vel = -245 -1995 920
+ball_spin = 0 0 -1
+car = blue -157 -4011 266 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.12s. Defender ahead, away, reverse, boost 100.
+
+[left-lead-in-beside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 1953 -1527 1477
+ball_vel = -1093 -1538 973
+ball_spin = 0 0 -1
+car = blue -1863 -4665 219 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.08s. Defender beside, away, fast-forward, boost 100.
+
+[center-lead-in-mouth-007]
+kind = defend
+time = 5
+seed = 1
+ball = 1511 -2119 1466
+ball_vel = -702 -1345 1002
+ball_spin = 0 0 1
+car = blue -332 -4957 237 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.19s. Defender mouth, away, stopped, boost 0.
+
+[center-lead-in-near-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = 2371 -1879 1434
+ball_vel = -936 -1219 910
+ball_spin = 0 0 -0
+car = blue -651 -4871 225 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.39s. Defender near-post, away, forward, boost 0.
+
+[center-lead-in-far-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -162 -253 1406
+ball_vel = 24 -1873 948
+ball_spin = 0 0 -0
+car = blue 627 -4863 280 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.16s. Defender far-post, away, reverse, boost 0.
+
+[center-lead-in-inside-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1827 -1272 1469
+ball_vel = 856 -1638 988
+ball_spin = 0 0 1
+car = blue 421 -5338 299 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.16s. Defender inside, away, fast-forward, boost 12.
+
+[center-lead-in-ahead-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1745 -2031 1490
+ball_vel = 795 -1302 934
+ball_spin = 0 0 2
+car = blue 408 -4398 312 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.26s. Defender ahead, away, stopped, boost 12.
+
+[center-lead-in-beside-007]
+kind = defend
+time = 5
+seed = 1
+ball = 552 -328 1411
+ball_vel = -165 -1798 904
+ball_spin = 0 0 1
+car = blue -1157 -4455 248 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.05s. Defender beside, away, forward, boost 12.
+
+[right-lead-in-mouth-007]
+kind = defend
+time = 5
+seed = 1
+ball = -2395 -30 1429
+ball_vel = 1199 -2037 1013
+ball_spin = 0 0 -2
+car = blue -87 -4916 295 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.20s. Defender mouth, away, reverse, boost 33.
+
+[right-lead-in-near-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -1171 -3139 1554
+ball_vel = 812 -947 902
+ball_spin = 0 0 -1
+car = blue 571 -4809 316 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.12s. Defender near-post, away, fast-forward, boost 33.
+
+[right-lead-in-far-post-007]
+kind = defend
+time = 5
+seed = 1
+ball = -2469 -1666 1480
+ball_vel = 1270 -1456 962
+ball_spin = 0 0 0
+car = blue -644 -5038 298 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.11s. Defender far-post, away, stopped, boost 33.
+
+[right-lead-in-inside-007]
+kind = defend
+time = 4
+seed = 1
+ball = 2047 -1182 1546
+ball_vel = -655 -1778 956
+ball_spin = 0 0 -3
+car = blue -444 -5302 239 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.99s. Defender inside, away, forward, boost 100.
+
+[right-lead-in-ahead-007]
+kind = defend
+time = 5
+seed = 1
+ball = -420 -1999 1492
+ball_vel = 450 -1362 921
+ball_spin = 0 0 -2
+car = blue -592 -4001 265 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.04s. Defender ahead, away, reverse, boost 100.
+
+[right-lead-in-beside-007]
+kind = defend
+time = 4
+seed = 1
+ball = -1960 -765 1560
+ball_vel = 1086 -1901 933
+ball_spin = 0 0 -1
+car = blue 1598 -4470 314 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.98s. Defender beside, away, fast-forward, boost 100.
+
+[left-lead-in-mouth-008]
+kind = defend
+time = 5
+seed = 1
+ball = 978 -2618 1500
+ball_vel = -760 -1174 976
+ball_spin = 0 0 1
+car = blue -257 -4832 -29 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.12s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-lead-in-near-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = -957 -2111 1508
+ball_vel = 196 -1366 942
+ball_spin = 0 0 2
+car = blue -535 -4860 9 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.12s. Defender near-post, rightward, stopped, boost 100.
+
+[left-lead-in-far-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = 322 -915 1448
+ball_vel = -338 -1628 921
+ball_spin = 0 0 3
+car = blue 568 -4962 3 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.29s. Defender far-post, rightward, forward, boost 100.
+
+[left-lead-in-inside-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1684 -2305 1427
+ball_vel = -990 -1245 1014
+ball_spin = 0 0 -3
+car = blue -417 -5326 -35 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.10s. Defender inside, rightward, reverse, boost 0.
+
+[left-lead-in-ahead-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1809 -2196 1463
+ball_vel = -1012 -1221 916
+ball_spin = 0 0 3
+car = blue 624 -4163 -31 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.02s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-lead-in-beside-008]
+kind = defend
+time = 5
+seed = 1
+ball = 594 -1340 1463
+ball_vel = -503 -1533 903
+ball_spin = 0 0 -0
+car = blue -1605 -4419 -36 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.03s. Defender beside, rightward, stopped, boost 0.
+
+[center-lead-in-mouth-008]
+kind = defend
+time = 5
+seed = 1
+ball = -2011 -2011 1423
+ball_vel = 820 -1282 947
+ball_spin = 0 0 -3
+car = blue -228 -4969 31 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.07s. Defender mouth, rightward, forward, boost 12.
+
+[center-lead-in-near-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = -2217 -2377 1478
+ball_vel = 970 -1181 958
+ball_spin = 0 0 3
+car = blue 612 -4760 50 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.23s. Defender near-post, rightward, reverse, boost 12.
+
+[center-lead-in-far-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1951 -1339 1459
+ball_vel = -795 -1493 921
+ball_spin = 0 0 1
+car = blue 571 -4977 -21 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.24s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-lead-in-inside-008]
+kind = defend
+time = 5
+seed = 1
+ball = -1212 -597 1484
+ball_vel = 502 -1904 969
+ball_spin = 0 0 3
+car = blue -511 -5327 8 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.12s. Defender inside, rightward, stopped, boost 33.
+
+[center-lead-in-ahead-008]
+kind = defend
+time = 5
+seed = 1
+ball = -73 -2125 1465
+ball_vel = -15 -1486 1066
+ball_spin = 0 0 2
+car = blue -195 -3942 -4 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.02s. Defender ahead, rightward, forward, boost 33.
+
+[center-lead-in-beside-008]
+kind = defend
+time = 4
+seed = 1
+ball = 2224 -2033 1418
+ball_vel = -900 -1379 1027
+ball_spin = 0 0 1
+car = blue 1763 -4439 -11 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.00s. Defender beside, rightward, reverse, boost 33.
+
+[right-lead-in-mouth-008]
+kind = defend
+time = 5
+seed = 1
+ball = -1023 -1084 1401
+ball_vel = 609 -1708 1027
+ball_spin = 0 0 -1
+car = blue -96 -4987 13 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.10s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-lead-in-near-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = 1723 -1236 1444
+ball_vel = -525 -1585 963
+ball_spin = 0 0 2
+car = blue 524 -5043 -17 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.24s. Defender near-post, rightward, stopped, boost 100.
+
+[right-lead-in-far-post-008]
+kind = defend
+time = 5
+seed = 1
+ball = -1963 -854 1515
+ball_vel = 1085 -1791 937
+ball_spin = 0 0 -0
+car = blue -574 -4923 19 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.07s. Defender far-post, rightward, forward, boost 100.
+
+[right-lead-in-inside-008]
+kind = defend
+time = 5
+seed = 1
+ball = -186 -1901 1411
+ball_vel = 337 -1464 1058
+ball_spin = 0 0 -0
+car = blue -354 -5317 -3 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.16s. Defender inside, rightward, reverse, boost 0.
+
+[right-lead-in-ahead-008]
+kind = defend
+time = 5
+seed = 1
+ball = 117 -1490 1401
+ball_vel = 168 -1467 958
+ball_spin = 0 0 0
+car = blue -649 -4196 -16 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.12s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-lead-in-beside-008]
+kind = defend
+time = 5
+seed = 1
+ball = -97 -1652 1496
+ball_vel = 249 -1595 991
+ball_spin = 0 0 2
+car = blue 1545 -4342 31 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.04s. Defender beside, rightward, stopped, boost 0.
+
+[left-lead-in-mouth-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1283 -1803 1599
+ball_vel = -851 -1516 902
+ball_spin = 0 0 1
+car = blue -65 -4844 66 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.04s. Defender mouth, facing, stopped, boost 0.
+
+[left-lead-in-near-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = -221 -2224 1498
+ball_vel = -132 -1311 951
+ball_spin = 0 0 1
+car = blue -605 -5008 82 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.21s. Defender near-post, facing, forward, boost 0.
+
+[left-lead-in-far-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = -1461 -2844 1484
+ball_vel = 390 -1033 928
+ball_spin = 0 0 -3
+car = blue 602 -4798 137 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.26s. Defender far-post, facing, reverse, boost 0.
+
+[left-lead-in-inside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 939 -2378 1601
+ball_vel = -646 -1321 905
+ball_spin = 0 0 1
+car = blue 86 -5301 74 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.03s. Defender inside, facing, fast-forward, boost 12.
+
+[left-lead-in-ahead-009]
+kind = defend
+time = 5
+seed = 1
+ball = -569 -1144 1445
+ball_vel = 1 -1672 966
+ball_spin = 0 0 -0
+car = blue 373 -4309 107 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.08s. Defender ahead, facing, stopped, boost 12.
+
+[left-lead-in-beside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1236 -1421 1471
+ball_vel = -764 -1606 978
+ball_spin = 0 0 -1
+car = blue -1853 -4354 44 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.05s. Defender beside, facing, forward, boost 12.
+
+[center-lead-in-mouth-009]
+kind = defend
+time = 5
+seed = 1
+ball = 30 -68 1443
+ball_vel = -43 -1916 932
+ball_spin = 0 0 -1
+car = blue -148 -4960 88 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.31s. Defender mouth, facing, reverse, boost 33.
+
+[center-lead-in-near-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1150 -1859 1404
+ball_vel = -527 -1380 1004
+ball_spin = 0 0 -2
+car = blue -547 -4962 61 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.23s. Defender near-post, facing, fast-forward, boost 33.
+
+[center-lead-in-far-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = -2165 -2664 1429
+ball_vel = 961 -1001 952
+ball_spin = 0 0 -0
+car = blue -699 -4798 125 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.37s. Defender far-post, facing, stopped, boost 33.
+
+[center-lead-in-inside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1128 -504 1470
+ball_vel = -430 -1858 907
+ball_spin = 0 0 2
+car = blue 636 -5331 84 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.01s. Defender inside, facing, forward, boost 100.
+
+[center-lead-in-ahead-009]
+kind = defend
+time = 5
+seed = 1
+ball = -1365 -889 1551
+ball_vel = 560 -1792 905
+ball_spin = 0 0 -1
+car = blue 590 -4311 120 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.12s. Defender ahead, facing, reverse, boost 100.
+
+[center-lead-in-beside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1296 -3024 1551
+ball_vel = -650 -1022 910
+ball_spin = 0 0 2
+car = blue -1176 -4477 30 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.06s. Defender beside, facing, fast-forward, boost 100.
+
+[right-lead-in-mouth-009]
+kind = defend
+time = 5
+seed = 1
+ball = 782 -2941 1431
+ball_vel = -133 -944 920
+ball_spin = 0 0 2
+car = blue -115 -4976 66 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.17s. Defender mouth, facing, stopped, boost 0.
+
+[right-lead-in-near-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1378 -2381 1463
+ball_vel = -369 -1235 979
+ball_spin = 0 0 -2
+car = blue 543 -5042 73 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.25s. Defender near-post, facing, forward, boost 0.
+
+[right-lead-in-far-post-009]
+kind = defend
+time = 5
+seed = 1
+ball = 1367 -1398 1533
+ball_vel = -375 -1608 913
+ball_spin = 0 0 3
+car = blue -584 -5011 62 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.11s. Defender far-post, facing, reverse, boost 0.
+
+[right-lead-in-inside-009]
+kind = defend
+time = 5
+seed = 1
+ball = -2269 -1972 1447
+ball_vel = 1118 -1314 987
+ball_spin = 0 0 2
+car = blue -231 -5282 122 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.25s. Defender inside, facing, fast-forward, boost 12.
+
+[right-lead-in-ahead-009]
+kind = defend
+time = 5
+seed = 1
+ball = 276 -1251 1487
+ball_vel = 124 -1694 980
+ball_spin = 0 0 3
+car = blue 421 -4385 93 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.13s. Defender ahead, facing, stopped, boost 12.
+
+[right-lead-in-beside-009]
+kind = defend
+time = 5
+seed = 1
+ball = 2123 -3131 1425
+ball_vel = -700 -894 972
+ball_spin = 0 0 2
+car = blue 1489 -4677 68 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.21s. Defender beside, facing, forward, boost 12.
+
+[left-lead-in-mouth-010]
+kind = defend
+time = 5
+seed = 1
+ball = 1401 -25 1434
+ball_vel = -710 -2016 977
+ball_spin = 0 0 -2
+car = blue 40 -4756 164 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.18s. Defender mouth, leftward, forward, boost 12.
+
+[left-lead-in-near-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = -107 -3028 1498
+ball_vel = -177 -970 904
+ball_spin = 0 0 2
+car = blue -575 -4829 165 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.23s. Defender near-post, leftward, reverse, boost 12.
+
+[left-lead-in-far-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1825 -727 1465
+ball_vel = 506 -1731 933
+ball_spin = 0 0 -3
+car = blue 693 -4779 212 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.28s. Defender far-post, leftward, fast-forward, boost 12.
+
+[left-lead-in-inside-010]
+kind = defend
+time = 4
+seed = 1
+ball = 2231 -2161 1405
+ball_vel = -1270 -1329 1063
+ball_spin = 0 0 2
+car = blue -384 -5331 140 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.00s. Defender inside, leftward, stopped, boost 33.
+
+[left-lead-in-ahead-010]
+kind = defend
+time = 5
+seed = 1
+ball = 1237 -1437 1432
+ball_vel = -831 -1606 1033
+ball_spin = 0 0 1
+car = blue -19 -4136 155 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.11s. Defender ahead, leftward, forward, boost 33.
+
+[left-lead-in-beside-010]
+kind = defend
+time = 5
+seed = 1
+ball = -255 -2340 1419
+ball_vel = -125 -1136 945
+ball_spin = 0 0 -1
+car = blue -1863 -4396 142 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.41s. Defender beside, leftward, reverse, boost 33.
+
+[center-lead-in-mouth-010]
+kind = defend
+time = 5
+seed = 1
+ball = 281 -1791 1409
+ball_vel = -93 -1566 1086
+ball_spin = 0 0 3
+car = blue -212 -4959 171 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.04s. Defender mouth, leftward, fast-forward, boost 100.
+
+[center-lead-in-near-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = 1400 -2899 1446
+ball_vel = -603 -1002 950
+ball_spin = 0 0 -2
+car = blue 517 -5015 157 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.09s. Defender near-post, leftward, stopped, boost 100.
+
+[center-lead-in-far-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = 1875 -3120 1415
+ball_vel = -801 -787 923
+ball_spin = 0 0 -2
+car = blue 524 -4852 142 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.49s. Defender far-post, leftward, forward, boost 100.
+
+[center-lead-in-inside-010]
+kind = defend
+time = 5
+seed = 1
+ball = -27 -2317 1428
+ball_vel = 15 -1334 1040
+ball_spin = 0 0 1
+car = blue -485 -5288 171 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.08s. Defender inside, leftward, reverse, boost 0.
+
+[center-lead-in-ahead-010]
+kind = defend
+time = 5
+seed = 1
+ball = -685 -1003 1529
+ball_vel = 325 -1779 917
+ball_spin = 0 0 -1
+car = blue 793 -4372 204 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.02s. Defender ahead, leftward, fast-forward, boost 0.
+
+[center-lead-in-beside-010]
+kind = defend
+time = 5
+seed = 1
+ball = -819 -1263 1546
+ball_vel = 386 -1696 916
+ball_spin = 0 0 2
+car = blue -1894 -4546 162 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.05s. Defender beside, leftward, stopped, boost 0.
+
+[right-lead-in-mouth-010]
+kind = defend
+time = 4
+seed = 1
+ball = 987 -199 1463
+ball_vel = -174 -2092 985
+ball_spin = 0 0 -3
+car = blue 100 -4870 169 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.98s. Defender mouth, leftward, forward, boost 12.
+
+[right-lead-in-near-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = -864 -1949 1548
+ball_vel = 649 -1453 934
+ball_spin = 0 0 2
+car = blue 582 -4805 207 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.05s. Defender near-post, leftward, reverse, boost 12.
+
+[right-lead-in-far-post-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1567 -407 1533
+ball_vel = 901 -1921 910
+ball_spin = 0 0 -0
+car = blue -579 -4940 192 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.17s. Defender far-post, leftward, fast-forward, boost 12.
+
+[right-lead-in-inside-010]
+kind = defend
+time = 5
+seed = 1
+ball = 1667 -206 1428
+ball_vel = -453 -1795 901
+ball_spin = 0 0 -2
+car = blue 227 -5263 164 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.27s. Defender inside, leftward, stopped, boost 33.
+
+[right-lead-in-ahead-010]
+kind = defend
+time = 5
+seed = 1
+ball = -1127 -1058 1412
+ball_vel = 682 -1564 941
+ball_spin = 0 0 -0
+car = blue -163 -4044 198 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.22s. Defender ahead, leftward, forward, boost 33.
+
+[right-lead-in-beside-010]
+kind = defend
+time = 5
+seed = 1
+ball = 387 -2290 1502
+ball_vel = 39 -1344 963
+ball_spin = 0 0 2
+car = blue 1164 -4702 198 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.02s. Defender beside, leftward, reverse, boost 33.
+
+[left-lead-in-mouth-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1568 -2799 1464
+ball_vel = -861 -965 910
+ball_spin = 0 0 3
+car = blue 69 -4771 233 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.23s. Defender mouth, away, reverse, boost 33.
+
+[left-lead-in-near-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = 2299 -819 1422
+ball_vel = -1091 -1577 931
+ball_spin = 0 0 -0
+car = blue -671 -5019 235 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.41s. Defender near-post, away, fast-forward, boost 33.
+
+[left-lead-in-far-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1516 -49 1496
+ball_vel = -825 -2005 941
+ball_spin = 0 0 0
+car = blue 660 -4968 260 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.27s. Defender far-post, away, stopped, boost 33.
+
+[left-lead-in-inside-011]
+kind = defend
+time = 4
+seed = 1
+ball = -1595 -1621 1497
+ball_vel = 556 -1638 1021
+ball_spin = 0 0 1
+car = blue 621 -5230 302 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.00s. Defender inside, away, forward, boost 100.
+
+[left-lead-in-ahead-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1139 -729 1418
+ball_vel = -698 -1685 970
+ball_spin = 0 0 2
+car = blue 583 -3957 260 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.39s. Defender ahead, away, reverse, boost 100.
+
+[left-lead-in-beside-011]
+kind = defend
+time = 5
+seed = 1
+ball = 405 -1829 1495
+ball_vel = -375 -1483 969
+ball_spin = 0 0 -1
+car = blue -1574 -4422 233 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.11s. Defender beside, away, fast-forward, boost 100.
+
+[center-lead-in-mouth-011]
+kind = defend
+time = 4
+seed = 1
+ball = 1800 -1414 1514
+ball_vel = -760 -1646 951
+ball_spin = 0 0 -1
+car = blue 154 -4884 245 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 2.98s. Defender mouth, away, stopped, boost 0.
+
+[center-lead-in-near-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = -509 -2417 1434
+ball_vel = 177 -1246 991
+ball_spin = 0 0 -1
+car = blue -625 -4825 267 800 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.08s. Defender near-post, away, forward, boost 0.
+
+[center-lead-in-far-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1269 -3144 1465
+ball_vel = -589 -985 1022
+ball_spin = 0 0 3
+car = blue -686 -4771 220 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.12s. Defender far-post, away, reverse, boost 0.
+
+[center-lead-in-inside-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1913 -543 1437
+ball_vel = -755 -1880 978
+ball_spin = 0 0 -1
+car = blue -233 -5223 245 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.06s. Defender inside, away, fast-forward, boost 12.
+
+[center-lead-in-ahead-011]
+kind = defend
+time = 4
+seed = 1
+ball = -1957 -2032 1523
+ball_vel = 880 -1350 902
+ball_spin = 0 0 -3
+car = blue 237 -4318 314 0 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 2.98s. Defender ahead, away, stopped, boost 12.
+
+[center-lead-in-beside-011]
+kind = defend
+time = 5
+seed = 1
+ball = 406 -1428 1542
+ball_vel = -138 -1634 923
+ball_spin = 0 0 -1
+car = blue 1256 -4645 285 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.08s. Defender beside, away, forward, boost 12.
+
+[right-lead-in-mouth-011]
+kind = defend
+time = 4
+seed = 1
+ball = 2473 -454 1517
+ball_vel = -878 -2060 997
+ball_spin = 0 0 -2
+car = blue 339 -4905 244 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.99s. Defender mouth, away, reverse, boost 33.
+
+[right-lead-in-near-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = -1320 -2521 1414
+ball_vel = 838 -1135 988
+ball_spin = 0 0 2
+car = blue 620 -5032 308 1400 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.10s. Defender near-post, away, fast-forward, boost 33.
+
+[right-lead-in-far-post-011]
+kind = defend
+time = 5
+seed = 1
+ball = 1743 -2754 1448
+ball_vel = -559 -1072 971
+ball_spin = 0 0 -1
+car = blue -644 -4820 221 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.21s. Defender far-post, away, stopped, boost 33.
+
+[right-lead-in-inside-011]
+kind = defend
+time = 5
+seed = 1
+ball = -1782 -2147 1470
+ball_vel = 942 -1168 913
+ball_spin = 0 0 -2
+car = blue -217 -5305 296 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.42s. Defender inside, away, forward, boost 100.
+
+[right-lead-in-ahead-011]
+kind = defend
+time = 4
+seed = 1
+ball = 1096 -394 1466
+ball_vel = -305 -2161 1082
+ball_spin = 0 0 3
+car = blue -792 -4383 245 -700 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.96s. Defender ahead, away, reverse, boost 100.
+
+[right-lead-in-beside-011]
+kind = defend
+time = 5
+seed = 1
+ball = -1025 -1773 1421
+ball_vel = 640 -1331 940
+ball_spin = 0 0 3
+car = blue 1716 -4309 317 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.23s. Defender beside, away, fast-forward, boost 100.
+
+[left-lead-in-mouth-012]
+kind = defend
+time = 5
+seed = 1
+ball = 426 -816 1444
+ball_vel = -382 -1775 985
+ball_spin = 0 0 -1
+car = blue 79 -4941 -5 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.21s. Defender mouth, rightward, fast-forward, boost 100.
+
+[left-lead-in-near-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = -667 -2672 1465
+ball_vel = 16 -1175 985
+ball_spin = 0 0 1
+car = blue -504 -4899 4 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.14s. Defender near-post, rightward, stopped, boost 100.
+
+[left-lead-in-far-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = -437 -839 1439
+ball_vel = -75 -1757 982
+ball_spin = 0 0 3
+car = blue 502 -4998 13 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.21s. Defender far-post, rightward, forward, boost 100.
+
+[left-lead-in-inside-012]
+kind = defend
+time = 5
+seed = 1
+ball = 610 -1206 1422
+ball_vel = -453 -1771 1086
+ball_spin = 0 0 0
+car = blue -497 -5277 -15 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.08s. Defender inside, rightward, reverse, boost 0.
+
+[left-lead-in-ahead-012]
+kind = defend
+time = 5
+seed = 1
+ball = 1197 -465 1419
+ball_vel = -722 -1954 1053
+ball_spin = 0 0 -2
+car = blue 53 -4391 -16 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.17s. Defender ahead, rightward, fast-forward, boost 0.
+
+[left-lead-in-beside-012]
+kind = defend
+time = 5
+seed = 1
+ball = -758 -2579 1523
+ball_vel = 74 -1210 931
+ball_spin = 0 0 0
+car = blue -1398 -4781 -16 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, left entry in 3.10s. Defender beside, rightward, stopped, boost 0.
+
+[center-lead-in-mouth-012]
+kind = defend
+time = 5
+seed = 1
+ball = -115 -1908 1461
+ball_vel = -17 -1418 968
+ball_spin = 0 0 -3
+car = blue -144 -4868 -1 800 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.11s. Defender mouth, rightward, forward, boost 12.
+
+[center-lead-in-near-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = -1545 -308 1412
+ball_vel = 553 -1871 966
+ball_spin = 0 0 -2
+car = blue -658 -5027 11 -700 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.21s. Defender near-post, rightward, reverse, boost 12.
+
+[center-lead-in-far-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = 2473 -2851 1496
+ball_vel = -1098 -1046 977
+ball_spin = 0 0 2
+car = blue -688 -4815 -58 1400 12
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.10s. Defender far-post, rightward, fast-forward, boost 12.
+
+[center-lead-in-inside-012]
+kind = defend
+time = 5
+seed = 1
+ball = 1648 -3274 1441
+ball_vel = -669 -785 919
+ball_spin = 0 0 1
+car = blue 592 -5336 -27 0 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.34s. Defender inside, rightward, stopped, boost 33.
+
+[center-lead-in-ahead-012]
+kind = defend
+time = 4
+seed = 1
+ball = -1872 -997 1435
+ball_vel = 759 -1761 992
+ball_spin = 0 0 1
+car = blue 331 -4244 34 800 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 2.98s. Defender ahead, rightward, forward, boost 33.
+
+[center-lead-in-beside-012]
+kind = defend
+time = 5
+seed = 1
+ball = -460 -309 1431
+ball_vel = 127 -1773 919
+ball_spin = 0 0 2
+car = blue 1338 -4424 24 -700 33
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, center entry in 3.38s. Defender beside, rightward, reverse, boost 33.
+
+[right-lead-in-mouth-012]
+kind = defend
+time = 5
+seed = 1
+ball = -2154 -1696 1433
+ball_vel = 1041 -1340 947
+ball_spin = 0 0 -2
+car = blue 49 -4930 34 1400 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.32s. Defender mouth, rightward, fast-forward, boost 100.
+
+[right-lead-in-near-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = -252 -1874 1425
+ball_vel = 422 -1466 1037
+ball_spin = 0 0 3
+car = blue 630 -4793 17 0 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.12s. Defender near-post, rightward, stopped, boost 100.
+
+[right-lead-in-far-post-012]
+kind = defend
+time = 5
+seed = 1
+ball = 136 -2626 1427
+ball_vel = 187 -1225 1064
+ball_spin = 0 0 -2
+car = blue -577 -4901 -17 800 100
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.13s. Defender far-post, rightward, forward, boost 100.
+
+[right-lead-in-inside-012]
+kind = defend
+time = 4
+seed = 1
+ball = -589 -489 1626
+ball_vel = 560 -2079 900
+ball_spin = 0 0 -0
+car = blue 336 -5249 11 -700 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 2.98s. Defender inside, rightward, reverse, boost 0.
+
+[right-lead-in-ahead-012]
+kind = defend
+time = 5
+seed = 1
+ball = -2270 -3287 1466
+ball_vel = 1161 -792 948
+ball_spin = 0 0 -1
+car = blue 466 -4221 71 1400 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.27s. Defender ahead, rightward, fast-forward, boost 0.
+
+[right-lead-in-beside-012]
+kind = defend
+time = 5
+seed = 1
+ball = -888 -1172 1496
+ball_vel = 647 -1678 933
+ball_spin = 0 0 -2
+car = blue 1579 -4360 38 0 0
+rival = scripted mode=idle
+note = Shots that rebound from the ceiling threat, right entry in 3.03s. Defender beside, rightward, stopped, boost 0.
