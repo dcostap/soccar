@@ -3,8 +3,12 @@ import {
   MAX_REPLAY_BYTES,
   scenarioFile,
   readScenarioFile,
-  keepLatestReplay,
+  keepReplay,
   latestReplay,
+  replayHistory,
+  storedReplay,
+  deleteReplay,
+  persistReplayStorage,
 } from "./replay-files.js";
 
 function node(tag, text, className) {
@@ -50,10 +54,7 @@ export function mountReplayTools(game, app) {
   const root = node("section", "", "replay-tools");
   root.setAttribute("aria-label", "Game recordings");
   const row = node("div", "", "replay-tools-buttons");
-  const message = node(
-    "p",
-    "Games record automatically. Save a file to keep more than one game.",
-  );
+  const message = node("p", "Every game saves automatically in Game history.");
   message.setAttribute("role", "status");
   root.append(row, message);
   document.body.append(root);
@@ -61,23 +62,40 @@ export function mountReplayTools(game, app) {
     opened = null,
     returnToMoment = null,
     busy = false,
-    saved = null;
+    saved = null,
+    checkpoint = null,
+    autosaving = false;
   const report = (error) => {
     message.textContent = error?.message ?? String(error);
   };
   const active = () =>
     game.mode === "match" && !game.watch && game.recordingTicks > 0;
 
-  async function remember() {
+  async function remember(quiet = false) {
     if (!active()) return;
     if (
       saved?.identity === game.recordingIdentity &&
       saved.ticks === game.recordingTicks
     )
       return saved.value;
+    const createdAt =
+      saved?.identity === game.recordingIdentity
+        ? saved.value.createdAt
+        : Date.now();
+    const id =
+      saved?.identity === game.recordingIdentity
+        ? saved.value.id
+        : `game:${globalThis.crypto?.randomUUID?.() ?? `${createdAt}-${Math.random()}`}`;
     const value = {
+      id,
+      createdAt,
+      updatedAt: Date.now(),
       text: game.exportRecording(),
-      name: `game-${new Date().toISOString().replace(/[:.]/g, "-")}.soccar-replay.json`,
+      name: `game-${new Date(createdAt).toISOString().replace(/[:.]/g, "-")}.soccar-replay.json`,
+      ticks: game.recordingTicks,
+      score: [...game.score],
+      teamSize: game.config.teamSize ?? 1,
+      skill: game.config.skill ?? "pro",
     };
     latest = value;
     saved = {
@@ -85,11 +103,14 @@ export function mountReplayTools(game, app) {
       ticks: game.recordingTicks,
       value,
     };
+    checkpoint = {
+      identity: game.recordingIdentity,
+      ticks: game.recordingTicks,
+    };
     try {
-      await keepLatestReplay(value);
-      if (!game.watch)
-        message.textContent =
-          "Latest game saved on this device. You can watch it or save a file.";
+      await keepReplay(value);
+      if (!quiet && !game.watch)
+        message.textContent = "Game saved in history on this device.";
     } catch {
       message.textContent = "Replay stays in this tab. Save a file to keep it.";
     }
@@ -127,6 +148,94 @@ export function mountReplayTools(game, app) {
     try {
       if (active()) await remember();
       if (latest) await watch(latest);
+    } catch (error) {
+      report(error);
+    } finally {
+      busy = false;
+      update();
+    }
+  });
+  const history = button("Game history", async () => {
+    if (busy) return;
+    busy = true;
+    update();
+    try {
+      if (active()) await remember();
+      const games = await replayHistory();
+      const dialog = node("dialog", "", "setpiece-editor replay-library");
+      const content = node("div");
+      const title = node("h2", "Game history");
+      title.id = "replay-history-title";
+      dialog.setAttribute("aria-labelledby", title.id);
+      content.append(title);
+      content.append(
+        node(
+          "p",
+          "Games stay on this device. Clearing browser data removes them.",
+        ),
+      );
+      const list = node("div", "", "replay-library-list");
+      if (!games.length) list.append(node("p", "No saved games."));
+      for (const value of games) {
+        const item = node("article", "", "replay-library-item");
+        const date = new Date(value.createdAt ?? value.updatedAt ?? Date.now());
+        item.append(node("strong", date.toLocaleString()));
+        const score = Array.isArray(value.score)
+          ? ` · ${value.score[0]}–${value.score[1]}`
+          : "";
+        item.append(
+          node(
+            "span",
+            `${value.teamSize ?? 1}v${value.teamSize ?? 1}${score} · ${Number(value.ticks ?? 0).toLocaleString()} ticks`,
+          ),
+        );
+        const actions = node("div", "", "setpiece-actions");
+        actions.append(
+          button("Watch", async () => {
+            dialog.close();
+            try {
+              const replay = await storedReplay(value.id);
+              if (!replay) throw new Error("Saved replay is missing");
+              await watch(replay);
+            } catch (error) {
+              report(error);
+            }
+          }),
+          button("Save file", async () => {
+            try {
+              const replay = await storedReplay(value.id);
+              if (!replay) throw new Error("Saved replay is missing");
+              download(replay.text, replay.name);
+            } catch (error) {
+              report(error);
+            }
+          }),
+          button("Delete", async () => {
+            if (!confirm("Delete this saved game?")) return;
+            try {
+              await deleteReplay(value.id);
+              item.remove();
+              if (latest?.id === value.id) latest = await latestReplay();
+              if (!list.querySelector("article"))
+                list.append(node("p", "No saved games."));
+              update();
+            } catch (error) {
+              report(error);
+            }
+          }),
+        );
+        item.append(actions);
+        list.append(item);
+      }
+      content.append(list);
+      const actions = node("div", "", "setpiece-actions");
+      actions.append(button("Close", () => dialog.close()));
+      content.append(actions);
+      dialog.append(content);
+      document.body.append(dialog);
+      dialog.addEventListener("close", () => dialog.remove(), { once: true });
+      dialog.addEventListener("keydown", (event) => event.stopPropagation());
+      dialog.showModal();
     } catch (error) {
       report(error);
     } finally {
@@ -186,10 +295,11 @@ export function mountReplayTools(game, app) {
     }
     update();
   });
-  row.append(watchLast, save, open, create, back, file);
+  row.append(watchLast, history, save, open, create, back, file);
 
   function update() {
     watchLast.disabled = busy || (!latest && !active());
+    history.disabled = busy;
     save.disabled = busy || (!latest && !opened && !active());
     open.disabled = busy;
     create.hidden = !game.watch || !!game.watch.scenario;
@@ -200,13 +310,29 @@ export function mountReplayTools(game, app) {
       game.seeking;
     back.hidden = !game.watch?.scenario || !returnToMoment;
   }
-  const timer = setInterval(update, 500);
+  const timer = setInterval(() => {
+    update();
+    if (
+      active() &&
+      !autosaving &&
+      (checkpoint?.identity !== game.recordingIdentity ||
+        game.recordingTicks - checkpoint.ticks >= 7200)
+    ) {
+      autosaving = true;
+      remember(true)
+        .catch(report)
+        .finally(() => {
+          autosaving = false;
+        });
+    }
+  }, 1000);
   latestReplay()
     .then((value) => {
       if (!latest) latest = value;
       update();
     })
     .catch(() => {});
+  persistReplayStorage();
   update();
 
   function editor(defend) {

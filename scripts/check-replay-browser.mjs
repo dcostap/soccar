@@ -139,8 +139,41 @@ try {
   const saved = JSON.parse(await readFile(replayPath, "utf8"));
   assert.ok(saved.frames.length > 2000);
   assert.equal(saved.initial.world.cars.length, 6);
-  await page
-    .getByRole("button", { name: "Watch last game", exact: true })
+  // A new match gets another history record. It does not replace the first match.
+  await page.evaluate(() => {
+    const game = window.__presentationGame;
+    game.startMatch({ ...game.config });
+    const t = window.__recordingTest;
+    for (let i = 0; i < 1800; i++)
+      t.raw.sim_tick(t.handle, 1, 0.1, 0.2, 0, 0, 0, 0, 0, 1);
+  });
+  await page.waitForFunction(
+    () =>
+      new Promise((resolve) => {
+        const open = indexedDB.open("soccar-replays", 3);
+        open.onsuccess = () => {
+          const db = open.result;
+          const all = db.transaction("replays").objectStore("replays").getAll();
+          all.onsuccess = () => {
+            resolve(
+              all.result.filter((value) => value?.text && value?.id).length ===
+                2,
+            );
+            db.close();
+          };
+          all.onerror = () => resolve(false);
+        };
+        open.onerror = () => resolve(false);
+      }),
+  );
+  await page.getByRole("button", { name: "Game history", exact: true }).click();
+  let library = page.getByRole("dialog", { name: "Game history" });
+  await library.waitFor();
+  assert.equal(await library.locator(".replay-library-item").count(), 2);
+  await library
+    .locator(".replay-library-item")
+    .nth(1)
+    .getByRole("button", { name: "Watch", exact: true })
     .click();
   await range.waitFor();
   await page.waitForFunction(
@@ -213,6 +246,11 @@ try {
       !document.querySelector(".watch-timeline")?.classList.contains("busy"),
   );
   await page.reload({ waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "Game history", exact: true }).click();
+  library = page.getByRole("dialog", { name: "Game history" });
+  await library.waitFor();
+  assert.equal(await library.locator(".replay-library-item").count(), 2);
+  await library.getByRole("button", { name: "Close", exact: true }).click();
   const last = page.getByRole("button", {
     name: "Watch last game",
     exact: true,
@@ -265,9 +303,54 @@ try {
     page.url().length < 200,
     "Exact-state watch links do not place recordings in URLs",
   );
+  const migrationContext = await browser.newContext();
+  const migration = await migrationContext.newPage();
+  const setupUrl = `${server.resolvedUrls.local[0]}storage-setup`;
+  await migration.route(setupUrl, (route) =>
+    route.fulfill({ contentType: "text/html", body: "<!doctype html>" }),
+  );
+  await migration.goto(setupUrl);
+  await migration.evaluate(
+    () =>
+      new Promise((resolve, reject) => {
+        const open = indexedDB.open("soccar-replays", 1);
+        open.onupgradeneeded = () => open.result.createObjectStore("replays");
+        open.onsuccess = () => {
+          const db = open.result;
+          const tx = db.transaction("replays", "readwrite");
+          tx.objectStore("replays").put(
+            { text: "{}", name: "legacy.soccar-replay.json" },
+            "latest",
+          );
+          tx.oncomplete = () => {
+            db.close();
+            resolve();
+          };
+          tx.onerror = () => reject(tx.error);
+        };
+        open.onerror = () => reject(open.error);
+      }),
+  );
+  await migration.unroute(setupUrl);
+  await migration.goto(`${server.resolvedUrls.local[0]}?mute`, {
+    waitUntil: "networkidle",
+  });
+  await migration
+    .getByRole("button", { name: "Game history", exact: true })
+    .click();
+  const migratedLibrary = migration.getByRole("dialog", {
+    name: "Game history",
+  });
+  await migratedLibrary.waitFor();
+  assert.equal(
+    await migratedLibrary.locator(".replay-library-item").count(),
+    1,
+  );
+  assert.match(await migratedLibrary.innerText(), /1v1/);
+  await migrationContext.close();
   assert.deepEqual(errors, []);
   console.log(
-    "Replay browser checks passed: save, reload, seek, select one car, export, preview, return, and invalid files",
+    "Replay browser checks passed: full history, save, reload, seek, select one car, export, preview, return, and invalid files",
   );
 } catch (error) {
   console.error(

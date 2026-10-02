@@ -26,20 +26,70 @@ export function readScenarioFile(text) {
   return { name: match[1], text: body };
 }
 
+function replayMetadata(value) {
+  const { text: _, ...metadata } = value;
+  return metadata;
+}
+
 function database() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open("soccar-replays", 1);
-    request.onupgradeneeded = () => request.result.createObjectStore("replays");
+    const request = indexedDB.open("soccar-replays", 3);
+    request.onupgradeneeded = (event) => {
+      const replays = request.result.objectStoreNames.contains("replays")
+        ? request.transaction.objectStore("replays")
+        : request.result.createObjectStore("replays");
+      const history = request.result.objectStoreNames.contains("history")
+        ? request.transaction.objectStore("history")
+        : request.result.createObjectStore("history");
+      if (event.oldVersion === 1) {
+        const legacy = replays.get("latest");
+        legacy.onsuccess = () => {
+          if (!legacy.result?.text) return;
+          const createdAt = Date.now();
+          const id = `game:legacy-${createdAt}`;
+          const value = {
+            ...legacy.result,
+            id,
+            createdAt,
+            updatedAt: createdAt,
+          };
+          replays.put(value, id);
+          replays.put(id, "latest");
+          history.put(replayMetadata(value), id);
+        };
+      } else if (event.oldVersion === 2) {
+        const cursor = replays.openCursor();
+        cursor.onsuccess = () => {
+          const item = cursor.result;
+          if (!item) return;
+          if (item.value?.text && item.value?.id)
+            history.put(replayMetadata(item.value), item.value.id);
+          item.continue();
+        };
+      }
+    };
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
 }
-export async function keepLatestReplay(value) {
+function records(values) {
+  return values
+    .filter((value) => value?.id)
+    .sort(
+      (a, b) =>
+        (b.updatedAt ?? b.createdAt ?? 0) - (a.updatedAt ?? a.createdAt ?? 0),
+    );
+}
+export async function keepReplay(value) {
+  if (!value?.id || !value?.text) throw new Error("Invalid replay record");
   const db = await database();
   try {
     await new Promise((resolve, reject) => {
-      const tx = db.transaction("replays", "readwrite");
-      tx.objectStore("replays").put(value, "latest");
+      const tx = db.transaction(["replays", "history"], "readwrite");
+      const replays = tx.objectStore("replays");
+      replays.put(value, value.id);
+      replays.put(value.id, "latest");
+      tx.objectStore("history").put(replayMetadata(value), value.id);
       tx.oncomplete = resolve;
       tx.onabort = tx.onerror = () => reject(tx.error);
     });
@@ -51,14 +101,80 @@ export async function latestReplay() {
   const db = await database();
   try {
     return await new Promise((resolve, reject) => {
-      const request = db
-        .transaction("replays")
-        .objectStore("replays")
-        .get("latest");
+      const tx = db.transaction(["replays", "history"]);
+      const store = tx.objectStore("replays");
+      const request = store.get("latest");
+      request.onsuccess = () => {
+        if (request.result?.text) return resolve(request.result);
+        if (typeof request.result === "string") {
+          const replay = store.get(request.result);
+          replay.onsuccess = () => resolve(replay.result ?? null);
+          replay.onerror = () => reject(replay.error);
+          return;
+        }
+        const all = tx.objectStore("history").getAll();
+        all.onsuccess = () => {
+          const latest = records(all.result)[0];
+          if (!latest) return resolve(null);
+          const replay = store.get(latest.id);
+          replay.onsuccess = () => resolve(replay.result ?? null);
+          replay.onerror = () => reject(replay.error);
+        };
+        all.onerror = () => reject(all.error);
+      };
+      request.onerror = () => reject(request.error);
+    });
+  } finally {
+    db.close();
+  }
+}
+export async function replayHistory() {
+  const db = await database();
+  try {
+    return await new Promise((resolve, reject) => {
+      const request = db.transaction("history").objectStore("history").getAll();
+      request.onsuccess = () => resolve(records(request.result));
+      request.onerror = () => reject(request.error);
+    });
+  } finally {
+    db.close();
+  }
+}
+export async function storedReplay(id) {
+  const db = await database();
+  try {
+    return await new Promise((resolve, reject) => {
+      const request = db.transaction("replays").objectStore("replays").get(id);
       request.onsuccess = () => resolve(request.result ?? null);
       request.onerror = () => reject(request.error);
     });
   } finally {
     db.close();
   }
+}
+export async function deleteReplay(id) {
+  const db = await database();
+  try {
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(["replays", "history"], "readwrite");
+      const replays = tx.objectStore("replays");
+      replays.delete(id);
+      const history = tx.objectStore("history");
+      history.delete(id);
+      const all = history.getAll();
+      all.onsuccess = () => {
+        const latest = records(all.result)[0];
+        if (latest) replays.put(latest.id, "latest");
+        else replays.delete("latest");
+      };
+      tx.oncomplete = resolve;
+      tx.onabort = tx.onerror = () => reject(tx.error);
+    });
+  } finally {
+    db.close();
+  }
+}
+
+export function persistReplayStorage() {
+  return navigator.storage?.persist?.().catch(() => false);
 }

@@ -3,8 +3,8 @@
 ## Save and select a moment
 
 1. Play a match. The game records resolved controls at each simulation tick.
-2. Select **Save replay** to save a file. You can save before the match ends.
-3. Select **Watch last game**, or select **Open file** to open a saved replay.
+2. Select **Game history**, or select **Watch last game**.
+3. Select **Save replay** for a portable file. Select **Open file** to open one.
 4. Pause the replay. Move the timeline to a live-play moment.
 5. Select **Create set piece**, or press **C**. **Shift+C** selects defense.
 6. Answer **Which car should the brain control?** This is one car, not one team.
@@ -13,9 +13,14 @@
 9. Select **Preview** to test a brain. **Back to moment** restores the source replay.
 10. Select **Download set piece**. Give this file to the contribution agent.
 
-The game keeps the latest recording on this device. Save files to keep more than one recording.
+The game keeps every match in **Game history** on this device.
+It creates a record after play starts and updates active matches once per minute.
+It saves the final recording when the match ends or you leave it.
+Starting another match does not replace an earlier recording.
+You can watch, download, or delete each stored game.
 The recording limit is 25 minutes of simulation ticks. A file saved earlier ends at that point.
-Browser storage can fail. **Save replay** still downloads the recording from the current tab.
+Clearing site data removes the local history. Browser storage can also become full or fail.
+**Save replay** downloads a portable recording from the current tab.
 
 ## What the set piece preserves
 

@@ -29,6 +29,7 @@ npm run dev   # then open /arena.html
 
 See [the arena](arena/README.md).
 
-Matches record automatically. Select **Save replay** or **Watch last game** in the game.
+Matches record automatically. Select **Game history** to watch any game stored on this device.
+Use **Save replay** to make a portable file.
 Pause and seek, then select **Create set piece**. Choose one car for the tested brain.
 See [player replay contributions](arena/CONTRIBUTING-SETPIECES.md) for the full steps.
