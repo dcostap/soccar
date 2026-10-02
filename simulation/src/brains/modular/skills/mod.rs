@@ -2,6 +2,7 @@
 //! This file is not part of any fingerprint, so adding a skill does not retire other brains' results.
 use super::kit::Create;
 
+pub mod aerial_a;
 pub mod template;
 
 pub struct Def {
@@ -13,11 +14,18 @@ pub struct Def {
     pub create: Create,
 }
 
-pub const SKILLS: &[Def] = &[Def {
-    name: "template",
-    source: include_str!("template.rs"),
-    create: template::create,
-}];
+pub const SKILLS: &[Def] = &[
+    Def {
+        name: "template",
+        source: include_str!("template.rs"),
+        create: template::create,
+    },
+    Def {
+        name: "aerial-a",
+        source: include_str!("aerial_a.rs"),
+        create: aerial_a::create,
+    },
+];
 
 pub fn find(name: &str) -> Option<&'static Def> {
     SKILLS.iter().find(|s| s.name == name)

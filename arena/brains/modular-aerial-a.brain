@@ -1,0 +1,3 @@
+# Aerial track entry A: physics-rollout aerial saves, clears, and shots on top of modular.
+module = modular
+skills = aerial-a

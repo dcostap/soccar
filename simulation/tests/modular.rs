@@ -148,3 +148,23 @@ fn the_fingerprint_source_covers_the_core_and_selected_skills_only() {
             .source
     );
 }
+
+#[test]
+fn the_aerial_skill_saves_a_falling_shot_that_the_baseline_concedes() {
+    // defense-v2-falling/center-lead-in-mouth-001: a dropping shot over a reversing defender.
+    let scenario = Scenario::parse(
+        "kind = defend\ntime = 5\nseed = 1\nball = -1448 -2449 114\nball_vel = 440 -793 1278\n\
+         ball_spin = 0 0 2\ncar = blue 266 -4751 127 -700 33\nrival = scripted mode=idle",
+    )
+    .unwrap();
+    let outcome = |brain| {
+        harness::run_scenario(&ScenarioJob {
+            scenario: scenario.clone(),
+            brain,
+        })
+    };
+    assert!(!outcome(spec("modular", "module = modular")).success);
+    let aerial = spec("modular-aerial-a", "module = modular\nskills = aerial-a");
+    let result = outcome(aerial);
+    assert!(result.success, "{result:?}");
+}
