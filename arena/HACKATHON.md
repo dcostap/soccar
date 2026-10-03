@@ -6,6 +6,8 @@ Then skills compete per track, and the best ones combine into one brain.
 **Result of the first hackathon:** `modular-combo` (`recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a`)
 beats `modular-aerial-a` by 77 to 131 Elo at every team size. See [the combination report](hackathon/combo.md).
 A next round starts from `modular-combo`. Challenge it, not `modular`, and remove a skill only after an ablation.
+`modular`, `modular-aerial-a`, `modular-solo`, and `modular-solo-aerial-a` are retired to `arena/brains/archive/`.
+Move one back to `arena/brains/` before a command below names it.
 
 ## The baseline: `modular`
 

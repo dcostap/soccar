@@ -16,6 +16,9 @@ A brain drives every bot car on one team. It has two parts:
 - **Module**: Rust code in `simulation/src/brains/`, listed in `MODULES` in `mod.rs`.
 - **Settings**: a `.brain` file in `arena/brains/`. The file name is the brain's name.
 
+Retired brains live in `arena/brains/archive/`. The arena ignores them, so they leave the ladder, the page, and the game menu.
+Their logged matches stay and can still be watched. Move a file back to play or challenge that brain again.
+
 ```text
 # Leading comments are the description on the leaderboard.
 module = classic
