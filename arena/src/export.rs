@@ -102,6 +102,7 @@ impl Arena {
         let standings = self.standings();
         self.options.format = selected;
         let menu = json!({
+            "engine": soccar_simulation::recording::engine_version(),
             "brains": self.brains.iter().zip(&standings).map(|(b, s)| json!({
                 "name": b.spec.name,
                 "description": b.description,

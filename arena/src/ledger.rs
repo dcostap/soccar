@@ -38,6 +38,10 @@ pub struct Record {
     pub fingerprints: [String; 2],
     /// Brain file text, so the match can be replayed after the file changes.
     pub specs: [String; 2],
+    /// Simulation engine version. Statistic rules, such as what counts as a save, are part of it.
+    /// Empty for matches logged before it was recorded.
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub engine: String,
     pub score: [u32; 2],
     pub overtime: bool,
     pub completed: bool,
@@ -141,6 +145,7 @@ impl Ledger {
             brains: spec.brains.clone().map(|b| b.name),
             fingerprints,
             specs: spec.brains.clone().map(|b| b.text()),
+            engine: soccar_simulation::recording::engine_version(),
             score: result.score,
             overtime: result.overtime,
             completed: result.completed,

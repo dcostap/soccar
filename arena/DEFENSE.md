@@ -176,6 +176,11 @@ Archive scenarios remain in exported data, so their existing watch links still w
 `defense-v1.json` retains the emergency archive.
 Measurements include the physics version and scenario hash.
 The export hides stale measurements instead of attaching them to changed tests.
+The physics version is `recording::engine_version()`, which also changes with game rules such as save detection.
+After such a change the three defense tests in `npm run test:arena` find no measurements.
+If the change cannot alter set-piece play, set each file's `simulation` field to the new version.
+Then run `cargo test --release --manifest-path arena/Cargo.toml defense::`.
+It re-simulates every measured threat and fails on any difference.
 
 The CLI reports each family and each measured dimension.
 The browser adds **Group results by**, row filters, measured details, and dashed undefended paths.

@@ -15,12 +15,13 @@ const log = await readFile(
   "utf8",
 ).catch(() => "");
 // Edited brains retire their old records, which no longer replay. The export lists current fingerprints.
-const current = await readFile(
+const exported = await readFile(
   new URL("../public/arena/brains.json", import.meta.url),
   "utf8",
 )
-  .then((text) => new Set(JSON.parse(text).brains.map((b) => b.fingerprint)))
+  .then((text) => JSON.parse(text))
   .catch(() => null);
+const current = exported && new Set(exported.brains.map((b) => b.fingerprint));
 const records = log
   .split("\n")
   .filter(Boolean)
@@ -78,13 +79,16 @@ for (const r of picked) {
   assert.equal(game.phase, "ended", `match ${r.id} did not end`);
   assert.deepEqual(game.score, r.score, `match ${r.id} score`);
   assert.equal(game.world.tick, r.ticks, `match ${r.id} physics ticks`);
-  r.players.forEach((p, i) => {
-    const s = game.stats.get(i);
-    for (const k of statNames)
-      assert.equal(s[k], p[k], `match ${r.id} car ${i} ${k}`);
-  });
+  // Statistic rules, such as saves, can change without changing play. Older records check only the play.
+  const stats = Boolean(r.engine) && r.engine === exported?.engine;
+  if (stats)
+    r.players.forEach((p, i) => {
+      const s = game.stats.get(i);
+      for (const k of statNames)
+        assert.equal(s[k], p[k], `match ${r.id} car ${i} ${k}`);
+    });
   console.log(
-    `match ${r.id}: ${r.brains[0]} ${r.score[0]}-${r.score[1]} ${r.brains[1]}${r.overtime ? " (OT)" : ""} replayed exactly, ${r.ticks} physics ticks`,
+    `match ${r.id}: ${r.brains[0]} ${r.score[0]}-${r.score[1]} ${r.brains[1]}${r.overtime ? " (OT)" : ""} replayed exactly, ${r.ticks} physics ticks${stats ? "" : ", statistics from an older engine not compared"}`,
   );
 }
 

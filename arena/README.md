@@ -71,6 +71,9 @@ Each brain has a fingerprint: a hash of its name, settings, module source, and t
 The matches catch changes in shared code and physics that the module source does not show.
 Results are stored by fingerprint, so editing a brain retires its old results instead of mixing them in.
 Older results stay in the log. Use `--all-versions` or clear "Current versions only" on the page to see them.
+Each match also logs the simulation engine version. Rule changes, such as what counts as a save,
+change the statistics without changing play. The replay check (`npm run test:arena`) then compares only
+the score and ticks of matches from an older engine.
 
 ## Commands
 
