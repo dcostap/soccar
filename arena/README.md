@@ -98,6 +98,12 @@ The page opens 3v3 and switches with `?size=1`. Heatmaps are one file per match,
 Every pairing plays seeds 1, 2, 3, … twice, with sides swapped, so both brains get the same kickoffs.
 A match that is already in the log is never played again.
 
+Run time: an edited brain replays only its own matches, and a new brain plays only its new pairings.
+To test a change, `challenge` it against the current best instead of running the ladder; it stops when the result is clear.
+Keep the defaults. Shorter matches score fewer goals, so they need proportionally more matches for the same confidence,
+and a new `--duration` starts an empty leaderboard. Fewer `--pairs` makes the ranking noisy.
+Brains with aerial-a cost about 3–4 s of brain time per match, against 0.1–0.3 s for the others.
+
 ## Ratings
 
 The leaderboard is a Bradley-Terry fit of every win and loss between current brains, on the Elo scale.
