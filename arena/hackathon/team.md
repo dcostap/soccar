@@ -7,6 +7,8 @@ the support waits wide and deep (`lateral 0.8`, `gap 1900`), reads the ball a se
 and takes over as soon as the attacker is past the ball or no faster to it (`margin 0`, `past 0`).
 Against `modular-combo` in 2v2: +209 [+95, +391] on seeds 90000+ and +107 [+30, +194] on seeds 120000+.
 Against `modular-team-x-quick2`: +31 [-8, +70]. 1v1, 3v3, and set pieces play exactly as `modular-combo`.
+On the 2v2 ladder it ranks first at 1875 ± 110, ahead of `modular-combo` at 1740 ± 92. It concedes 2.9 goals
+a match there against combo's 3.5, and scores the same 8.0.
 
 `strategies/team.rs` runs alphabravo's tactics and replaces only some cars' choices.
 Every option is off by default, and then it plays exactly as alphabravo (tested in `simulation/tests/modular.rs`).
