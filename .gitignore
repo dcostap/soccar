@@ -10,3 +10,9 @@ public/simulation/
 arena/target/
 arena/results/
 public/arena/
+
+# Local physics reference. Never deploy game assets or external build output.
+tools/rocketsim-diff/native/target/
+tools/rocketsim-diff/__pycache__/
+collision-meshes/
+collision_meshes/

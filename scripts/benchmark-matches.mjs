@@ -46,8 +46,8 @@ for (const seed of [12345, 67890, 24680]) {
     throw new Error(`Benchmark regression for ${seed}`);
   runs.push(actual);
 }
-// Batch throughput: independent matches on every logical CPU.
-const threads = cpus().length;
+// Leave one logical CPU free during the batch.
+const threads = Math.max(1, cpus().length - 1);
 const batch = spawnSync(
   binary,
   [

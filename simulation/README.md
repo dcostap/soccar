@@ -258,6 +258,11 @@ These tests cover selected cases, not every possible input or platform.
 
 ## Accepted behavior and future changes
 
+The local [RocketSim comparison](../tools/rocketsim-diff/README.md) measures trajectory differences at 120 Hz.
+Read its [Phase 0 report](../tools/rocketsim-diff/PHASE0.md) before changing physics toward that reference.
+Reference tolerances never replace exact native/WASM parity.
+The harness and local collision meshes do not form part of the browser build.
+
 The completed port passed exact JavaScript comparisons before removing the JavaScript engine.
 Rust is now authoritative. Those comparisons are history, not a current runtime or test dependency.
 The removed engine remains available in Git history at commit `9983451`.
@@ -293,7 +298,8 @@ It checks scores and physics ticks against the Rust regression baseline before a
 It skips rendering and replay playback, but retains statistics, bot prediction, and match rules.
 Results go into `artifacts/benchmark/report.json`.
 
-It then runs four matches per logical CPU in parallel and records the batch summary.
+It then runs four matches per worker and records the batch summary.
+The worker count is the logical CPU count minus one, with a minimum of one.
 
 On a Ryzen 7 5800X3D (8 cores, 16 threads), the native median per match fell from about 2.4 seconds to about 0.76 seconds.
 The batch runs about 13 complete 3v3 matches per second, or about 580,000 physics ticks per second.
