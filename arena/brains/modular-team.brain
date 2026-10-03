@@ -1,0 +1,11 @@
+# modular-combo with shadow support in 2v2: the second car waits wide and deep, reading the ball a second ahead,
+# and takes over as soon as the attacker loses the ball. 1v1 and 3v3 play exactly as modular-combo.
+module = modular
+skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
+strategy.2 = team
+team.shadow = true
+team.margin = 0
+team.past = 0
+team.lead = 1.0
+team.lateral = 0.8
+team.gap = 1900

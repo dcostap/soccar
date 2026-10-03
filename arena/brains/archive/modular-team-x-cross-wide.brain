@@ -1,0 +1,11 @@
+# Experiment: team strategy with team.shadow=true team.margin=0 team.past=0 team.cross=true team.crossx=1800 team.crossy=2500
+module = modular
+skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
+strategy.2 = team
+strategy.3 = team
+team.shadow = true
+team.margin = 0
+team.past = 0
+team.cross = true
+team.crossx = 1800
+team.crossy = 2500
