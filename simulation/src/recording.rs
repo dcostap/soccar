@@ -329,7 +329,7 @@ impl Clip {
             }
         }
         game.playback = Some(Playback {
-            frames: self.frames.clone(),
+            frames: covered(&self.frames, scenario.time),
             cursor: 0,
             selected: Some(self.car),
             input_car: self.input_car,
@@ -339,6 +339,23 @@ impl Clip {
         game.judge = Some(Judge::new(scenario, &game));
         game
     }
+}
+
+/// The clip's frames, repeating the last one until the judge must decide.
+/// The judge adds ticks in floating point, so it can need one tick more than the clip holds.
+/// A game whose playback runs out stops advancing, and the set piece would never end.
+fn covered(frames: &Arc<Vec<Frame>>, time: f64) -> Arc<Vec<Frame>> {
+    let mut ticks = frames.len();
+    while (ticks as f64) * DT < time + GROUND_WAIT {
+        ticks += 1;
+    }
+    if ticks == frames.len() {
+        return frames.clone();
+    }
+    let mut padded = frames.as_ref().clone();
+    let last = padded.last().expect("a clip has frames").clone();
+    padded.resize(ticks, last);
+    Arc::new(padded)
 }
 
 impl Game {

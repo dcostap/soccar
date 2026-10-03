@@ -153,3 +153,27 @@ fn captured_moments_turn_the_tested_team_into_blue() {
         });
     }
 }
+
+#[test]
+fn a_set_piece_that_outlasts_its_clip_still_ends() {
+    // The judge may need one tick more than the clip holds. With aerial-a, the ball is still
+    // in the air on that tick, and the game used to stop advancing.
+    let text = include_str!("../../arena/scenarios/user-defend.txt");
+    let start = text.find("[deny-immediate-rebound]").unwrap();
+    let block = text[start..].split_once('\n').unwrap().1;
+    let block = block.split("\n[").next().unwrap();
+    let brain = BrainSpec::parse(
+        "modular-solo-aerial-a",
+        "module = modular\nstrategy.1 = alpha\nskills = aerial-a",
+    )
+    .unwrap();
+    let mut game = start_scenario(&job(block, brain));
+    for _ in 0..2000 {
+        if game.outcome.is_some() {
+            break;
+        }
+        game.tick(Default::default());
+    }
+    let outcome = game.outcome.expect("the set piece ends");
+    assert!(outcome.seconds >= 7.4, "{outcome:?}");
+}
