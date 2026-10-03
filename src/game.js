@@ -300,14 +300,16 @@ var Ot = {
         u = this.mouseButtons.has(0) && !this.suppressedMouse.has(0),
         d = this.mouseButtons.has(2) && !this.suppressedMouse.has(2);
       if (this.lastDevice === `keyboard` || c || l) {
-        ((c || l) && (r.dodgeMag = Math.abs(c) + Math.abs(l)),
-          c && ((r.throttle = c), (r.pitch = -c)),
+        (c && ((r.throttle = c), (r.pitch = -c)),
           l && ((r.steer = l), (r.yaw = l)),
           this.key(Mt.powerslide) &&
             ((r.handbrake = !0), l && ((r.roll = l), (r.yaw = 0))));
         let e = this.key(Mt.airRollLeft),
           t = this.key(Mt.airRollRight);
         (e || t) && (r.roll = !!t - +!!e);
+        // Count keyboard air roll toward the dodge even when an idle controller set dodgeMag.
+        (c || l || e || t) &&
+          (r.dodgeMag = Math.abs(c) + Math.abs(l) + (e || t ? 1 : 0));
       }
       ((r.jump ||= this.key(Mt.jump) || d),
         (r.boost ||= this.key(Mt.boost) || u),

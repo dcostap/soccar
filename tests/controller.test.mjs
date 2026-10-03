@@ -109,6 +109,14 @@ test("default controller bindings match the selected layout", () => {
   );
 });
 
+test("keyboard air roll counts toward the dodge with an idle controller connected", () => {
+  const game = setup();
+  game.events.get("keydown")({ code: "KeyE", preventDefault() {} });
+  const controls = game.frame().input.controls;
+  assert.equal(controls.roll, 1);
+  assert.equal(controls.dodgeMag, 1);
+});
+
 test("controller remapping captures analog trigger presses", () => {
   const game = setup();
   game.frame();
