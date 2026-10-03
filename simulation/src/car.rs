@@ -315,7 +315,7 @@ impl Car {
         let speed = self.vel.dot(forward);
         let abs_speed = speed.abs();
         if controls.handbrake {
-            self.handbrake_val += 6.5 * dt;
+            self.handbrake_val += 5.0 * dt;
         } else {
             self.handbrake_val -= 2.0 * dt;
         }

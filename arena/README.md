@@ -153,6 +153,12 @@ the ball and cars start placed, and a judge decides one outcome within a few sec
 In an attack, blue must score. In a defense, blue must not concede.
 The brain under test always drives blue, which attacks positive y, so it must also work with no teammates or rivals.
 
+The active loader ignores `arena/scenarios/archive/`.
+That folder preserves recorded player clips from earlier physics versions.
+Use their matching engine for recovery; never replace their fingerprints to force a load.
+The powerslide-rate change retired the old arena results and recorded player suites.
+Local result and export backups are in `artifacts/archive/before-powerslide-5/`.
+
 Suites are `arena/scenarios/*.txt`. Each scenario starts with a `[name]` header and uses the text form in
 `simulation/src/scenario.rs`:
 

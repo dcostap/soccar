@@ -156,18 +156,19 @@ fn captured_moments_turn_the_tested_team_into_blue() {
 
 #[test]
 fn a_set_piece_that_outlasts_its_clip_still_ends() {
-    // The judge may need one tick more than the clip holds. With aerial-a, the ball is still
-    // in the air on that tick, and the game used to stop advancing.
-    let text = include_str!("../../arena/scenarios/user-defend.txt");
-    let start = text.find("[deny-immediate-rebound]").unwrap();
-    let block = text[start..].split_once('\n').unwrap().1;
-    let block = block.split("\n[").next().unwrap();
-    let brain = BrainSpec::parse(
-        "modular-solo-aerial-a",
-        "module = modular\nstrategy.1 = alpha\nskills = aerial-a",
-    )
-    .unwrap();
-    let mut game = start_scenario(&job(block, brain));
+    // Keep this check independent of archived, source-versioned player clips.
+    let brain = idle();
+    let mut source = start_scenario(&job(
+        "kind = defend\ntime = 4.4\nball = 0 0 1000\ncar = blue -1500 -1800 0 0 0",
+        brain.clone(),
+    ));
+    source.world.ball.frozen = true;
+    let mut scenario = Scenario::capture_car(&source, 0, Kind::Defend, 4.4, None).unwrap();
+    let clip = scenario.clip.as_mut().unwrap();
+    let frames = std::sync::Arc::make_mut(&mut clip.frames);
+    frames.pop();
+    // A trusted in-memory clip can be short. The start path pads it through the judge's wait.
+    let mut game = start_scenario(&ScenarioJob { scenario, brain });
     for _ in 0..2000 {
         if game.outcome.is_some() {
             break;
@@ -176,4 +177,17 @@ fn a_set_piece_that_outlasts_its_clip_still_ends() {
     }
     let outcome = game.outcome.expect("the set piece ends");
     assert!(outcome.seconds >= 7.4, "{outcome:?}");
+}
+
+#[test]
+fn archived_player_clips_cannot_load_under_new_physics() {
+    let text = include_str!("../../arena/scenarios/archive/before-powerslide-5/user-defend.txt");
+    let start = text.find("[deny-immediate-rebound]").unwrap();
+    let block = text[start..].split_once('\n').unwrap().1;
+    let block = block.split("\n[").next().unwrap();
+    assert!(
+        Scenario::parse(block)
+            .unwrap_err()
+            .contains("another simulation version")
+    );
 }

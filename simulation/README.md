@@ -214,24 +214,24 @@ The normal check still compares every existing baseline hash.
 `simulation/regression.json` stores SHA-256 hashes of accepted Rust state streams and match results.
 These hashes detect changes even when native and WASM implementations change together.
 The current baseline includes `libm` trigonometry, a plain `hypot`, randomized car-ball contact order, and contact-based saves.
-The save change alters statistics and save events, not match scores or tick counts.
-It includes 170,333 states and 755,073,599 fields
+It also uses RocketSim's powerslide rise rate of 5 per second and fall rate of 2 per second.
+The powerslide update changes physics trajectories and match results.
+It includes 180,023 states and 798,801,524 fields
 across 16 cases.
 
 | Seed  | Score | Overtime | Controller ticks | Physics ticks |
 | ----- | ----- | -------- | ---------------- | ------------- |
-| 12345 | 7–8   | Yes      | 60,223           | 52,077        |
-| 67890 | 3–4   | No       | 47,526           | 43,746        |
-| 24680 | 2–4   | No       | 46,128           | 42,888        |
+| 12345 | 7–6   | No       | 56,412           | 49,392        |
+| 67890 | 3–4   | No       | 47,270           | 43,490        |
+| 24680 | 6–7   | Yes      | 59,885           | 52,865        |
 
-The match results above remain unchanged after the save change.
-
-The save change also updates the source-based recording version.
-Recordings from the preceding engine still load and retain their original statistics and save events.
-The first save-update build also remains compatible and uses contact-based saves.
-Captured clips and new recordings made from those replays retain the original scoring version.
-New matches use the improved save check. Fixed recorded scenarios remain unchanged.
-Compatibility applies only to this exact save update. Other simulation changes still trigger the version check.
+The current recording engine is `90163d5a55fc7b2c`.
+It rejects recordings from earlier physics versions, including the save-update engines.
+The save-only compatibility exception no longer applies after the powerslide change.
+Old player clips remain unchanged in `arena/scenarios/archive/before-powerslide-5/`.
+Local results, exports, and the previous WASM remain in `artifacts/archive/before-powerslide-5/`.
+Browser-stored recordings remain available for download, but need their matching engine for playback.
+Source commit `8b46ba9` rebuilds the preceding engine for recovery.
 
 The state runner streams bounded blocks instead of retaining complete traces in memory.
 A difference reports the case, tick, block, field index, and floating-point bits.
@@ -262,6 +262,12 @@ The local [RocketSim comparison](../tools/rocketsim-diff/README.md) measures tra
 Read its [Phase 0 report](../tools/rocketsim-diff/PHASE0.md) before changing physics toward that reference.
 Reference tolerances never replace exact native/WASM parity.
 The harness and local collision meshes do not form part of the browser build.
+
+Powerslide buildup now uses the measured RocketSim rate of 5 per second instead of 6.5.
+The fall rate remains 2 per second. `Controls.dodge_mag` remains a deliberate input extension.
+With no supplied magnitude, bots retain RocketSim's sum-of-absolute-controls dodge rule.
+The game retains its steer, yaw, and roll signs; the reference harness converts equivalent control directions.
+The [powerslide report](../tools/rocketsim-diff/POWERSLIDE.md) records the measured improvement and remaining differences.
 
 The completed port passed exact JavaScript comparisons before removing the JavaScript engine.
 Rust is now authoritative. Those comparisons are history, not a current runtime or test dependency.
@@ -301,8 +307,10 @@ Results go into `artifacts/benchmark/report.json`.
 It then runs four matches per worker and records the batch summary.
 The worker count is the logical CPU count minus one, with a minimum of one.
 
-On a Ryzen 7 5800X3D (8 cores, 16 threads), the native median per match fell from about 2.4 seconds to about 0.76 seconds.
-The batch runs about 13 complete 3v3 matches per second, or about 580,000 physics ticks per second.
+On a Ryzen 7 5800X3D (8 cores, 16 threads), the current native median is about 0.91 seconds per match.
+With 15 workers, the batch runs about 9.7 complete 3v3 matches per second, or about 454,000 physics ticks per second.
+The [powerslide report](../tools/rocketsim-diff/POWERSLIDE.md) compares performance before and after that behavior change.
+Changed trajectories change the workload, so these times do not isolate instruction cost.
 Trace checks include serialization and transfer. Do not use their times as performance measurements.
 
 ### Exact optimizations

@@ -8,7 +8,7 @@ import {
 import { REPLAY_INPUT } from "../src/watch-replay.js";
 import { playbackTime } from "../src/replay-timeline.js";
 
-const config = (seed = 12350) => ({
+const config = (seed = 12371) => ({
   teamSize: 3,
   skill: "allstar",
   playerTeam: -1,
@@ -18,7 +18,7 @@ const config = (seed = 12350) => ({
     seed,
     brains: ["", ""],
     names: ["blue", "orange"],
-    expect: [3, 2],
+    expect: [4, 3],
   },
 });
 function trace(wasm, game) {
@@ -85,7 +85,7 @@ test("watch seeking keeps exact hidden state, replay images, highlights, and han
     game.watch.follow = 4;
     game.watch.speed = 4;
     assert.ok(replay.highlights.some((h) => h.type === "overtime"));
-    assert.equal(replay.highlights.filter((h) => h.type === "goal").length, 5);
+    assert.equal(replay.highlights.filter((h) => h.type === "goal").length, 7);
     assert.ok(replay.highlights.some((h) => h.type === "save"));
     assert.ok(replay.highlights.some((h) => h.type === "demo"));
 

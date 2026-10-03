@@ -91,6 +91,15 @@ npm run test:simulation:full
 
 `test:recordings` compares native and WASM state exactly.
 `test:replay-browser` checks multiple stored games, reload, older-game playback, and database migration.
+That browser check needs a current arena export in the production build.
+After archiving arena data, create a small fresh export before building:
+
+```sh
+npm run arena -- ladder rookie allstar --pairs 1
+npm run test:replay-browser
+```
+
+Do not run export writes while the browser check builds its production assets.
 
 ## Agent inspection
 
