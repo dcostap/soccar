@@ -21,6 +21,7 @@ On Linux, replace `Scripts/python.exe` with `bin/python`.
 The native runner uses a separate Cargo target directory.
 Use `--no-build` after a build, or `--filter steer-` to select cases.
 Use `--output <folder>` to keep separate reports before and after each change.
+Use `--suite goals` for the fixed 96-case goal neighborhood.
 
 The report contains peak, RMS, and final errors for each body.
 It also reports state-flag differences, boost, handbrake value, and pad cooldowns.
@@ -54,6 +55,17 @@ The dumper executable SHA-256 was `91a40fc8d705a4c44b692c534f826253cf7b60b34bfac
 Keep mesh files and third-party binaries under ignored `artifacts/`.
 Game ownership does not establish permission to distribute game assets.
 No game mesh forms part of this public repository or the Pages build.
+
+To compare analytic arena queries with the local triangles, run:
+
+```sh
+artifacts/rocketsim-diff/venv/Scripts/python.exe tools/rocketsim-diff/inspect_mesh.py \
+  --meshes artifacts/rocketsim-diff/dumper/collision_meshes
+```
+
+The probe reads Rust queries from the current WASM build.
+Use `--wasm <path>` to measure an isolated prototype build.
+The report records all input hashes. It does not copy triangle data into the repository.
 
 ## Compare equivalent inputs
 
@@ -90,6 +102,7 @@ The scenarios isolate useful actions, but they do not cover every contact point 
 Long contact traces can amplify an early collision difference.
 Use peak and final errors together; inspect first contact before changing a solver.
 Reports are measurements, not a claim that Rocket League and Soccar agree.
+See [the goal geometry audit](GOAL-GEOMETRY.md) for one rejected broad geometry fit.
 
 Keep native/WASM checks exact.
 Keep RocketSim tolerances separate from the deterministic regression hashes.

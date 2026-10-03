@@ -221,6 +221,7 @@ def main():
     parser.add_argument("--meshes", type=Path, help="Local collision-meshes folder from the dumper")
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/rocketsim-diff/run")
     parser.add_argument("--filter", default="", help="Scenario name substring")
+    parser.add_argument("--suite", choices=("baseline", "goals"), default="baseline")
     parser.add_argument("--no-build", action="store_true")
     parser.add_argument("--match-controls", action="store_true",
                         help="Reverse Soccar steer, yaw, and roll inputs to match RocketSim's signs")
@@ -241,7 +242,13 @@ def main():
     if not args.no_build:
         subprocess.run(["cargo", "build", "--locked", "--release", "--manifest-path", str(manifest)], check=True)
     binary = manifest.parent / "target/release" / ("soccar-diff-trace.exe" if os.name == "nt" else "soccar-diff-trace")
-    selected = [s for s in suite() if args.filter in s["name"]]
+    if args.suite == "goals":
+        from goal_cases import suite as selected_suite
+        suite_path = Path(__file__).with_name("goal_cases.py")
+    else:
+        selected_suite = suite
+        suite_path = Path(__file__).with_name("scenarios.py")
+    selected = [s for s in selected_suite() if args.filter in s["name"]]
     if not selected:
         parser.error("No scenarios match the filter")
     report = dict(schema=1, reference="rocketsim==2.2.1", tick_rate=120,
@@ -253,7 +260,8 @@ def main():
                   soccar_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
                   native_binary_sha256=file_hash(binary),
                   reference_binary_sha256=file_hash(Path(rs.__file__)),
-                  suite_sha256=file_hash(Path(__file__).with_name("scenarios.py")),
+                  suite=args.suite, suite_sha256=file_hash(suite_path),
+                  scenario_helpers_sha256=file_hash(Path(__file__).with_name("scenarios.py")),
                   harness_sha256=file_hash(Path(__file__)),
                   mesh_sha256=mesh_hashes, results=[], blocked=[],
                   unsupported=["match countdown and kickoff timing", "ball orientation (Soccar does not store it)",
