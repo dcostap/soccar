@@ -112,9 +112,9 @@ var Ot = {
     jump: Ot.CROSS,
     boost: Ot.SQUARE,
     powerslide: Ot.R1,
-    airRoll: Ot.L2,
-    airRollLeft: Ot.R1,
-    airRollRight: Ot.L1,
+    airRoll: Ot.R1,
+    airRollLeft: null,
+    airRollRight: null,
     ballCam: Ot.L1,
     rearView: Ot.R3,
     scoreboard: Ot.L3,
@@ -41719,7 +41719,8 @@ function dx(e) {
       ...ux.map(([n, r]) => ({
         type: `bind`,
         label: r,
-        get: () => kt[t[n]] ?? `Button ${t[n]}`,
+        get: () =>
+          t[n] == null ? `Unbound` : (kt[t[n]] ?? `Button ${t[n]}`),
         rebind: () => {
           let r = document.querySelector(`.menu-item.focus .mi-value`);
           (r && (r.textContent = `Press a button…`),

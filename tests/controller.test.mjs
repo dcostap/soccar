@@ -50,6 +50,7 @@ function setup() {
   return {
     events,
     menu: context.menu,
+    pad,
     bindings: context.wx.settings.padBindings,
     press(index, value = 1) {
       buttons[index] = { pressed: value === 1, value };
@@ -97,9 +98,9 @@ test("default controller bindings match the selected layout", () => {
       jump: 0,
       boost: 2,
       powerslide: 5,
-      airRoll: 6,
-      airRollLeft: 5,
-      airRollRight: 4,
+      airRoll: 5,
+      airRollLeft: null,
+      airRollRight: null,
       ballCam: 4,
       rearView: 11,
       scoreboard: 10,
@@ -115,6 +116,18 @@ test("keyboard air roll counts toward the dodge with an idle controller connecte
   const controls = game.frame().input.controls;
   assert.equal(controls.roll, 1);
   assert.equal(controls.dodgeMag, 1);
+});
+
+test("free air roll turns the stick into roll and does not roll without it", () => {
+  const game = setup();
+  game.press(game.bindings.airRoll);
+  let controls = game.frame().input.controls;
+  assert.equal(controls.roll ?? 0, 0);
+  assert.equal(controls.yaw, 0);
+  game.pad.axes[0] = -1;
+  controls = game.frame().input.controls;
+  assert.equal(controls.roll, -1);
+  assert.equal(controls.yaw, 0);
 });
 
 test("controller remapping captures analog trigger presses", () => {
