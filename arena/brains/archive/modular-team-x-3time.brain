@@ -1,5 +1,0 @@
-# Experiment: team strategy, 3v3 only, with team.3.timecost=true
-module = modular
-skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
-strategy.3 = team
-team.3.timecost = true

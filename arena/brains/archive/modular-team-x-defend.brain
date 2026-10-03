@@ -1,7 +1,0 @@
-# Experiment: modular-team-shadow with team.danger=7000
-module = modular
-skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
-strategy.2 = team
-strategy.3 = team
-team.shadow = true
-team.danger = 7000

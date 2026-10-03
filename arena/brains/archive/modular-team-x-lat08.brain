@@ -1,8 +1,0 @@
-# Experiment: team strategy, 2v2 only, quick2 with team.lateral=0.8
-module = modular
-skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
-strategy.2 = team
-team.shadow = true
-team.margin = 0
-team.past = 0
-team.lateral = 0.8

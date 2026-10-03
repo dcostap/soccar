@@ -1,8 +1,0 @@
-# Experiment: team strategy, 3v3 only, with team.3.back=true team.3.gap=2600 team.3.lateral=0.4 team.3.lead=0
-module = modular
-skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
-strategy.3 = team
-team.3.back = true
-team.3.gap = 2600
-team.3.lateral = 0.4
-team.3.lead = 0

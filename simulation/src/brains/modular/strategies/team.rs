@@ -3,24 +3,20 @@
 //!
 //! - `team.shadow`: a support stops double-committing. While the attacker has the play, it follows the ball
 //!   `team.gap` behind it, ready for a rebound or a pass, and takes over as soon as the attacker loses it.
-//! - `team.keeper`: the 3v3 goalkeeper stands this far behind the ball instead of on the goal line.
-//! - `team.cross`: with the ball wide in the attacking third, the shadow waits in the slot in front of goal
-//!   (`team.wait` 0 disables this),
-//!   and the attacker passes the ball to the slot instead of shooting from a poor angle (`team.pass`).
+//! - `team.timecost`: the attacker is the car that reaches the ball first, not the nearest.
 use crate::{
     brains::{
         Context, Params,
         modular::{
             kit::{
-                ATTACK, Bot, GOALIE, Maneuver, Mode, Plan, SUPPORT, Settings, Strategy, Team,
-                avoid_ball, drive, ground_time, nearest_pad, own_goal_touch,
+                ATTACK, Bot, GOALIE, Maneuver, Mode, SUPPORT, Settings, Strategy, Team, avoid_ball,
+                ground_time, nearest_pad,
             },
             tactics::Tactics,
         },
     },
     car::{Car, Controls},
-    math::{atan2, clamp, cos, hypot2, sin},
-    predictor::Slice,
+    math::clamp,
     vector::Vec3,
 };
 
@@ -43,35 +39,9 @@ struct Opts {
     margin: f64,
     past: f64,
     danger: f64,
-    keeper: f64,
-    keepmax: f64,
-    cross: bool,
-    crossx: f64,
-    crossy: f64,
-    slot: f64,
-    far: f64,
-    wait: f64,
-    ready: f64,
-    crossspeed: f64,
-    crossflip: bool,
-    pass: bool,
     timecost: bool,
     stick: f64,
     behind: f64,
-    join: f64,
-    joiny: f64,
-    control: f64,
-    back: bool,
-}
-
-/// What this strategy does with a car this tick.
-enum Choice {
-    /// The core tactics drive it.
-    Core,
-    /// Drive to a spot, matching the given speed there.
-    Spot(Vec3, f64),
-    /// Pass the ball to this point.
-    Cross(Vec3),
 }
 
 pub fn create(
@@ -110,39 +80,12 @@ impl Opts {
             past: params.number("team.past", 300.0)?,
             // The shadow always challenges a ball this close to the own goal while goal-side of it.
             danger: params.number("team.danger", 2500.0)?,
-            keeper: params.number("team.keeper", 0.0)?,
-            // The keeper goes no farther upfield than this, in field units from the center line.
-            keepmax: params.number("team.keepmax", -1000.0)?,
-            cross: params.flag("team.cross", false)?,
-            // A ball at least this far from the middle and this far upfield is crossed.
-            crossx: params.number("team.crossx", 1000.0)?,
-            crossy: params.number("team.crossy", 3000.0)?,
-            // The cross aims this far in front of the rival goal line, `team.far` past the middle.
-            slot: params.number("team.slot", 1100.0)?,
-            far: params.number("team.far", 300.0)?,
-            // The finisher waits this far in front of the rival goal line.
-            wait: params.number("team.wait", 2600.0)?,
-            // A teammate counts as ready within this distance behind the cross point.
-            ready: params.number("team.ready", 2500.0)?,
-            crossspeed: params.number("team.crossspeed", 2300.0)?,
-            crossflip: params.flag("team.crossflip", true)?,
-            // With `team.cross`, false keeps the slot positioning but never passes.
-            pass: params.flag("team.pass", true)?,
             // Choose the attacker by estimated arrival time instead of distance.
             timecost: params.flag("team.timecost", false)?,
             // Seconds of preference for the current attacker, against role flicker.
             stick: params.number("team.stick", 0.1)?,
             // Seconds added per unit a car is upfield of the ball. Alphabravo's distance cost uses 1.5 units per unit.
             behind: params.number("team.behind", 0.00065)?,
-            // In teams of three, the keeper takes the ball when it arrives this many seconds before the attacker.
-            // Negative disables it.
-            join: params.number("team.join", -1.0)?,
-            // The keeper joins only while the ball is at most this far upfield.
-            joiny: params.number("team.joiny", 0.0)?,
-            // The shadow also takes over while the attacker is farther than this from the ball. Zero disables it.
-            control: params.number("team.control", 0.0)?,
-            // Without `team.shadow`, a support upfield of the ball returns to the shadow spot at full speed.
-            back: params.flag("team.back", false)?,
         })
     }
     fn read(params: &mut Params, size: usize, base: &Self) -> Result<Self, String> {
@@ -154,25 +97,9 @@ impl Opts {
             margin: params.number(&format!("team.{size}.margin"), base.margin)?,
             past: params.number(&format!("team.{size}.past"), base.past)?,
             danger: params.number(&format!("team.{size}.danger"), base.danger)?,
-            keeper: params.number(&format!("team.{size}.keeper"), base.keeper)?,
-            keepmax: params.number(&format!("team.{size}.keepmax"), base.keepmax)?,
-            cross: params.flag(&format!("team.{size}.cross"), base.cross)?,
-            crossx: params.number(&format!("team.{size}.crossx"), base.crossx)?,
-            crossy: params.number(&format!("team.{size}.crossy"), base.crossy)?,
-            slot: params.number(&format!("team.{size}.slot"), base.slot)?,
-            far: params.number(&format!("team.{size}.far"), base.far)?,
-            wait: params.number(&format!("team.{size}.wait"), base.wait)?,
-            ready: params.number(&format!("team.{size}.ready"), base.ready)?,
-            crossspeed: params.number(&format!("team.{size}.crossspeed"), base.crossspeed)?,
-            crossflip: params.flag(&format!("team.{size}.crossflip"), base.crossflip)?,
-            pass: params.flag(&format!("team.{size}.pass"), base.pass)?,
             timecost: params.flag(&format!("team.{size}.timecost"), base.timecost)?,
             stick: params.number(&format!("team.{size}.stick"), base.stick)?,
             behind: params.number(&format!("team.{size}.behind"), base.behind)?,
-            join: params.number(&format!("team.{size}.join"), base.join)?,
-            joiny: params.number(&format!("team.{size}.joiny"), base.joiny)?,
-            control: params.number(&format!("team.{size}.control"), base.control)?,
-            back: params.flag(&format!("team.{size}.back"), base.back)?,
         })
     }
 }
@@ -187,19 +114,17 @@ impl Strategy for TeamPlay {
         team
     }
     fn mode(&self, i: usize, ctx: &Context, team: Team) -> Mode {
-        // A cross reports `Strike`: a skill that finds a scoring touch, such as touch-a, still shoots instead.
-        match self.choice(i, ctx, team) {
-            Choice::Core => self.core.mode(i, ctx, team),
-            Choice::Spot(..) => Mode::Position,
-            Choice::Cross(_) => Mode::Strike,
+        if self.positions(i, ctx, team) {
+            Mode::Position
+        } else {
+            self.core.mode(i, ctx, team)
         }
     }
     fn act(&mut self, i: usize, ctx: &Context, team: Team) -> Controls {
-        let (spot, pace) = match self.choice(i, ctx, team) {
-            Choice::Core => return self.core.act(i, ctx, team),
-            Choice::Cross(point) => return self.pass(i, ctx, point),
-            Choice::Spot(spot, pace) => (spot, pace),
-        };
+        if !self.positions(i, ctx, team) {
+            return self.core.act(i, ctx, team);
+        }
+        let (spot, pace) = self.shadow_spot(i, ctx);
         let bot = &mut self.core.bots[i];
         bot.kickoff_flip_done = false;
         let c = &ctx.world.cars[bot.car];
@@ -239,10 +164,10 @@ impl Strategy for TeamPlay {
 }
 
 impl TeamPlay {
-    /// Replaces the core's attacker by `team.timecost` and `team.join`, then assigns the other roles as the core does.
+    /// Replaces the core's attacker by `team.timecost`, then assigns the other roles as the core does.
     fn reassign(&mut self, ctx: &Context, team: Team) {
         let o = *self.o();
-        if !o.timecost && o.join < 0.0 {
+        if !o.timecost {
             return;
         }
         let w = ctx.world;
@@ -251,41 +176,17 @@ impl TeamPlay {
         let mate = ctx.player.filter(|&id| w.cars[id].team == self.core.team);
         let ids: Vec<usize> = self.core.bots.iter().map(|b| b.car).chain(mate).collect();
         let active = |id: usize| !w.cars[id].is_demoed && !w.cars[id].frozen;
-        let time = |id: usize| ground_time(&w.cars[id], ball, true);
         let previous = self.core.previous;
-        let mut attacker = previous;
-        if o.timecost {
-            let cost = |id: usize| {
-                time(id) + ((w.cars[id].pos.y - ball.y) * d).max(0.0) * o.behind
-                    - if self.core.previous == Some(id) {
-                        o.stick
-                    } else {
-                        0.0
-                    }
-            };
-            attacker = ids
-                .iter()
-                .copied()
-                .filter(|&id| active(id))
-                .min_by(|&a, &b| cost(a).total_cmp(&cost(b)));
-        }
-        if o.join >= 0.0
-            && team.count >= 3
-            && ball.y * d < o.joiny
-            && let Some(current) = attacker
-            && let Some(keeper) = self
-                .core
-                .bots
-                .iter()
-                .find(|b| b.role == GOALIE)
-                .map(|b| b.car)
-            && keeper != current
-            && active(keeper)
-            && (w.cars[keeper].pos.y - ball.y) * d < 0.0
-            && time(keeper) + o.join < time(current)
-        {
-            attacker = Some(keeper);
-        }
+        let cost = |id: usize| {
+            ground_time(&w.cars[id], ball, true)
+                + ((w.cars[id].pos.y - ball.y) * d).max(0.0) * o.behind
+                - if previous == Some(id) { o.stick } else { 0.0 }
+        };
+        let attacker = ids
+            .iter()
+            .copied()
+            .filter(|&id| active(id))
+            .min_by(|&a, &b| cost(a).total_cmp(&cost(b)));
         if attacker == previous {
             return;
         }
@@ -315,27 +216,14 @@ impl TeamPlay {
         if self.core.team == 0 { 1.0 } else { -1.0 }
     }
 
-    fn choice(&self, i: usize, ctx: &Context, team: Team) -> Choice {
-        if self.positions(i, ctx, team) {
-            let (spot, pace) = if self.core.bots[i].role == GOALIE {
-                self.keep_spot(i, ctx)
-            } else {
-                self.shadow_spot(i, ctx)
-            };
-            Choice::Spot(spot, pace)
-        } else if let Some(point) = self.cross_point(i, ctx, team) {
-            Choice::Cross(point)
-        } else {
-            Choice::Core
-        }
-    }
-
     /// True when this strategy, not the core, positions bot `i` this tick.
     fn positions(&self, i: usize, ctx: &Context, team: Team) -> bool {
         let bot = &self.core.bots[i];
         let w = ctx.world;
         let c = &w.cars[bot.car];
-        if team.kickoff
+        if !self.o().shadow
+            || bot.role != SUPPORT
+            || team.kickoff
             || c.frozen
             || c.is_demoed
             || !matches!(bot.maneuver, Maneuver::None)
@@ -348,20 +236,11 @@ impl TeamPlay {
         let ball = w.ball.pos;
         let own_goal = Vec3::new(0.0, -d * 5120.0, 0.0);
         let goal_side = (c.pos.y - ball.y) * d < 0.0;
-        match bot.role {
-            SUPPORT if self.o().shadow => {
-                let near = ball.distance(own_goal);
-                let engage = goal_side
-                    && near < bot.settings.supportbox
-                    && (near < self.o().danger || self.lost(c, ctx));
-                !engage
-            }
-            SUPPORT if self.o().back => !goal_side,
-            GOALIE if self.o().keeper > 0.0 => {
-                !(goal_side && ball.distance(own_goal) < bot.settings.boxdist)
-            }
-            _ => false,
-        }
+        let near = ball.distance(own_goal);
+        let engage = goal_side
+            && near < bot.settings.supportbox
+            && (near < self.o().danger || self.lost(c, ctx));
+        !engage
     }
 
     /// The attacker no longer has the play: it is gone, beaten by the ball, or much slower to it than `me`.
@@ -376,10 +255,6 @@ impl TeamPlay {
         }
         let ball = w.ball.pos;
         if (attacker.pos.y - ball.y) * self.d() > self.o().past {
-            return true;
-        }
-        let control = self.o().control;
-        if control > 0.0 && attacker.pos.distance(ball) > control {
             return true;
         }
         ground_time(me, ball, true) + self.o().margin < ground_time(attacker, ball, true)
@@ -406,15 +281,6 @@ impl TeamPlay {
         let c = &w.cars[bot.car];
         let own_goal = Vec3::new(0.0, -d * 5120.0, 0.0);
         let (ball, speed) = self.ahead(ctx);
-        if self.o().cross
-            && self.o().wait > 0.0
-            && ball.y * d > self.o().crossy - 800.0
-            && ball.x.abs() > self.o().crossx * 0.7
-        {
-            // Wait in the slot for a cross.
-            let spot = Vec3::new(-ball.x * 0.1, d * (5120.0 - self.o().wait), 0.0);
-            return (avoid_ball(c.pos, spot, w.ball.pos, own_goal), 0.0);
-        }
         let mut target = Vec3::new(
             clamp(ball.x * self.o().lateral, -3000.0, 3000.0),
             clamp(ball.y - d * self.o().gap, -4700.0, 4700.0),
@@ -433,176 +299,4 @@ impl TeamPlay {
         }
         (target, speed)
     }
-
-    /// Where the keeper waits: `team.keeper` behind the ball, between the goal line and `team.keepmax`.
-    fn keep_spot(&self, i: usize, ctx: &Context) -> (Vec3, f64) {
-        let d = self.d();
-        let w = ctx.world;
-        let bot = &self.core.bots[i];
-        let c = &w.cars[bot.car];
-        let (ball, _) = self.ahead(ctx);
-        let line = -5120.0 + bot.settings.goalie;
-        let up = clamp(
-            ball.y * d - self.o().keeper,
-            line,
-            self.o().keepmax.max(line),
-        );
-        let x = clamp(ball.x * 0.3, -700.0, 700.0) * clamp((up - line) / 2000.0 + 1.0, 1.0, 3.0);
-        let mut target = Vec3::new(x, up * d, 0.0);
-        let own_goal = Vec3::new(0.0, -d * 5120.0, 0.0);
-        if bot.settings.avoid {
-            target = avoid_ball(c.pos, target, w.ball.pos, own_goal);
-        }
-        (target, 0.0)
-    }
-
-    /// Where the attacker should cross the ball to, if it should cross now.
-    fn cross_point(&self, i: usize, ctx: &Context, team: Team) -> Option<Vec3> {
-        let bot = &self.core.bots[i];
-        let w = ctx.world;
-        let c = &w.cars[bot.car];
-        if !self.o().cross
-            || !self.o().pass
-            || bot.role != ATTACK
-            || team.kickoff
-            || team.count < 2
-            || c.frozen
-            || c.is_demoed
-            || !matches!(bot.maneuver, Maneuver::None)
-            || !c.is_on_ground
-            || c.up.z < 0.7
-        {
-            return None;
-        }
-        let d = self.d();
-        let ball = &w.ball;
-        if ball.pos.z > 250.0
-            || ball.pos.y * d < self.o().crossy
-            || ball.pos.y * d > 5000.0
-            || ball.pos.x.abs() < self.o().crossx
-        {
-            return None;
-        }
-        // A ball already on its way in needs no pass.
-        let line = 5120.0 + ball.radius;
-        if ctx.predictor.slices.iter().any(|s| s.pos.y * d > line) {
-            return None;
-        }
-        let side = if ball.pos.x > 0.0 { 1.0 } else { -1.0 };
-        let point = Vec3::new(-side * self.o().far, d * (5120.0 - self.o().slot), 0.0);
-        // The car must come at the ball from the side away from the point.
-        let to_ball = Vec3::new(ball.pos.x - c.pos.x, ball.pos.y - c.pos.y, 0.0);
-        let to_point = Vec3::new(point.x - ball.pos.x, point.y - ball.pos.y, 0.0);
-        if to_ball.dot(to_point) <= 0.0 {
-            return None;
-        }
-        let ready = w.cars.iter().any(|m| {
-            let up = m.pos.y * d;
-            m.team == self.core.team
-                && m.id != c.id
-                && !m.is_demoed
-                && !m.frozen
-                && up > point.y * d - self.o().ready
-                && up < point.y * d + 300.0
-                && m.pos.x.abs() < 2500.0
-        });
-        ready.then_some(point)
-    }
-
-    /// Strikes the ball toward `point`, with the core's strike planner and flip.
-    fn pass(&mut self, i: usize, ctx: &Context, point: Vec3) -> Controls {
-        let w = ctx.world;
-        let d = self.d();
-        let ball = w.ball.pos;
-        let speed = self.o().crossspeed;
-        let flip = self.o().crossflip;
-        let bot = &mut self.core.bots[i];
-        bot.kickoff_flip_done = false;
-        let c = &w.cars[bot.car];
-        let p = plan_to(ctx, c, bot.settings, point);
-        bot.target = p.target;
-        let mut output = drive(
-            c,
-            p.target,
-            speed * bot.settings.speed,
-            bot.settings.boost && c.boost > 0.0,
-        );
-        let delta = ball.minus(c.pos);
-        let angle = atan2(delta.dot(c.left), delta.dot(c.forward));
-        let dist = hypot2(delta.x, delta.y);
-        if flip
-            && bot.settings.flip
-            && !own_goal_touch(c.pos, ball, d)
-            && dist < 320.0
-            && ball.z < 175.0
-            && c.forward_speed() > 650.0
-            && angle.abs() < 0.4
-        {
-            bot.maneuver = Maneuver::Flip {
-                t: 0.0,
-                pitch: -cos(angle),
-                yaw: -sin(angle),
-            };
-            output = bot.tick(w, ctx.predictor);
-        }
-        bot.out = output;
-        output
-    }
-}
-
-/// The core's strike search (`tactics::plan`), aimed at `point` instead of the rival goal.
-fn plan_to(ctx: &Context, c: &Car, settings: Settings, point: Vec3) -> Plan {
-    let w = ctx.world;
-    let mut best = Plan {
-        slice: Slice {
-            t: 0.0,
-            pos: w.ball.pos,
-            vel: w.ball.vel,
-        },
-        target: w.ball.pos,
-        cost: 100.0,
-    };
-    let speed = c.forward_speed().max(0.0);
-    let boosted = settings.boost && c.boost > 10.0;
-    let maximum = (if boosted { 2250.0 } else { 1450.0 }) * settings.speed.max(0.1);
-    let acceleration = if boosted { 1400.0 } else { 900.0 };
-    for s in ctx.predictor.slices.iter().step_by(2) {
-        if s.t > settings.predict || s.pos.z > 450.0 {
-            continue;
-        }
-        let dist = hypot2(s.pos.x - c.pos.x, s.pos.y - c.pos.y);
-        let mut aim = point.minus(s.pos);
-        aim.z = 0.0;
-        aim = aim.normalized();
-        let offset = clamp(dist * 0.22 * settings.aim, 65.0, 500.0);
-        let target = s.pos.with_scaled(aim, -offset);
-        let delta = target.minus(c.pos);
-        let angle = atan2(delta.dot(c.left), delta.dot(c.forward)).abs();
-        let travel = hypot2(delta.x, delta.y);
-        let t = (s.t - angle * 0.32).max(0.0);
-        let cap_time = ((maximum - speed) / acceleration).max(0.0);
-        let accelerating = t.min(cap_time);
-        let reach = speed * accelerating
-            + 0.5 * acceleration * accelerating * accelerating
-            + maximum * (t - accelerating);
-        let height_cost = (s.pos.z - 180.0).max(0.0) * 0.001;
-        let deficit = (travel - reach - 120.0).max(0.0) / maximum;
-        let cost = s.t + deficit * 2.0 + height_cost;
-        if cost < best.cost {
-            best = Plan {
-                slice: *s,
-                target,
-                cost,
-            };
-        }
-        if deficit == 0.0 && s.t > height_cost {
-            best = Plan {
-                slice: *s,
-                target,
-                cost,
-            };
-            break;
-        }
-    }
-    best
 }
