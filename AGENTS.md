@@ -18,6 +18,8 @@ Soccar is a car-soccer game, a headless match harness, and a bot-brain arena. Al
   Add a new module instead of rewriting one whose results matter.
 - **Set pieces are fixed tests.** Editing a scenario or the `scripted` rival module reruns its results.
   Add scenarios rather than tuning existing ones to a brain.
+- **Keep the docs current.** When a change affects how future agents work, update the README or this file in the same commit.
+  This covers commands, defaults, file layouts, costs, and lessons learned. Leave out session history and details the code already shows.
 - **The modular core is frozen.** `simulation/src/brains/modular/{mod,tactics,pilot,kit}.rs` must keep
   the `modular` module with default settings identical to alphabravo. Change behavior with a new skill in
   `modular/skills/` or a new strategy in `modular/strategies/`. See `arena/HACKATHON.md`.
