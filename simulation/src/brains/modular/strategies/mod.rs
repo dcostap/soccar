@@ -3,6 +3,7 @@
 use super::kit::CreateStrategy;
 
 pub mod alpha;
+pub mod team;
 
 pub struct Def {
     /// Name used in `strategy = ...` and as the prefix of the strategy's settings.
@@ -23,6 +24,11 @@ pub const STRATEGIES: &[Def] = &[
         name: "alpha",
         source: include_str!("alpha.rs"),
         create: alpha::create,
+    },
+    Def {
+        name: "team",
+        source: include_str!("team.rs"),
+        create: team::create,
     },
 ];
 

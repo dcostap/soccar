@@ -1,0 +1,9 @@
+# Experiment: team strategy with team.shadow=true team.margin=0.1 team.past=0 team.gap=2200
+module = modular
+skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
+strategy.2 = team
+strategy.3 = team
+team.shadow = true
+team.margin = 0.1
+team.past = 0
+team.gap = 2200

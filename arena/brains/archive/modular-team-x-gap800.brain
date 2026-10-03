@@ -1,0 +1,7 @@
+# Experiment: modular-team-shadow with team.gap=800
+module = modular
+skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
+strategy.2 = team
+strategy.3 = team
+team.shadow = true
+team.gap = 800

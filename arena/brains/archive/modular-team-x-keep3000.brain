@@ -1,0 +1,6 @@
+# Experiment: team strategy with team.keeper=3000
+module = modular
+skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
+strategy.2 = team
+strategy.3 = team
+team.keeper = 3000

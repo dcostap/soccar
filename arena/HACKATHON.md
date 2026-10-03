@@ -25,6 +25,7 @@ simulation/src/brains/modular/
   strategies/
     mod.rs     registry: add one line per strategy
     alpha.rs   alpha's strategy; plays exactly as the alpha brain; copy it to start
+    team.rs    alphabravo with optional team play: shadow support, higher keeper; see hackathon/team.md
   skills/
     mod.rs     registry: add one line per skill
     template.rs  worked example; copy it to start

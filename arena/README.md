@@ -42,6 +42,7 @@ and `strategy.1 = alpha` does so only for teams of one car.
 `skills = a, b` selects skills from `simulation/src/brains/modular/skills/` in priority order.
 Its fingerprint covers the core and the selected strategies and skills only. See [the skill hackathon](HACKATHON.md).
 `modular-combo`, the hackathon's result, adds six skills and beats `modular-aerial-a` at every team size.
+`strategy = team` adds optional team play to alphabravo's tactics. See [its experiments](hackathon/team.md).
 
 ### Try a settings change
 

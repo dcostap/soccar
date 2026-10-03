@@ -81,6 +81,31 @@ fn a_strategy_for_one_team_size_leaves_the_others_unchanged() {
 }
 
 #[test]
+fn the_team_strategy_with_default_settings_drives_exactly_as_alphabravo() {
+    for size in 1..=3 {
+        for side in 0..2 {
+            same_world(
+                size,
+                side,
+                spec("modular-team", "module = modular\nstrategy = team"),
+                6000,
+            );
+        }
+    }
+    let skills = "skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a";
+    same_world_as(
+        spec("modular-combo", &format!("module = modular\n{skills}")),
+        3,
+        1,
+        spec(
+            "modular-team",
+            &format!("module = modular\n{skills}\nstrategy = team"),
+        ),
+        3000,
+    );
+}
+
+#[test]
 fn a_skill_that_never_claims_changes_nothing() {
     same_world(
         3,
