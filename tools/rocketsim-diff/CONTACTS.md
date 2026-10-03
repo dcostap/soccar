@@ -44,3 +44,19 @@ The prototype is not in the game.
 RocketSim uses ten sequential solver iterations, split impulse, and ERP 0.2.
 A fixed overlap subtraction cannot represent that response.
 The next prototype must model contact correction over time and test all fixed paths.
+
+## Other rejected correction models
+
+Resolving car-ball contact before position integration improved only 9 of 24 dribbles.
+Median dribble error rose from 58.31 to 111.94 UU.
+
+Applying 72 percent of each position correction improved 7 of 24 dribbles.
+Median dribble error rose to 75.33 UU.
+
+Applying an ERP-sized 20 percent correction improved all 12 throttle dribbles.
+Their mean error fell from 101.3 to 52.8 UU.
+It improved only 3 of 12 coast dribbles, and their mean error rose from 86.8 to 89.4 UU.
+Grounded low-ball hits also regressed unless the prototype restored full correction at world contact.
+
+These results show a missing coupled-contact solve, not one safe correction factor.
+None of these prototypes is in the game.
