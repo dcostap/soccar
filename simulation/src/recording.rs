@@ -17,12 +17,15 @@ pub const MAX_BYTES: usize = 96 * 1024 * 1024;
 pub const FORMAT: u32 = 1;
 
 const LEGACY_SAVE_ENGINE: &str = "0d5bdf1712f5497d";
-// Accept the previous engine only with this exact save-only update.
+const CONTACT_SAVE_ENGINE: &str = "88f27cd63490dfc3";
+// Accept the original engine and the first save-update build only with this exact update.
 // Any later change to the simulation source closes this compatibility path.
 const SAVE_UPDATE_ENGINE: &str = "09645b7b1e85f2e6";
 
 fn compatible_engine(recorded: &str, current: &str) -> bool {
-    recorded == current || (recorded == LEGACY_SAVE_ENGINE && current == SAVE_UPDATE_ENGINE)
+    recorded == current
+        || ((recorded == LEGACY_SAVE_ENGINE || recorded == CONTACT_SAVE_ENGINE)
+            && current == SAVE_UPDATE_ENGINE)
 }
 
 #[cfg(test)]
@@ -33,7 +36,9 @@ mod compatibility_tests {
     fn legacy_save_compatibility_is_limited_to_this_exact_engine() {
         assert_eq!(engine_version(), SAVE_UPDATE_ENGINE);
         assert!(compatible_engine(LEGACY_SAVE_ENGINE, SAVE_UPDATE_ENGINE));
+        assert!(compatible_engine(CONTACT_SAVE_ENGINE, SAVE_UPDATE_ENGINE));
         assert!(!compatible_engine(LEGACY_SAVE_ENGINE, "another-engine"));
+        assert!(!compatible_engine(CONTACT_SAVE_ENGINE, "another-engine"));
         assert!(!compatible_engine("unknown-engine", SAVE_UPDATE_ENGINE));
     }
 }

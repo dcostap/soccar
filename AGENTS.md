@@ -52,6 +52,7 @@ Run `npm run build:wasm` after changing Rust that the browser uses. Checks that 
 ## Gotchas
 
 - Windows locks a running `.exe`. To rebuild while a batch runs, build with another `--target-dir`.
+- `npm test` also scans ignored folders. Use `check-*`, not `test-*`, for temporary scripts.
 - Keep LF line endings and UTF-8. Python on Windows needs `newline=''` and `encoding='utf-8'` when writing files.
 - `arena/results/` and `public/arena/` are local data and are gitignored. `npm run arena -- ladder` rebuilds them.
 - Remaining legacy behavior is marked `TODO(post-port)`.

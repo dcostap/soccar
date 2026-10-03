@@ -228,6 +228,7 @@ The match results above remain unchanged after the save change.
 
 The save change also updates the source-based recording version.
 Recordings from the preceding engine still load and retain their original statistics and save events.
+The first save-update build also remains compatible and uses contact-based saves.
 Captured clips and new recordings made from those replays retain the original scoring version.
 New matches use the improved save check. Fixed recorded scenarios remain unchanged.
 Compatibility applies only to this exact save update. Other simulation changes still trigger the version check.

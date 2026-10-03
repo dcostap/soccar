@@ -100,6 +100,18 @@ fn old_recordings_still_check_their_format_and_control_values() {
     fixture["recording"]["frames"][0]["cars"][0][0] = 2.0.into();
     assert!(Replay::parse(&fixture["recording"].to_string()).is_err());
 }
+
+#[test]
+fn the_first_save_update_build_keeps_contact_based_saves() {
+    let mut recording = legacy_fixture()["recording"].clone();
+    recording["engine"] = "88f27cd63490dfc3".into();
+    let mut replay = Replay::parse(&recording.to_string()).unwrap().start();
+    assert!(!replay.playback.as_ref().unwrap().legacy_saves);
+    replay.tick(Controls::default());
+    assert_eq!(replay.stats[0].saves, 0);
+    assert_eq!(replay.stats[0].score, 0);
+}
+
 fn human(t: usize) -> Controls {
     Controls {
         throttle: 1.0,
