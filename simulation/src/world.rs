@@ -181,6 +181,14 @@ impl World {
     /// Mirrored kickoffs reach the ball on the same tick, and the car resolved second wins,
     /// so a fixed order gives one team every tied touch. Matches pick the order with a seeded coin flip.
     pub fn step_with(&mut self, reverse_ball_contacts: bool) {
+        self.step_with_ball_hits(reverse_ball_contacts, |_, _, _| {});
+    }
+    /// Observe each hit before another car can change the ball's path.
+    pub(crate) fn step_with_ball_hits(
+        &mut self,
+        reverse_ball_contacts: bool,
+        mut on_hit: impl FnMut(&Car, Ball, Ball),
+    ) {
         self.events.clear();
         self.goal_scored = None;
         for car in &mut self.cars {
@@ -208,10 +216,12 @@ impl World {
             } else {
                 index
             }];
+            let before = self.ball;
             if let Some((strength, point)) = car_ball(car, &mut self.ball, self.tick) {
                 self.last_touch = Some(car.id);
                 self.ball_touched = true;
                 if strength > 60.0 {
+                    on_hit(car, before, self.ball);
                     let mut event = Event::new(BALL_HIT);
                     event.car = car.id as i32;
                     event.strength = strength;

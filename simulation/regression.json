@@ -74,7 +74,7 @@
   "2v2-pro": {
     "name": "2v2-pro",
     "ticks": 1200,
-    "sha256": "d1bb6624c0371aadeef96e5b265f6ddc163d43f62330e76359eae68c01d786e9",
+    "sha256": "cd6b77f9aa52779901737c4c199da3e157a6c9d9237619dec269d3021efff019",
     "phase": "playing",
     "score": [
       0,
@@ -86,7 +86,7 @@
   "2v2-allstar": {
     "name": "2v2-allstar",
     "ticks": 1200,
-    "sha256": "2eba8637afe59fa32c36cf2f29ff1a7163bb52d27c5d1a74bdd779c7acfef0e6",
+    "sha256": "03d72b958dfcf3de0dde4e7ec19ad60b2288c53945fa51369d52228cf53af6b4",
     "phase": "playing",
     "score": [
       0,
@@ -110,7 +110,7 @@
   "3v3-pro": {
     "name": "3v3-pro",
     "ticks": 1200,
-    "sha256": "087f880be5ccb75ae758d1289dab0429e538f2273d1dc56678c89db8b83a684f",
+    "sha256": "6e4c8a12579dc6a7147bc0cc406b132f12743875999b715d928845f2e136dfbe",
     "phase": "playing",
     "score": [
       0,
@@ -122,7 +122,7 @@
   "3v3-allstar": {
     "name": "3v3-allstar",
     "ticks": 1200,
-    "sha256": "c372916f033f784f366cb8fe371a89c3b7fec501b6a3182cb7c555448b6bedae",
+    "sha256": "dbf47d30708d6a4f9e38b313e467df25c2191f0056d36948ec57b2919ea2dea2",
     "phase": "playing",
     "score": [
       0,
@@ -158,7 +158,7 @@
   "full-3v3-12345": {
     "name": "full-3v3-12345",
     "ticks": 60223,
-    "sha256": "ba48028675f048433d2132d4d133d92f8d9f455546cedcb2a93d97f5eb91bb51",
+    "sha256": "c4e20fd4084895c9812f11501017d9ee7271eff143074ccb31608044e2c44738",
     "phase": "ended",
     "score": [
       7,
@@ -170,7 +170,7 @@
   "full-3v3-67890": {
     "name": "full-3v3-67890",
     "ticks": 47526,
-    "sha256": "f4fd89244f52f16a971e0384f3e5814055af562e036518b3c02422ec0a7b00d5",
+    "sha256": "d68e9140ada59c96bc24191002fe4b7cb2db265be006a13e3e6911c9dd65b998",
     "phase": "ended",
     "score": [
       3,
@@ -182,7 +182,7 @@
   "full-3v3-24680": {
     "name": "full-3v3-24680",
     "ticks": 46128,
-    "sha256": "ab62d76e2e3b15a33bdc1cf7a4d9aa273f5055075610aeaf8491e576dbb731ff",
+    "sha256": "8e12ea023dad8fc4c1f966540cfc1cdaf64e6bcc62835ebca2320d4828337195",
     "phase": "ended",
     "score": [
       2,

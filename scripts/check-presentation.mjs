@@ -115,6 +115,47 @@ try {
   } finally {
     skipped.destroy();
   }
+  // Check save notifications against a real block, a wide shot, and an outgoing clear.
+  for (const [x, vy, speed, expected] of [
+    [0, -2000, 0, 1],
+    [1300, -2000, 0, 0],
+    [0, 500, 2000, 0],
+  ]) {
+    const check = await createTestPresentation(1);
+    try {
+      check.game.writeText(check.game.handle, "module = scripted\nmode = idle");
+      assert.equal(check.wasm.sim_brain(check.game.handle, 0), 1);
+      check.game.writeText(
+        check.game.handle,
+        `kind = defend\ntime = 3\nball = ${x} -4370 93.15\nball_vel = 0 ${vy} 0\ncar = blue ${x} -4500 90 ${speed} 0`,
+      );
+      assert.equal(check.wasm.sim_scenario(check.game.handle, 0.5), 1);
+      check.game.sync();
+      check.game.snapshotNow();
+      check.game.tick({
+        controls: {
+          throttle: 0,
+          steer: 0,
+          pitch: 0,
+          yaw: 0,
+          roll: 0,
+          jump: false,
+          boost: false,
+          handbrake: false,
+        },
+      });
+      assert.equal(check.game.stats.get(0).saves, expected);
+      assert.equal(
+        check.calls.filter(
+          (c) => c.method === "notify" && c.args[0].startsWith("SAVE "),
+        ).length,
+        expected,
+      );
+    } finally {
+      check.game.destroy();
+    }
+  }
+  report.saveNotifications = true;
   await mkdir(new URL("../artifacts/presentation/", import.meta.url), {
     recursive: true,
   });

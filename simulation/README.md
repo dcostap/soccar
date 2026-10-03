@@ -80,6 +80,13 @@ elapsed milliseconds, per-team possession, time with the ball in their half, and
 and per-player statistics: score, goals, assists, shots, saves, touches, demos, times demolished, bumps, jumps, flips,
 big and small pads, boost used, distance, supersonic, airborne, and offensive-half seconds, and mean ball distance.
 Times count live play only. Touches count ball hits strong enough to raise a hit event.
+
+Saves use the ball state before and after each car contact, not a cached goal prediction.
+The ball must approach the defender's goal from its own half and score within 1.5 seconds without cars.
+The contact must remove that predicted goal for at least two seconds.
+The prediction uses ball collisions, gravity, spin, and speed limits.
+Wide shots, outgoing balls, and touches that only slow an imminent goal do not count.
+
 After the batch, a single JSON summary goes to stderr: wins per team, overtimes, total goals, wall time,
 matches per second, and physics ticks per second.
 The runner stops after match completion or the tick limit.
@@ -206,8 +213,9 @@ The normal check still compares every existing baseline hash.
 
 `simulation/regression.json` stores SHA-256 hashes of accepted Rust state streams and match results.
 These hashes detect changes even when native and WASM implementations change together.
-The current baseline was recorded after replacing the JavaScript-compatible math with `libm` trigonometry
-and a plain `hypot`, and after randomizing car-ball contact order. It includes 170,333 states and 755,073,539 fields
+The current baseline includes `libm` trigonometry, a plain `hypot`, randomized car-ball contact order, and contact-based saves.
+The save change alters statistics and save events, not match scores or tick counts.
+It includes 170,333 states and 755,073,599 fields
 across 16 cases.
 
 | Seed  | Score | Overtime | Controller ticks | Physics ticks |
@@ -215,6 +223,14 @@ across 16 cases.
 | 12345 | 7–8   | Yes      | 60,223           | 52,077        |
 | 67890 | 3–4   | No       | 47,526           | 43,746        |
 | 24680 | 2–4   | No       | 46,128           | 42,888        |
+
+The match results above remain unchanged after the save change.
+
+The save change also updates the source-based recording version.
+Recordings from the preceding engine still load and retain their original statistics and save events.
+Captured clips and new recordings made from those replays retain the original scoring version.
+New matches use the improved save check. Fixed recorded scenarios remain unchanged.
+Compatibility applies only to this exact save update. Other simulation changes still trigger the version check.
 
 The state runner streams bounded blocks instead of retaining complete traces in memory.
 A difference reports the case, tick, block, field index, and floating-point bits.

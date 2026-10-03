@@ -10,6 +10,96 @@ use soccar_simulation::{
 fn bits(v: Vec<f64>) -> Vec<u64> {
     v.into_iter().map(f64::to_bits).collect()
 }
+
+fn legacy_fixture() -> serde_json::Value {
+    // Captured with commit cb2b138. Keep the recording and old-engine hashes fixed.
+    serde_json::from_str(include_str!("legacy-save-recording.json")).unwrap()
+}
+
+fn state_hash(game: &Game) -> String {
+    let mut state = snapshot::game(game);
+    // The old engine had no scoring-version field. Check that field, then compare every old field.
+    assert_eq!(state.pop(), Some(1.0));
+    let mut hash = 0xcbf29ce484222325_u64;
+    for value in state {
+        for byte in value.to_bits().to_le_bytes() {
+            hash = (hash ^ byte as u64).wrapping_mul(0x100000001b3);
+        }
+    }
+    format!("{hash:016x}")
+}
+
+#[test]
+fn the_previous_engine_replays_every_state_and_its_original_save_event() {
+    // The previous engine generated this fixture and its hashes before the save update.
+    let fixture = legacy_fixture();
+    let replay = Replay::parse(&fixture["recording"].to_string()).unwrap();
+    let mut live = replay.initial.clone();
+    live.tick(Controls::default());
+    assert_eq!(live.stats[0].saves, 0);
+    let mut replay = replay.start();
+    for (tick, expected) in fixture["stateHashes"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .enumerate()
+    {
+        if tick > 0 {
+            replay.tick(Controls::default());
+        }
+        assert_eq!(
+            state_hash(&replay),
+            expected.as_str().unwrap(),
+            "tick {tick}"
+        );
+    }
+    assert_eq!(replay.stats[0].saves, 1);
+    assert_eq!(replay.stats[0].score, 50);
+}
+
+#[test]
+fn recording_and_capturing_an_old_replay_keep_its_scoring_version() {
+    let fixture = legacy_fixture();
+    let recording = &fixture["recording"];
+    let mut replay = Replay::parse(&recording.to_string()).unwrap().start();
+    replay.begin_recording();
+    replay.tick(Controls::default());
+    let saved = replay.recording.as_ref().unwrap().text().unwrap();
+    let saved = Replay::parse(&saved).unwrap();
+    assert_eq!(saved.engine, recording["engine"].as_str().unwrap());
+    let mut saved = saved.start();
+    saved.tick(Controls::default());
+    let mut expected = replay.clone();
+    expected.playback = None;
+    expected.recording = None;
+    saved.playback = None;
+    assert_eq!(
+        bits(snapshot::game(&saved)),
+        bits(snapshot::game(&expected))
+    );
+
+    let idle = BrainSpec::parse("idle", "module = scripted\nmode = idle").unwrap();
+    let scenario =
+        Scenario::capture_car(&replay, 0, Kind::Defend, 1.0, Some(idle.clone())).unwrap();
+    let scenario = Scenario::parse(&scenario.text()).unwrap();
+    assert_eq!(
+        scenario.clip.as_ref().unwrap().engine,
+        recording["engine"].as_str().unwrap()
+    );
+    let mut captured = Game::new(1);
+    captured.start_scenario(&scenario, &idle);
+    assert!(captured.playback.as_ref().unwrap().legacy_saves);
+}
+
+#[test]
+fn old_recordings_still_check_their_format_and_control_values() {
+    let mut fixture = legacy_fixture();
+    fixture["recording"]["format"] = 2.into();
+    assert!(Replay::parse(&fixture["recording"].to_string()).is_err());
+    let mut fixture = legacy_fixture();
+    fixture["recording"]["frames"][0]["cars"][0][0] = 2.0.into();
+    assert!(Replay::parse(&fixture["recording"].to_string()).is_err());
+}
 fn human(t: usize) -> Controls {
     Controls {
         throttle: 1.0,

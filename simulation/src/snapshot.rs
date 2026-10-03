@@ -205,6 +205,7 @@ pub fn game(g: &Game) -> Vec<f64> {
                 out.extend(car);
             }
         }
+        out.push(p.legacy_saves as u8 as f64);
     }
     if let Some(r) = &g.recording {
         out.extend([-201.0, r.frames.len() as f64, r.skip as u8 as f64]);

@@ -16,6 +16,36 @@ pub const MAX_TICKS: usize = 180_000;
 pub const MAX_BYTES: usize = 96 * 1024 * 1024;
 pub const FORMAT: u32 = 1;
 
+const LEGACY_SAVE_ENGINE: &str = "0d5bdf1712f5497d";
+// Accept the previous engine only with this exact save-only update.
+// Any later change to the simulation source closes this compatibility path.
+const SAVE_UPDATE_ENGINE: &str = "09645b7b1e85f2e6";
+
+fn compatible_engine(recorded: &str, current: &str) -> bool {
+    recorded == current || (recorded == LEGACY_SAVE_ENGINE && current == SAVE_UPDATE_ENGINE)
+}
+
+#[cfg(test)]
+mod compatibility_tests {
+    use super::*;
+
+    #[test]
+    fn legacy_save_compatibility_is_limited_to_this_exact_engine() {
+        assert_eq!(engine_version(), SAVE_UPDATE_ENGINE);
+        assert!(compatible_engine(LEGACY_SAVE_ENGINE, SAVE_UPDATE_ENGINE));
+        assert!(!compatible_engine(LEGACY_SAVE_ENGINE, "another-engine"));
+        assert!(!compatible_engine("unknown-engine", SAVE_UPDATE_ENGINE));
+    }
+}
+
+fn recording_engine(game: &Game) -> String {
+    if game.uses_legacy_saves() {
+        LEGACY_SAVE_ENGINE.to_string()
+    } else {
+        engine_version()
+    }
+}
+
 /// Control recordings do not depend on later changes to bot code.
 pub fn engine_version() -> String {
     let source = concat!(
@@ -108,7 +138,7 @@ impl Recorder {
         }
         let text = serde_json::to_string(&File {
             format: FORMAT,
-            engine: engine_version(),
+            engine: recording_engine(&self.initial),
             initial: &self.initial,
             frames: &self.frames,
         })
@@ -128,6 +158,8 @@ pub struct Playback {
     pub input_car: Option<usize>,
     pub scenario: bool,
     pub recorded: bool,
+    /// Keep the original statistics when playing a recording from before the save update.
+    pub legacy_saves: bool,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -164,6 +196,7 @@ impl Replay {
             input_car: game.player,
             scenario: false,
             recorded: true,
+            legacy_saves: self.engine == LEGACY_SAVE_ENGINE,
         });
         game
     }
@@ -286,7 +319,7 @@ impl Clip {
         }
         Ok(Self {
             format: FORMAT,
-            engine: engine_version(),
+            engine: recording_engine(game),
             state,
             car,
             others,
@@ -335,6 +368,7 @@ impl Clip {
             input_car: self.input_car,
             scenario: true,
             recorded: self.others.is_none(),
+            legacy_saves: self.engine == LEGACY_SAVE_ENGINE,
         });
         game.judge = Some(Judge::new(scenario, &game));
         game
@@ -371,7 +405,7 @@ impl Game {
 }
 
 fn validate(engine: &str, format: u32, game: &Game, frames: &[Frame]) -> Result<(), String> {
-    if format != FORMAT || engine != engine_version() {
+    if format != FORMAT || !compatible_engine(engine, &engine_version()) {
         return Err("Recording uses another simulation version".into());
     }
     let n = game.world.cars.len();

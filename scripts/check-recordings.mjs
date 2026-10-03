@@ -75,6 +75,49 @@ try {
     const pointer = wasm.sim_text(handle, bytes.length);
     new Uint8Array(wasm.memory.buffer, pointer, bytes.length).set(bytes);
   };
+  // The previous engine generated this recording and each full-state hash.
+  const legacy = JSON.parse(
+    await readFile(
+      new URL(
+        "../simulation/tests/legacy-save-recording.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  );
+  const legacyHandle = wasm.sim_create(1);
+  try {
+    put(legacyHandle, JSON.stringify(legacy.recording));
+    assert.equal(wasm.sim_record_load(legacyHandle), 1);
+    for (const [tick, expected] of legacy.stateHashes.entries()) {
+      if (tick) wasm.sim_tick(legacyHandle, 0, 0, 0, 0, 0, 0, 0, 0, -1);
+      const pointer = wasm.sim_trace(legacyHandle);
+      const length = wasm.sim_state_len(legacyHandle);
+      // Check the new scoring-version field, then compare every field from the old engine.
+      assert.equal(
+        new Float64Array(wasm.memory.buffer, pointer, length).at(-1),
+        1,
+      );
+      const bytes = new Uint8Array(
+        wasm.memory.buffer,
+        pointer,
+        (length - 1) * 8,
+      );
+      let hash = 0xcbf29ce484222325n;
+      for (const byte of bytes)
+        hash = BigInt.asUintN(64, (hash ^ BigInt(byte)) * 0x100000001b3n);
+      assert.equal(
+        hash.toString(16).padStart(16, "0"),
+        expected,
+        `legacy tick ${tick}`,
+      );
+    }
+    console.log(
+      "Previous-engine recording: all states and original saves match exactly",
+    );
+  } finally {
+    wasm.sim_destroy(legacyHandle);
+  }
   let words = 0;
   for (const file of await readdir(dir)) {
     if (!file.endsWith(".bin")) continue;

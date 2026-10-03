@@ -16,6 +16,186 @@ pub const OVERTIME: u32 = 12;
 pub const ENDED: u32 = 13;
 pub const SAVE: u32 = 14;
 const GOAL_STEPS: usize = 240;
+const SAVE_STEPS: usize = 180;
+
+/// Follow the ball without cars, with the same collisions and speed limits as live play.
+fn ball_goal(mut ball: Ball, steps: usize) -> Option<usize> {
+    ball.clamp_velocities();
+    let boundary = crate::arena::GOAL_LINE + ball.radius;
+    for tick in 0..=steps {
+        if ball.pos.y > boundary {
+            return Some(0);
+        }
+        if ball.pos.y < -boundary {
+            return Some(1);
+        }
+        if tick < steps {
+            ball.step();
+        }
+    }
+    None
+}
+
+#[cfg(test)]
+mod save_tests {
+    use super::*;
+
+    fn shot(x: f64, y: f64, z: f64, vy: f64) -> Ball {
+        Ball {
+            pos: Vec3::new(x, y, z),
+            vel: Vec3::new(0.0, vy, 0.0),
+            ..Ball::default()
+        }
+    }
+
+    fn clear(mut ball: Ball) -> Ball {
+        ball.vel.y = -ball.vel.y;
+        ball
+    }
+
+    #[test]
+    fn ground_and_aerial_blocks_count_for_both_teams() {
+        for team in 0..2 {
+            let direction = if team == 0 { -1.0 } else { 1.0 };
+            for z in [93.15, 450.0] {
+                let before = shot(0.0, direction * 4300.0, z, direction * 2000.0);
+                assert!(is_save(team, before, clear(before)));
+            }
+        }
+    }
+
+    #[test]
+    fn shots_wide_or_above_the_goal_are_not_saves() {
+        for (x, z) in [(1300.0, 93.15), (0.0, 1000.0)] {
+            let before = shot(x, -4800.0, z, -2000.0);
+            assert!(!is_save(0, before, clear(before)));
+        }
+    }
+
+    #[test]
+    fn remote_and_slow_threats_are_not_saves() {
+        for before in [
+            shot(0.0, 500.0, 93.15, -6000.0),
+            shot(0.0, -1000.0, 93.15, -2000.0),
+            shot(0.0, -4300.0, 93.15, -300.0),
+        ] {
+            assert!(!is_save(0, before, clear(before)));
+        }
+    }
+
+    #[test]
+    fn a_touch_that_only_slows_a_goal_is_not_a_save() {
+        let before = shot(0.0, -4300.0, 93.15, -2000.0);
+        let mut after = before;
+        after.vel.y = -1000.0;
+        assert!(!is_save(0, before, after));
+        assert!(!is_save(0, before, before));
+    }
+
+    #[test]
+    fn a_touch_toward_the_opponents_goal_is_not_a_save() {
+        let before = shot(0.0, 4300.0, 93.15, 2000.0);
+        assert!(!is_save(0, before, clear(before)));
+    }
+
+    #[test]
+    fn outgoing_and_already_scored_balls_are_not_saves() {
+        for before in [
+            shot(0.0, -4300.0, 93.15, 2000.0),
+            shot(0.0, -5300.0, 93.15, -2000.0),
+        ] {
+            assert!(!is_save(0, before, clear(before)));
+        }
+    }
+
+    #[test]
+    fn a_goal_line_block_counts_if_the_contact_returns_the_ball_to_play() {
+        // Cars resolve before the goal check. A contact can still stop this tick's crossing.
+        let before = shot(0.0, -(crate::arena::GOAL_LINE + 92.25), 93.15, -2000.0);
+        let mut after = clear(before);
+        after.pos.y = -5100.0;
+        assert!(is_save(0, before, after));
+    }
+
+    fn contact_game(incoming: bool) -> Game {
+        let mut game = Game::new(1);
+        game.start_match(Config::default());
+        game.drivers.clear();
+        game.phase = Phase::Playing;
+        game.world.cars[0].spawn(0.0, -4500.0, std::f64::consts::FRAC_PI_2, 0.0);
+        game.world.cars[1].spawn(3000.0, 3000.0, 0.0, 0.0);
+        game.world.ball = shot(0.0, -4370.0, 93.15, if incoming { -2000.0 } else { 500.0 });
+        if !incoming {
+            game.world.cars[0].vel.y = 2000.0;
+        }
+        game
+    }
+
+    #[test]
+    fn a_real_block_counts_without_a_cached_goal_prediction() {
+        let mut game = contact_game(true);
+        assert_eq!(game.goal_prediction, None);
+        game.tick(Controls::default());
+        assert!(
+            game.notifications
+                .iter()
+                .any(|e| e.kind == BALL_HIT && e.car == 0)
+        );
+        assert_eq!(game.stats[0].saves, 1);
+        assert_eq!(game.stats[0].score, 50);
+        assert_eq!(
+            game.notifications
+                .iter()
+                .filter(|e| e.kind == SAVE && e.car == 0)
+                .count(),
+            1
+        );
+    }
+
+    #[test]
+    fn a_stale_goal_prediction_cannot_turn_a_clear_into_a_save() {
+        let mut game = contact_game(false);
+        game.goal_prediction = Some(1);
+        game.tick(Controls::default());
+        assert!(
+            game.notifications
+                .iter()
+                .any(|e| e.kind == BALL_HIT && e.car == 0)
+        );
+        assert_eq!(game.stats[0].saves, 0);
+        assert!(!game.notifications.iter().any(|e| e.kind == SAVE));
+    }
+
+    #[test]
+    fn simultaneous_hits_use_each_contacts_ball_state() {
+        for reverse in [false, true] {
+            let mut game = contact_game(true);
+            game.world.cars[1].team = 0;
+            game.world.cars[1].spawn(0.0, -4500.0, std::f64::consts::FRAC_PI_2, 0.0);
+            let mut hits = Vec::new();
+            game.world
+                .step_with_ball_hits(reverse, |car, before, after| {
+                    hits.push((car.id, before, after));
+                });
+            assert_eq!(hits.len(), 2);
+            assert_eq!(hits[0].0, if reverse { 1 } else { 0 });
+            assert!(hits[0].2.same_motion(&hits[1].1));
+            assert!(is_save(0, hits[0].1, hits[0].2));
+            assert!(!is_save(0, hits[1].1, hits[1].2));
+        }
+    }
+}
+
+fn is_save(team: usize, before: Ball, after: Ball) -> bool {
+    let direction = if team == 0 { -1.0 } else { 1.0 };
+    let depth = before.pos.y * direction;
+    // A save stops an incoming goal in our half, not a remote threat or a rebound moving away.
+    !before.frozen
+        && depth > 0.0
+        && before.vel.y * direction > 0.0
+        && ball_goal(before, SAVE_STEPS) == Some(1 - team)
+        && ball_goal(after, GOAL_STEPS) != Some(1 - team)
+}
 #[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub enum Phase {
     Countdown,
@@ -463,7 +643,7 @@ impl Game {
                 self.world.ball.frozen = false;
                 self.countdown(0);
             }
-            self.step_world();
+            let _ = self.step_world();
             self.has_snapshot = true;
             return;
         }
@@ -474,7 +654,7 @@ impl Game {
         {
             self.world.cars[player].boost = 100.0;
         }
-        self.step_world();
+        let saves = self.step_world();
         if !self.world.ball.frozen {
             self.ball_rot.integrate(self.world.ball.ang_vel, DT);
         }
@@ -490,7 +670,10 @@ impl Game {
                             self.last_touches.remove(0);
                         }
                         if self.mode == Mode::Match {
-                            self.evaluate_shot_save(event.car as usize);
+                            self.evaluate_shot(event.car as usize);
+                            if saves.contains(&(event.car as usize)) {
+                                self.award_save(event.car as usize);
+                            }
                         }
                     }
                     GOAL => self.on_goal(event),
@@ -604,9 +787,18 @@ impl Game {
             }
         }
     }
-    fn step_world(&mut self) {
+    fn step_world(&mut self) -> Vec<usize> {
         let reverse = self.random.next_f64() < 0.5;
-        self.world.step_with(reverse);
+        let mut saves = Vec::new();
+        let check_saves =
+            self.mode == Mode::Match && self.phase == Phase::Playing && !self.uses_legacy_saves();
+        self.world
+            .step_with_ball_hits(reverse, |car, before, after| {
+                if check_saves && is_save(car.team, before, after) {
+                    saves.push(car.id);
+                }
+            });
+        saves
     }
     fn countdown(&mut self, shown: i32) {
         let mut e = Event::new(COUNTDOWN);
@@ -727,7 +919,7 @@ impl Game {
         }
         result
     }
-    fn evaluate_shot_save(&mut self, car: usize) {
+    fn evaluate_shot(&mut self, car: usize) {
         let previous = self.goal_prediction;
         let next = self.predict_goal();
         self.goal_prediction = next;
@@ -736,13 +928,23 @@ impl Game {
             self.stats[car].shots += 1;
             self.stats[car].score += 20;
         }
-        if previous.is_some() && previous != Some(team) && next != previous {
-            self.stats[car].saves += 1;
-            self.stats[car].score += 50;
-            let mut event = Event::new(SAVE);
-            event.car = car as i32;
-            self.notifications.push(event);
+        if self.uses_legacy_saves()
+            && previous.is_some()
+            && previous != Some(team)
+            && next != previous
+        {
+            self.award_save(car);
         }
+    }
+    pub(crate) fn uses_legacy_saves(&self) -> bool {
+        self.playback.as_ref().is_some_and(|p| p.legacy_saves)
+    }
+    fn award_save(&mut self, car: usize) {
+        self.stats[car].saves += 1;
+        self.stats[car].score += 50;
+        let mut event = Event::new(SAVE);
+        event.car = car as i32;
+        self.notifications.push(event);
     }
     pub fn begin_replay(&mut self, end: bool) {
         self.end_after_replay = end;
