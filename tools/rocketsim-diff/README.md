@@ -22,6 +22,7 @@ The native runner uses a separate Cargo target directory.
 Use `--no-build` after a build, or `--filter steer-` to select cases.
 Use `--output <folder>` to keep separate reports before and after each change.
 Use `--suite goals` for the fixed 96-case goal neighborhood.
+Use `--suite contacts` for car-ball penetration, hit, and dribble paths.
 
 The report contains peak, RMS, and final errors for each body.
 It also reports state-flag differences, boost, handbrake value, and pad cooldowns.
@@ -103,6 +104,7 @@ Long contact traces can amplify an early collision difference.
 Use peak and final errors together; inspect first contact before changing a solver.
 Reports are measurements, not a claim that Rocket League and Soccar agree.
 See [the goal geometry audit](GOAL-GEOMETRY.md) for one rejected broad geometry fit.
+See [the car-ball contact audit](CONTACTS.md) for the fixed contact suite and one rejected penetration fit.
 
 Keep native/WASM checks exact.
 Keep RocketSim tolerances separate from the deterministic regression hashes.
