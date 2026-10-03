@@ -16,7 +16,7 @@ const log = await readFile(
 ).catch(() => "");
 // Edited brains retire their old records, which no longer replay. The export lists current fingerprints.
 const current = await readFile(
-  new URL("../public/arena/arena.json", import.meta.url),
+  new URL("../public/arena/brains.json", import.meta.url),
   "utf8",
 )
   .then((text) => new Set(JSON.parse(text).brains.map((b) => b.fingerprint)))

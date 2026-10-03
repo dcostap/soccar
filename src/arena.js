@@ -23,9 +23,16 @@ async function loadJson(name, required) {
   }
 }
 
+// Every format has its own file. `?size=1` picks 1v1; the default is 3v3.
+const index = await loadJson("index.json", false);
+const formats = index?.formats ?? [];
+const wanted = Number(new URLSearchParams(location.search).get("size") ?? 3);
+const format =
+  formats.find((f) => f.size === wanted) ?? formats.find((f) => f.size === 3) ?? formats[0];
+
 let data;
 try {
-  data = await loadJson("arena.json", true);
+  data = await loadJson(format?.file ?? "arena-3v3.json", true);
 } catch {
   summary.textContent = "No data yet";
   view.replaceChildren(
@@ -127,12 +134,22 @@ const ctx = {
   replaceQuery(query) {
     const { parts } = route();
     history.replaceState(null, "", href(parts, query));
+    updateFormatLinks();
   },
 };
 
 summary.textContent =
-  `${data.format.size}v${data.format.size} · ${data.format.duration / 60} min · ` +
-  `${data.brains.length} brains · ${matches.length.toLocaleString()} matches · updated ${ago(data.generated)}`;
+  `${data.format.duration / 60} min · ${data.brains.length} brains · ` +
+  `${matches.length.toLocaleString()} matches · updated ${ago(data.generated)}`;
+
+// One link per exported format. Each keeps the current view.
+const formatLinks = formats.map((f) =>
+  element("a", { "aria-current": String(f.file === format.file), title: `${f.matches.toLocaleString()} matches` }, f.name),
+);
+document.getElementById("formats").replaceChildren(...formatLinks);
+function updateFormatLinks() {
+  formats.forEach((f, i) => (formatLinks[i].href = `?size=${f.size}${location.hash}`));
+}
 
 // Router ----------------------------------------------------------------------------
 const VIEWS = {
@@ -154,6 +171,7 @@ async function show() {
   cleanup = null;
   for (const link of document.querySelectorAll("#nav a"))
     link.setAttribute("aria-current", String(link.dataset.tab === tab));
+  updateFormatLinks();
   const root = element("div", { class: "view" });
   const result = await render(root, ctx, current);
   if (mine !== token) {

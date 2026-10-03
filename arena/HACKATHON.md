@@ -210,8 +210,7 @@ npm run arena -- challenge modular-<track>-<team> modular --size 1 --elo0 -15 --
 # Next to aerial-a, against aerial-a alone.
 npm run arena -- challenge modular-<track>-<team>-aerial modular-aerial-a --elo0 -15 --elo1 0 --max-pairs 300
 # Against the field at every team size: rates both brains on the shared leaderboard.
-for n in 1 2 3; do npm run arena -- ladder --size $n; done
-npm run arena -- export --size 3          # the page shows the last exported format
+for n in 1 2 3; do npm run arena -- ladder --size $n; done   # the page switches between sizes
 ```
 
 Formats differ a lot. alphabravo leads 3v3 but is last in 1v1, where allstar and pro beat it.

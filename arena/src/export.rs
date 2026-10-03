@@ -1,8 +1,15 @@
 //! Data for the leaderboard page and watch links for the game.
-use crate::{Arena, ledger::Record};
+use crate::{
+    Arena,
+    ledger::{Format, Record},
+};
 use serde_json::{Value, json};
 use soccar_simulation::harness::{HEAT_COLUMNS, HEAT_ROWS, PlayerReport};
-use std::{collections::HashMap, fs};
+use std::{
+    collections::{HashMap, HashSet},
+    fs,
+    path::Path,
+};
 
 /// Newest matches kept in the export, to bound the page's download.
 const EXPORT_MATCHES: usize = 10_000;
@@ -41,8 +48,115 @@ pub fn round(x: f64, digits: i32) -> f64 {
     (x * scale).round() / scale
 }
 
+/// Writes through a temporary file, so the page and other exports never read a partial file.
+fn write_atomic(path: &Path, text: &str) -> Result<(), String> {
+    let temp = path.with_extension(format!("{}.tmp", std::process::id()));
+    fs::write(&temp, text).map_err(|e| format!("{}: {e}", temp.display()))?;
+    fs::rename(&temp, path).map_err(|e| format!("{}: {e}", path.display()))
+}
+
+/// File name of a format's page data, such as `arena-3v3.json`.
+fn format_file(format: Format) -> String {
+    let size = format.size;
+    if format.duration == 300.0 {
+        format!("arena-{size}v{size}.json")
+    } else {
+        format!("arena-{size}v{size}-{}s.json", format.duration)
+    }
+}
+
 impl Arena {
-    pub fn export(&self) -> Result<(), String> {
+    /// Writes the page data of every format with results, the game menu, and the set pieces.
+    pub fn export(&mut self) -> Result<(), String> {
+        let dir = self.root.join("../public/arena");
+        fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+        let mut formats: Vec<Format> = Vec::new();
+        for record in &self.ledger.records {
+            if !formats.contains(&record.format()) {
+                formats.push(record.format());
+            }
+        }
+        formats.sort_by(|a, b| (a.size, a.duration).partial_cmp(&(b.size, b.duration)).unwrap());
+        let selected = self.options.format;
+        let mut index = Vec::new();
+        let mut heat_ids = HashSet::new();
+        for &format in &formats {
+            self.options.format = format;
+            let file = format_file(format);
+            let (data, ids) = self.format_data()?;
+            write_atomic(&dir.join(&file), &data)?;
+            index.push(json!({
+                "name": format!("{}v{}", format.size, format.size),
+                "size": format.size,
+                "duration": format.duration,
+                "file": file,
+                "matches": ids.len(),
+            }));
+            heat_ids.extend(ids.into_iter().filter(|id| self.heat.maps.contains_key(id)));
+        }
+        // The game menu rates brains by the standard 3v3 format.
+        self.options.format = Format {
+            size: 3,
+            duration: 300.0,
+        };
+        let standings = self.standings();
+        self.options.format = selected;
+        let menu = json!({
+            "brains": self.brains.iter().zip(&standings).map(|(b, s)| json!({
+                "name": b.spec.name,
+                "description": b.description,
+                "text": b.spec.text(),
+                "fingerprint": b.fingerprint,
+                "elo": round(s.elo, 1),
+                "games": s.games,
+            })).collect::<Vec<_>>(),
+        });
+        write_atomic(&dir.join("brains.json"), &menu.to_string())?;
+        write_atomic(
+            &dir.join("index.json"),
+            &json!({ "generated": now(), "formats": index }).to_string(),
+        )?;
+        self.export_heatmaps(&dir.join("heatmaps"), &heat_ids)?;
+        self.export_setpieces(&dir)?;
+        // Data from before formats had their own files.
+        let _ = fs::remove_file(dir.join("arena.json"));
+        let total: usize = index.iter().map(|f| f["matches"].as_u64().unwrap_or(0) as usize).sum();
+        let names: Vec<_> = index.iter().filter_map(|f| f["name"].as_str()).collect();
+        eprintln!("Exported {total} matches in {} to public/arena/", names.join(", "));
+        Ok(())
+    }
+
+    /// One small file per exported match with heatmaps, loaded when its details open.
+    /// A match's heatmap never changes, so only new files are written and old ones removed.
+    fn export_heatmaps(&self, dir: &Path, ids: &HashSet<u64>) -> Result<(), String> {
+        fs::create_dir_all(dir).map_err(|e| e.to_string())?;
+        let mut present = HashSet::new();
+        for item in fs::read_dir(dir).map_err(|e| e.to_string())?.flatten() {
+            let path = item.path();
+            let id = path
+                .file_stem()
+                .and_then(|s| s.to_str())
+                .and_then(|s| s.parse::<u64>().ok())
+                .filter(|_| path.extension().is_some_and(|x| x == "json"));
+            match id {
+                Some(id) if ids.contains(&id) => {
+                    present.insert(id);
+                }
+                // Stale or partial files.
+                _ => {
+                    let _ = fs::remove_file(&path);
+                }
+            }
+        }
+        for &id in ids.difference(&present) {
+            let text = serde_json::to_string(&self.heat.maps[&id]).map_err(|e| e.to_string())?;
+            write_atomic(&dir.join(format!("{id}.json")), &text)?;
+        }
+        Ok(())
+    }
+
+    /// Page data of the selected format and the ids of its exported matches.
+    fn format_data(&self) -> Result<(String, Vec<u64>), String> {
         let standings = self.standings();
         let stats: Vec<&str> = PlayerReport::default()
             .fields()
@@ -120,7 +234,7 @@ impl Arena {
             })
             .collect();
         let data = json!({
-            "generated": std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_secs()),
+            "generated": now(),
             "format": { "size": self.options.format.size, "duration": self.options.format.duration },
             "stats": stats,
             "heat": { "columns": HEAT_COLUMNS, "rows": HEAT_ROWS, "cell": 512 },
@@ -128,43 +242,13 @@ impl Arena {
             "specs": specs,
             "matches": matches,
         });
-        let dir = self.root.join("../public/arena");
-        fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
-        let path = dir.join("arena.json");
-        fs::write(
-            &path,
-            serde_json::to_string(&data).map_err(|e| e.to_string())?,
-        )
-        .map_err(|e| format!("{}: {e}", path.display()))?;
-        // One small file per exported match with heatmaps, loaded when its details open.
-        let heat_dir = dir.join("heatmaps");
-        if heat_dir.exists() {
-            fs::remove_dir_all(&heat_dir).map_err(|e| e.to_string())?;
-        }
-        fs::create_dir_all(&heat_dir).map_err(|e| e.to_string())?;
-        for (record, _) in &all[start..] {
-            if let Some(heat) = self.heat.maps.get(&record.id) {
-                let text = serde_json::to_string(heat).map_err(|e| e.to_string())?;
-                fs::write(heat_dir.join(format!("{}.json", record.id)), text)
-                    .map_err(|e| e.to_string())?;
-            }
-        }
-        // The game menu loads this small file to offer arena brains as opponents.
-        let menu = json!({
-            "brains": self.brains.iter().zip(&standings).map(|(b, s)| json!({
-                "name": b.spec.name,
-                "description": b.description,
-                "text": b.spec.text(),
-                "elo": round(s.elo, 1),
-                "games": s.games,
-            })).collect::<Vec<_>>(),
-        });
-        fs::write(dir.join("brains.json"), menu.to_string()).map_err(|e| e.to_string())?;
-        self.export_setpieces(&dir)?;
-        eprintln!(
-            "Exported {} matches to public/arena/arena.json",
-            matches.len()
-        );
-        Ok(())
+        let ids = all[start..].iter().map(|(r, _)| r.id).collect();
+        Ok((serde_json::to_string(&data).map_err(|e| e.to_string())?, ids))
     }
+}
+
+fn now() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_secs())
 }

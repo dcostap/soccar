@@ -112,12 +112,17 @@ pre {
 .brand span {
   color: var(--faint);
 }
-#nav {
+#nav,
+#formats {
   display: flex;
   align-self: stretch;
   gap: 20px;
 }
-#nav a {
+#formats {
+  gap: 12px;
+}
+#nav a,
+#formats a {
   display: flex;
   align-items: center;
   color: var(--muted);
@@ -130,10 +135,12 @@ pre {
   border-bottom: 1px solid transparent;
   margin-bottom: -1px;
 }
-#nav a:hover {
+#nav a:hover,
+#formats a:hover {
   color: var(--ink);
 }
-#nav a[aria-current="true"] {
+#nav a[aria-current="true"],
+#formats a[aria-current="true"] {
   color: var(--ink);
   border-bottom-color: var(--ink);
 }

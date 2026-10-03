@@ -85,12 +85,15 @@ setpieces generate        Rewrite the generated suites, arena/scenarios/gen-*.tx
 setpieces generate-defense Add fixed defense-v2 suites with measured physics and longer lead-in
 setpieces generate-ground-recovery Add fixed defense-v3 ground threats with defenders farther from goal
 setpieces mine            Rewrite arena/scenarios/mined-goals.txt from goals in logged matches
-export                    Write public/arena/ for the page and the game menu (ladder and challenge do this)
+export                    Write public/arena/ for the page and the game menu (every command that plays does this)
 ```
 
 Common options: `--size 1..3` and `--duration seconds` select the format (default 3v3, 300 s).
 Each format has separate results and ratings. `--threads` defaults to every CPU but one, so the machine stays responsive.
 Run `npm run arena -- --help` for the full list.
+
+The export writes every format with results: `arena-1v1.json`, `arena-2v2.json`, `arena-3v3.json`, listed in `index.json`.
+The page opens 3v3 and switches with `?size=1`. Heatmaps are one file per match, and an export writes only new ones.
 
 Every pairing plays seeds 1, 2, 3, … twice, with sides swapped, so both brains get the same kickoffs.
 A match that is already in the log is never played again.
