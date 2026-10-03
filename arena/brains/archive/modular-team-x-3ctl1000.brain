@@ -1,0 +1,8 @@
+# Experiment: team strategy, 3v3 only, with team.3.shadow=true team.3.margin=0 team.3.past=0 team.3.control=1000
+module = modular
+skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
+strategy.3 = team
+team.3.shadow = true
+team.3.margin = 0
+team.3.past = 0
+team.3.control = 1000

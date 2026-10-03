@@ -1,0 +1,11 @@
+# Experiment: modular-team with shadowing only while the attacker controls the ball
+module = modular
+skills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a
+strategy.2 = team
+team.shadow = true
+team.margin = 0
+team.past = 0
+team.lead = 1.0
+team.lateral = 0.8
+team.gap = 1900
+team.2.control = 800

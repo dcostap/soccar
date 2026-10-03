@@ -1,14 +1,17 @@
 # Team play: the `team` strategy
 
-Status: **2v2 accepted, 3v3 open.** Goal: better teamwork than `modular-combo` in 2v2 and 3v3, without double-committing.
+Status: **2v2 accepted; no 3v3 gain found yet.** Goal: better teamwork than `modular-combo` in 2v2 and 3v3, without double-committing.
 
-`modular-team` is `modular-combo` with the shadow support of `modular-team-x-all3` in 2v2:
-the support waits wide and deep (`lateral 0.8`, `gap 1900`), reads the ball a second ahead (`lead 1.0`),
-and takes over as soon as the attacker is past the ball or no faster to it (`margin 0`, `past 0`).
-Against `modular-combo` in 2v2: +209 [+95, +391] on seeds 90000+ and +107 [+30, +194] on seeds 120000+.
-Against `modular-team-x-quick2`: +31 [-8, +70]. 1v1, 3v3, and set pieces play exactly as `modular-combo`.
-On the 2v2 ladder it ranks first at 1875 ± 110, ahead of `modular-combo` at 1740 ± 92. It concedes 2.9 goals
-a match there against combo's 3.5, and scores the same 8.0.
+`modular-team` is `modular-combo` with team play in 2v2. 1v1, 3v3, and set pieces play exactly as `modular-combo`.
+
+- The attacker is the car that reaches the ball first by `ground_time`, not the nearest (`timecost`).
+- The support waits wide and deep (`lateral 0.8`, `gap 1900`) and reads the ball a second ahead (`lead 1.0`).
+- It takes over as soon as the attacker is past the ball or no faster to it (`margin 0`, `past 0`).
+
+Against `modular-combo` in 2v2, on fresh seeds: +157 [+63, +279] (seeds 150000+).
+The first version, without `timecost`, is `archive/modular-team-v1.brain`: +209 [+95, +391] on seeds 90000+
+and +107 [+30, +194] on seeds 120000+ against combo, and first on the 2v2 ladder at 1875 ± 110 to combo's 1740 ± 92,
+conceding 2.9 goals a match to combo's 3.5. Adding `timecost` beat v1 by +87 [+20, +160] on seeds 90000+.
 
 `strategies/team.rs` runs alphabravo's tactics and replaces only some cars' choices.
 Every option is off by default, and then it plays exactly as alphabravo (tested in `simulation/tests/modular.rs`).
@@ -35,6 +38,12 @@ two or fewer, and of three or more. Select the strategy per size with `strategy.
 | `ready` | 2500 | A teammate within this distance behind the cross point counts as ready |
 | `crossspeed`, `crossflip` | 2300, true | Approach speed and flip of the cross |
 | `pass` | true | With `cross`, false keeps the slot positioning but never passes |
+| `timecost` | false | Choose the attacker by `ground_time` to the ball plus `behind` seconds per unit upfield of it |
+| `stick`, `behind` | 0.1, 0.00065 | Preference in seconds for the current attacker; upfield penalty |
+| `join` | -1 | Teams of three: the keeper takes the ball when it arrives this many seconds sooner; negative disables |
+| `joiny` | 0 | The keeper joins only while the ball is at most this far upfield |
+| `control` | 0 | The shadow also takes over while the attacker is farther than this from the ball; 0 disables |
+| `back` | false | Without `shadow`, a support upfield of the ball returns to the shadow spot at full speed |
 
 A cross reports `Mode::Strike`, so a skill that finds a scoring touch (touch-a) still shoots first.
 
@@ -44,7 +53,9 @@ A cross reports `Mode::Strike`, so a skill that finds a scoring touch (touch-a) 
    About 1.5 minutes on 15 threads, 3 minutes on 6.
 2. Confirm on fresh seeds with `--seed-base` and `--max-pairs 150`. The best of many screened variants
    overstates its gain: `quick` screened at +82 and confirmed at +26, `lead10` at +137 and +38.
-3. `simulation/tests/passes.rs` counts what follows touches wide in the attacking third: a teammate's touch,
+3. The arena checks every brain file at startup. Rebuild it (`cargo build --release --locked --manifest-path
+   arena/Cargo.toml`) before adding a brain that uses a new setting, or every challenge in the batch fails.
+4. `simulation/tests/passes.rs` counts what follows touches wide in the attacking third: a teammate's touch,
    the same car's, a rival's, and goals. Run it with
    `PASSES_BRAIN=../arena/brains/<brain>.brain cargo test --release --test passes -- --ignored --nocapture`
    from `simulation/`. Twelve matches is a rough look only.
@@ -82,6 +93,22 @@ Elo with 95% intervals. Seeds 1+ unless marked. Brains not in `arena/brains/` ar
 | `modular-team-x-all3` | 2v2: quick2, lead 1.0, lateral 0.8, gap 1900 | seeds 90000+: **+209** [+95, +391]; seeds 120000+: **+107** [+30, +194] | |
 | `modular-team-x-3lead` | 3v3: quick2, lead 1.0 | | **-86** [-161, -19] |
 | `modular-team-x-3all3` | 3v3: all3's settings | | -26 [-80, +26] |
+| `modular-team-x-3time` | 3v3: timecost | | 0 [-50, +50] |
+| `modular-team-x-3join3` | 3v3: join 0.3 | | -39 [-94, +13] |
+| `modular-team-x-3join0` | 3v3: join 0 | | -48 [-101, +3] |
+| `modular-team-x-3join3hi` | 3v3: join 0.3, joiny 2000 | | **-163** [-288, -68] |
+| `modular-team-x-3ctl600` | 3v3: quick2, control 600 | | -26 [-80, +26] |
+| `modular-team-x-3ctl1000` | 3v3: quick2, control 1000 | | -13 [-71, +44] |
+| `modular-team-x-3back` | 3v3: back, gap 2600, lateral 0.4, lead 0 | | -39 [-97, +16] |
+| `modular-team-x-3backlead` | 3v3: back, gap 1900, lateral 0.8, lead 1.0 | | +22 [-33, +77]; seeds 90000+: -34 [-76, +7] |
+| `modular-team-x-3backtime` | 3v3: 3back, timecost | | -48 [-104, +6] |
+
+Against `archive/modular-team-v1.brain` in 2v2:
+
+| Brain | Change | Seeds 1+ | Fresh seeds |
+| --- | --- | --- | --- |
+| `modular-team-x-2time` | timecost | +44 [-8, +98] | 90000+: **+87** [+20, +160] |
+| `modular-team-x-2ctl800` | control 800 | -48 [-103, +4] | |
 
 ## Lessons
 
@@ -89,7 +116,9 @@ Elo with 95% intervals. Seeds 1+ unless marked. Brains not in `arena/brains/` ar
   or the support is no slower to it. Then 2v2 gains clearly, and 3v3 roughly breaks even.
 - In 2v2 the shadow does best wide and deep, reading the ball a second ahead: the attacker's side of the field,
   ready for the next touch rather than the current one.
-- 3v3 needs its pressure. A higher keeper loses, more so the higher it stands, and no shadow variant gains there.
+- 3v3 needs its pressure and its keeper. A higher keeper loses, more so the higher it stands; a keeper that joins
+  attacks loses, badly in the rival half; no shadow or role variant gains there.
+- Choosing the attacker by arrival time instead of distance helps in 2v2, where the shadow depends on a good handover.
 - Forced crosses lose or break even. The pass diagnostic shows why the shadow already works:
   quick2 scores about 0.6 goals a match within four seconds of a wide touch and a teammate's touch, combo about 0.1.
   A finisher parked in the slot wastes a car.

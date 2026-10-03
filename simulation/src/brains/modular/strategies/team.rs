@@ -55,6 +55,13 @@ struct Opts {
     crossspeed: f64,
     crossflip: bool,
     pass: bool,
+    timecost: bool,
+    stick: f64,
+    behind: f64,
+    join: f64,
+    joiny: f64,
+    control: f64,
+    back: bool,
 }
 
 /// What this strategy does with a car this tick.
@@ -121,6 +128,21 @@ impl Opts {
             crossflip: params.flag("team.crossflip", true)?,
             // With `team.cross`, false keeps the slot positioning but never passes.
             pass: params.flag("team.pass", true)?,
+            // Choose the attacker by estimated arrival time instead of distance.
+            timecost: params.flag("team.timecost", false)?,
+            // Seconds of preference for the current attacker, against role flicker.
+            stick: params.number("team.stick", 0.1)?,
+            // Seconds added per unit a car is upfield of the ball. Alphabravo's distance cost uses 1.5 units per unit.
+            behind: params.number("team.behind", 0.00065)?,
+            // In teams of three, the keeper takes the ball when it arrives this many seconds before the attacker.
+            // Negative disables it.
+            join: params.number("team.join", -1.0)?,
+            // The keeper joins only while the ball is at most this far upfield.
+            joiny: params.number("team.joiny", 0.0)?,
+            // The shadow also takes over while the attacker is farther than this from the ball. Zero disables it.
+            control: params.number("team.control", 0.0)?,
+            // Without `team.shadow`, a support upfield of the ball returns to the shadow spot at full speed.
+            back: params.flag("team.back", false)?,
         })
     }
     fn read(params: &mut Params, size: usize, base: &Self) -> Result<Self, String> {
@@ -144,6 +166,13 @@ impl Opts {
             crossspeed: params.number(&format!("team.{size}.crossspeed"), base.crossspeed)?,
             crossflip: params.flag(&format!("team.{size}.crossflip"), base.crossflip)?,
             pass: params.flag(&format!("team.{size}.pass"), base.pass)?,
+            timecost: params.flag(&format!("team.{size}.timecost"), base.timecost)?,
+            stick: params.number(&format!("team.{size}.stick"), base.stick)?,
+            behind: params.number(&format!("team.{size}.behind"), base.behind)?,
+            join: params.number(&format!("team.{size}.join"), base.join)?,
+            joiny: params.number(&format!("team.{size}.joiny"), base.joiny)?,
+            control: params.number(&format!("team.{size}.control"), base.control)?,
+            back: params.flag(&format!("team.{size}.back"), base.back)?,
         })
     }
 }
@@ -152,6 +181,9 @@ impl Strategy for TeamPlay {
     fn assign(&mut self, ctx: &Context) -> Team {
         let team = self.core.assign(ctx);
         self.size = team.count;
+        if !team.kickoff {
+            self.reassign(ctx, team);
+        }
         team
     }
     fn mode(&self, i: usize, ctx: &Context, team: Team) -> Mode {
@@ -207,6 +239,73 @@ impl Strategy for TeamPlay {
 }
 
 impl TeamPlay {
+    /// Replaces the core's attacker by `team.timecost` and `team.join`, then assigns the other roles as the core does.
+    fn reassign(&mut self, ctx: &Context, team: Team) {
+        let o = *self.o();
+        if !o.timecost && o.join < 0.0 {
+            return;
+        }
+        let w = ctx.world;
+        let d = self.d();
+        let ball = w.ball.pos;
+        let mate = ctx.player.filter(|&id| w.cars[id].team == self.core.team);
+        let ids: Vec<usize> = self.core.bots.iter().map(|b| b.car).chain(mate).collect();
+        let active = |id: usize| !w.cars[id].is_demoed && !w.cars[id].frozen;
+        let time = |id: usize| ground_time(&w.cars[id], ball, true);
+        let previous = self.core.previous;
+        let mut attacker = previous;
+        if o.timecost {
+            let cost = |id: usize| {
+                time(id) + ((w.cars[id].pos.y - ball.y) * d).max(0.0) * o.behind
+                    - if self.core.previous == Some(id) {
+                        o.stick
+                    } else {
+                        0.0
+                    }
+            };
+            attacker = ids
+                .iter()
+                .copied()
+                .filter(|&id| active(id))
+                .min_by(|&a, &b| cost(a).total_cmp(&cost(b)));
+        }
+        if o.join >= 0.0
+            && team.count >= 3
+            && ball.y * d < o.joiny
+            && let Some(current) = attacker
+            && let Some(keeper) = self
+                .core
+                .bots
+                .iter()
+                .find(|b| b.role == GOALIE)
+                .map(|b| b.car)
+            && keeper != current
+            && active(keeper)
+            && (w.cars[keeper].pos.y - ball.y) * d < 0.0
+            && time(keeper) + o.join < time(current)
+        {
+            attacker = Some(keeper);
+        }
+        if attacker == previous {
+            return;
+        }
+        self.core.previous = attacker;
+        let deep = ids
+            .iter()
+            .copied()
+            .filter(|&id| Some(id) != attacker && active(id))
+            .min_by(|&a, &b| (w.cars[a].pos.y * d).total_cmp(&(w.cars[b].pos.y * d)));
+        for bot in &mut self.core.bots {
+            bot.role = if Some(bot.car) == attacker {
+                ATTACK
+            } else if team.count >= 3 && bot.settings.roles == 1 && Some(bot.car) == deep {
+                GOALIE
+            } else {
+                SUPPORT
+            };
+        }
+    }
+
     /// Options for the team size of this tick.
     fn o(&self) -> &Opts {
         &self.opts[usize::from(self.size >= 3)]
@@ -257,6 +356,7 @@ impl TeamPlay {
                     && (near < self.o().danger || self.lost(c, ctx));
                 !engage
             }
+            SUPPORT if self.o().back => !goal_side,
             GOALIE if self.o().keeper > 0.0 => {
                 !(goal_side && ball.distance(own_goal) < bot.settings.boxdist)
             }
@@ -276,6 +376,10 @@ impl TeamPlay {
         }
         let ball = w.ball.pos;
         if (attacker.pos.y - ball.y) * self.d() > self.o().past {
+            return true;
+        }
+        let control = self.o().control;
+        if control > 0.0 && attacker.pos.distance(ball) > control {
             return true;
         }
         ground_time(me, ball, true) + self.o().margin < ground_time(attacker, ball, true)
