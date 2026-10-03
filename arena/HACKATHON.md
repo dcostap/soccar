@@ -3,6 +3,10 @@
 Teams improve one gameplay skill each, in separate worktrees, on top of one shared baseline.
 Then skills compete per track, and the best ones combine into one brain.
 
+**Result of the first hackathon:** `modular-combo` (`recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a`)
+beats `modular-aerial-a` by 77 to 131 Elo at every team size. See [the combination report](hackathon/combo.md).
+A next round starts from `modular-combo`. Challenge it, not `modular`, and remove a skill only after an ablation.
+
 ## The baseline: `modular`
 
 `modular` is alphabravo, the top-rated brain, split into a fixed core and swappable skills.

@@ -3,7 +3,12 @@
 use super::kit::Create;
 
 pub mod aerial_a;
+pub mod blocking_a;
+pub mod bounce_a;
+pub mod recovery_a;
+pub mod scramble_a;
 pub mod template;
+pub mod touch_a;
 
 pub struct Def {
     /// Name used in `skills = ...` and as the prefix of the skill's settings.
@@ -24,6 +29,31 @@ pub const SKILLS: &[Def] = &[
         name: "aerial-a",
         source: include_str!("aerial_a.rs"),
         create: aerial_a::create,
+    },
+    Def {
+        name: "recovery-a",
+        source: include_str!("recovery_a.rs"),
+        create: recovery_a::create,
+    },
+    Def {
+        name: "blocking-a",
+        source: include_str!("blocking_a.rs"),
+        create: blocking_a::create,
+    },
+    Def {
+        name: "bounce-a",
+        source: include_str!("bounce_a.rs"),
+        create: bounce_a::create,
+    },
+    Def {
+        name: "scramble-a",
+        source: include_str!("scramble_a.rs"),
+        create: scramble_a::create,
+    },
+    Def {
+        name: "touch-a",
+        source: include_str!("touch_a.rs"),
+        create: touch_a::create,
     },
 ];
 
