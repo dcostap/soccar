@@ -47,7 +47,7 @@ Commands:
 Options:
   --size 1..3               Team size (default 3)
   --duration seconds        Match length (default 300)
-  --threads count           Worker threads (default: all CPUs)
+  --threads count           Worker threads (default: all CPUs but one)
   --pairs count             Ladder seeds per pairing; each seed is played twice with sides swapped (default 10)
   --elo0 x --elo1 y         Challenge hypotheses: not better than x, at least y better (default 0 and 10)
   --max-pairs count         Challenge limit (default 2000)
@@ -129,7 +129,8 @@ fn run() -> Result<(), String> {
             size: 3,
             duration: 300.0,
         },
-        threads: std::thread::available_parallelism().map_or(4, |n| n.get()),
+        // Leave one CPU free, so the machine stays responsive during long runs.
+        threads: std::thread::available_parallelism().map_or(4, |n| n.get().saturating_sub(1).max(1)),
         pairs: 10,
         elo0: 0.0,
         elo1: 10.0,

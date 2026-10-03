@@ -86,7 +86,7 @@ export                    Write public/arena/ for the page and the game menu (la
 ```
 
 Common options: `--size 1..3` and `--duration seconds` select the format (default 3v3, 300 s).
-Each format has separate results and ratings. `--threads` defaults to every CPU.
+Each format has separate results and ratings. `--threads` defaults to every CPU but one, so the machine stays responsive.
 Run `npm run arena -- --help` for the full list.
 
 Every pairing plays seeds 1, 2, 3, … twice, with sides swapped, so both brains get the same kickoffs.
