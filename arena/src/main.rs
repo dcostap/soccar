@@ -40,6 +40,7 @@ Commands:
   setpieces generate        Rewrite arena/scenarios/gen-*.txt (--count per family, default 40)
   setpieces generate-defense Add fixed defense-v2 suites with 2.5–5 s lead-in (default 216 per family)
   setpieces generate-ground-recovery Add fixed defense-v3 ground recovery tests (default 216)
+  setpieces remeasure-defense Remeasure fixed metadata after an approved physics change
   setpieces mine            Rewrite arena/scenarios/mined-goals.txt from the moments before goals
                             in the newest --count current matches of the format (default 10)
   export                    Write public/arena/arena.json for the leaderboard page
@@ -281,6 +282,7 @@ fn options_only_print(rest: &[String]) -> bool {
             || w == "generate"
             || w == "generate-defense"
             || w == "generate-ground-recovery"
+            || w == "remeasure-defense"
             || w == "mine"
     })
 }

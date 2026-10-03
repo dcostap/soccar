@@ -95,7 +95,7 @@ test("failed replay imports leave the running game intact", async () => {
 });
 
 test("a complete match recording retains goals, goal replays, overtime, and the final state", async () => {
-  const { game, wasm } = await createTestPresentation(12371);
+  const { game, wasm } = await createTestPresentation(12088);
   try {
     let saved = 0;
     game.onRecordingReady = () => saved++;

@@ -89,6 +89,7 @@ setpieces show <suite|id> Per-scenario results beside an idle baseline; one scen
 setpieces generate        Rewrite the generated suites, arena/scenarios/gen-*.txt
 setpieces generate-defense Add fixed defense-v2 suites with measured physics and longer lead-in
 setpieces generate-ground-recovery Add fixed defense-v3 ground threats with defenders farther from goal
+setpieces remeasure-defense Remeasure fixed metadata after an approved physics change
 setpieces mine            Rewrite arena/scenarios/mined-goals.txt from goals in logged matches
 export                    Write public/arena/ for the page and the game menu (every command that plays does this)
 ```
@@ -158,6 +159,8 @@ That folder preserves recorded player clips from earlier physics versions.
 Use their matching engine for recovery; never replace their fingerprints to force a load.
 The powerslide-rate change retired the old arena results and recorded player suites.
 Local result and export backups are in `artifacts/archive/before-powerslide-5/`.
+The recovery-order change also retired local arena results and exports.
+Their backup is in `artifacts/archive/before-recovery-order/`.
 
 Suites are `arena/scenarios/*.txt`. Each scenario starts with a `[name]` header and uses the text form in
 `simulation/src/scenario.rs`:

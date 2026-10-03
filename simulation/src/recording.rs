@@ -29,7 +29,12 @@ mod compatibility_tests {
     fn physics_changes_reject_every_previous_recording_engine() {
         let current = engine_version();
         assert!(compatible_engine(&current, &current));
-        for old in [LEGACY_SAVE_ENGINE, "88f27cd63490dfc3", "09645b7b1e85f2e6"] {
+        for old in [
+            LEGACY_SAVE_ENGINE,
+            "88f27cd63490dfc3",
+            "09645b7b1e85f2e6",
+            "90163d5a55fc7b2c",
+        ] {
             assert!(!compatible_engine(old, &current));
         }
         assert!(!compatible_engine("unknown-engine", &current));

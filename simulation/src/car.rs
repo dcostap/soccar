@@ -376,6 +376,9 @@ impl Car {
             self.has_jumped = false;
             self.jump_time = 0.0;
         }
+        if !self.is_on_ground {
+            self.update_air_control(dt);
+        }
         if self.is_jumping {
             self.is_jumping = self.jump_time < 0.025 || (controls.jump && self.jump_time < 0.2);
         } else if self.is_on_ground && jump {
@@ -393,13 +396,12 @@ impl Car {
             self.vel.add_scaled(up, force * dt);
             self.jump_time += dt;
         }
-        self.update_double_jump_or_flip(dt, jump, speed);
         self.update_auto_flip(dt, jump);
-        if (contacts > 0 && contacts < 4) || (contacts == 0 && self.world_contact) {
+        self.update_double_jump_or_flip(dt, jump, speed);
+        if controls.throttle != 0.0 && ((contacts > 0 && contacts < 4) || self.world_contact) {
             self.update_auto_roll(dt);
         }
         if !self.is_on_ground {
-            self.update_air_control(dt);
             self.vel
                 .add_scaled(forward, controls.throttle * (200.0 / 3.0) * dt);
         }
@@ -579,7 +581,12 @@ impl Car {
             self.air_time_since_jump = 0.0;
         }
         let c = self.controls;
-        if jump && self.air_time_since_jump < 1.25 && !self.has_double_jumped && !self.has_flipped {
+        if jump
+            && self.air_time_since_jump < 1.25
+            && !self.has_double_jumped
+            && !self.has_flipped
+            && !self.is_auto_flipping
+        {
             if c.dodge_mag
                 .unwrap_or(c.yaw.abs() + c.pitch.abs() + c.roll.abs())
                 >= self.dodge_deadzone
@@ -672,7 +679,7 @@ impl Car {
         if self.has_flipped && self.flip_time < 0.95 {
             pitch_scale = 0.0;
         }
-        if !enabled {
+        if !enabled || self.is_auto_flipping {
             return;
         }
         let pitch = c.pitch * pitch_scale;
@@ -691,7 +698,7 @@ impl Car {
     }
     fn update_auto_flip(&mut self, dt: f64, jump: bool) {
         if jump && self.world_contact && self.world_normal.z > std::f64::consts::FRAC_1_SQRT_2 {
-            let angle = atan2(self.left.z, self.up.z);
+            let angle = -atan2(self.left.z, self.up.z);
             let abs = angle.abs();
             if abs > 2.8 {
                 self.auto_flip_timer = (abs / std::f64::consts::PI) * 0.4;
@@ -703,6 +710,7 @@ impl Car {
         if self.is_auto_flipping {
             if self.auto_flip_timer <= 0.0 {
                 self.is_auto_flipping = false;
+                self.auto_flip_timer = 0.0;
             } else {
                 self.ang_vel
                     .add_scaled(self.forward, 50.0 * self.auto_flip_torque_scale * dt);

@@ -696,6 +696,111 @@ pub fn generate_recovery(seed: u64, count: usize, _threads: usize) -> Result<Gen
     generate_family(seed, count, 10, true)
 }
 
+/// Remeasure accepted scenarios after an approved physics change. Scenario text stays unchanged.
+pub fn remeasure(root: &Path, pieces: &[SetPiece]) -> Result<usize, String> {
+    let by_id: BTreeMap<_, _> = pieces
+        .iter()
+        .map(|piece| (piece.id.as_str(), piece))
+        .collect();
+    let mut total = 0;
+    let mut outputs = Vec::new();
+    for name in ["defense-v1.json", "defense-v2.json", "defense-v3.json"] {
+        let path = root.join("scenarios").join(name);
+        let text = fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))?;
+        let mut report: Report =
+            serde_json::from_str(&text).map_err(|e| format!("{}: {e}", path.display()))?;
+        if report.version != 1 {
+            return Err(format!("{}: unsupported defense report version", path.display()));
+        }
+        for (id, measurement) in &mut report.cases {
+            let piece = by_id
+                .get(id.as_str())
+                .ok_or_else(|| format!("{id}: scenario is missing"))?;
+            if piece.hash != measurement.hash || piece.suite != measurement.family {
+                return Err(format!("{id}: scenario identity changed"));
+            }
+            let trace = threat(&piece.scenario).ok_or_else(|| format!("{id}: no longer scores"))?;
+            let family = if piece.suite == RECOVERY_FAMILY.name {
+                10
+            } else if emergency(&piece.suite) {
+                FAMILIES
+                    .iter()
+                    .position(|family| family.name == piece.suite)
+                    .ok_or_else(|| format!("{id}: unknown defense family"))?
+            } else {
+                NORMAL_NAMES
+                    .iter()
+                    .position(|&name| name == piece.suite)
+                    .ok_or_else(|| format!("{id}: unknown defense family"))?
+            };
+            if !matches_family(family, &trace) {
+                return Err(format!("{id}: no longer matches its family"));
+            }
+            let normal = !emergency(&piece.suite);
+            let arrival = arrival_for(trace.seconds, normal)
+                .ok_or_else(|| format!("{id}: arrival is outside its accepted window"))?;
+            let idle = harness::run_scenario(&ScenarioJob {
+                scenario: piece.scenario.clone(),
+                brain: idle_brain(),
+            });
+            if idle.success
+                || idle.goal != Some(1)
+                || (normal && !(MIN_LEAD..=MAX_LEAD).contains(&idle.seconds))
+            {
+                return Err(format!("{id}: idle defender no longer concedes"));
+            }
+            let reach_margin = margin(&piece.scenario, &trace);
+            if reach_margin < 0.0 {
+                return Err(format!("{id}: defender can no longer reach the path"));
+            }
+            let recovery = measurement
+                .recovery
+                .as_ref()
+                .map(|_| recovery_measurement(&piece.scenario, &trace));
+            measurement.lane = lane(trace.entry.x).into();
+            measurement.arrival = arrival.into();
+            measurement.height = if trace.entry.z < 160.0 {
+                "low"
+            } else if trace.entry.z < 350.0 {
+                "middle"
+            } else {
+                "high"
+            }
+            .into();
+            measurement.seconds = round(trace.seconds);
+            measurement.entry = xyz(trace.entry).map(round);
+            measurement.entry_speed = round(trace.entry_velocity.length());
+            measurement.bounces = trace.bounces;
+            measurement.impact = trace.impact;
+            measurement.reach_margin = round(reach_margin);
+            measurement.idle_seconds = round(idle.seconds);
+            measurement.path = trace
+                .samples
+                .iter()
+                .enumerate()
+                .filter(|(i, _)| i % 12 == 0 || *i + 1 == trace.samples.len())
+                .map(|(_, &(t, p))| [round(t), round(p.x), round(p.y), round(p.z)])
+                .collect();
+            if let Some(recovery) = recovery {
+                measurement.recovery = Some(Recovery {
+                    goal_distance: round(recovery.goal_distance),
+                    path_distance: round(recovery.path_distance),
+                    required_speed: round(recovery.required_speed),
+                });
+            }
+            total += 1;
+        }
+        report.simulation = soccar_simulation::recording::engine_version();
+        let text = serde_json::to_string(&report).map_err(|e| e.to_string())?;
+        outputs.push((path, text));
+    }
+    // Validate every report before replacing any report.
+    for (path, text) in outputs {
+        fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+    }
+    Ok(total)
+}
+
 /// Cells use lane × measured arrival (or rival contact speed) × defender placement.
 /// Changing worker count does not change the output, and small counts are prefixes of large counts.
 pub fn generate(seed: u64, count: usize, threads: usize) -> Result<Generated, String> {

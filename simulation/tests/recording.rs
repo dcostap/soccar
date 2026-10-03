@@ -19,7 +19,12 @@ fn legacy_fixture() -> serde_json::Value {
 #[test]
 fn previous_physics_and_save_update_recordings_are_rejected() {
     let mut recording = legacy_fixture()["recording"].clone();
-    for engine in ["0d5bdf1712f5497d", "88f27cd63490dfc3", "09645b7b1e85f2e6"] {
+    for engine in [
+        "0d5bdf1712f5497d",
+        "88f27cd63490dfc3",
+        "09645b7b1e85f2e6",
+        "90163d5a55fc7b2c",
+    ] {
         recording["engine"] = engine.into();
         let error = Replay::parse(&recording.to_string()).unwrap_err();
         assert!(error.contains("another simulation version"), "{error}");

@@ -182,6 +182,16 @@ If the change cannot alter set-piece play, set each file's `simulation` field to
 Then run `cargo test --release --manifest-path arena/Cargo.toml defense::`.
 It re-simulates every measured threat and fails on any difference.
 
+If approved physics can alter set-piece play, remeasure the fixed inputs:
+
+```sh
+npm run arena -- setpieces remeasure-defense
+```
+
+The command updates physics-derived metadata only.
+It stops if a fixed threat no longer meets its family or acceptance checks.
+It does not change scenario text, hashes, plans, or rejection counts.
+
 The CLI reports each family and each measured dimension.
 The browser adds **Group results by**, row filters, measured details, and dashed undefended paths.
 Select a suite before grouping to inspect one family.

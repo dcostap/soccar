@@ -204,11 +204,11 @@ try {
   watchUrl.search = new URLSearchParams({
     mute: "",
     watch: "test",
-    seed: "12371",
+    seed: "12088",
     size: "3",
     duration: "300",
     names: "allstar,allstar",
-    expect: "4-3",
+    expect: "2-3",
   });
   await page.goto(watchUrl.href);
   await page.locator(".watch-timeline").waitFor();
@@ -236,7 +236,7 @@ try {
     ),
     "Preparation yields to rendering",
   );
-  assert.equal(await page.locator(".watch-marker.goal").count(), 7);
+  assert.equal(await page.locator(".watch-marker.goal").count(), 5);
   assert.equal(await page.locator(".watch-marker.overtime").count(), 1);
   assert.ok(await range.evaluate((e) => Number(e.max) > 300 * 120));
   checks.push("watch preparation, goal markers, and overtime duration");

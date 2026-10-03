@@ -287,6 +287,13 @@ impl Arena {
             Some("generate") => return self.setpiece_generate(),
             Some("generate-defense") => return self.setpiece_generate_defense(false),
             Some("generate-ground-recovery") => return self.setpiece_generate_defense(true),
+            Some("remeasure-defense") => {
+                let count = defense::remeasure(&self.root, &self.setpieces.pieces)?;
+                println!(
+                    "Remeasured {count} fixed defense scenarios without changing their inputs."
+                );
+                return Ok(());
+            }
             Some("mine") => return self.setpiece_mine(),
             Some("import") => return self.setpiece_import(&words[1..]),
             _ => {}
