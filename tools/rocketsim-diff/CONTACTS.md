@@ -50,6 +50,14 @@ The next prototype must model contact correction over time and test all fixed pa
 Resolving car-ball contact before position integration improved only 9 of 24 dribbles.
 Median dribble error rose from 58.31 to 111.94 UU.
 
+The pinned source detects contact before transform integration.
+Its callback uses the post-force velocity, then queues the extra hit velocity until tick completion.
+A staged prototype reproduced that order in Soccar.
+It cut the original dribble from 114.96 to 73.23 UU and improved fast low-ball hits.
+It improved only 7 of 24 dribbles, and their median error rose to 111.20 UU.
+One elevated 2,200 UU/s hit rose from 131.4 to 141.6 UU.
+Soccar's one-pass contact response cannot safely adopt the source order by itself.
+
 Applying 72 percent of each position correction improved 7 of 24 dribbles.
 Median dribble error rose to 75.33 UU.
 
