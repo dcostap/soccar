@@ -221,7 +221,7 @@ def main():
     parser.add_argument("--meshes", type=Path, help="Local collision-meshes folder from the dumper")
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/rocketsim-diff/run")
     parser.add_argument("--filter", default="", help="Scenario name substring")
-    parser.add_argument("--suite", choices=("baseline", "goals", "contacts"), default="baseline")
+    parser.add_argument("--suite", choices=("baseline", "goals", "contacts", "bumps"), default="baseline")
     parser.add_argument("--no-build", action="store_true")
     parser.add_argument("--match-controls", action="store_true",
                         help="Reverse Soccar steer, yaw, and roll inputs to match RocketSim's signs")
@@ -248,6 +248,9 @@ def main():
     elif args.suite == "contacts":
         from contact_cases import suite as selected_suite
         suite_path = Path(__file__).with_name("contact_cases.py")
+    elif args.suite == "bumps":
+        from bump_cases import suite as selected_suite
+        suite_path = Path(__file__).with_name("bump_cases.py")
     else:
         selected_suite = suite
         suite_path = Path(__file__).with_name("scenarios.py")

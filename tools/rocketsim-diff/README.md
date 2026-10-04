@@ -105,6 +105,8 @@ Use peak and final errors together; inspect first contact before changing a solv
 Reports are measurements, not a claim that Rocket League and Soccar agree.
 See [the goal geometry audit](GOAL-GEOMETRY.md) for one rejected broad geometry fit.
 See [the car-ball contact audit](CONTACTS.md) for the fixed contact suite and one rejected penetration fit.
+See [the car-car contact audit](BUMPS.md) for the fixed bump suite and rejected timing changes.
+Use `--suite bumps` for fixed car-car impacts across speed, offset, motion, angle, and grounding.
 
 Keep native/WASM checks exact.
 Keep RocketSim tolerances separate from the deterministic regression hashes.

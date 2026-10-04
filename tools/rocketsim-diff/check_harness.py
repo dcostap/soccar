@@ -17,6 +17,7 @@ from scenarios import suite
 from inspect_mesh import goal_section, load_mesh, nearest
 from goal_cases import suite as goal_suite
 from contact_cases import suite as contact_suite
+from bump_cases import suite as bump_suite
 
 BINARY = ROOT / "tools/rocketsim-diff/native/target/release" / (
     "soccar-diff-trace.exe" if os.name == "nt" else "soccar-diff-trace")
@@ -81,7 +82,7 @@ class HarnessChecks(unittest.TestCase):
         self.assertNotEqual(values["phases"][0]["controls"][0]["throttle"], 0.1)
 
     def test_scenarios_are_unique_and_controls_cover_cars(self):
-        cases = suite() + goal_suite() + contact_suite()
+        cases = suite() + goal_suite() + contact_suite() + bump_suite()
         self.assertEqual(len(cases), len({s["name"] for s in cases}))
         for scenario in cases:
             for phase in scenario["input"]["phases"]:
