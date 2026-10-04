@@ -24,6 +24,7 @@ fn previous_physics_and_save_update_recordings_are_rejected() {
         "88f27cd63490dfc3",
         "09645b7b1e85f2e6",
         "90163d5a55fc7b2c",
+        "dcc6aac2894ceb94",
     ] {
         recording["engine"] = engine.into();
         let error = Replay::parse(&recording.to_string()).unwrap_err();

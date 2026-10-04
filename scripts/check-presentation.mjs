@@ -3,8 +3,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { createTestPresentation } from "./simulation-fixtures.mjs";
 let game;
 try {
-  // Seed 12088 retains overtime, save, and demolition coverage.
-  const fixture = await createTestPresentation(12088);
+  // Seed 91 retains overtime, save, and demolition coverage.
+  const fixture = await createTestPresentation(91);
   game = fixture.game;
   const { calls, settings } = fixture;
   const config = {
@@ -49,10 +49,10 @@ try {
     ticks++;
   }
   assert.equal(game.phase, "ended");
-  assert.deepEqual(game.score, [2, 3]);
+  assert.deepEqual(game.score, [4, 5]);
   assert.equal(ended, 1);
   assert.equal(winner, 1);
-  assert.equal(game.world.tick, 42944);
+  assert.equal(game.world.tick, 48199);
   assert.ok(phases.has("goal") && phases.has("replay") && game.overtime);
   assert.ok(
     calls.some((c) => c.method === "showBanner" && c.args[0] === "OVERTIME"),

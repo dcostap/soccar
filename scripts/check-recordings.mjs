@@ -92,6 +92,7 @@ try {
       "88f27cd63490dfc3",
       "09645b7b1e85f2e6",
       "90163d5a55fc7b2c",
+      "dcc6aac2894ceb94",
     ]) {
       put(legacyHandle, JSON.stringify({ ...legacy.recording, engine }));
       assert.equal(wasm.sim_record_load(legacyHandle), -1);

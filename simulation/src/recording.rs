@@ -34,6 +34,7 @@ mod compatibility_tests {
             "88f27cd63490dfc3",
             "09645b7b1e85f2e6",
             "90163d5a55fc7b2c",
+            "dcc6aac2894ceb94",
         ] {
             assert!(!compatible_engine(old, &current));
         }

@@ -532,7 +532,14 @@ pub fn car_car(a: &mut Car, b: &mut Car, events: &mut Vec<Event>) {
     };
     let pa = sa.closest(sb.center);
     let pb = sb.closest(sa.center);
-    let point = pa.plus(pb).scaled(0.5);
+    let mut point = pa.plus(pb).scaled(0.5);
+    if a.up.z > 0.9 && b.up.z > 0.9 {
+        let manifold_up = a.up.plus(b.up).normalized();
+        if normal.dot(manifold_up).abs() < 0.5 {
+            // A side-face manifold transfers most impulse near the cars' centers of mass.
+            point.add_scaled(manifold_up, -HALF.z);
+        }
+    }
     let la = a.mat.transpose_mul(pa.minus(a.pos));
     let lb = b.mat.transpose_mul(pb.minus(b.pos));
     bump(a, b, la, events);

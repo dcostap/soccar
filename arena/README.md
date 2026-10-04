@@ -161,6 +161,8 @@ The powerslide-rate change retired the old arena results and recorded player sui
 Local result and export backups are in `artifacts/archive/before-powerslide-5/`.
 The recovery-order change also retired local arena results and exports.
 Their backup is in `artifacts/archive/before-recovery-order/`.
+The low-manifold change retired engine `dcc6aac2894ceb94` results and exports.
+Their backup is in `artifacts/archive/before-low-manifold/`.
 
 Suites are `arena/scenarios/*.txt`. Each scenario starts with a `[name]` header and uses the text form in
 `simulation/src/scenario.rs`:

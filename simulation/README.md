@@ -217,22 +217,23 @@ The current baseline includes `libm` trigonometry, a plain `hypot`, randomized c
 It also uses RocketSim's powerslide rise rate of 5 per second and fall rate of 2 per second.
 It applies air torque, automatic flips, double jumps, and automatic roll in RocketSim's order.
 The recovery-order update changes physics trajectories and match results.
-It includes 191,277 states and 849,698,383 fields
+Upright side impacts use the lower edge of the box manifold to avoid excessive pitch.
+It includes 161,283 states and 714,159,334 fields
 across 16 cases.
 
 | Seed  | Score | Overtime | Controller ticks | Physics ticks |
 | ----- | ----- | -------- | ---------------- | ------------- |
-| 12345 | 5–2   | No       | 47,212           | 43,432        |
-| 67890 | 7–8   | Yes      | 77,312           | 69,212        |
-| 24680 | 4–5   | No       | 50,297           | 45,437        |
+| 12345 | 4–1   | No       | 44,207           | 41,507        |
+| 67890 | 4–6   | No       | 51,810           | 46,410        |
+| 24680 | 3–5   | No       | 48,810           | 44,490        |
 
-The current recording engine is `dcc6aac2894ceb94`.
+The current recording engine is `0cfac505b21f66a7`.
 It rejects recordings from earlier physics versions, including the save-update engines.
 The save-only compatibility exception no longer applies after the powerslide change.
 Old player clips remain unchanged in `arena/scenarios/archive/before-powerslide-5/`.
 Local results, exports, and earlier WASM builds remain under `artifacts/archive/`.
 Browser-stored recordings remain available for download, but need their matching engine for playback.
-Source commit `8cf1bd9` rebuilds engine `90163d5a55fc7b2c` for recovery.
+Source commit `02072d5` rebuilds engine `dcc6aac2894ceb94` for low-manifold recordings.
 
 The state runner streams bounded blocks instead of retaining complete traces in memory.
 A difference reports the case, tick, block, field index, and floating-point bits.
@@ -314,9 +315,9 @@ Results go into `artifacts/benchmark/report.json`.
 It then runs four matches per worker and records the batch summary.
 The worker count is the logical CPU count minus one, with a minimum of one.
 
-On a Ryzen 7 5800X3D (8 cores, 16 threads), the current native median is about 0.82 seconds per match.
-With 15 workers, the batch runs about 9.8 complete 3v3 matches per second, or about 457,000 physics ticks per second.
-The [recovery report](../tools/rocketsim-diff/RECOVERY.md) compares the two latest behavior versions.
+On a Ryzen 7 5800X3D (8 cores, 16 threads), the current native median is about 0.79 seconds per match.
+With 15 workers, the batch runs about 8.5 complete 3v3 matches per second, or about 397,000 physics ticks per second.
+The [bump report](../tools/rocketsim-diff/BUMPS.md) records the latest behavior comparison.
 Changed trajectories change the workload, so these times do not isolate instruction cost.
 Trace checks include serialization and transfer. Do not use their times as performance measurements.
 

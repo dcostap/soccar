@@ -53,14 +53,14 @@ Attacker errors rose in all 57 paths.
 
 Keep the current impulse and correction until the manifold prototype can replace them together.
 
-## Low side-manifold candidate
+## Accepted low side-manifold response
 
 The car center of mass is 20.755 UU below the hitbox center.
 The old one-point response applies a side impact at the hitbox center.
 An 800 UU/s centered air impact then produces 5.17 rad/s of pitch.
 RocketSim's box manifold produces 0.49 rad/s.
 
-For nearly upright side impacts, a candidate uses the lower edge of the contact face.
+For nearly upright side impacts, Soccar now uses the lower edge of the contact face.
 It produces 0.469 rad/s and matches RocketSim's post-bump speed within 0.1 UU/s.
 
 | Group | Attacker median before | Candidate | Victim median before | Candidate |
@@ -75,4 +75,4 @@ Tilted and vertical impacts keep the approved response.
 
 Only one changed path has a larger peak position error.
 Its grounded victim rises from 87.5 to 106.9 UU.
-The candidate remains under simulation-wide validation.
+The broader gains justify this approximation until Soccar gains a full contact manifold.
