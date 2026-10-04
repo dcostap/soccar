@@ -10,6 +10,14 @@ def yaw(degrees):
     return (0, 0, math.sin(angle), math.cos(angle))
 
 
+def tilt(axis, degrees):
+    angle = math.radians(degrees) / 2
+    value = math.sin(angle)
+    values = [0, 0, 0, math.cos(angle)]
+    values[axis] = value
+    return tuple(values)
+
+
 def suite():
     cases = []
     for speed in (400, 800, 1200, 1800, 2300):
@@ -35,4 +43,20 @@ def suite():
                     [car(pos=(-400, 0, 17), vel=(speed, 0, 0), grounded=True),
                      car(pos=(0, lateral, 17), quat=yaw(angle), grounded=True, team=1)],
                     [phase(240, {}, {})], meshes=True))
+    for speed in (800, 1800):
+        for lateral in (0, 40):
+            for axis, label in ((0, "roll"), (1, "pitch")):
+                for angle in (-30, 30):
+                    cases.append(case(
+                        f"bump-tilt-{label}-{speed}-{lateral}-{angle}", "car-car-contact",
+                        [car(pos=(-400, 0, 1000), vel=(speed, 0, 0)),
+                         car(pos=(0, lateral, 1000), quat=tilt(axis, angle), team=1)],
+                        [phase(120, {}, {})], meshes=True))
+    for speed in (800, 1800):
+        for angle in (0, 30):
+            cases.append(case(
+                f"bump-vertical-{speed}-{angle}", "car-car-contact",
+                [car(pos=(0, 0, 1300), vel=(0, 0, -speed)),
+                 car(pos=(0, 0, 1000), quat=tilt(0, angle), team=1)],
+                [phase(120, {}, {})], meshes=True))
     return cases
