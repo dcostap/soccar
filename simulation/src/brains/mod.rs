@@ -11,9 +11,13 @@ use std::fmt::Debug;
 pub mod classic;
 // Contest entries. See arena/CONTEST.md.
 pub mod alpha;
+// Keep existing brain source and fingerprints unchanged for style-only lints.
+#[allow(clippy::field_reassign_with_default)]
 pub mod alphabravo;
+#[allow(clippy::collapsible_if, clippy::field_reassign_with_default)]
 pub mod bravo;
 // Alphabravo with swappable skills. See arena/HACKATHON.md.
+#[allow(clippy::field_reassign_with_default)]
 pub mod modular;
 // Nexto, a published deep-RL Rocket League bot. See nexto/mod.rs for credit and license.
 pub mod nexto;
