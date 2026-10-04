@@ -36,3 +36,15 @@ Angled victim mean fell from 384.2 to 355.2 UU, but only 5 of 12 paths improved.
 
 Neither timing change is in the game.
 The next prototype must produce a box-box contact manifold instead of changing tick order alone.
+
+## Rejected response changes
+
+Removing the physical car-car impulse caused large regressions in every group.
+For example, median airborne attacker error rose from 122.5 to 458.8 UU.
+The added Rocket League bump velocity does not replace rigid-body contact response.
+
+Applying only 20 percent of each position correction had almost no effect.
+It improved 10 of 30 grounded victim paths, but median error rose from 47.0 to 47.2 UU.
+Attacker errors rose in all 57 paths.
+
+Keep the current impulse and correction until the manifold prototype can replace them together.
