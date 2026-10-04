@@ -5,6 +5,7 @@ https://dcostap.github.io/soccar/
 The playable game uses the Rust simulation through WebAssembly.
 The native runner uses the same simulation without rendering or real-time waits.
 Rust is the only simulation source. JavaScript handles graphics, audio, menus, and input.
+The match menu includes Modular Combo and Nexto, even without local arena results.
 
 ```sh
 rustup target add wasm32-unknown-unknown

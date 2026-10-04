@@ -72,6 +72,11 @@ export function parseWatch(search) {
 }
 /** Brains offered in the match menu even without an arena export, such as on the published site. */
 const BUILT_IN_BRAINS = [
+  {
+    name: "modular-combo",
+    label: "Modular Combo",
+    text: "module = modular\nskills = recovery-a, blocking-a, bounce-a, scramble-a, aerial-a, touch-a\n",
+  },
   { name: "nexto", label: "Nexto", text: "module = nexto\n" },
 ];
 /** Brains published by the arena export, offered in the match menu. Empty when the arena has not run. */

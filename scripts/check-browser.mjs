@@ -88,6 +88,10 @@ async function press(key) {
   );
 }
 try {
+  // Test the published menu without local arena results.
+  await page.route("**/arena/brains.json", (route) =>
+    route.fulfill({ json: { brains: [] } }),
+  );
   if (process.argv.includes("--preview")) {
     const base = process.env.SOCCAR_TEST_BASE ?? "/";
     assert.ok(
@@ -188,6 +192,18 @@ try {
   await menu("Mode").locator(".mi-value").click();
   await menu("Mode").locator(".mi-value").click();
   assert.ok((await menu("Mode").textContent()).includes("3v3"));
+  assert.deepEqual(
+    await page.evaluate(() => window.soccarArenaBrains.map((b) => b.label)),
+    ["Modular Combo", "Nexto"],
+  );
+  const difficulty = menu("Bot Difficulty");
+  for (
+    let i = 0;
+    i < 5 && !(await difficulty.textContent()).includes("Modular Combo");
+    i++
+  )
+    await difficulty.locator(".mi-value").click();
+  assert.ok((await difficulty.textContent()).includes("Modular Combo"));
   await menu("START MATCH").click();
   await page.waitForFunction(() => {
     const t = window.__simulationTest;
@@ -196,7 +212,9 @@ try {
   });
   assert.equal((await state()).cars, 6);
   assert.ok((await state()).tick > 361);
-  checks.push("playable 3v3 match and countdown");
+  checks.push(
+    "built-in Modular Combo menu choice and playable 3v3 match without arena data",
+  );
   await page.screenshot({ path: "artifacts/browser/match.png" });
   assert.equal(await page.locator(".watch-timeline").count(), 0);
 
