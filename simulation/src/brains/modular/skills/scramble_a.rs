@@ -1,6 +1,9 @@
 //! Clear a low contested ball across the own box, away from the goal mouth.
 use crate::{
-    brains::{Params, modular::kit::{Mode, Role, Situation, Skill, drive_to, own_goal_touch}},
+    brains::{
+        Params,
+        modular::kit::{Mode, Role, Situation, Skill, drive_to, own_goal_touch},
+    },
     car::Controls,
     math::{clamp, hypot2},
     vector::Vec3,
@@ -36,7 +39,10 @@ impl Skill for Scramble {
             return None;
         }
         // Do not take another car's close touch in team play.
-        if s.count > 1 && s.mates().any(|m| m.pos.distance(ball) + 150.0 < car.pos.distance(ball)) {
+        if s.count > 1
+            && s.mates()
+                .any(|m| m.pos.distance(ball) + 150.0 < car.pos.distance(ball))
+        {
             return None;
         }
         // A direct side clearance is useful only when the core's goalward approach is unsafe.

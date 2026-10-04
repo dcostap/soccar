@@ -18,7 +18,10 @@ pub fn create(_params: &mut Params) -> Result<Box<dyn Skill>, String> {
 impl Skill for BlockingA {
     fn claim(&mut self, s: &Situation, _holding: bool) -> Option<Controls> {
         if s.kickoff
-            || !matches!(s.mode, Mode::Save | Mode::Intercept | Mode::Strike | Mode::Position)
+            || !matches!(
+                s.mode,
+                Mode::Save | Mode::Intercept | Mode::Strike | Mode::Position
+            )
             || !s.car.is_on_ground
             || s.car.up.z < 0.9
             || (s.count > 1 && !matches!(s.role, Role::Goalie | Role::Attack))

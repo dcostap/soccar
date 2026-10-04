@@ -3,7 +3,10 @@ use crate::{
     DT,
     arena::GOAL_LINE,
     ball::Ball,
-    brains::{Params, modular::kit::{Mode, Role, Situation, Skill, drive_to}},
+    brains::{
+        Params,
+        modular::kit::{Mode, Role, Situation, Skill, drive_to},
+    },
     car::{Car, Controls},
     vector::Vec3,
     world::car_ball,
@@ -17,7 +20,11 @@ struct RecoveryA {
 }
 
 pub fn create(_params: &mut Params) -> Result<Box<dyn Skill>, String> {
-    Ok(Box::new(RecoveryA { target: None, until: 0, searched: -1000 }))
+    Ok(Box::new(RecoveryA {
+        target: None,
+        until: 0,
+        searched: -1000,
+    }))
 }
 
 // Use the same step order as the world. Other cars and pads do not enter this test.
@@ -58,18 +65,27 @@ fn route(s: &Situation, target: Vec3) -> Option<i64> {
 impl Skill for RecoveryA {
     fn claim(&mut self, s: &Situation, holding: bool) -> Option<Controls> {
         let tick = s.world.tick;
-        if holding && tick < self.until && s.car.is_on_ground && s.car.up.z > 0.9
-            && s.world.ball.pos.z < 220.0 && s.world.ball.vel.y * s.d < -200.0
+        if holding
+            && tick < self.until
+            && s.car.is_on_ground
+            && s.car.up.z > 0.9
+            && s.world.ball.pos.z < 220.0
+            && s.world.ball.vel.y * s.d < -200.0
             && let Some(target) = self.target
         {
             return Some(drive_to(s.car, target, 2300.0, true));
         }
         self.target = None;
-        if s.count == 0 || s.role != Role::Attack || s.mode != Mode::Save
-            || !s.car.is_on_ground || s.car.up.z < 0.9
-            || s.world.ball.pos.z > 180.0 || s.world.ball.vel.y * s.d > -500.0
+        if s.count == 0
+            || s.role != Role::Attack
+            || s.mode != Mode::Save
+            || !s.car.is_on_ground
+            || s.car.up.z < 0.9
+            || s.world.ball.pos.z > 180.0
+            || s.world.ball.vel.y * s.d > -500.0
             || (s.car.pos.y - s.world.ball.pos.y) * s.d < 200.0
-            || tick - self.searched < 12 || s.threat().is_none()
+            || tick - self.searched < 12
+            || s.threat().is_none()
         {
             return None;
         }
