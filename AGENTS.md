@@ -48,6 +48,7 @@ npm run benchmark                 # speed, after checking results against the ba
 ```
 
 Run `npm run build:wasm` after changing Rust that the browser uses. Checks that load WASM read `public/simulation/`.
+On a fresh checkout, run `npm run build:wasm` before `npm test`. Replay tests load the generated WASM file.
 
 ## Gotchas
 

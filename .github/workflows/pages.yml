@@ -24,10 +24,11 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm test
       - uses: dtolnay/rust-toolchain@1.91.1
         with:
           targets: wasm32-unknown-unknown
+      - run: npm run build:wasm
+      - run: npm test
       - uses: actions/configure-pages@v5
         id: pages
       - run: npm run build -- --base="${{ steps.pages.outputs.base_path }}/"

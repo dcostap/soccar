@@ -185,6 +185,7 @@ See `arena/CONTRIBUTING-SETPIECES.md` for the browser and contribution steps.
 ## Checks
 
 ```sh
+npm run build:wasm
 npm test
 npm run test:rust
 npm run test:cli
