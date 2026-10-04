@@ -2,12 +2,12 @@
 
 ## Fixed suite
 
-The contact suite adds 69 paths:
+The contact suite adds 105 paths:
 
 - 18 resting overlaps across three lateral offsets and six ball heights.
 - 24 dribbles across four speeds, three lateral offsets, and two throttle values.
 - 18 grounded hits across two ball heights, three speeds, and three lateral offsets.
-- 9 airborne hits across three speeds and three lateral offsets.
+- 45 airborne hits across five relative heights, three speeds, and three lateral offsets.
 
 Run it with `compare.py --suite contacts`.
 The suite uses the same pinned RocketSim build and local arena meshes as the baseline suite.
@@ -60,3 +60,17 @@ Grounded low-ball hits also regressed unless the prototype restored full correct
 
 These results show a missing coupled-contact solve, not one safe correction factor.
 None of these prototypes is in the game.
+
+## Extra-impulse direction
+
+RocketSim scales the vertical car-to-ball offset by 0.35.
+Soccar uses the same source value.
+
+A 0.65 prototype reduced the six original air-hit position peaks by 3.5 to 39.2 UU.
+The wider height sweep rejected it.
+It almost doubled mean error when the ball started 40 UU below the car.
+It more than doubled mean error when the ball started 20 UU below the car.
+It also caused large grounded-hit regressions.
+
+The expanded suite keeps 45 air hits across relative heights from -40 through 40 UU.
+Keep the source value and audit Bullet contact normals instead.
