@@ -6,6 +6,9 @@ Soccar is a car-soccer game, a headless match harness, and a bot-brain arena. Al
 - `arena/`: a separate Rust crate that rates brains, logs matches, and exports data for `arena.html`. See `arena/README.md`.
 - `src/`: browser rendering, audio, menus, and input. `src/game.js` is a large captured bundle. Edit it only with small hooks.
 
+Browser scene starts create a fresh WASM handle. Reusing a handle retains Rust's legacy prediction caches after tick zero.
+Keep match-end timers on the game object so scene cleanup can cancel them.
+
 ## Rules
 
 - **Determinism is the product.** Native and WASM must produce bit-identical state. Arena replays and watch links depend on it.

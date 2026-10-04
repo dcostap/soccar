@@ -140,6 +140,7 @@ export async function createRustGame(
   class RustGame extends Presentation {
     constructor() {
       super(api, renderer, hud, audio, input, settings);
+      this.nextSeed = seed;
       this.handle = wasm.sim_create(seed);
       this.sync();
     }
@@ -158,6 +159,7 @@ export async function createRustGame(
     }
     destroy() {
       clearTimeout(this.tipTimer);
+      clearTimeout(this.matchEndTimer);
       this.stopWatchReplay();
       globalThis.removeEventListener?.("keydown", this.watchKeyHandler, true);
       if (this.handle) wasm.sim_destroy(this.handle);
@@ -165,15 +167,27 @@ export async function createRustGame(
     }
     clearPresentation() {
       clearTimeout(this.tipTimer);
+      clearTimeout(this.matchEndTimer);
+      this.tipTimer = this.matchEndTimer = null;
       this.stopWatchReplay();
+      this.clearWatchEffects();
+      this.hud.setTip("");
+      this.hud.setDebug(null);
       this.renderer.removeAllCars();
+      this.renderer.ball.visible = true;
       this.world = createWorldView();
       this.replayBuf = [];
       this.prev = this.cur = null;
       this.acc = 0;
-      this.camera.reset();
+      this.paused = false;
+      this.previousStats = null;
+      this.camera = new api.FollowCamera(
+        this.renderer.camera,
+        this.settings.camera,
+      );
+      this.replayCam = new api.ReplayCamera(this.renderer.camera);
+      this.camera.ballCam = this.settings.gameplay.defaultBallCam;
       this.hud.setReplay(false);
-      this.hud.showScoreboard(false);
     }
     followed() {
       return this.watch
@@ -334,10 +348,12 @@ export async function createRustGame(
       this.clearPresentation();
       this.config = config;
       this.watch = mode === 2 && config.watch ? config.watch : null;
+      // Each scene owns fresh brains and prediction caches. Rust's legacy restart retains caches.
+      wasm.sim_destroy(this.handle);
+      this.handle = wasm.sim_create(this.watch?.seed ?? this.nextSeed);
+      if (!this.watch)
+        this.nextSeed = crypto.getRandomValues(new Uint32Array(1))[0];
       if (this.watch) {
-        // A fresh simulation with the recorded seed replays the arena match exactly.
-        wasm.sim_destroy(this.handle);
-        this.handle = wasm.sim_create(this.watch.seed);
         this.watch.follow = 0;
         this.watch.speed ??= 1;
         this.watch.paused = false;
@@ -357,6 +373,7 @@ export async function createRustGame(
         if (!wasm.sim_scenario(this.handle, this.settings.input.dodgeDeadzone))
           throw new Error("Invalid set piece");
         this.sync();
+        this.snapshotNow();
         return;
       }
       const skill = { rookie: 0, pro: 1, allstar: 2 }[config.skill] ?? 2;
@@ -373,6 +390,7 @@ export async function createRustGame(
       )
         throw new Error("Invalid simulation configuration");
       this.sync();
+      this.snapshotNow();
       if (mode === 2 && !this.watch) {
         wasm.sim_record_begin(this.handle);
         this.recordingIdentity = {};
@@ -400,8 +418,6 @@ export async function createRustGame(
       this.hud.setMatchUi(true);
       this.hud.setTip("");
       if (this.watch) this.showWatchTip();
-      this.renderer.ball.visible = true;
-      this.snapshotNow();
       if (this.watch) {
         this.prepareWatch();
       }

@@ -21,6 +21,19 @@ page.on("requestfailed", (r) =>
   errors.push(`${r.url()}: ${r.failure()?.errorText}`),
 );
 await page.addInitScript(() => {
+  // Observe the game when the app attaches its callback, without a production test API.
+  Object.defineProperty(Object.prototype, "onMatchEnd", {
+    configurable: true,
+    set(callback) {
+      delete Object.prototype.onMatchEnd;
+      Object.defineProperty(this, "onMatchEnd", {
+        value: callback,
+        writable: true,
+        configurable: true,
+      });
+      window.__game = this;
+    },
+  });
   window.__testFrames = 0;
   const frame = window.requestAnimationFrame;
   window.requestAnimationFrame = (callback) =>
@@ -217,6 +230,68 @@ try {
   );
   await page.screenshot({ path: "artifacts/browser/match.png" });
   assert.equal(await page.locator(".watch-timeline").count(), 0);
+
+  const finishMatch = () =>
+    page.evaluate(() => {
+      const game = window.__game;
+      game.nextSeed = 12345;
+      game.startMatch({
+        teamSize: 1,
+        skill: "allstar",
+        playerTeam: 0,
+        duration: 1,
+      });
+      const input = {
+        controls: {
+          throttle: 0,
+          steer: 0,
+          pitch: 0,
+          yaw: 0,
+          roll: 0,
+          jump: false,
+          boost: false,
+          handbrake: false,
+        },
+      };
+      let ticks = 0;
+      while (game.phase !== "ended" && ticks++ < 216000) game.tick(input);
+      if (game.phase !== "ended") throw new Error("Short match did not finish");
+    });
+  await finishMatch();
+  await menu("PLAY AGAIN").waitFor();
+  assert.equal(await page.locator(".hud-banner.show").count(), 1);
+  assert.equal(await page.locator(".hud-scoreboard:visible").count(), 1);
+  await page.evaluate(() => {
+    window.__game.camera.swivelYaw = 1;
+    window.__game.camera.fovExtra = 30;
+  });
+  await menu("PLAY AGAIN").click();
+  assert.equal(await page.locator(".hud-banner.show").count(), 0);
+  assert.equal(await page.locator(".hud-banner-sub.show").count(), 0);
+  assert.equal(await page.locator(".hud-scoreboard:visible").count(), 0);
+  assert.equal(await page.evaluate(() => window.__game.paused), false);
+  assert.deepEqual(
+    await page.evaluate(() => [
+      window.__game.camera.swivelYaw,
+      window.__game.camera.fovExtra,
+    ]),
+    [0, 0],
+  );
+  await page.waitForFunction(() => window.__game.phase === "playing");
+  await finishMatch();
+  await menu("PLAY AGAIN").waitFor();
+  await menu("MAIN MENU").click();
+  await menu("FREE PLAY").click();
+  assert.equal(await page.locator(".hud-banner.show").count(), 0);
+  assert.equal(await page.locator(".hud-scoreboard:visible").count(), 0);
+  await finishMatch();
+  await page.evaluate(() => window.__game.startFreeplay());
+  await page.waitForTimeout(2700);
+  assert.equal(await page.locator(".menu-root.visible").count(), 0);
+  assert.equal(await page.locator(".hud-banner.show").count(), 0);
+  checks.push(
+    "match-end restart, menu exit, freeplay cleanup, and cancelled delayed result menu",
+  );
 
   const watchUrl = new URL(page.url());
   watchUrl.search = new URLSearchParams({

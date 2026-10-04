@@ -41944,7 +41944,9 @@ var kx = {
 };
 mountReplayTools(Dx, kx);
 ((Dx.onMatchEnd = () => {
-  setTimeout(() => {
+  clearTimeout(Dx.matchEndTimer);
+  Dx.matchEndTimer = setTimeout(() => {
+    Dx.matchEndTimer = null;
     !Dx.watch && Dx.phase === `ended` && Ex.push(ax(kx));
   }, 2500);
 }),
