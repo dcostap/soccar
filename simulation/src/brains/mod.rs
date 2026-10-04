@@ -15,6 +15,8 @@ pub mod alphabravo;
 pub mod bravo;
 // Alphabravo with swappable skills. See arena/HACKATHON.md.
 pub mod modular;
+// Nexto, a published deep-RL Rocket League bot. See nexto/mod.rs for credit and license.
+pub mod nexto;
 // Fixed rivals for set pieces. See crate::scenario.
 pub mod scripted;
 pub mod strike;
@@ -90,6 +92,12 @@ pub const MODULES: &[Module] = &[
         source: modular::SOURCE,
         extra: modular::extra_source,
         create: modular::create,
+    },
+    Module {
+        name: "nexto",
+        source: nexto::SOURCE,
+        extra: nexto::extra_source,
+        create: nexto::create,
     },
     Module {
         name: "scripted",

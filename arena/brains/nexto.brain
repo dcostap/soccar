@@ -1,0 +1,2 @@
+# Nexto, the published deep-RL Rocket League bot (Rolv-Arild/Necto, CC BY-NC-SA 4.0), running its original policy network.
+module = nexto

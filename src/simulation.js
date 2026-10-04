@@ -70,6 +70,10 @@ export function parseWatch(search) {
     expect: q.get("expect")?.split("-").map(Number) ?? null,
   };
 }
+/** Brains offered in the match menu even without an arena export, such as on the published site. */
+const BUILT_IN_BRAINS = [
+  { name: "nexto", label: "Nexto", text: "module = nexto\n" },
+];
 /** Brains published by the arena export, offered in the match menu. Empty when the arena has not run. */
 async function loadArenaBrains() {
   try {
@@ -95,11 +99,17 @@ export function loadSimulation() {
     const { instance } = await WebAssembly.instantiate(
       await response.arrayBuffer(),
     );
-    const brains = await loadArenaBrains();
+    const exported = await loadArenaBrains();
+    const brains = [
+      ...exported,
+      ...BUILT_IN_BRAINS.filter(
+        (b) => !exported.some((e) => e.name === b.name),
+      ),
+    ];
     // The match menu lists these after the built-in difficulties.
     globalThis.soccarArenaBrains = brains.map((b) => ({
       value: `arena:${b.name}`,
-      label: b.games ? `${b.name} (${Math.round(b.elo)})` : b.name,
+      label: b.games ? `${b.name} (${Math.round(b.elo)})` : (b.label ?? b.name),
     }));
     return {
       wasm: instance.exports,

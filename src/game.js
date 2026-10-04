@@ -41413,7 +41413,7 @@ function nx(e) {
       },
     ],
     footer: () =>
-      `${fb(`confirm`, `ENTER`)} SELECT<div style="margin-top:6px;opacity:.55;font-size:11px;text-transform:none">Fennec and ball models: "Fennec - Rocket League Car" and "Ball - Rocket League" by Jako (sketchfab.com/fairlight51), CC BY 4.0</div><div style="margin-top:4px;opacity:.55;font-size:11px;text-transform:none">Unofficial fan project. Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.</div>`,
+      `${fb(`confirm`, `ENTER`)} SELECT<div style="margin-top:6px;opacity:.55;font-size:11px;text-transform:none">Fennec and ball models: "Fennec - Rocket League Car" and "Ball - Rocket League" by Jako (sketchfab.com/fairlight51), CC BY 4.0</div><div style="margin-top:4px;opacity:.55;font-size:11px;text-transform:none">Nexto bot: "Nexto" by Rolv, Soren, and contributors (github.com/Rolv-Arild/Necto), CC BY-NC-SA 4.0, ported to this simulation.</div><div style="margin-top:4px;opacity:.55;font-size:11px;text-transform:none">Unofficial fan project. Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.</div>`,
   };
 }
 function rx(e) {

@@ -45,6 +45,12 @@ Its fingerprint covers the core and the selected strategies and skills only. See
 `strategy = team` adds optional team play to alphabravo's tactics. `modular-team` uses it in 2v2 and beats
 `modular-combo` there by about 100 to 200 Elo. See [its closed report](hackathon/team.md).
 
+`nexto` runs the published network of [Nexto](https://github.com/Rolv-Arild/Necto), a deep-RL Rocket League bot.
+Its license is CC BY-NC-SA 4.0. It takes no settings except `kickoff = false`, which turns off its scripted kickoff.
+Its fingerprint includes a hash of the weights. In its first 1v1 matches, it beat `modular-combo` by about 30-0.
+It is also a built-in choice in the game menu, so it appears on the published site without an arena export.
+It costs about 10 s of brain time per car per match. See [the export notes](../tools/nexto/README.md).
+
 ### Try a settings change
 
 Add a file such as `arena/brains/allstar-close.brain`, then challenge the original:
@@ -108,7 +114,8 @@ Run time: an edited brain replays only its own matches, and a new brain plays on
 To test a change, `challenge` it against the current best instead of running the ladder; it stops when the result is clear.
 Keep the defaults. Shorter matches score fewer goals, so they need proportionally more matches for the same confidence,
 and a new `--duration` starts an empty leaderboard. Fewer `--pairs` makes the ranking noisy.
-Brains with aerial-a cost about 3–4 s of brain time per match, against 0.1–0.3 s for the others.
+Brains with aerial-a cost about 3–4 s of brain time per match, and `nexto` about 10 s per car,
+against 0.1–0.3 s for the others.
 
 ## Ratings
 

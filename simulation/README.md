@@ -143,6 +143,7 @@ Each module implements the `Brain` trait and reads its settings from `Params`; `
 The built-in difficulties are the `classic` module with `preset = rookie`, `pro`, or `allstar`.
 The `modular` module runs a team strategy, alphabravo's by default, and lets selected skills take a car for a moment.
 See `src/brains/modular/kit.rs` and `arena/HACKATHON.md`.
+The `nexto` module runs Nexto's published policy network in deterministic f64. See `tools/nexto/README.md`.
 
 The game updates one shared `Predictor` per tick before brains run. Brains read the world through `Context`
 and write controls only for their own cars. They must be deterministic. Do not use clocks or the game random generator.
