@@ -82,3 +82,19 @@ It also caused large grounded-hit regressions.
 
 The expanded suite keeps 45 air hits across relative heights from -40 through 40 UU.
 Keep the source value and audit Bullet contact normals instead.
+
+## Bullet box margin
+
+The pinned Bullet sphere-box detector clamps against an inset box core.
+The Octane box margin is 2 UU.
+It adds that margin to the sphere radius and offsets the box contact point along the normal.
+
+An exact analytic prototype improved 13 of 24 dribbles.
+Median dribble error fell from 58.31 to 54.56 UU.
+It also lowered median grounded-hit error from 24.36 to 21.18 UU.
+Median airborne-hit error fell from 24.87 to 21.21 UU.
+
+One elevated corner hit rose from 132.27 to 359.98 UU.
+Combining the margin with source callback ordering raised it to 367.62 UU.
+The one-pass impulse response cannot safely use Bullet's rounded contact normal by itself.
+Keep the current sharp-box approximation until the response solver handles coupled edge contacts.
